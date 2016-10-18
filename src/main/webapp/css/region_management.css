@@ -1,0 +1,21 @@
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+	
+}
+.popover-content {
+    padding: 5px;
+}
+.form-region-mangement{
+	height:37px;
+}
+
+.form-region-label{
+	float:left;
+	padding-top: 7px;
+	width:140px;
+}
+.form-region-input{
+	float:left;
+	width: 390px;
+}

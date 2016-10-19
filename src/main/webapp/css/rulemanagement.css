@@ -1,0 +1,21 @@
+.font-gear{
+	font-size: 25px;
+	cursor:pointer;
+}
+.form-label-rule{
+	float:left;
+	padding-top: 7px;
+	width:110px;
+}
+.form-input-rule{
+	float:left;
+	width: 425px;
+}
+.form-input-radio-rule{
+	float:left;
+	width: 425px;
+	padding-top:6px;
+}
+#checkbox-head{
+	padding-top: 7px;
+}

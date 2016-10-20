@@ -104,10 +104,10 @@
 											<div class="checkbox" id="checkbox-head">
 												<input id="checkboxInitial" type="checkbox">
 												<label for="checkboxInitial">Initial</label>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<input id="checkboxUpdate"  type="checkbox">
 												<label for="checkboxUpdate">Update</label>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<input id="checkboxContact" checked="" type="checkbox">
 												<label for="checkboxContact">Last Contact</label>
 											</div>
@@ -122,7 +122,9 @@
                                      	</div>
                              		</div>
 				         		</div><!-- content end -->
-				         		
+				         		</div>
+				         		<div class="row">
+				         		<div class="col-lg-12">
 					         	<div class="ibox-title">
 	                                <h5>Rule List </h5>
 	         					</div>
@@ -386,13 +388,14 @@
                                 	
          						</div><!-- content end -->
          					</div>
+         					</div>
          				</div>
 	
          			</div><!-- end--row -->
          		</div>	<!-- container end -->
          			
          	</div> 
-         	
+         	<br>
          	<div class="footer">
 				<div class="pull-right">
 					11GB of <strong>250GB</strong> Free.
@@ -653,7 +656,7 @@
 	                <div class="form-input-radio-rule">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked="" name="radioInline" value="option1" id="inlineRadio1">
+                               <input type="radio" checked name="radioInline" value="option1" id="inlineRadio1">
                                <label for="inlineRadio1"> Yes </label>
                            </div>
                            

@@ -47,8 +47,7 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
                     <button type="button" class="btn btn-pink btn-circle "><i class="fa fa-user font-user"></i>
-                            </button> <span class='fullName'>Apiwat Tongsukmak </span>
-                       
+                            </button> <span class='fullName'>Apiwat Tongsukmak </span> 
                     </li>
                 </ul>
             </div>
@@ -114,7 +113,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td>Administrator</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>  
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
                                             <td >
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -122,7 +121,7 @@
                                         <tr>
                                             <td>2</td>
                                             <td>Deployed</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>   
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td> 
                                             <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -130,7 +129,7 @@
                                         <tr>
                                             <td>3</td>
                                             <td>Monitor</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>  
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
                                             <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -138,7 +137,7 @@
                                         <tr>
                                             <td>4</td>
                                             <td>Oparator</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>  
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
                                             <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -146,7 +145,7 @@
                                         <tr>
                                             <td>5</td>
                                             <td>Power User</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>  
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>
                                             <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -154,7 +153,7 @@
                                         <tr>
                                             <td>6</td>
                                             <td>User</td>
-                                            <td><a href="#"><i class="fa fa-paste font-setseeuser"></i></a></td>  
+                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td> 
                                             <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
@@ -173,7 +172,6 @@
 	
          			</div><!-- end--row -->
          		</div>	<!-- container end -->
-         			
          	</div> 
          	
          	<div class="footer">
@@ -270,6 +268,94 @@
 </div>                      
 <!-- Modal End -->
 
+<!-- ModalAuthorize Start -->
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalRoleAuthorize" class="modal inmodal" style="display: none;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <!-- <i class="fa fa-laptop modal-icon"></i> -->
+                <h4 class="modal-title">Authorize</h4>
+               
+            </div>
+            <div class="modal-body">
+                <!-- content start -->
+                <h2><i class="fa fa fa-folder-open icon-title"></i>AUTHORIZE</h2>
+                <hr>
+                
+                <!-- form start -->
+                <div class='form-file-mangement'>
+	                <div class="form-label-role">
+	                	Role : Oparator
+	                </div>
+                </div>
+                
+                <div class="table-responsive">
+                   <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Menu</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input id="" type="checkbox" checked></td>
+                                <td>Branch_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox" checked></td>
+                                <td>Data_Quality_Monitoring</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>File_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox" checked></td>
+                                <td>Gread_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>Import_Export</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>KPI_Calculation</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>Region_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>Role_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>Rule_Management</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>System_Configuration</td>
+                            </tr>
+                            <tr>
+                                <td><input id="" type="checkbox"></td>
+                                <td>User_Management</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+	</div>    
+</div>                  
+<!-- Modal End -->
 
  <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>

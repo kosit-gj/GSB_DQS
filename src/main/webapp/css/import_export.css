@@ -1,0 +1,47 @@
+/* .import-export-content  .nav > li > a:hover{
+	color:black;
+	font-color : black ;
+} */
+
+.import-export-content .tabs-container .nav-tabs {
+    border-bottom: 1px solid #ec228c;
+}
+.import-export-content .panel-body {
+    border: 1px solid #ec228c;
+}
+.import-export-content .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
+	border-color: #ec228c #ec228c  transparent ;	
+}
+.import-export-content .label-import-export{
+	padding-top: 7px;
+	padding-left: 26px;
+}
+
+.import-export-content .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.import-export-content .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+} 
+
+.import-export-content #uploadFile{
+	padding-bottom: 3px;
+	height:33px;
+	width:350px;
+}
+
+.import-export-content #export-inputdata{
+	resize: none;
+	height:150px;
+	
+}

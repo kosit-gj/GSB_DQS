@@ -1,0 +1,18 @@
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+	
+}
+.form-menu-mangement{
+	height:37px;
+}
+
+.form-menu-label{
+	float:left;
+	padding-top: 7px;
+	width:140px;
+}
+.form-menu-input{
+	float:left;
+	width: 390px;
+}

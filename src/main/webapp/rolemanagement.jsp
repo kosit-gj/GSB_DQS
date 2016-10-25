@@ -18,7 +18,8 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
    	<link href="css/rolemanagement.css" rel="stylesheet">
-
+	
+	
 </head>
 <body class="top-navigation">
 	<div id="wrapper">
@@ -109,12 +110,12 @@
                                             <th align="center">Manage</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listRole">
                                         <tr>
                                             <td>1</td>
                                             <td>Administrator</td>
                                             <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
-                                            <td >
+                                            <td>
 												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
                                             </td>
                                         </tr>
@@ -211,7 +212,7 @@
 	                </div>
 	                
 	                <div class="form-input-role">
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="role_name_edit" name="role_name_edit">
 	                </div>
 	                
 	                <br style="clear:both">
@@ -220,7 +221,7 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" id="btnSubmitEdit" name="btnSubmitEdit">Save</button>
             </div>
         </div>
     </div>
@@ -252,7 +253,7 @@
 	                </div>
 	                
 	                <div class="form-input-role">
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="role_name" name="role_name">
 	                </div>
 	                
 	                <br style="clear:both">
@@ -260,8 +261,11 @@
                 </div>
             </div>
             <div class="modal-footer">
+            	<input type="hidden" name="id" id="id" value="">
+   				<input type="hidden" name="action" id="action" value="add">
+   				
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" id="btnSubmit" name="btnSubmit">Save</button>
             </div>
         </div>
     </div>
@@ -362,6 +366,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    
 
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
@@ -380,7 +385,8 @@
     <!-- Peity demo -->
     <script src="js/demo/peity-demo.js"></script>
 
-
+	<script src="Controller/cRoleManagement.js"></script> 
+	
     <script>
         $(document).ready(function() {
 
@@ -471,7 +477,7 @@
             
             
             $(function () {
-            	  $("#popover-edit-del").popover()
+            	 // $("#popover-edit-del").popover()
             })
 
         });

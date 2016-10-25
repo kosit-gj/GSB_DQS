@@ -45,3 +45,9 @@
 	height:150px;
 	
 }
+
+#page-wrapper {
+    margin: 0 0 0 220px;
+    min-height: auto;
+    position: inherit;
+}

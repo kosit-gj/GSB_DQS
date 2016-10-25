@@ -110,13 +110,13 @@
                              <div class="row">
                                     <div class="col-sm-8 m-b-xs">
                                     
-                                    <button type="button" class="btn btn-info " data-target="#addModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Menu</button>
+                                    <button type="button" id="btnAdd" class="btn btn-info " data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Menu</button>
         
                                     </div>
                                     
                                      <div class="col-sm-4">
-	                                     <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                         <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+	                                     <div class="input-group"><input type="text" placeholder="Search" name="searchText" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class=' fa fa-search'> </i></button> </span></div>
                                      </div>
                              </div>
                              
@@ -324,7 +324,7 @@
 
 <!--Add Modal Start -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal inmodal" style="display: none;">
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="managementModal" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -337,7 +337,7 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW MENU</h2>
+                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW MENU22</h2>
                 <hr>
                 
                 <!-- form start -->
@@ -356,9 +356,9 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-            	<input type="hidden" name="id" id="id" value="">
- 				<input type="hidden" name="action" id="action" value="add">
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+            	 <input type="hidden" name="id" id="id" value="">
+ 				<input type="hidden" name="action" id="action" value="add3333"> 
+                <button data-dismiss="modal" id="btnCancle" class="btn btn-white " type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
             </div>
         </div>
@@ -368,51 +368,7 @@
 <!--Add Modal End -->
 
 
-<!--Edit Modal Start -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModal" class="modal inmodal" style="display: none;">
-    <div class="modal-dialog">
-    <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <!-- <i class="fa fa-laptop modal-icon"></i> -->
-                <h4 class="modal-title">Edit Menu</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
-            </div>
-            <div class="modal-body">
-                <!-- content start -->
-                <h2><i class="fa fa fa-pencil-square-o icon-title"></i>  EDIT MENU</h2>
-                <hr>
-                
-                
-               <!-- form start -->
-                <div class='form-menu-mangement'>
-	                <div class="form-menu-label">
-	                 Menu Name  :
-	                </div>
-	                
-	                <div class="form-menu-input">
-	                	<input type="text" class="form-control" placeholder="" name="menu_name" id="menu_name">
-	                </div>
-	                <br style="clear:both">
-                </div>
-
-                <!-- form start -->
-                <!-- content end -->
-            </div>
-            <div class="modal-footer">
-            	<input type="hidden" name="id" id="id" value="">
- 				<input type="hidden" name="action" id="action" value="add">
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-                            
-<!--Edit Modal End -->
 
 <!--Authorize Modal Start -->
 <div aria-hidden="true" role="dialog" tabindex="-1" id="authorize" class="modal inmodal" style="display: none;">

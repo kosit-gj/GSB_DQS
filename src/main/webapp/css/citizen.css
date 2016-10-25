@@ -1,0 +1,37 @@
+.form-input-citizen{
+	float:left;
+	width: 425px;
+}
+.form-label-citizen{
+	float:left;
+	padding-top: 6px;
+	width:110px;
+}
+.font-gear{
+	font-size: 25px;
+	cursor:pointer;
+}
+
+.input-contact-citizen{
+	width:70px;
+	padding-top: 0px;
+} 
+
+.input-inline-table-citizen{
+	height:23px;
+	padding: 0px;
+	padding-top: 0px;
+}
+.form-label-citizen-manual{
+	float:left;
+	padding-top: 6px;
+	width:95px;
+}
+.form-input-citizen-title{
+	float:left;
+	width: 100px;
+}
+.form-input-citizen-address{
+	float:left;
+	width: 200px;
+}

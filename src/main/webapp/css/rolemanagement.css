@@ -1,0 +1,17 @@
+.font-gear{
+	font-size: 25px;
+	cursor:pointer;
+}
+.font-setseeuser{
+	font-size: 21px;
+	cursor:pointer;
+}
+.form-label-role{
+	float:left;
+	padding-top: 7px;
+	width:110px;
+}
+.form-input-role{
+	float:left;
+	width: 425px;
+}

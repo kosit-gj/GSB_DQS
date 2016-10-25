@@ -1,0 +1,19 @@
+.form-label-branch-management{
+	float:left;
+	padding-top: 7px;
+	width:170px;
+}
+.form-input-branch-management{
+	float:left;
+	width: 365px;
+}
+
+.font-gear-branch{
+	font-size: 25px;
+	cursor:pointer;
+}
+/* .modal-table-branch-management{
+	background : white;
+	position: relative;
+  	padding: 15px;
+} */

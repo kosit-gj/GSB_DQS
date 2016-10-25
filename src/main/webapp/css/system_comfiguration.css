@@ -1,0 +1,40 @@
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+	
+}
+.popover-content {
+    padding: 5px;
+}
+.form-system-mangement{
+	height:37px;
+}
+.form-data{
+	padding-top: 10px;
+}
+.form-save{
+	padding-top: 33px;
+}
+.form-system-label{
+	float:left;
+	padding-top: 7px;
+	width:140px;
+}
+.form-system-input{
+	float:left;
+	width: 390px;
+}
+
+.input-data{
+	width:150px;
+	text-align:center;
+	height:27px;
+	padding: 0px;
+}
+
+.input-dataroot{
+	width: 400px;
+	text-align:left;
+	height:27px;
+	padding: 0px;
+}

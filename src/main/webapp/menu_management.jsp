@@ -159,14 +159,14 @@
                                             
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listMenu">
                                         
 	                                        <tr>
 	                                            <td><div class='text-inline-table'>1</div></td>
 	                                            <td><div class='text-inline-table'>User_Management</div></td>
 	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
 	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management" data-html="true" data-container="body" data-toggle="popover" data-placement="top" 
-                                    data-content="<button class='btn btn-warning btn-xs edit-action' type='button'>Edit</button> <button class='btn btn-danger btn-xs' type='button'>Delete</button>"></i></div></td>                
+                                    					data-content="<button class='btn btn-warning btn-xs edit-action' type='button'>Edit</button> <button class='btn btn-danger btn-xs' type='button'>Delete</button>"></i></div></td>                
 	                                        </tr>
 	                                        
 	                                        <tr>
@@ -347,7 +347,7 @@
 	                </div>
 	                
 	                <div class="form-menu-input">
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" name="menu_name" id="menu_name">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -356,8 +356,10 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
+            	<input type="hidden" name="id" id="id" value="">
+ 				<input type="hidden" name="action" id="action" value="add">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
             </div>
         </div>
     </div>
@@ -392,7 +394,7 @@
 	                </div>
 	                
 	                <div class="form-menu-input">
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" name="menu_name" id="menu_name">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -401,8 +403,10 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
+            	<input type="hidden" name="id" id="id" value="">
+ 				<input type="hidden" name="action" id="action" value="add">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
             </div>
         </div>
     </div>

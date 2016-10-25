@@ -1,0 +1,36 @@
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+	
+}
+.form-grade-mangement{
+	height:37px;
+}
+
+.form-grade-label{
+	float:left;
+	padding-top: 7px;
+	width:140px;
+}
+.form-grade-input{
+	float:left;
+	width: 390px;
+}
+.form-grade-labeltext{
+	width:528px;
+}
+.form-grade-input2{
+	float:left;
+	width: 280px;
+}
+.form-grade-input3{
+	float:left;
+	width: 50px;
+}
+.input-contact-textinput{
+	height:40px;
+	resize:none;
+}
+.input-contact-selecttype{
+	width:80px;
+}

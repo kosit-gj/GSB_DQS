@@ -1,92 +1,64 @@
 			var restfulURL="http://192.168.1.42:3001";
 			 $(document).ready(function(){
 				//$("#action").val("add");
-			  var checkUniqueFn = function(text){
-			   /* http://localhost:3000/api/products?name__regex=/^test/i */
-			   var unique=false; 
-			   $.ajax({
-			    url:restfulURL+"/api/dqs_menu?menu_name="+text+"",
-			    type:"get",
-			    dataType:"json",
-			    async:false,
-			    success:function(data){
-			     
-			     console.log(data);
-			     if(data==""){
-			      //alert("data empty");
-			      unique=true;
-			     }else{
-			      unique=false;
-			      //alert("full data");
-			     }
-			     
-			    }
-			   });
-			   return unique;
-			   
-			  }
-				
-			/*var checkUniqueFnEdit = function(text){
-				    http://localhost:3000/api/products?name__regex=/^test/i 
+				  var checkUniqueFn = function(text){
+				   /* http://localhost:3000/api/products?name__regex=/^test/i */
 				   var unique=false; 
-				   $.ajax({
-				    url:restfulURL+"/api/dqs_menu?menu_nameEdit="+text+"",
-				    type:"get",
-				    dataType:"json",
-				    async:false,
-				    success:function(data){
-				     
-				     console.log(data);
-				     if(data==""){
-				      //alert("data empty");
-				      unique=true;
-				     }else{
-				      unique=false;
-				      //alert("full data");
-				     }
-				     
-				    }
-				   });
+					   $.ajax({
+						    url:restfulURL+"/api/dqs_menu?menu_name="+text+"",
+						    type:"get",
+						    dataType:"json",
+						    async:false,
+						    success:function(data){
+					     	console.log(data);
+							     if(data==""){
+							      //alert("data empty");
+							      unique=true;
+							     }else{
+							      unique=false;
+							      //alert("full data");
+							     }
+					    	}
+					   });
 				   return unique;
-				   
-				  }*/
+			 }
+				
 			  //console.log(checkUniqueFn("aa"));
 			  
 			  var validationFn = function(){
 			   
-			   var validateText="";
-			   if($("#menu_name").val()==""){
-			    validateText+="name not empty\n";
-			   }
-			   
-			   if(validateText!=""){
-			    alert(validateText);
-			    return false;
-			   }else{
-			    return true;
-			   }
-			   
+				   var validateText="";
+						   if($("#menu_name").val()==""){
+						    validateText+="name not empty\n";
+						   }
+						   
+							   if(validateText!=""){
+							    alert(validateText);
+							    return false;
+							   }else{
+						    return true;
+					 }
 			  }
 			  
 			  
 			  var insertFn = function(){
 			
 			    $.ajax({
-			     url:restfulURL+"/api/dqs_menu",
-			     type:"POST",
-			     dataType:"json",
-			     data:{"menu_name":$("#menu_name").val()},
-			     success:function(data,status){
-			      //alert(data);
-			      //console.log(data);
-			      console.log(status);
-			      if(status=="success"){
-			       alert("Insert Success");
-			       getDataFn();
-			       clearFn();
-			      }
-			     }
-			    });         
+				     url:restfulURL+"/api/dqs_menu",
+				     type:"POST",
+				     dataType:"json",
+				     data:{"menu_name":$("#menu_name").val()},
+				     success:function(data,status){
+				      //alert(data);
+				      //console.log(data);
+				      console.log(status);
+					      if(status=="success"){
+					       alert("Insert Success");
+					       getDataFn();
+					       clearFn();
+					      }
+				     }
+				    });         
 			
 			    return false;
 			   };
@@ -117,7 +89,7 @@
 					   $("#action").val("add");
 					   $("#menu_name").val("");
 					   $("#btnSubmit").val("Add");
-					   $('#addModal').modal('hide');
+					   $('#managementModal').modal('hide');
 			
 			  }
 			
@@ -160,9 +132,9 @@
 							        htmlTable+="<td>"+(index+1)+"</td>";
 							        htmlTable+="<td>"+indexEntry["menu_name"]+"</td>";
 							     
-							        htmlTable+="<td><i class=\"fa fa-paste font-management\" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
+							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
 							       	
-									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>";
+									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>";
 							   htmlTable+="</tr>";
 				     });
 				
@@ -207,6 +179,13 @@
 			   });
 			});
 		
+			$(".btnAuthorize").click(function(){
+				//alert("btnAuthorize");
+				getDataRoleFn();
+				
+				 //return false;
+			 });
+			 
 			}
 			  
 			  var getDataFn = function(){
@@ -222,7 +201,36 @@
 			   });
 			
 			  };
+			
+			  var listDataRoleFn = function(data){
+				
+				   console.log(data);
+				   var htmlTable="";
+				   $.each(data,function(index,indexEntry){
+							       htmlTable+="<tr >";
+								        htmlTable+="<td><input type=\"checkbox\"  id=\"checkbox\"></td>";
+								        htmlTable+="<td>"+indexEntry["role_name"]+"</td>";
+								   htmlTable+="</tr>";
+					     });
+					
+					  $("#listRole").html(htmlTable);
+				}
+			 
+			
+				var getDataRoleFn = function(){
+					   
+					   $.ajax({
+					    url:restfulURL+"/api/dqs_role",
+					    type:"get",
+					    dataType:"json",
+					    success:function(data){
+					     
+					     listDataRoleFn(data);
+					    }
+				   });
+			  };
 			  
+			
 			  
 			  //Call Function start
 			  getDataFn();
@@ -251,6 +259,7 @@
 			
 			  });
 			
+			
 			 
 			 $("#btnAdd").click(function(){
 				 clearFn();
@@ -265,7 +274,7 @@
 			  });
 			
 			  $("#cancel").click(function(){
-			
+				alert("cancel");
 			   clearFn();
 			   return false;
 			

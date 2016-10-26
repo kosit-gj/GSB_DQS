@@ -163,8 +163,8 @@
 		                                    <button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
 	                                    </div>
 	                                     <div class="col-sm-4">
-		                                     <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-	                                         <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+		                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+	                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
 	                                     </div>
 	                             </div>
                              
@@ -208,7 +208,7 @@
                                             <th>Operation</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listUser">
                                         <tr>
                                             <td><div class='text-inline-table'>Nanny Moos</div></td>
                                             <td><div class='text-inline-table'>Position</div></td>
@@ -375,23 +375,8 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+	 <script src="Controller/cUserManagement.js"></script>
 
-    <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
-    <!-- Peity demo -->
-    <script src="js/demo/peity-demo.js"></script>
-
-
-    <script>
-       
-    </script>
 
 </body>
 

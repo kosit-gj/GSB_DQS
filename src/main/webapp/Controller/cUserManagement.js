@@ -6,7 +6,7 @@ $(document).ready(
 		 var checkUniqueFn = function(text){
 				   var unique=false; 
 					   $.ajax({
-						    url:restfulURL+"/api/dqs_grade?grade="+text+"",
+						    url:restfulURL+"/api/dqs_user?grade="+text+"",
 						    type:"get",
 						    dataType:"json",
 						    async:false,
@@ -53,7 +53,7 @@ $(document).ready(
 		 var insertFn = function(){
 				
 				    $.ajax({
-					     url:restfulURL+"/api/dqs_grade",
+					     url:restfulURL+"/api/dqs_user",
 					     type:"POST",
 					     dataType:"json",
 					     data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
@@ -76,7 +76,7 @@ $(document).ready(
 		 var updateFn = function(){
 					
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_grade/"+$("#id").val(),
+					    url:restfulURL+"/api/dqs_user/"+$("#id").val(),
 					    type:"PUT",
 					    dataType:"json",
 					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
@@ -105,7 +105,7 @@ $(document).ready(
 		 var findOneFn = function(id){
 				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_grade/"+id,
+					    url:restfulURL+"/api/dqs_user/"+id,
 					    type:"get",
 					    dataType:"json",
 					    success:function(data){
@@ -120,7 +120,7 @@ $(document).ready(
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
 				    
 				   $.ajax({
-				    url:restfulURL+"/api/dqs_grade/?grade__regex=/^"+searchText+"/i",
+				    url:restfulURL+"/api/dqs_user/?user_name__regex=/^"+searchText+"/i",
 				    type:"get",
 				    dataType:"json",
 				    success:function(data){
@@ -138,16 +138,17 @@ $(document).ready(
 						   $.each(data,function(index,indexEntry){
 						    //console.log(indexEntry);
 							     htmlTable+="<tr >";
-								      htmlTable+="<td>"+(index+1)+"</td>";
-								      htmlTable+="<td>"+indexEntry["grade"]+"</td>";
-								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
-									  htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
-								      htmlTable+="<td><i class=\"fa fa-search font-management\" data-target=\"#condition\" data-toggle=\"modal\"></i></td>";
-								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
-							htmlTable+="</tr>";
+								     /* htmlTable+="<td>"+(index+1)+"</td>";*/
+								      htmlTable+="<td>"+indexEntry["user_name"]+"</td>";
+								      htmlTable+="<td>"+indexEntry["position"]+"</td>";
+								   	  htmlTable+="<td>"+indexEntry["own_cost_center"]+"</td>";
+									  htmlTable+="<td>"+indexEntry["revised_cost_center"]+"</td>";
+									  htmlTable+="<td>"+indexEntry["role_id"]+"</td>";
+									  htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>"+indexEntry["super_flag"]+"</option><option></option></select></td>";
+								htmlTable+="</tr>";
 						   });
 						
-						   $("#listGrade").html(htmlTable);
+						   $("#listUser").html(htmlTable);
 						   
 						  //popover 
 						$(".popover-del-edit").popover();
@@ -165,7 +166,7 @@ $(document).ready(
 						   $(".del").click(function(){
 						    if(confirm("Do you want to delete this file?")){
 						     $.ajax({
-							      url:restfulURL+"/api/dqs_grade/"+this.id,
+							      url:restfulURL+"/api/dqs_user/"+this.id,
 							      type:"delete",
 							      dataType:"json",
 							      //data:{"_id":this.id},
@@ -184,7 +185,7 @@ $(document).ready(
 			
 			  var getDataFn = function(){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_grade",
+					    url:restfulURL+"/api/dqs_user",
 					    type:"get",
 					    dataType:"json",
 						    success:function(data){

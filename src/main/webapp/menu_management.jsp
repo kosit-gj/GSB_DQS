@@ -337,13 +337,13 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW MENU22</h2>
+                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW MENU</h2>
                 <hr>
                 
                 <!-- form start -->
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
-	                 Menu Name  :
+	                 <label>Menu Name  :</label>
 	                </div>
 	                
 	                <div class="form-menu-input">
@@ -358,7 +358,7 @@
             <div class="modal-footer">
             	 <input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add3333"> 
-                <button data-dismiss="modal" id="btnCancle" class="btn btn-white " type="button">Cancel</button>
+                <button data-dismiss="modal" id="btnCancel" class="btn btn-white " type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
             </div>
         </div>
@@ -404,7 +404,7 @@
                                       <th>Role</th>
                                   </tr>
                             </thead>
-                            <tbody>                                       
+                            <tbody id="listRole">                                       
 	                             <tr>	
 	                             	<td>
 	                             		<div class="checkbox checkbox-default">

@@ -17,7 +17,9 @@
 	width: 390px;
 }
 .form-grade-labeltext{
-	width:528px;
+	float:left;
+	width: 390px;
+	padding-top: 7px;
 }
 .form-grade-input2{
 	float:left;
@@ -28,9 +30,19 @@
 	width: 50px;
 }
 .input-contact-textinput{
-	height:40px;
+	height:50px;
 	resize:none;
 }
 .input-contact-selecttype{
 	width:80px;
+}
+.form-input-sep{
+	width:100px;
+	float:left;
+	padding-top: 8px;
+}
+.form-grade-labelsep{
+	float:left;
+	padding-top: 8px;
+	width:140px;
 }

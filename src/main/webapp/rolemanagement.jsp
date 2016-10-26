@@ -91,13 +91,13 @@
          							<div class="row">
          							
          								<div class="col-sm-9 m-b-xs">
-	                                   		<button type="button" class="btn btn-info addrole"  data-target="#addModalRole" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Rule</button>	                                    	
+	                                   		<button type="button" class="btn btn-info" id="btnAddRole" data-target="#addModalRole" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Rule</button>	                                    	
 	                                    </div>
                                     
                                      	<div class="col-sm-3">
-	                                    	<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> 
+	                                    	<div class="input-group"><input type="text" placeholder="Search" id="searchText" name="searchText" class="input-sm form-control"> 
 		                                    	<span class="input-group-btn">
-	                                        		<button type="button" class="btn btn-sm btn-primary"> Go!</button> 
+	                                        		<button type="button" id="btnSearch"  class="btn btn-sm btn-primary">&nbsp;<i class="fa fa-search"></i>&nbsp;</button> 
 	                                        	</span>
                                         	</div>
                                      	</div>
@@ -225,7 +225,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-white" id="btnCancleEdit" type="button">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" id="btnSubmitEdit" name="btnSubmitEdit">Save</button>
             </div>
         </div>
@@ -269,7 +269,7 @@
             	<input type="hidden" name="id" id="id" value="">
    				<input type="hidden" name="action" id="action" value="add">
    				
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white btnCancle"  type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" id="btnSubmit" name="btnSubmit">Save</button>
             </div>
         </div>
@@ -307,7 +307,7 @@
                                 <th>Menu</th> 
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="listMenu">
                             <tr>
                                 <td><input id="" type="checkbox"></td>
                                 <td>Branch_Management</td>
@@ -357,7 +357,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
                 <button class="btn btn-primary" type="button">Save</button>
             </div>
         </div>

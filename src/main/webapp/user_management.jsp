@@ -23,6 +23,8 @@
     <link href="css/style.css" rel="stylesheet">
      <link href="css/gsbMain.css" rel="stylesheet">
      <link href="css/user_management.css" rel="stylesheet">
+     <link href="css/datatable.css" rel="stylesheet">
+     
 
 
 </head>
@@ -115,8 +117,8 @@
 									</div>
 									<div class="col-sm-2">
 										<select class="input form-control">
-				                              <option>Role</option>
-				                              <option>20</option>
+				                              <option value="">Role</option>
+				                              <option></option>
 	                                    </select>
 	                                </div>
 	                                <div class="col-sm-2">
@@ -196,7 +198,7 @@
 	                                </div>
 	                                
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableUser">
                                         <thead>
                                         <tr>
 
@@ -376,6 +378,7 @@
     <script src="js/plugins/pace/pace.min.js"></script>
 
 	 <script src="Controller/cUserManagement.js"></script>
+	 <script src="Controller/Datatable.js"></script>
 
 
 </body>

@@ -235,10 +235,10 @@
 												<div class="col-sm-3 form-data" align="right">
 													<label>Maximum record for mobile file &nbsp;:</label>
 												</div>
-												<div class="col-sm-1 form-data" align="left">
+												<div class="col-sm-2 form-data" align="left">
 													<input class="form-control input-data" id="" placeholder="">
 												</div>
-												<div class="col-sm-2 form-data" align="right">
+												<div class="col-sm-1 form-data" align="right">
 													<label style="padding-left:10px">Records</label>
 												</div>
 											</div>

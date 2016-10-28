@@ -143,12 +143,13 @@ $(document).ready(
 								      htmlTable+="<td>"+indexEntry["position"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["own_cost_center"]+"</td>";
 									  htmlTable+="<td>"+indexEntry["revised_cost_center"]+"</td>";
-									  htmlTable+="<td>"+indexEntry["role_id"]+"</td>";
+									  htmlTable+="<td>"+indexEntry["role_id"]+" </td>";
 									  htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>"+indexEntry["super_flag"]+"</option><option></option></select></td>";
 								htmlTable+="</tr>";
 						   });
 						
 						   $("#listUser").html(htmlTable);
+						   
 						   
 						  //popover 
 						$(".popover-del-edit").popover();
@@ -194,7 +195,8 @@ $(document).ready(
 						 }
 				  });
 			};
-				  
+		
+			
 		//Call Function start
 		  getDataFn();
 		$("#btnSubmit").click(function(){
@@ -206,7 +208,7 @@ $(document).ready(
 				     }else{
 				      	alert("name is not unique.");
 				     }
-				    }else{
+				     }else{
 				     	updateFn();
 				    }
 			   }

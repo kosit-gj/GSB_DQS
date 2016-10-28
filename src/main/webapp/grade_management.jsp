@@ -183,7 +183,7 @@
                                             <th>No.</th>
                                             <th>Grade</th>
                                             <th>Decription</th>
-                                            <th>Sep</th>
+                                            <th>Seq</th>
                                             <th>Show Condition</th>
                                             <th>Manage</th>
                                         </tr>
@@ -477,7 +477,7 @@
                <div class='form-grade-mangement'>
 	                <div class="form-grade-label">
 	                
-	                 <label>Grade : </label>
+	                 <label>Grade : </label><label id="name"></label>
 	                </div>
 	            </div>
                 <div class="row">
@@ -513,7 +513,7 @@
                       <table class="table table-striped">
                             <thead>
                                  <tr>
-                                      <th>Sep</th>
+                                      <th>Seq</th>
                                       <th>Oparetors</th>
                                       <th>Rule/Field</th>
                                       <th>Funcion</th>

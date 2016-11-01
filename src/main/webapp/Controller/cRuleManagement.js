@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.42:3001";
+	var restfulURL = "http://192.168.1.100:3001";
+	//var restfulURL = "http://goingjesse.hopto.org:3001";
+	
 	
 	var checkUniqueFn = function(text) {
 		/* http://localhost:3000/api/products?name__regex=/^test/i */
@@ -37,6 +39,43 @@ $(document).ready(function(){
 	}
 	
 	var insertFn = function() {
+			
+		var checkboxInitial = "";
+		var checkboxUpdate = "";
+		var checkboxContact = "";
+		var InformBranchRadio = "";
+		var EditRuleRelease ="";
+		
+		if($("#checkboxInitial:checked").val()=="on"){
+			checkboxInitial="1";
+		}else{
+			checkboxInitial="0";
+		}
+		
+		if($("#checkboxUpdate:checked").val()=="on"){
+			checkboxUpdate="1";
+		}else{
+			checkboxUpdate="0";
+		}
+		
+		if($("#checkboxContact:checked").val()=="on"){
+			checkboxContact="1";
+		}else{
+			checkboxContact="0";
+		}
+		
+		if($("#InformBranchRadioTrue:checked").val()){
+			InformBranchRadio="1";
+		}else if($("#InformBranchRadioFalse:checked").val()){
+			InformBranchRadio="0";
+		}
+		
+		if($("#EditRuleReleaseTrue:checked").val()){
+			EditRuleRelease="1";
+		}else if($("#EditRuleReleaseFalse:checked").val()){
+			EditRuleRelease="0";
+		}
+			
 		$.ajax({
 			
 			url:restfulURL+"/api/dqs_rule",
@@ -45,13 +84,11 @@ $(document).ready(function(){
 			data : {"rule_name" : $("#rule_name").val(),
 					"rule_group" : $("#rule_group").val(),
 					"data_flow_id" : $("#data_flow_id").val(),
-					"initial_flag" : $("#initial_flag").val(),
-					"update_flag" : $("#update_flag").val(),
-					"last_contact_flag" : $("#last_contact_flag").val(),
-					"inform_flag" : $("#inform_flag").val(),
-					"edit_rule_release_flag" : $("#edit_rule_release_flag").val(),
-					
-					
+					"initial_flag" : checkboxInitial,
+					"update_flag" : checkboxUpdate,
+					"last_contact_flag" : checkboxContact,
+					"inform_flag" : InformBranchRadio,
+					"edit_rule_release_flag" : EditRuleRelease
 			},
 			success : function(data) {
 				if (data = "success") {
@@ -66,11 +103,56 @@ $(document).ready(function(){
 	};
 	
 	var updateFn = function() {
+		
+		var checkboxInitial = "";
+		var checkboxUpdate = "";
+		var checkboxContact = "";
+		var InformBranchRadio = "";
+		var EditRuleRelease ="";
+		
+		if($("#checkboxInitial:checked").val()=="on"){
+			checkboxInitial="1";
+		}else{
+			checkboxInitial="0";
+		}
+		
+		if($("#checkboxUpdate:checked").val()=="on"){
+			checkboxUpdate="1";
+		}else{
+			checkboxUpdate="0";
+		}
+		
+		if($("#checkboxContact:checked").val()=="on"){
+			checkboxContact="1";
+		}else{
+			checkboxContact="0";
+		}
+		
+		if($("#InformBranchRadioTrue:checked").val()){
+			InformBranchRadio="1";
+		}else if($("#InformBranchRadioFalse:checked").val()){
+			InformBranchRadio="0";
+		}
+		
+		if($("#EditRuleReleaseTrue:checked").val()){
+			EditRuleRelease="1";
+		}else if($("#EditRuleReleaseFalse:checked").val()){
+			EditRuleRelease="0";
+		}
+		
 		$.ajax({
 			url:restfulURL+"/api/dqs_rule/"+$("#id").val(),
 			type : "PUT",
 			dataType : "json",
-			data : {"rule_name" : $("#rule_name").val()},
+			data : {"rule_name" : $("#rule_name").val(),
+				"rule_group" : $("#rule_group").val(),
+				"data_flow_id" : $("#data_flow_id").val(),
+				"initial_flag" : checkboxInitial,
+				"update_flag" : checkboxUpdate,
+				"last_contact_flag" : checkboxContact,
+				"inform_flag" : InformBranchRadio,
+				"edit_rule_release_flag" : EditRuleRelease
+			},
 			success : function(data) {
 				if (data = "success") {
 					alert("Upate Success");
@@ -97,7 +179,39 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
+				
 				$("#rule_name").val(data['rule_name']);
+				$("#rule_group").val(data['rule_group']);
+				$("#data_flow_id").val(data['data_flow_id']);	
+	
+				$('.processType').prop('checked', false);
+				
+				if(data['initial_flag']==1){
+					$('#checkboxInitial').prop('checked', true);
+				}
+				
+				if(data['update_flag']==1){
+					$('#checkboxUpdate').prop('checked', true);
+				}
+				
+				if(data['last_contact_flag']==1){
+					$('#checkboxContact').prop('checked', true);
+				}
+				//inform Branch 
+				if(data['inform_flag']==1){
+					$('#InformBranchRadioTrue').prop('checked', true);
+				}
+				if(data['inform_flag']==0){
+					$('#InformBranchRadioFalse').prop('checked', true);
+				}
+				//Edit Rule Release
+				if(data['edit_rule_release_flag']==1){
+					$('#EditRuleReleaseTrue').prop('checked', true);
+				}
+				if(data['edit_rule_release_flag']==0){
+					$('#EditRuleReleaseFalse').prop('checked', true);
+				}
+				
 			}
 		});
 	};
@@ -108,7 +222,18 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				listRoleFn(data);
+				listRuleFn(data);
+			}
+		});
+	}
+
+	var searchAdvanceFn = function(searchText) {
+		$.ajax({
+			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
+			type : "get",
+			dataType : "json",
+			success : function(data) {
+				listRuleFn(data);
 			}
 		});
 	}
@@ -119,7 +244,8 @@ $(document).ready(function(){
 		
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
+		//htmlTable += "<td>"+ (index + 1)+ "</td>";
+		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["rule_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["data_flow_id"]+ "</td>";
 		
@@ -130,27 +256,27 @@ $(document).ready(function(){
 		}
 		
 		if(indexEntry["update_flag"]==1){
-			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
-		}else if(indexEntry["initial_flag"]==0){
-			htmlTable += "<td><input type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
+			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["update_flag"]+"></td>";
+		}else if(indexEntry["update_flag"]==0){
+			htmlTable += "<td><input type='checkbox' value="+ indexEntry["update_flag"]+"></td>";
 		}
 		
 		if(indexEntry["last_contact_flag"]==1){
-			htmlTable += "<td><input type='checkbox' disabled='disabled' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
-		}else if(indexEntry["initial_flag"]==0){
-			htmlTable += "<td><input type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
+			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["last_contact_flag"]+"></td>";
+		}else if(indexEntry["last_contact_flag"]==0){
+			htmlTable += "<td><input type='checkbox' value="+ indexEntry["last_contact_flag"]+"></td>";
 		}
 		
 		if(indexEntry["inform_flag"]==1){
-			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
-		}else if(indexEntry["initial_flag"]==0){
-			htmlTable += "<td><input type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
+			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["inform_flag"]+"></td>";
+		}else if(indexEntry["inform_flag"]==0){
+			htmlTable += "<td><input type='checkbox' value="+ indexEntry["inform_flag"]+"></td>";
 		}
 		
 		if(indexEntry["edit_rule_release_flag"]==1){
-			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
-		}else if(indexEntry["initial_flag"]==0){
-			htmlTable += "<td><input type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
+			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
+		}else if(indexEntry["edit_rule_release_flag"]==0){
+			htmlTable += "<td><input type='checkbox' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
 		}
 
 		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
@@ -188,8 +314,6 @@ $(document).ready(function(){
 			});	
 			
 		});
-		
-		
 			
 	};
 	
@@ -207,48 +331,39 @@ $(document).ready(function(){
 	};
 	//Call Function start
 	  getDataFn();
-	 
-	
-	
+	 	
 	$("#btnSearch").click(function(){
-		searchFn($("#searchText").val());
+		searchFn($("#searchRule").val());
 		   return false;
 	});
 	
+	$("#btnSearchAdvance").click(function(){
+		searchAdvanceFn($("#searchAdvanceRule").val());
+		   return false;
+	});
+	
+	
+	
+	
 	$("#btnSubmit").click(function(){
-		if (validationFn() == true) {
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if (checkboxInitial.checked == true){
-				alert("555");}
-			/*if (checkUniqueFn($("#rule_name").val()) == true) { 
-					
-					insertFn();
-				} else {
-					alert("name is not unique.");
-				}*/
-			}else{
-				if (checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				} else {
-					alert("name is not unique.");
+		if (validationFn() == true) { 
+			if ($("#action").val() == "add"|| $("#action").val() == "") {	
+				
+				
+				
+				if (checkUniqueFn($("#rule_name").val()) == true) { 
+						
+						insertFn();
+					} else {
+						alert("name is not unique.");
+					}
+				}else{
+					if (checkUniqueFn($("#rule_name").val()) == true) {
+						updateFn();
+					} else {
+						alert("name is not unique.");
+					}
 				}
-			}
-			
-			
-			/*function testCheckbox(oCheckbox)
-			{
-			    var checkbox_val = oCheckbox.value;
-			    if (oCheckbox.checked == true)
-			    {
-			        alert("Checkbox with name = " + oCheckbox.name + " and value =" +
-			                checkbox_val + " is checked");
-			    }
-			    else
-			    {
-			        alert("Checkbox with name = " + oCheckbox.name + " and value =" +
-			              checkbox_val + " is not checked");
-			    }
-			}*/
 		}
 		return false;
 	});

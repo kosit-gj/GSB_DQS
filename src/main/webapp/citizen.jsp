@@ -15,11 +15,20 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
+    
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
     <link href="css/citizen.css" rel="stylesheet">
-
+    
+    
+	
 </head>
+
+	
 <body class="top-navigation">
 	<div id="wrapper">
 		<div id="page-wrapper" class="gray-bg">
@@ -132,8 +141,8 @@
                                      	</div>
                                     
                                      	<div class="col-sm-3">
-	                                    	<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        	<button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+	                                    	<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control" id="searchCitizen"> <span class="input-group-btn">
+                                        	<button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
                                      	</div>
                                      	<br><br>
          							</div>
@@ -179,7 +188,7 @@
                                             <th>Manage</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listCitizen">
                                         <tr>
                                             <td>1234567891234</td>
                                             <td>00001</td>
@@ -304,7 +313,7 @@
 	
 <!-- Modal Start Edit -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalRule" class="modal inmodal" style="display: none;">
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalCitizen" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -329,7 +338,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="cifno_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -356,20 +365,20 @@
 	                
 	                <div class="form-input-citizen-title">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="ntitle_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
              
                 <div class='form-file-mangement'>
-	                <div class="form-label-citizen">
+	                <div class="form-label-citizen" >
 	                
 	                	NFNAME
 	                </div>
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="nfname_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -382,7 +391,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="nlname_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -398,13 +407,11 @@
 	                <div class="col-lg-2">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen">
+			                <div class="input-inline-table-citizen" id="day_citizen">
 			                	
-				           		<select class="form-control input-inline-table-citizen input-contact-citizen">
-		                           <option>01</option>
-		                           <option>02</option>
-		                           <option>03</option>
-		                        </select>
+				           		<!-- <select class="form-control input-inline-table-citizen input-contact-citizen" id="day_citizen">
+		                           <option value="01">01</option>
+		                        </select> -->
 		                        
 			                       
 			                </div>
@@ -416,14 +423,12 @@
 	                <div class="col-lg-3">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen">
+			                <div class="input-inline-table-citizen" id="month_citizen">
 			                	
-				           		<select class="form-control input-inline-table-citizen ">
-		                           <option>มกราคม</option>
-		                           <option>กันยายน</option>
-		                           <option>ธันวาคม</option>
+				           		<!-- <select class="form-control input-inline-table-citizen " id="mouth_citizen">
+		                           <option value="02">กุมภาพันธ์</option>
 		                           
-		                        </select>
+		                        </select> -->
 		                        
 			                </div>
 			                
@@ -434,13 +439,10 @@
 	                <div class="col-lg-2">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen">
+			                <div class="input-inline-table-citizen" id="year_citizen">
 			                	
-				           		<select class="form-control input-inline-table-citizen input-contact-citizen">
-		                           <option>2559</option>
-		                           <option>2560</option>
-		                           <option>2561</option>
-		                        </select>
+			                	
+				           		
 		                        
 			                       
 			                </div>
@@ -460,12 +462,12 @@
 	                <div class="input-inline-table-citizen">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked name="radioInline" value="option1" id="inlineRadio1">
+                               <input type="radio" checked name="radioInline" value="option1" id="sex_citizen_men">
                                <label for="inlineRadio1"> ชาย </label>
                            </div>
                            
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
+                              <input type="radio" name="radioInline" value="option2" id="sex_citizen_women">
                               <label for="inlineRadio2"> หญิง </label>
                           </div>
 	                       
@@ -482,7 +484,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="hno_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -495,7 +497,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="moo_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -508,7 +510,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="trok_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -521,7 +523,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="soi_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -533,7 +535,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="thanon_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -546,7 +548,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="thumbol_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -559,7 +561,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="amphur_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -572,7 +574,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="province_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -585,7 +587,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="flag1_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -598,7 +600,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id="flag2_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -612,150 +614,92 @@
 	                <div class="input-inline-table-citizen">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked name="radioInline" value="option1" id="inlineRadio1">
+                               <input type="radio" name="radioInline" value="option1" id="nation_citizen_thai">
                                <label for="inlineRadio1"> คนไทย </label>
                            </div>
                            
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
+                              <input type="radio" name="radioInline" value="option2" id="nation_citizen_other">
                               <label for="inlineRadio2"> คนต่างด้าว </label>
                           </div>
 	                       
 	                </div>
 	                <br style="clear:both">
-                </div>
-                
+	                
+		                <div class="row">
+	                	<div class="col-lg-5">
+	                   
+	                        <div class="ibox-content">
+	                           
+	                            <div class="form-group" id="data_3">
+	                                <label class="font-noraml">Decade view</label>
+	                                <div class="input-group date">
+	                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="10/11/2013">
+	                                </div>
+	                            </div>
+	                        </div>
+		                </div>
+		        		</div>
+		        		
+                </div>           
+              
                 <!-- form start -->
                 <!-- content end -->
             </div>
             <div class="modal-footer">
+           	 	<input type="hidden" name="id" id="id" value="">
+   				<!-- <input type="hidden" name="action" id="action" value="add"> -->
+   				
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
             </div>
         </div>
     </div>
 </div>                      
 <!-- Modal End Edit -->
 
-
-
+	
+	 
  <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    
 
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+    
+	<!-- Data picker -->
+   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-
-    <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
-    <!-- Peity demo -->
-    <script src="js/demo/peity-demo.js"></script>
+    <!-- MENU -->
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
 
-    <script>
-        $(document).ready(function() {
+    <!-- Image cropper -->
+    <script src="js/plugins/cropper/cropper.min.js"></script>
 
+	<script src="Controller/cCitizen.js"></script> 
+	
+ 	<script>
+        $(document).ready(function(){
 
-            var d1 = [[1262304000000, 6], [1264982400000, 3057], [1267401600000, 20434], [1270080000000, 31982], [1272672000000, 26602], [1275350400000, 27826], [1277942400000, 24302], [1280620800000, 24237], [1283299200000, 21004], [1285891200000, 12144], [1288569600000, 10577], [1291161600000, 10295]];
-            var d2 = [[1262304000000, 5], [1264982400000, 200], [1267401600000, 1605], [1270080000000, 6129], [1272672000000, 11643], [1275350400000, 19055], [1277942400000, 30062], [1280620800000, 39197], [1283299200000, 37000], [1285891200000, 27000], [1288569600000, 21000], [1291161600000, 17000]];
-
-            var data1 = [
-                { label: "Data 1", data: d1, color: '#17a084'},
-                { label: "Data 2", data: d2, color: '#127e68' }
-            ];
-            $.plot($("#flot-chart1"), data1, {
-                xaxis: {
-                    tickDecimals: 0
-                },
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true,
-                        fillColor: {
-                            colors: [{
-                                opacity: 1
-                            }, {
-                                opacity: 1
-                            }]
-                        },
-                    },
-                    points: {
-                        width: 0.1,
-                        show: false
-                    },
-                },
-                grid: {
-                    show: false,
-                    borderWidth: 0
-                },
-                legend: {
-                    show: false,
-                }
+            
+        	$('#data_3 .input-group.date').datepicker({
+                startView: 2,
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
             });
 
-            var lineData = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(220,220,220,0.5)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [65, 59, 40, 51, 36, 25, 40]
-                    },
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(26,179,148,0.5)",
-                        strokeColor: "rgba(26,179,148,0.7)",
-                        pointColor: "rgba(26,179,148,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [48, 48, 60, 39, 56, 37, 30]
-                    }
-                ]
-            };
-
-            var lineOptions = {
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                bezierCurve: true,
-                bezierCurveTension: 0.4,
-                pointDot: true,
-                pointDotRadius: 4,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 2,
-                datasetFill: true,
-                responsive: true,
-            };
-
-
-            var ctx = document.getElementById("lineChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-            
-            
-            
-            $(function () {
-            	  $("#popover-edit-del").popover()
-            })
-
+           
         });
+
+
     </script>
+
 </body>

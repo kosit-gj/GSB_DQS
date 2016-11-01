@@ -96,27 +96,29 @@
 										</div>
 										
 										<div class="col-sm-4 m-b-xs">            
-											<input class="form-control" placeholder="Rule Name" type="text" id="" name="">		
+											<input class="form-control" placeholder="Rule Name" type="text" id="searchAdvanceRule" name="searchAdvanceRule">		
 										</div>
                                   		
 	                                    <div class="col-sm-3" align="right">
 	                                    
 											<div class="checkbox" id="checkbox-head">
-												<input id="checkboxInitial" type="checkbox">
-												<label for="checkboxInitial">Initial</label>
+												<input id="checkboxInitialSearch"  type="checkbox">
+												<label for="checkboxInitialSearch">Initial</label>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input id="checkboxUpdate"  type="checkbox">
-												<label for="checkboxUpdate">Update</label>
+													
+												<input id="checkboxUpdateSearch"  type="checkbox">
+												<label for="checkboxUpdateSearch">Update</label>
+												
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input id="checkboxContact" checked="" type="checkbox">
-												<label for="checkboxContact">Last Contact</label>
+												<input id="checkboxContactSearch" type="checkbox">
+												<label for="checkboxContactSearch">Last Contact</label>
 											</div>
                                     	</div>
                                     
                                      	 <div class="col-sm-2" align="right">
 	                                     	<div class="input-group" >
 		                                     	<div >
-	                                         		<button type="button" class="btn btn-info" id=""><i class="fa fa-search"></i>&nbsp;Search</button>
+	                                         		<button type="button" class="btn btn-info" id="btnSearchAdvance"><i class="fa fa-search"></i>&nbsp;Search</button>
 	                                         	</div>
                                          	</div>
                                      	</div>
@@ -138,8 +140,8 @@
 	                                    </div>
                                     
                                      	<div class="col-sm-3">
-	                                    	<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        	<button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+	                                    	<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control" id="searchRule"> <span class="input-group-btn">
+                                        	<button type="button" id="btnSearch" class="btn btn-sm btn-primary"> Go!</button> </span></div>
                                      	</div>
          							</div>
          							
@@ -410,23 +412,23 @@
 	
 <!-- Modal Start Edit -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalRule" class="modal inmodal" style="display: none;">
+  <!-- <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalRule" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <!-- <i class="fa fa-laptop modal-icon"></i> -->
+                <i class="fa fa-laptop modal-icon"></i>
                 <h4 class="modal-title">Edit File</h4>
-                <!-- 
+                
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+                
             </div>
             <div class="modal-body">
-                <!-- content start -->
+                content start
                 <h2><i class="fa fa fa-folder-open icon-title"></i> EDIT FILE</h2>
                 <hr>
                 
-                <!-- form start -->
+                form start
                 <div class='form-file-mangement'>
 	                <div class="form-label-rule">
 	                
@@ -533,8 +535,8 @@
 	                <br style="clear:both">
                 </div>
                 
-                <!-- form start -->
-                <!-- content end -->
+                form start
+                content end
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
@@ -542,7 +544,7 @@
             </div>
         </div>
     </div>
-</div>                      
+</div>                       -->
 <!-- Modal End Edit -->
 	
 <!-- Modal Start -->
@@ -584,9 +586,9 @@
 	                
 	                <div class="form-input-rule">
 	                <select class="input form-control" id="rule_group">
-		                <option value="1">A</option>
-						<option value="2">B</option>
-						<option value="3">C</option>
+		                <option value="1">Group A</option>
+						<option value="2">Group B</option>
+						<option value="3">Group C</option>
 					</select>
 	                </div>
 	                <br style="clear:both">
@@ -600,9 +602,9 @@
 	                
 	                <div class="form-input-rule">
 		                <select class="input form-control" id="data_flow_id">
-			                <option value="1">Rule Group1</option>
-							<option value="2">Rule Group2</option>
-							<option value="3">Rule Group3</option>
+			                <option value=1 >Rule Group1</option>
+							<option value=2 >Rule Group2</option>
+							<option value=3 >Rule Group3</option>
 						</select>
 	                </div>
 	                <br style="clear:both">
@@ -616,15 +618,15 @@
 	                
 	                	<div class="checkbox checkbox-inline">
 	                	
-		                	<input id="checkboxInitial" type="checkbox">
+		                	<input id="checkboxInitial" type="checkbox" class="processType">
 							<label for="checkboxInitial">Initial</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							
-							<input id="checkboxUpdate"  type="checkbox">
+							<input id="checkboxUpdate"  type="checkbox" class="processType">
 							<label for="checkboxUpdate">Update</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							
-							<input id="checkboxContact" type="checkbox">
+							<input id="checkboxContact" type="checkbox" class="processType">
 							<label for="checkboxContact">Last Contact</label>
                      	</div>            
                      	  
@@ -639,11 +641,11 @@
 	                
 	                <div class="form-input-radio-rule">          	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked="" name="radioInline" value="option1" id="inlineRadio1">
+                               <input type="radio" name="InformBranchRadio" id="InformBranchRadioTrue">
                                <label for="inlineRadio1"> Yes </label>
                            </div>
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
+                              <input type="radio" name="InformBranchRadio" id="InformBranchRadioFalse">
                               <label for="inlineRadio2"> No </label>
                           </div> 
 	                </div>
@@ -659,16 +661,16 @@
 	                <div class="form-input-radio-rule">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked name="radioInline" value="option1" id="inlineRadio1">
+                               <input type="radio" name="EditRuleRelease" id="EditRuleReleaseTrue">
                                <label for="inlineRadio1"> Yes </label>
                            </div>
                            
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
+                              <input type="radio" name="EditRuleRelease" id="EditRuleReleaseFalse">
                               <label for="inlineRadio2"> No </label>
                           </div>
 	                       
-	                </div>
+	                </div>  <div id="log"></div>
 	                <br style="clear:both">
                 </div>
                 

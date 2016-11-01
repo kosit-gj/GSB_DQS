@@ -1,8 +1,8 @@
 $(document).ready(
 	function(){
 
-		/*var restfulURL = "http://192.168.1.100:3001";*/
-		var restfulURL = "http://goingjesse.hopto.org:3001";
+		var restfulURL = "http://192.168.1.100:3001";
+		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
 		 var checkUniqueFn = function(text){
 				   var unique=false; 
@@ -26,8 +26,7 @@ $(document).ready(
 					   });
 				   return unique;
 				  }
-		
-
+		 
 		   var validationFn = function(){
 				   var validateText="";
 					   if($("#grade").val()==""){
@@ -50,7 +49,7 @@ $(document).ready(
 					   		return true;
 					   }
 				  }
-		
+
 		 var insertFn = function(){
 				
 				    $.ajax({
@@ -143,7 +142,7 @@ $(document).ready(
 								      htmlTable+="<td>"+indexEntry["grade"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
 									  htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
-								      htmlTable+="<td><i class=\"fa fa-search font-management\" data-target=\"#condition\" data-toggle=\"modal\"></i></td>";
+								      htmlTable+="<td><i class=\"fa fa-search font-management btnCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
 								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
 							htmlTable+="</tr>";
 						   });
@@ -177,9 +176,19 @@ $(document).ready(
 						
 				     			 }
 				   			  });
-				   		   }
-				  	 });
+				   		   		}
+				  	 		});
+						
+						
 				});
+						
+				$(".btnCondition").click(function(){
+					
+					 $("#embed_grade_id").val(this.id);
+					// alert("555");
+					getDataConditionFn();
+					dropDownListRule();
+				 });
 			}
 			
 			  var getDataFn = function(){
@@ -193,7 +202,140 @@ $(document).ready(
 						 }
 				  });
 			};
-				  
+			
+			
+			var listDataConditionFn = function(data){
+				   var process_seq = "";
+				   console.log(data);
+				   var htmlTable="";
+				   $("#listCondition").empty();
+				   $.each(data,function(index,indexEntry){
+					
+								if (indexEntry["process_seq"] == undefined){
+									process_seq = "";
+								}else{
+									process_seq = indexEntry["process_seq"];
+								}
+								
+							    htmlTable+="<tr >";
+								        htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+process_seq+">";
+								        htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>OR</option> <option>AND</option></select></td>";
+										htmlTable+="<td>"+indexEntry["rule_id"]+"</td>";
+										htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>Is Null</option> <option>Between</option></select></td>";
+										htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\">";
+										htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\">";
+										htmlTable+="<td><i class=\"fa fa-trash-o font-management delete\" id="+indexEntry["_id"]+"></td";
+								htmlTable+="</tr>";
+					     });
+					
+					  $("#listCondition").html(htmlTable);
+					
+					
+
+					$(".delete").click(function(){
+						
+						    if(confirm("Do you want to delete this file?")){
+						     $.ajax({
+							      url:restfulURL+"/api/dqs_grade_condition/"+this.id,
+							      type:"delete",
+							      dataType:"json",
+							      //data:{"_id":this.id},
+								      success:function(data){       
+								       
+								       getDataConditionFn();
+						
+				     				 }
+				   			  	});
+				   		   	}
+				  	 	});
+				}
+			 
+			
+			
+				var getDataConditionFn = function(){
+					
+					var grade_id = $("#embed_grade_id").val();
+					//  alert(grade_id);
+					   $.ajax({
+					    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
+					    type:"get",
+					    dataType:"json",
+					    success:function(data){
+					     
+					     listDataConditionFn(data);
+					    }
+				   });
+			  };
+			
+			
+			//DropDownList Rule 
+			var dropDownListRule = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_rule" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<option value="+indexEntry["_id"]+">"+indexEntry["rule_name"]+"</option>";		
+							});	
+							$("#listRule").html(htmlTable);
+						}
+				});
+			};
+			
+			//DropDownList make_param_operator
+			/*var dropDownListOperator = function(data){
+				var htmlTable="";
+				$.ajax ({
+					url:restfulURL+"/api/make_param_operator" ,
+					type:"get" ,
+					dataType:"json" ,
+					async:false,
+						success:function(data){
+							
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<option value="+indexEntry["param_operator"]+">"+indexEntry["param_operator"]+"</option>";		
+							});	
+							$("#listOperator").html(htmlTable);
+						}
+				});
+				return htmlTable;
+			};*/
+			
+			 var insertConditionFn = function(){
+					
+					    $.ajax({
+						     url:restfulURL+"/api/dqs_grade_condition",
+						     type:"POST",
+						     dataType:"json",
+						     data:{"rule_id":$("#listRule").val(),"grade_id":$("#embed_grade_id").val()},
+						     success:function(data,status){
+						      console.log(status);
+							      if(status=="success"){
+							       alert("Insert Success");
+							
+							       //listDataConditionFn();
+								   getDataConditionFn();
+							       //clearFn();
+							      }
+							   }
+					    });         
+					
+					    return false;
+			 		};
+			 		
+			 		$("#btnAddCondition").click(function(){
+						
+							   insertConditionFn();
+
+						  });
+			    
+			
+			
+			
 		//Call Function start
 		  getDataFn();
 		$("#btnSubmit").click(function(){

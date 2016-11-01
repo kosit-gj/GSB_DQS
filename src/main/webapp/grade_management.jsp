@@ -394,66 +394,6 @@
 </div>                            
 <!-- Add Modal End -->
 
-<!-- Edit Modal Start -->
-<!-- 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModal" class="modal inmodal" style="display: none;">
-    <div class="modal-dialog">
-    <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-laptop modal-icon"></i>
-                <h4 class="modal-title">Edit Grade</h4>
-                
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                
-            </div>
-            <div class="modal-body">
-                content start
-                <h2><i class="fa fa fa-pencil-square-o icon-title"></i>  EDIT GRADE</h2>
-                <hr>
-                
-                
-               form start
-                <div class='form-grade-mangement'>
-	                <div class="form-grade-label">
-	                
-	                 Grade  :
-	                </div>
-	                
-	                <div class="form-grade-input">
-	                
-	                	<input type="text" class="form-control" placeholder="">
-	                </div>
-	                <br style="clear:both">
-                </div>
-                
-                <div class='form-grade-mangement'>
-	                <div class="form-grade-label">
-	                
-	                Grade Description :
-	                </div>
-	            </div> 
-	            <div class='form-grade-mangement'> 
-	            
-	                <div class="form-grade-labeltext">
-						<textarea class="form-control input-contact-textinput"  placeholder="" ></textarea>
-	                </div>
-	                <br style="clear:both">
-                </div>
-                
-
-                form start
-                content end
-                <br style="clear:both">
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
-            </div>
-        </div>
-    </div>
-</div>  -->                       
-<!-- Edit Modal End -->
 
 <!-- Condition Start -->
 <div aria-hidden="true" role="dialog" tabindex="-1" id="condition" class="modal inmodal" style="display: none;">
@@ -471,30 +411,32 @@
                 <!-- content start -->
                 <h2><i class="fa fa fa-pencil-square-o icon-title"></i>CONDITION</h2>
                 <hr>
-                
+                <input type="hidden" id="embed_grade_id">
                 
                <!-- form start -->
                <div class='form-grade-mangement'>
 	                <div class="form-grade-label">
 	                
 	                 <label>Grade : </label><label id="name"></label>
+	                 
 	                </div>
 	            </div>
                 <div class="row">
 					<div class="col-sm-4">
 						<div class="form-grade-input2">
-							<select class="input form-control" >
+							<select class="input form-control" id="listRule">
 					                <option value="0" >Rule Name</option>
 					                <option></option>
 		                     </select>
 	                     </div>
 	                </div>
 	                <div class="col-sm-2">	   
-	                	<div class="form-grade-input3">                             
-                         	<button type="button" class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+	                	<div class="form-grade-input3">
+	                		                        
+                         	<button type="button" class="btn btn-warning" id="btnAddCondition"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
                     	</div>
                     </div>
-					<div class="col-sm-4">
+<!-- 					<div class="col-sm-4">
 						<div class="form-grade-input2"> 
 							<select class="input form-control" >
 					                <option value="0" >Field Name</option>
@@ -504,7 +446,7 @@
 	                </div>
                     <div class="col-sm-1">	                                
                          <button type="button" class="btn btn-warning"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                    </div>
+                    </div> -->
                     
                 </div>
                 <br style="clear:both">
@@ -522,7 +464,7 @@
                                       <th>Delete</th>
                                   </tr>
                             </thead>
-                            <tbody>                                       
+                            <tbody id="listCondition">                                       
 	                             <tr>
 	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
 	                                  <td>

@@ -22,6 +22,7 @@
     
     <link href="css/style.css" rel="stylesheet">
      <link href="css/gsbMain.css" rel="stylesheet">
+     <link href="css/kpi_calculation.css" rel="stylesheet">
 
 
 </head>
@@ -107,10 +108,9 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-4">
-										<select class="input form-control">
+									<div class="form-input">
+										<select class="input form-control input-contact-selecttype" id="listBranchOper">
 				                              <option>Select Branch</option>
-				                              <option></option>
 	                                    </select>
 									</div>
 								</div>
@@ -154,7 +154,7 @@
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">คำนวณ KPI</h4>
+                <h5 class="modal-title">คำนวณ KPI</h5>
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -166,7 +166,7 @@
 	                <div class="form-kpi-label" align="center">
 	                
 	                 		<label>การ Run นี้จะมีผลต่อการคํานวน KPI ของเดือน ตุลาคม 2556 <br>
-									ท่านต้องการดําเนนิงานต่อหรือไม่ ?</label>
+									ท่านต้องการดําเนิงานต่อหรือไม่ ?</label>
 	                </div>
                 </div>
                                
@@ -195,23 +195,8 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+	<script src="Controller/cKPICalculation.js"></script>
 
-    <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
-    <!-- Peity demo -->
-    <script src="js/demo/peity-demo.js"></script>
-
-
-    <script>
-        
-    </script>
 
 </body>
 

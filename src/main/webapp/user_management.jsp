@@ -23,7 +23,6 @@
     <link href="css/style.css" rel="stylesheet">
      <link href="css/gsbMain.css" rel="stylesheet">
      <link href="css/user_management.css" rel="stylesheet">
-     <link href="css/datatable.css" rel="stylesheet">
      
 
 
@@ -116,7 +115,7 @@
 										<input class="form-control" id="" placeholder="Revised CostCenter">
 									</div>
 									<div class="col-sm-2">
-										<select class="input form-control">
+										<select class="input form-control" id="listRole">
 				                              <option value="">Role</option>
 				                              <option></option>
 	                                    </select>
@@ -378,7 +377,6 @@
     <script src="js/plugins/pace/pace.min.js"></script>
 
 	 <script src="Controller/cUserManagement.js"></script>
-	 <script src="Controller/Datatable.js"></script>
 
 
 </body>

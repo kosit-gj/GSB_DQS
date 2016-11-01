@@ -303,15 +303,15 @@
 	                
 	                <div class="form-region-input">
 	                
-	                	<select class="form-control" id="operation_id">
-	                		<option value="" selected>Branch Operation Name</option>
-	                		<option value="1">Branch Operation 1</option>
+	                	<select class="form-control" id="listBranchOper">
+	                		<option value="0" selected>- Branch Operation Name -</option>
+	                		<!-- <option value="1">Branch Operation 1</option>
 	                		<option value="2">Branch Operation 2</option>
 	                		<option value="3">Branch Operation 3</option>
 	                		<option value="4">Branch Operation 4</option>
 	                		<option value="5">Branch Operation 5</option>
 	                		<option value="6">Branch Operation 6</option>
-	                		<option value="7">Branch Operation 7</option>
+	                		<option value="7">Branch Operation 7</option> -->
 	                	</select>
 	                	
 	                </div>

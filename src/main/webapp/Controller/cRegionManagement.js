@@ -1,8 +1,8 @@
 $(document).ready(
 	function(){
 
-		/*var restfulURL = "http://192.168.1.42:3001";*/
-		var restfulURL = "http://171.96.200.171:3001";
+		var restfulURL = "http://192.168.1.100:3001";
+		/*var restfulURL = "http://171.96.200.171:3001";*/
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
 		 var checkUniqueFn = function(text){
@@ -51,7 +51,7 @@ $(document).ready(
 					     url:restfulURL+"/api/dqs_region",
 					     type:"POST",
 					     dataType:"json",
-					     data:{"region_name":$("#region_name").val(),"operation_id":$("#operation_id").val()},
+					     data:{"region_name":$("#region_name").val(),"operation_id":$("#listBranchOper").val()},
 					     success:function(data,status){
 					      //alert(data);
 					      //console.log(data);
@@ -74,7 +74,7 @@ $(document).ready(
 					    url:restfulURL+"/api/dqs_region/"+$("#id").val(),
 					    type:"PUT",
 					    dataType:"json",
-					    data:{"region_name":$("#region_name").val(),"operation_id":$("#operation_id").val()},
+					    data:{"region_name":$("#region_name").val(),"operation_id":$("#listBranchOper").val()},
 					    success:function(data,status){
 					     //alert(data);
 						     if(status=="success"){
@@ -134,7 +134,7 @@ $(document).ready(
 								      htmlTable+="<td>"+(index+1)+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["region_name"]+"</td>";
 									  htmlTable+="<td>"+indexEntry["operation_id"]+"</td>";
-								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
+								      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
 								 htmlTable+="</tr>";
 						   });
 						
@@ -183,7 +183,25 @@ $(document).ready(
 						 }
 				  });
 			};
-				  
+		
+			
+			//DropDownList	Branch Operation 
+			var dropDownListBranchOper = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_branch_operation" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<option value="+indexEntry["operation_code"]+">"+indexEntry["operation_name"]+"</option>";		
+							});	
+							$("#listBranchOper").html(htmlTable);
+						}
+				});
+			};
+		
 		//Call Function start
 		  getDataFn();
 		$("#btnSubmit").click(function(){
@@ -204,6 +222,7 @@ $(document).ready(
 
 			   $("#btnAdd").click(function(){
 					 clearFn();
+					 dropDownListBranchOper();
 					 //return false;
 			  });
 				
@@ -219,18 +238,3 @@ $(document).ready(
 	  
 	  //Call Function End
 });
-
-
-
-
-/*$(document).ready(function(){
-	
-	
-	$(".font-management").on("click",function(){
-		$(".edit-action").click(function(){
-			//alert("alert data here.");
-			$("#editModal").modal();
-		});
-	});
-	//font-management edit-action
-});*/

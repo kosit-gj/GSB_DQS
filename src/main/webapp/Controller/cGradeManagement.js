@@ -112,6 +112,13 @@ $(document).ready(
 					      $("#grade").val(data['grade']);
 						  $("#grade_name").val(data['grade_name']);
 					      $("#process_seq").val(data['process_seq']);
+					      
+						/*	if(data['inform_flag']==1){
+								$('#InformBranchRadioTrue').prop('checked', true);
+							}
+							if(data['inform_flag']==0){
+								$('#InformBranchRadioFalse').prop('checked', true);
+							}*/
 				    	}
 				   });
 			  };
@@ -141,7 +148,7 @@ $(document).ready(
 								      htmlTable+="<td>"+(index+1)+"</td>";
 								      htmlTable+="<td>"+indexEntry["grade"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
-									  htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
+									 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
 								      htmlTable+="<td><i class=\"fa fa-search font-management btnCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
 								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
 							htmlTable+="</tr>";
@@ -218,36 +225,49 @@ $(document).ready(
 								}
 								
 							    htmlTable+="<tr >";
-								        htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+process_seq+">";
-								        htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>OR</option> <option>AND</option></select></td>";
+								        htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id="+indexEntry["process_seq"]+" value="+process_seq+">";
+								        htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\" id="+indexEntry["operator"]+"><option>OR</option> <option>AND</option></select></td>";
 										htmlTable+="<td>"+indexEntry["rule_id"]+"</td>";
-										htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\"><option>Is Null</option> <option>Between</option></select></td>";
-										htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\">";
-										htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\">";
-										htmlTable+="<td><i class=\"fa fa-trash-o font-management delete\" id="+indexEntry["_id"]+"></td";
+										htmlTable+="<td><input type=\"checkbox\"  id="+indexEntry["complete_flag"]+"></td>";
+										htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editCondition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition'  type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteCondition' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td";
 								htmlTable+="</tr>";
 					     });
 					
 					  $("#listCondition").html(htmlTable);
 					
 					
+					//popover 
+					$(".popover-del-editCondition").popover();
+					
+					//delete
+					$(".popover-del-editCondition").click(function(){
 
-					$(".delete").click(function(){
+						$(".deleteCondition").click(function(){
+							
+							    if(confirm("Do you want to delete this file?")){
+							     $.ajax({
+								      url:restfulURL+"/api/dqs_grade_condition/"+this.id,
+								      type:"delete",
+								      dataType:"json",
+								      //data:{"_id":this.id},
+									      success:function(data){       
+									       
+									       getDataConditionFn();
+							
+					     				 }
+					   			  	});
+					   		   	}
+					  	 	});
 						
-						    if(confirm("Do you want to delete this file?")){
-						     $.ajax({
-							      url:restfulURL+"/api/dqs_grade_condition/"+this.id,
-							      type:"delete",
-							      dataType:"json",
-							      //data:{"_id":this.id},
-								      success:function(data){       
-								       
-								       getDataConditionFn();
-						
-				     				 }
-				   			  	});
-				   		   	}
-				  	 	});
+					   //findOnd
+					   $(".editCondition").click(function(){
+					
+					   });
+					
+					
+					
+					});
+					
 				}
 			 
 			
@@ -327,14 +347,12 @@ $(document).ready(
 					    return false;
 			 		};
 			 		
-			 		$("#btnAddCondition").click(function(){
+			 $("#btnAddCondition").click(function(){
 						
-							   insertConditionFn();
+					insertConditionFn();
 
-						  });
-			    
-			
-			
+				});
+
 			
 		//Call Function start
 		  getDataFn();

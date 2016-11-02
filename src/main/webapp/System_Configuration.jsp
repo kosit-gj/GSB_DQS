@@ -92,6 +92,9 @@
 				   
 				</div>
                 
+				
+				<!-- Default KPI Calculation Date -->
+				
 				<div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -127,7 +130,7 @@
 														<th>Days</th>
 													</tr>
 												</thead>
-												<tbody>
+												<tbody id="listSystem">
 													<tr>
 														<td>
 															<div class='text-inline-table'>มกราคม</div>
@@ -200,7 +203,9 @@
 				     </div>
 				 </div>
 				                 
-				                 
+				         
+				    <!-- Exporting File   -->         
+				      
 				  <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -217,17 +222,18 @@
 													<label>Root directory &nbsp;:</label>
 												</div>
 												<div class="col-sm-6" align="left">
-													<input class="form-control input-dataroot" id="" placeholder="">
+													<input class="form-control input-dataroot" id="export_file_path" placeholder="">
 												</div>
 											</div>
 										</div>
+										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 												<div class="col-sm-3 form-data" >
 													<label>Maximum record for citizen file&nbsp; :</label>
 												</div>
 												<div class="col-sm-1 form-data" align="left">
-													<input class="form-control input-data" id="" placeholder="">
+													<input class="form-control input-data" id="export_citizen_max_record" placeholder="">
 												</div>
 												<div class="col-sm-2 form-data" align="right">
 													<label style="padding-left:10px">Records</label>
@@ -236,13 +242,14 @@
 													<label>Maximum record for mobile file &nbsp;:</label>
 												</div>
 												<div class="col-sm-2 form-data" align="left">
-													<input class="form-control input-data" id="" placeholder="">
+													<input class="form-control input-data" id="export_mobile_max_record" placeholder="">
 												</div>
 												<div class="col-sm-1 form-data" align="right">
 													<label style="padding-left:10px">Records</label>
 												</div>
 											</div>
 										</div>
+										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 												<div class="col-sm-3 form-data" >
@@ -262,32 +269,37 @@
 													<label>Delete file older then &nbsp;:</label>
 												</div>
 												<div class="col-sm-2 form-data" align="left">
-													<input class="form-control input-data" id="" placeholder="">
+													<input class="form-control input-data" id="export_nof_date_delete" placeholder="">
 												</div>
 												<div class="col-sm-1 form-data" align="left">
 													<label style="padding-left:10px">Days</label>
 												</div>
 											</div>
 										</div><br>
+										
 			                             <div class="row">
 											<div style="padding-left:25px">
-												<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+												<button class="btn btn-warning" id="btnSubmit">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											</div>
 		                                </div>
+		                                
 		                            </div>
-		                            
 		                         </div>
 		                      </div>
 		                   </div>   
 		                            
+		       
+		       
+		      		 <!-- Importing File -->
+		      		 
 		         <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">            
-		                            <div class="ibox-title">
-		                                <h5>Exporting File</h5>
-		                            </div>
+	                            <div class="ibox-title">
+	                                <h5>Importing File</h5>
+	                            </div>
 		                            <div class="ibox-content">
-		                            <div class="row">
+		                            	<div class="row">
 	                            	 		<div class="col-lg-12">
 												<div class="col-sm-3" >
 													<label>Root directory &nbsp;:</label>
@@ -297,6 +309,7 @@
 												</div>
 											</div>
 										</div>
+										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 												<div class="col-sm-3 form-data" >
@@ -319,6 +332,7 @@
 												</div>
 											</div>
 										</div>
+										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 												<div class="col-sm-3 form-data" >
@@ -336,47 +350,73 @@
 												</div>
 											</div>
 										</div><br>
+										
 			                             <div class="row">
 											<div style="padding-left:25px">
 												<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											</div>
 		                                </div>
+		                                
 		                            </div>
-		                            
 		                        </div>
 		                     </div>
 		                 </div>
 		                     		
+		      
+		      
+		      
+		      			<!-- Warning Branch -->
+		      			
 		       <div class="row">
                     <div class="col-lg-12">
+                    
                         <div class="ibox float-e-margins">       		
-		                     		<div class="row">
+		                     	<div class="row">
+		                     	
 		                     		<div class="col-lg-6">
 		                     			<div class="ibox-title">
 		                                	<h5>Warning Branch</h5>
 		                            	</div>
+		                            	
 			                            <div class="ibox-content">
-
+			                            
+											 <div class="row">
+					                             <div class="col-lg-12">
+													<div class="col-lg-7 form-data" >
+														<label>#Last contact date to warning branch &nbsp;:</label>
+													</div>
+													<div class="col-lg-4 form-data" align="left">
+														<input class="form-control input-data" id="" placeholder="">
+													</div>
+													<div class="col-lg-1 form-data" align="right">
+														<label>Days</label>
+													</div>
+												</div>
+											</div>	
+											
 											<div class="row">
-				                             	<form class="form-inline">
-													<div class="form-group">
-														  <label style="padding-left:25px">#Last contact date to warning branch </label>&nbsp;&nbsp;&nbsp;
-														  <input class="form-control input-data" type="date" value="" id="Date">
-														  <label style="padding-left:25px">Days</label>&nbsp;&nbsp;&nbsp;
+												<div class="col-lg-12">
+													<div class="col-lg-7 form-data" >
+														<label>when no document to update data &nbsp;:</label>
 													</div>
-												</form><br>
-												<form class="form-inline">
-													<div class="form-group">
-														  <label style="padding-left:25px">when no document to update data :</label>&nbsp;&nbsp;&nbsp;
+													<div class="col-lg-2 form-data" align="left">
+														<label></label>
 													</div>
-												</form>
+												</div>
+											</div>
+											
+											<div class="row">
 												<div class="form-save" style="padding-left:25px">
 													<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
-			                                </div>
+											</div>
+											
 			                            </div>
-		                     		
 		                     		</div>
+		                     		
+		                     		
+		                     		<!-- Grade Calculation Date -->
+		                     		
 		                     		<div class="col-lg-6">
 		                     			<div class="ibox-title">
 		                                	<h5>Grade Calculation Date</h5>
@@ -384,20 +424,38 @@
 			                            <div class="ibox-content">
 			                            
 				                             <div class="row">
-				                             	<form class="form-inline">
-													<div class="form-group">
-														  <label style="padding-left:25px">Grade Calculation Date :</label>&nbsp;&nbsp;&nbsp;
-														  <input class="form-control input-data" type="date" value="" id="Date">
+					                             <div class="col-lg-12">
+													<div class="col-lg-6 form-data" >
+														<label>Grade Calculation Date &nbsp;:</label>
 													</div>
-												</form><br><br>
+													<div class="col-lg-2 form-data" align="left">
+														<input class="form-control input-data" id="" placeholder="">
+													</div>
+												</div>
+											</div>	
+											
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="col-lg-6 form-data" >
+														<label>Grade Calulation Source Table &nbsp;:</label>
+													</div>
+													<div class="col-lg-2 form-data" align="left">
+														<select class="form-control input-data" id="" ></select>
+													</div>
+												</div>
+											</div>
+											
+											<div class="row">
 												<div class="form-save" style="padding-left:25px">
 													<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
-			                                </div>			                           
+											</div>	
+											
 			                            </div>
-		                     		
 		                     		</div>
-		                     	</div>
+		                     		
+		                     		
+		                     </div>
                         </div>
                     </div>     	
                 </div>
@@ -405,17 +463,18 @@
                 
             </div>
         </div>
-        <div class="footer">
-            <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2015
-            </div>
+        
+		        <div class="footer">
+		            <div class="pull-right">
+		                10GB of <strong>250GB</strong> Free.
+		            </div>
+		            <div>
+		                <strong>Copyright</strong> Example Company &copy; 2014-2015
+		            </div>
+		        </div>
+		        
         </div>
-
-        </div>
-        </div>
+</div>
 
 
 
@@ -430,23 +489,8 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+	 <script src="Controller/cSystemConfiguration.js"></script>
 
-    <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
-    <!-- Peity demo -->
-    <script src="js/demo/peity-demo.js"></script>
-
-
-    <script>
-        
-    </script>
 
 </body>
 

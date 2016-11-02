@@ -4,22 +4,23 @@
 	
 }
 .form-grade-mangement{
-	height:37px;
+	height:43px;
+	padding-top: 7px;
 }
 
 .form-grade-label{
 	float:left;
-	padding-top: 7px;
 	width:140px;
 }
 .form-grade-input{
 	float:left;
 	width: 390px;
+	
 }
 .form-grade-labeltext{
 	float:left;
 	width: 390px;
-	padding-top: 7px;
+	
 }
 .form-grade-input2{
 	float:left;
@@ -30,19 +31,17 @@
 	width: 50px;
 }
 .input-contact-textinput{
-	height:50px;
+	height:70px;
 	resize:none;
 }
 .input-contact-selecttype{
 	width:80px;
 }
 .form-input-sep{
-	width:100px;
 	float:left;
-	padding-top: 8px;
+	width:100px;
 }
 .form-grade-labelsep{
 	float:left;
-	padding-top: 8px;
 	width:140px;
 }

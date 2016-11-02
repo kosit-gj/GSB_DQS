@@ -183,7 +183,7 @@
                                             <th>No.</th>
                                             <th>Grade</th>
                                             <th>Decription</th>
-                                            <th>Seq</th>
+                                            <!-- <th>Seq</th> -->
                                             <th>Show Condition</th>
                                             <th>Manage</th>
                                         </tr>
@@ -343,31 +343,6 @@
                 
                 <!-- form start -->
                 <div class='form-grade-mangement'>
-	                <div class="form-grade-label">
-	                
-	                 <label>Grade  :</label>
-	                </div>
-	                
-	                <div class="form-grade-input">
-	                
-	                	<input type="text" class="form-control" placeholder="" id="grade">
-	                </div>
-	                <br style="clear:both">
-                </div>
-                
-                <div class='form-grade-mangement'>
-	                <div class="form-grade-label">
-	                
-	                <label>Grade Description :</label>
-	                </div> 
-	            
-	                <div class="form-grade-labeltext">
-						<textarea class="form-control input-contact-textinput"  placeholder="" id="grade_name"></textarea>
-	                </div>
-	                <br style="clear:both">
-                </div>
-                
-                <div class='form-grade-mangement'>
 	                <div class="form-grade-labelsep">
 	                 <label>seq  :</label>
 	                </div>
@@ -376,7 +351,34 @@
 	                
 	                	<input type="text" class="form-control " placeholder="" id="process_seq">
 	                </div>
+	                
                 </div>
+                
+                <div class='form-grade-mangement'>
+	                <div class="form-grade-labelsep">
+	                
+	                 <label>Grade  :</label>
+	                </div>
+	                
+	                <div class="form-grade-input">
+	                
+	                	<input type="text" class="form-control" placeholder="" id="grade">
+	                </div>
+	                
+                </div>
+
+				<div class='form-grade-mangement'>
+	                <div class="form-grade-label">
+	                
+	                <label>Grade Description :</label>
+	                </div> 
+	            
+	                <div class="form-grade-labeltext">
+						<textarea class="form-control input-contact-textinput"  placeholder="" id="grade_name"></textarea>
+	                </div>
+                </div>
+                
+
                 
                
                 <!-- form start -->
@@ -457,11 +459,9 @@
                                  <tr>
                                       <th>Seq</th>
                                       <th>Oparetors</th>
-                                      <th>Rule/Field</th>
-                                      <th>Funcion</th>
-                                      <th>Value1</th>
-                                      <th>Value2</th>
-                                      <th>Delete</th>
+                                      <th>Rule</th>
+                                      <th>Complete</th>
+                                      <th>Manage</th>
                                   </tr>
                             </thead>
                             <tbody id="listCondition">                                       
@@ -475,18 +475,15 @@
 		                                            
                                             </select>
                                       </td>
-	                                  <td><div class='text-inline-table'>ZCIZID</div></td>
-	                                  <td>
-			                                <select class="form-control input-inline-table input-contact-selecttype">
-		                                            
-		                                            	<option>Is Null</option>
-		                                            	<option> = </option>
-		                                            	<option>Between</option>
-		                                            
-                                            </select>
+                                      <td>
+                                      <div class="checkbox checkbox-default">
+		                                       <input type="checkbox"  id="checkbox2">
+		                                       <label for="checkbox2">
+		                                               
+		                                       </label>
+		                                </div>
                                       </td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
+	                                  <td><div class='text-inline-table'>ZCIZID</div></td>
 	                                  <td><div class='text-inline-table'><i class="fa fa-trash-o font-management"></i></div></td>
 	                         	 </tr>
 	                         	 <tr>
@@ -500,17 +497,6 @@
                                             </select>
                                       </td>
 	                                  <td><div class='text-inline-table'>ZCIZID</div></td>
-	                                  <td>
-			                                <select class="form-control input-inline-table input-contact-selecttype">
-		                                            
-		                                            	<option>Is Null</option>
-		                                            	<option> = </option>
-		                                            	<option>Between</option>
-		                                            
-                                            </select>
-                                      </td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
 	                                  <td><div class='text-inline-table'><i class="fa fa-trash-o font-management"></i></div></td>
 	                         	 </tr>
 	                         	 <tr>
@@ -525,17 +511,6 @@
                                             </select>
                                       </td>
 	                                  <td><div class='text-inline-table'>ZCIZID</div></td>
-	                                   <td>
-			                                <select class="form-control input-inline-table input-contact-selecttype">
-		                                            
-		                                            	<option>Is Null</option>
-		                                            	<option> = </option>
-		                                            	<option>Between</option>
-		                                            
-                                            </select>
-                                      </td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
 	                                  <td><div class='text-inline-table'><i class="fa fa-trash-o font-management"></i></div></td>
 	                         	 </tr> 
 	                         	 <tr>
@@ -549,16 +524,6 @@
                                             </select>
                                       </td>
 	                                  <td><div class='text-inline-table'>เลขบัตรประชาชนที่เป็น 1 หรือค่าว่างต้องอายัต 123</div></td>
-	                                  <td>
-			                                <select class="form-control input-inline-table input-contact-selecttype">
-		                                            
-		                                            	<option>Is Null</option>
-		                                            	<option> = </option>
-		                                            	<option>Between</option>
-		                                            
-                                            </select>
-                                      </td>
-	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
 	                                  <td><div class='text-inline-table'><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></div></td>
 	                                  <td><div class='text-inline-table'><i class="fa fa-trash-o font-management"></i></div></td>
 	                         	 </tr>       
@@ -572,7 +537,7 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
             </div>
         </div>
     </div>

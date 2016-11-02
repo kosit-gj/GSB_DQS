@@ -4,7 +4,7 @@
 }
 .form-label-citizen{
 	float:left;
-	padding-top: 6px;
+	padding-top: 1px;
 	width:110px;
 }
 .font-gear{
@@ -24,7 +24,7 @@
 }
 .form-label-citizen-manual{
 	float:left;
-	padding-top: 6px;
+	padding-top: 1px;
 	width:95px;
 }
 .form-input-citizen-title{

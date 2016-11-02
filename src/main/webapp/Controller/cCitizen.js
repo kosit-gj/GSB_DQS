@@ -38,72 +38,68 @@ $(document).ready(function(){
 	
 	}
 	
-	/*var insertFn = function() {
-			
-		var checkboxInitial = "";
-		var checkboxUpdate = "";
-		var checkboxContact = "";
-		var InformBranchRadio = "";
-		var EditRuleRelease ="";
-		
-		if($("#checkboxInitial:checked").val()=="on"){
-			checkboxInitial="1";
-		}else{
-			checkboxInitial="0";
-		}
-		
-		if($("#checkboxUpdate:checked").val()=="on"){
-			checkboxUpdate="1";
-		}else{
-			checkboxUpdate="0";
-		}
-		
-		if($("#checkboxContact:checked").val()=="on"){
-			checkboxContact="1";
-		}else{
-			checkboxContact="0";
-		}
-		
-		if($("#InformBranchRadioTrue:checked").val()){
-			InformBranchRadio="1";
-		}else if($("#InformBranchRadioFalse:checked").val()){
-			InformBranchRadio="0";
-		}
-		
-		if($("#EditRuleReleaseTrue:checked").val()){
-			EditRuleRelease="1";
-		}else if($("#EditRuleReleaseFalse:checked").val()){
-			EditRuleRelease="0";
-		}
-			
-		$.ajax({
-			
-			url:restfulURL+"/api/dqs_rule",
-			type : "POST",
-			dataType : "json",
-			data : {"rule_name" : $("#rule_name").val(),
-					"rule_group" : $("#rule_group").val(),
-					"data_flow_id" : $("#data_flow_id").val(),
-					"initial_flag" : checkboxInitial,
-					"update_flag" : checkboxUpdate,
-					"last_contact_flag" : checkboxContact,
-					"inform_flag" : InformBranchRadio,
-					"edit_rule_release_flag" : EditRuleRelease
-			},
-			success : function(data) {
-				if (data = "success") {
-					alert("Insert Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		return false;
-	};*/
-	
 	var updateFn = function() {
 		
+		var sex = ""
+			
+		if($("#sex_citizen_men:checked").val()){
+			sex = 1;
+		}else if($("#sex_citizen_women:checked").val()){
+			sex = 0;
+		}
+		
+		var month_citizen = ""
+			if($("#month_citizen").val()=="มกราคม"){
+				month_citizen = "01";
+			}else if($("#month_citizen").val()=="กุมภาพันธ์"){
+				month_citizen = "02";
+			}else if($("#month_citizen").val()=="มีนาคม"){
+				month_citizen = "03";
+			}else if($("#month_citizen").val()=="เมษายน"){
+				month_citizen = "04";
+			}else if($("#month_citizen").val()=="พฤษภาคม"){
+				month_citizen = "05";
+			}else if($("#month_citizen").val()=="มิถุนายน"){
+				month_citizen = "06";
+			}else if($("#month_citizen").val()=="กรกฎาคม"){
+				month_citizen = "07";
+			}else if($("#month_citizen").val()=="สิงหาคม"){
+				month_citizen = "08";
+			}else if($("#month_citizen").val()=="กันยายน"){
+				month_citizen = "09";
+			}else if($("#month_citizen").val()=="ตุลาคม"){
+				month_citizen = "10";
+			}else if($("#month_citizen").val()=="พฤศจิกายน"){
+				month_citizen = "11";
+			}else if($("#month_citizen").val()=="ธันวาคม"){
+				month_citizen = "12";
+			}
+		
+		var day_citizen = ""
+			if($("#day_citizen").val()==1){
+				day_citizen = "01";
+			}else if($("#day_citizen").val()==2){
+				day_citizen = "02";
+			}else if($("#day_citizen").val()==3){
+				day_citizen = "03";
+			}else if($("#day_citizen").val()==4){
+				day_citizen = "04";
+			}else if($("#day_citizen").val()==5){
+				day_citizen = "05";
+			}else if($("#day_citizen").val()==6){
+				day_citizen = "06";
+			}else if($("#day_citizen").val()==7){
+				day_citizen = "07";
+			}else if($("#day_citizen").val()==8){
+				day_citizen = "08";
+			}else if($("#day_citizen").val()==9){
+				day_citizen = "09";
+			}else if($("#day_citizen").val()>=10){
+				day_citizen = $("#day_citizen").val();
+			}
+		
+		var ndob = day_citizen+""+month_citizen+""+$("#year_citizen").val();
+			
 		$.ajax({
 			url:restfulURL+"/api/dqs_citizen_import/"+$("#id").val(),
 			type : "PUT",
@@ -112,6 +108,8 @@ $(document).ready(function(){
 				"nfname" : $("#nfname_citizen").val(),
 				"nlname" : $("#nlname_citizen").val(),
 				"ntitle" : $("#ntitle_citizen").val(),
+				"sex" : sex ,
+				"ndob": ndob,
 				"hno" : $("#hno_citizen").val(),
 				"moo" : $("#moo_citizen").val(),
 				"trok" : $("#trok_citizen").val(),
@@ -123,7 +121,6 @@ $(document).ready(function(){
 				"flag1" : $("#flag1_citizen").val(),
 				"flag2" : $("#flag2_citizen").val(),
 				
-
 			},	
 			success : function(data) {
 				if (data = "success") {
@@ -169,7 +166,7 @@ $(document).ready(function(){
 		});
 		
 		//alert(selectDobMonthHTML);
-		$("#day_citizen").html(selectDobDayHTML);
+		$("#day_citizen_area").html(selectDobDayHTML);
 	}
 	
 	var dropdownDobMouth = function(param_month_id){
@@ -197,11 +194,8 @@ $(document).ready(function(){
 		});
 		
 		//alert(selectDobMonthHTML);
-		$("#month_citizen").html(selectDobMonthHTML);
+		$("#month_citizen_area").html(selectDobMonthHTML);
 	}
-	
-	
-	
 	
 	var dropdownDobYear = function(param_year){
 		
@@ -226,7 +220,7 @@ $(document).ready(function(){
 		});
 		
 		//alert(selectDobYearHTML);
-		$("#year_citizen").html(selectDobYearHTML);
+		$("#year_citizen_area").html(selectDobYearHTML);
 			
 	}
 	
@@ -247,7 +241,8 @@ $(document).ready(function(){
 				dropdownDobYear(dobYear);
 				dropdownDobMouth(dobMouth);
 				dropdownDobDay(dobDay); 
-			
+				
+				$("#id_citizen").val(data['id']);
 				$("#cifno_citizen").val(data['pid']);
 				$("#nfname_citizen").val(data['nfname']);
 				$("#nlname_citizen").val(data['nlname']);
@@ -318,7 +313,7 @@ $(document).ready(function(){
 		htmlTable += "<td>"+ indexEntry["nfname"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["nlname"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["ndob"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["nsex"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["sex"]+ "</td>";
 
 		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#editModalCitizen data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
@@ -336,13 +331,9 @@ $(document).ready(function(){
 				findOneFn(this.id);
 				$("#id").val(this.id);
 				$("#action").val("edit");
-				$("#btnSubmit").val("Edit");
-				
+				$("#btnSubmit").val("Edit");		
 				
 			});
-			
-			
-			
 			
 			$(".del").click(function(){
 			
@@ -362,8 +353,6 @@ $(document).ready(function(){
 		});
 			
 	};
-	
-	
 	
 	var getDataFn = function() {
 		$.ajax({

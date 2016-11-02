@@ -98,7 +98,7 @@
          							<div class="row">
 	                                    <div class="col-sm-3 m-b-xs">
 		                                    <select class="input form-control">
-		                                    	<option>No.</option>
+		                                    	<option>CIF NO.</option>
 												<option>Type02</option>
 												<option>Type03</option>
 											</select>
@@ -333,7 +333,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	CIFNO  
+	                	CIF NO.  
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -346,12 +346,12 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	NPID
+	                	ID
 	                </div>
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" disabled="disabled" id="id_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -360,7 +360,7 @@
                 
 	                <div class="form-label-citizen">
 	                
-	                	NTTITLE
+	                	Title
 	                </div>
 	                
 	                <div class="form-input-citizen-title">
@@ -373,7 +373,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen" >
 	                
-	                	NFNAME
+	                	Name
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -386,7 +386,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	NLNAME
+	                	Lastname
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -401,13 +401,13 @@
                
                 <div class="col-lg-12">
 	                <div class="form-label-citizen-manual">
-		               		NDOB
+		               		Date of Birth
 		                </div>
 		                
 	                <div class="col-lg-2">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen" id="day_citizen">
+			                <div class="input-inline-table-citizen" id="day_citizen_area">
 			                	
 				           		<!-- <select class="form-control input-inline-table-citizen input-contact-citizen" id="day_citizen">
 		                           <option value="01">01</option>
@@ -423,7 +423,7 @@
 	                <div class="col-lg-3">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen" id="month_citizen">
+			                <div class="input-inline-table-citizen" id="month_citizen_area">
 			                	
 				           		<!-- <select class="form-control input-inline-table-citizen " id="mouth_citizen">
 		                           <option value="02">กุมภาพันธ์</option>
@@ -439,7 +439,7 @@
 	                <div class="col-lg-2">
 		                <div class='form-file-mangement-radio'>
 		        
-			                <div class="input-inline-table-citizen" id="year_citizen">
+			                <div class="input-inline-table-citizen" id="year_citizen_area">
 			                	
 			                	
 				           		
@@ -456,18 +456,18 @@
                 </div>
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen">
-	                	NSEX
+	                	Sex
 	                </div>
 	                
 	                <div class="input-inline-table-citizen">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" checked name="radioInline" value="option1" id="sex_citizen_men">
+                               <input type="radio" checked name="sexRadioInline" value="1" id="sex_citizen_men">
                                <label for="inlineRadio1"> ชาย </label>
                            </div>
                            
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="sex_citizen_women">
+                              <input type="radio" name="sexRadioInline" value="0" id="sex_citizen_women">
                               <label for="inlineRadio2"> หญิง </label>
                           </div>
 	                       
@@ -479,7 +479,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	HNO
+	                	House No.
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -492,7 +492,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	MOO
+	                	Moo
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -505,7 +505,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	TROK
+	                	Trok
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -518,7 +518,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	SOI
+	                	Soi
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -530,7 +530,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	THANON
+	                	Thanon
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -543,7 +543,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	THUMBOL
+	                	Thumbol
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -556,7 +556,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	AMPHUR
+	                	Amphur
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -569,7 +569,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	PROVINCE
+	                	Province
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -582,7 +582,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	FLAG-1
+	                	Flag-1
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -595,7 +595,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                FLAG-2
+	                Flag-2
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -608,25 +608,25 @@
                 
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen"> 
-	               	NATION
+	               	Nation
 	                </div>
 	                
 	                <div class="input-inline-table-citizen">
 	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" name="radioInline" value="option1" id="nation_citizen_thai">
+                               <input type="radio" name="nationRadioInline" value="1" id="nation_citizen_thai">
                                <label for="inlineRadio1"> คนไทย </label>
                            </div>
                            
                            <div class="radio radio-inline">
-                              <input type="radio" name="radioInline" value="option2" id="nation_citizen_other">
+                              <input type="radio" name="nationRadioInline" value="0" id="nation_citizen_other">
                               <label for="inlineRadio2"> คนต่างด้าว </label>
                           </div>
 	                       
 	                </div>
 	                <br style="clear:both">
 	                
-		                <div class="row">
+		                <!-- <div class="row">
 	                	<div class="col-lg-5">
 	                   
 	                        <div class="ibox-content">
@@ -639,7 +639,7 @@
 	                            </div>
 	                        </div>
 		                </div>
-		        		</div>
+		        		</div> -->
 		        		
                 </div>           
               
@@ -672,19 +672,19 @@
     <script src="js/plugins/pace/pace.min.js"></script>
     <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
     
-	<!-- Data picker -->
-   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Data picker -->
+  	<!--  <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-    <!-- MENU -->
+    MENU
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
 
-    <!-- Image cropper -->
-    <script src="js/plugins/cropper/cropper.min.js"></script>
+    Image cropper
+    <script src="js/plugins/cropper/cropper.min.js"></script> -->
 
 	<script src="Controller/cCitizen.js"></script> 
 	
- 	<script>
+ 	<!-- <script>
         $(document).ready(function(){
 
             
@@ -700,6 +700,6 @@
         });
 
 
-    </script>
+    </script> -->
 
 </body>

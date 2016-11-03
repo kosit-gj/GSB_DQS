@@ -95,16 +95,17 @@
 								<div class="row">
 								
                                     <div class="col-sm-9 m-b-xs">
-                                    	<button type="button" class="btn btn-info " data-target="#editModal" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
-                                    	<button type="button" class="btn btn-warning "><i class="fa fa-save"></i>&nbsp;Save</button>
+                                    	<button type="button" class="btn btn-info edit_table" ><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+                                    	<button type="button" class="btn btn-warning " id="btnSave"><i class="fa fa-save"></i>&nbsp;Save</button>
                                     	<button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
                                     
                                     <div class="col-sm-3">
-	                                    <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+	                                    <div class="input-group"><input type="text" id="searchBranch" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
                                     </div>
-                                     
+                                    
+                                    <input type="hidden" name="action" id="action" value="add">
                              	</div>
                              
                                 <div class="row">

@@ -198,6 +198,8 @@ $(document).ready(
 				 });
 			}
 			
+			
+			
 			  var getDataFn = function(){
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_grade",
@@ -211,166 +213,247 @@ $(document).ready(
 			};
 			
 			
-			var listDataConditionFn = function(data){
-				   var process_seq = "";
-				   console.log(data);
-				   var htmlTable="";
-				   $("#listCondition").empty();
-				   $.each(data,function(index,indexEntry){
-					
-								if (indexEntry["process_seq"] == undefined){
-									process_seq = "";
-								}else{
-									process_seq = indexEntry["process_seq"];
-								}
-								
-							    htmlTable+="<tr >";
-								        htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id="+indexEntry["process_seq"]+" value="+process_seq+">";
-								        htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\" id="+indexEntry["operator"]+"><option>OR</option> <option>AND</option></select></td>";
-										htmlTable+="<td>"+indexEntry["rule_id"]+"</td>";
-										htmlTable+="<td><input type=\"checkbox\"  id="+indexEntry["complete_flag"]+"></td>";
-										htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editCondition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition'  type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteCondition' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td";
-								htmlTable+="</tr>";
-					     });
-					
-					  $("#listCondition").html(htmlTable);
-					
-					
-					//popover 
-					$(".popover-del-editCondition").popover();
-					
-					//delete
-					$(".popover-del-editCondition").click(function(){
-
-						$(".deleteCondition").click(function(){
-							
-							    if(confirm("Do you want to delete this file?")){
-							     $.ajax({
-								      url:restfulURL+"/api/dqs_grade_condition/"+this.id,
-								      type:"delete",
-								      dataType:"json",
-								      //data:{"_id":this.id},
-									      success:function(data){       
-									       
-									       getDataConditionFn();
-							
-					     				 }
-					   			  	});
-					   		   	}
-					  	 	});
-						
-					   //findOnd
-					   $(".editCondition").click(function(){
-					
-					   });
-					
-					
-					
-					});
-					
-				}
-			 
-			
-			
-				var getDataConditionFn = function(){
-					
-					var grade_id = $("#embed_grade_id").val();
-					//  alert(grade_id);
-					   $.ajax({
-					    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
-					    type:"get",
-					    dataType:"json",
-					    success:function(data){
-					     
-					     listDataConditionFn(data);
-					    }
-				   });
-			  };
-			
-			
-			//DropDownList Rule 
-			var dropDownListRule = function(data){
-				$.ajax ({
-					url:restfulURL+"/api/dqs_rule" ,
-					type:"get" ,
-					dataType:"json" ,
-						success:function(data){
-							var htmlTable="";
-							$.each(data,function(index,indexEntry){
-								
-								htmlTable+="<option value="+indexEntry["_id"]+">"+indexEntry["rule_name"]+"</option>";		
-							});	
-							$("#listRule").html(htmlTable);
-						}
-				});
-			};
-			
-			//DropDownList make_param_operator
-			/*var dropDownListOperator = function(data){
-				var htmlTable="";
-				$.ajax ({
-					url:restfulURL+"/api/make_param_operator" ,
-					type:"get" ,
-					dataType:"json" ,
-					async:false,
-						success:function(data){
-							
-							$.each(data,function(index,indexEntry){
-								
-								htmlTable+="<option value="+indexEntry["param_operator"]+">"+indexEntry["param_operator"]+"</option>";		
-							});	
-							$("#listOperator").html(htmlTable);
-						}
-				});
-				return htmlTable;
-			};*/
-			
-			 var insertConditionFn = function(){
-					
-					    $.ajax({
-						     url:restfulURL+"/api/dqs_grade_condition",
-						     type:"POST",
-						     dataType:"json",
-						     data:{"rule_id":$("#listRule").val(),"grade_id":$("#embed_grade_id").val()},
-						     success:function(data,status){
-						      console.log(status);
-							      if(status=="success"){
-							       alert("Insert Success");
-							
-							       //listDataConditionFn();
-								   getDataConditionFn();
-							       //clearFn();
-							      }
-							   }
-					    });         
-					
-					    return false;
-			 		};
-			 		
-			 $("#btnAddCondition").click(function(){
-						
-					insertConditionFn();
-
-				});
-
-			
 		//Call Function start
-		  getDataFn();
-		$("#btnSubmit").click(function(){
-			   if(validationFn()==true){
-				    if($("#action").val()=="add" || $("#action").val()=="" ){
-				     
-				     if(checkUniqueFn($("#grade").val())==true){
-				      	insertFn();
-				     }else{
-				      	alert("name is not unique.");
-				     }
-				    }else{
-				     	updateFn();
-				    }
-			   }
-			   		return false;
-			  });
+				  getDataFn();
+				$("#btnSubmit").click(function(){
+					   if(validationFn()==true){
+						    if($("#action").val()=="add" || $("#action").val()=="" ){
+						     
+						     if(checkUniqueFn($("#grade").val())==true){
+						      	insertFn();
+						     }else{
+						      	alert("name is not unique.");
+						     }
+						    }else{
+						     	updateFn();
+						    }
+					   }
+					   		return false;
+					  });
+		
+		
+		
+		
+				//listCondition
+				var listDataConditionFn = function(data){
+					
+					   var process_seq = "";
+					   console.log(data);
+					   var htmlTable="";
+					   $("#listCondition").empty();
+					   $.each(data,function(index,indexEntry){
+						
+									if (indexEntry["process_seq"] == undefined){
+										process_seq = "";
+									}else{
+										process_seq = indexEntry["process_seq"];
+									}
+									
+								    htmlTable+="<tr >";
+									        htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["process_seq"]+">";
+									
+									
+									        htmlTable+="<td>";
+												if(indexEntry["operator"] == "or"){
+													 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype\" id=operater-"+indexEntry["_id"]+"><option selected>or</option> <option>And</option></select>";
+												}else{
+													 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype\" id=operater-"+indexEntry["_id"]+"><option>or</option> <option selected>And</option></select>";
+												}
+									        htmlTable+="</td>";
+									        
+											htmlTable+="<td>"+indexEntry["rule_id"]+"</td>";
+												
+											htmlTable+="<td>";
+												if(indexEntry["complete_flag"] == 1){
+													htmlTable+="<input disabled type=\"checkbox\" checked id=Complete-"+indexEntry["_id"]+">";
+												}else if(indexEntry["complete_flag"] == 0){
+													htmlTable+="<input disabled type=\"checkbox\" id=Complete-"+indexEntry["_id"]+">";
+												}
+											htmlTable+="</td>";
+											
+											htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editCondition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition'  type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteCondition' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td";
+									htmlTable+="</tr>";
+						     });
+						
+						  $("#listCondition").html(htmlTable);
+						
+						
+						//popover 
+						$(".popover-del-editCondition").popover();
+						
+						//delete
+						$(".popover-del-editCondition").click(function(){
+		
+							$(".deleteCondition").click(function(){
+								
+								    if(confirm("Do you want to delete this file?")){
+								     $.ajax({
+									      url:restfulURL+"/api/dqs_grade_condition/"+this.id,
+									      type:"delete",
+									      dataType:"json",
+									      //data:{"_id":this.id},
+										      success:function(data){       
+										       
+										       getDataConditionFn();
+								
+						     				 }
+						   			  	});
+						   		   	}
+						  	 	});
+							
+						   
+						   $(".editCondition").click(function(){
+							
+								$("#seq-"+this.id).removeAttr("disabled");
+								$("#operater-"+this.id).removeAttr("disabled");
+								$("#Complete-"+this.id).removeAttr("disabled");
+								//alert(this.id);
+								$("#embed_condition_id").remove();
+									$("body").append("<input type='hidden' id='embed_condition_id' name='embed_condition_id' value='"+this.id+"'>");
+								 });
+							});
+								
+						
+						
+						 $("#btnSaveListCondition").click(function(){
+		
+							 var completeCheack = "";
+		
+							 	if($("#Complete-"+$("#embed_condition_id").val()).prop('checked')){
+							 		completeCheack="1";
+							 	}else{
+							 		completeCheack="0";
+							 	}
+							 	
+							 	updateConditionFn(completeCheack);
+		
+							});
+					
+				
+				}
+				 
+				 var updateConditionFn = function(completeCheack){
+		
+					 	
+						   $.ajax({
+							    url:restfulURL+"/api/dqs_grade_condition/"+$("#embed_condition_id").val(),
+							    type:"PUT",
+							    dataType:"json",
+							    data:{"process_seq":$("#seq-"+$("#embed_condition_id").val()).val(),
+									  "operator":$("#operater-"+$("#embed_condition_id").val()).val(),
+									  "complete_flag":completeCheack },
+									 
+							    success:function(data,status){
+							     //alert(data);
+								     if(status=="success"){
+								      alert("Upate Success");
+								
+								     getDataConditionFn();
+								     }
+								    }
+							   });
+						   return false;
+					 };
+				
+				
+				
+					var getDataConditionFn = function(){
+						
+						var grade_id = $("#embed_grade_id").val();
+						//  alert(grade_id);
+						   $.ajax({
+						    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
+						    type:"get",
+						    dataType:"json",
+						    success:function(data){
+						     
+						     listDataConditionFn(data);
+						    }
+					   });
+				  };
+				
+				
+				//DropDownList Rule 
+				var dropDownListRule = function(data){
+					$.ajax ({
+						url:restfulURL+"/api/dqs_rule" ,
+						type:"get" ,
+						dataType:"json" ,
+							success:function(data){
+								var htmlTable="";
+								$.each(data,function(index,indexEntry){
+									
+									htmlTable+="<option value="+indexEntry["_id"]+">"+indexEntry["rule_name"]+"</option>";		
+								});	
+								$("#listRule").html(htmlTable);
+							}
+					});
+				};
+				
+		
+				//DropDownList make_param_operator
+				/*var dropDownListOperator = function(data){
+					var htmlTable="";
+					$.ajax ({
+						url:restfulURL+"/api/make_param_operator" ,
+						type:"get" ,
+						dataType:"json" ,
+						async:false,
+							success:function(data){
+								
+								$.each(data,function(index,indexEntry){
+									
+									htmlTable+="<option value="+indexEntry["param_operator"]+">"+indexEntry["param_operator"]+"</option>";		
+								});	
+								$("#listOperator").html(htmlTable);
+							}
+					});
+					return htmlTable;
+				};*/
+				
+				 var insertConditionFn = function(){
+					 var completeCheack = "0";
+						    $.ajax({
+							     url:restfulURL+"/api/dqs_grade_condition",
+							     type:"POST",
+							     dataType:"json",
+							     data:{"rule_id":$("#listRule").val(),
+										"grade_id":$("#embed_grade_id").val(),
+										"complete_flag":completeCheack },
+							     success:function(data,status){
+							      console.log(status);
+								      if(status=="success"){
+								       alert("Insert Success");
+								
+								       //listDataConditionFn();
+									   getDataConditionFn();
+								       //clearFn();
+								      }
+								   }
+						    });         
+						
+						    return false;
+				 		};
+				 		
+				 		
+				 		
+				 $("#btnAddCondition").click(function(){
+							
+						insertConditionFn();
+		
+					});
+		
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 			   $("#btnAdd").click(function(){
 					 clearFn();

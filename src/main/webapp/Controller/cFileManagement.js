@@ -7,7 +7,7 @@ $(document).ready(function(){
 		 http://localhost:3000/api/products?name__regex=/^test/i 
 		var unique = false;
 		$.ajax({
-			url : restfulURL +"/api/dqs_branch?name_filde="+text+"",
+			url : restfulURL +"/api/dqs_file?name_filde="+text+"",
 			type : "get",
 			dataType : "json",
 			async : false,
@@ -77,7 +77,7 @@ $(document).ready(function(){
 			
 		$.ajax({
 			
-			url:restfulURL+"/api/dqs_branch",
+			url:restfulURL+"/api/dqs_file",
 			type : "POST",
 			dataType : "json",
 			data : {"rule_name" : $("#rule_name").val(),
@@ -119,7 +119,7 @@ $(document).ready(function(){
 	        }
 			
 			$.ajax({
-				url:restfulURL+"/api/dqs_branch/"+id,
+				url:restfulURL+"/api/dqs_file/"+id,
 				type : "PUT",
 				dataType : "json",
 				data : {"close_flag" :closeflagCheckbox},
@@ -149,7 +149,7 @@ $(document).ready(function(){
         }
 		
 		$.ajax({
-			url:restfulURL+"/api/dqs_branch/"+$("#embed_closeflag_id").val(),
+			url:restfulURL+"/api/dqs_file/"+$("#embed_closeflag_id").val(),
 			type : "PUT",
 			dataType : "json",
 			data : {"close_flag" :closeflagCheckbox},
@@ -176,7 +176,7 @@ $(document).ready(function(){
 	var findOneFn = function(id) {
 		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 		$.ajax({
-			url:restfulURL+"/api/dqs_branch/"+ id,
+			url:restfulURL+"/api/dqs_file/"+ id,
 			type : "get",
 			dataType : "json",
 			success : function(data) {
@@ -189,7 +189,7 @@ $(document).ready(function(){
 	
 	var searchFn = function(searchText) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?desc__regex=/^"+searchText+"/i",
+			url : restfulURL + "/api/dqs_file/?desc__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
@@ -200,7 +200,7 @@ $(document).ready(function(){
 	
 	var dropdownCheckbox = function(id) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?rule_name__regex=/^"+searchText+"/i",
+			url : restfulURL + "/api/dqs_file/?rule_name__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
@@ -217,23 +217,35 @@ $(document).ready(function(){
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
 		//htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["region"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["dist"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["processing_seq"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["contact_type"]+ "</td>";
 		
-		if(indexEntry["close_flag"]==1){
+		if(indexEntry["kpi_flag"]==1){
 			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
-		}else if(indexEntry["close_flag"]==0){
+		}else if(indexEntry["kpi_flag"]==0){
 			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	 
 		
-		//htmlTable += "<td><button class='btn btn-warning btn-xs editCheckboxCloseFlag' type='button' id="+indexEntry["_id"]+">Edit</button></td>";
+		if(indexEntry["last_contact_flag"]==1){
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+		}else if(indexEntry["last_contact_flag"]==0){
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+		}	
+		
+		if(indexEntry["source_file_delete_flag"]==1){
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+		}else if(indexEntry["source_file_delete_flag"]==0){
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+		}	
+		htmlTable += "<td>"+ indexEntry["nof_date_date"]+ "</td>";
+		
 		htmlTable += "</tr>";
 		});
 		
-		$("#listBranch").html(htmlTable);
+		$("#dataFileManagement").html(htmlTable);
 		
 		//function popover
 		$(".popover-edit-del").popover();
@@ -274,72 +286,15 @@ $(document).ready(function(){
 		}
 		
 	}
-	//list ข้อมูลใน  Model
-	var listBranchOperationFn = function(data) {
-		console.log(data);
-		var htmlTable = "";
-
-		$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
-		htmlTable += "<td><i class=\"fa fa-cog font-gear-branch popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ ">Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
-		
-		});
-		$("#branchOparation").html(htmlTable);
-		
-		//function popover
-		$(".popover-edit-del").popover();
-		
-		$(".popover-edit-del").click(function(){
-			$(".edit").on("click",function() {
-				
-				findOneFn(this.id);
-				$("#id").val(this.id);
-				$("#action").val("edit");
-				$("#btnSubmit").val("Edit");
-				
-			})
-			
-			$(".del").click(function(){
-				$.ajax({
-					 url:restfulURL+"/api/dqs_branch/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-				     success:function(data){      
-				       getDataBranchOperationFn();
-				       clearFn();
-					 }
-				});
-			});	
-			
-		})
-	};
-	
 	
 	// get ของ branch management
 	var getDataFn = function() {
 		$.ajax({
-			url : restfulURL + "/api/dqs_branch",
+			url : restfulURL + "/api/dqs_file",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
 				listBranchFn(data);
-				console.log(data);
-			}
-		});
-	};
-	
-	// get ของ branch operation management
-	var getDataBranchOperationFn = function() {
-		$.ajax({
-			url : restfulURL + "/api/dqs_branch",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listBranchOperationFn(data);
 				console.log(data);
 			}
 		});

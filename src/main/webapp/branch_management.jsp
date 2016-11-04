@@ -81,9 +81,8 @@
 				    </div>
 				</div>
 
-		
                 <div class="row">
-
+                
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                         
@@ -95,7 +94,7 @@
 								<div class="row">
 								
                                     <div class="col-sm-9 m-b-xs">
-                                    	<button type="button" class="btn btn-info edit_table" ><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+                                    	<button type="button" class="btn btn-info edit_table" id="btnEditBranchOperation" data-target="#editModalBranch" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
                                     	<button type="button" class="btn btn-warning " id="btnSave"><i class="fa fa-save"></i>&nbsp;Save</button>
                                     	<button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
@@ -105,6 +104,7 @@
                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
                                     </div>
                                     
+                                    <input type="hidden" name="id" id="id" value="">
                                     <input type="hidden" name="action" id="action" value="add">
                              	</div>
                              
@@ -323,7 +323,7 @@
 
 <!-- Modal Start -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModal" class="modal inmodal" style="display: none;">
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalBranch" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
     
@@ -344,7 +344,7 @@
 	                </div>
 	                
 	                <div class="form-input-branch-management">
-	                	<input type="text" class="form-control" placeholder="">
+	                	<input type="text" class="form-control" placeholder="" id=branchOperationName>
 	                </div>
 	                
 	                <br style="clear:both">
@@ -368,7 +368,10 @@
                 </div>
                 <br>
                 
-                <div class="">
+                <div >
+                	<input type="hidden" name="id" id="id" value="">
+   					<input type="hidden" name="action" id="action" value="add">
+                	
                 	<button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
                 	<button class="btn btn-primary" type="button">Save</button>
             	</div>
@@ -384,42 +387,42 @@
 					            <th>Branch Operation<br>Code</th>
 					            <th>Branch Operation<br>Name</th>
 					            <th>Cost Center</th>
-					            <th>Edit</th>
-					            <th>Delete</th>
+					            <th>Manage</th>
+					            
 			                </tr>
 		                </thead>
-		                <tbody>
+		                <tbody id="branchOparation">
 			                <tr>
 				                <td><div class='text-inline-table'>1</div></td>
 					            <td><div class='text-inline-table'>LINE01</div></td>
 					            <td><div class='text-inline-table'>Branch Name1</div></td>
 					            <td><div class='text-inline-table'>Cost Center1</div></td>
-				                <td><i class="fa fa-pencil-square-o font-gear-branch"></i></td>
-				                <td><i class="fa fa-trash-o font-gear-branch"></i></td>
+				                <td><i class="fa fa-cog font-gear-branch" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i></td>
+				               
 			                </tr>
 			                <tr>
 				                <td><div class='text-inline-table'>1</div></td>
 					            <td><div class='text-inline-table'>LINE01</div></td>
 					            <td><div class='text-inline-table'>Branch Name1</div></td>
 					            <td><div class='text-inline-table'>Cost Center1</div></td>
-				                <td><i class="fa fa-pencil-square-o font-gear-branch"></i></td>
-				                <td><i class="fa fa-trash-o font-gear-branch"></i></td>
+				                <td><i class="fa fa-cog font-gear-branch" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i></td>
+				                
 			                </tr>
 			                <tr>
 				                <td><div class='text-inline-table'>1</div></td>
 					            <td><div class='text-inline-table'>LINE01</div></td>
 					            <td><div class='text-inline-table'>Branch Name1</div></td>
 					            <td><div class='text-inline-table'>Cost Center1</div></td>
-				                <td><i class="fa fa-pencil-square-o font-gear-branch"></i></td>
-				                <td><i class="fa fa-trash-o font-gear-branch"></i></td>
+				                <td><i class="fa fa-cog font-gear-branch" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i></td>
+				                
 			                </tr>
 			                <tr>
 				                <td><div class='text-inline-table'>1</div></td>
 					            <td><div class='text-inline-table'>LINE01</div></td>
 					            <td><div class='text-inline-table'>Branch Name1</div></td>
 					            <td><div class='text-inline-table'>Cost Center1</div></td>
-				                <td><i class="fa fa-pencil-square-o font-gear-branch"></i></td>
-				                <td><i class="fa fa-trash-o font-gear-branch"></i></td>
+				                <td><i class="fa fa-cog font-gear-branch" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i></td>
+				                
 			                </tr>
 		                </tbody>
 	                </table>
@@ -433,7 +436,7 @@
                 
                 <!-- form end -->
                 <!-- content end -->
-
+				
         </div>
     </div>
 </div>

@@ -103,66 +103,47 @@ $(document).ready(function(){
 	
 	var updateFn = function() {
 		
-		var closeflagCheckbox = "";
-		var embed_closeflag="";
-		var embed_closeflag_obj="";
-		embed_closeflag_obj=$(".embed_closeflag").get();
+		/*var closeflagCheckbox = "";
+		var embed_closeflag="";*/
 		
-		$.each($(".embed_closeflag").get(),function(index,indexEntry){
-			//alert($(indexEntry).val());
+		/*var embed_closeflag_obj="";
+	
+		embed_closeflag_obj=$(".embed_closeflag").get();*/
+		
+		$.each($(".seqFileManage").get(),function(index,indexEntry){
+			alert($(indexEntry).val());
 			var id=$(indexEntry).val();
 			//alert($(indexEntry).attr("id"));
-			if($("#closeCheckbox-"+id).prop('checked')){ 
+			/*if($("#closeCheckbox-"+id).prop('checked')){ 
 	        	closeflagCheckbox = 1;
 	        }else{ 
 	        	closeflagCheckbox = 0;
-	        }
+	        }*/
 			
 			$.ajax({
 				url:restfulURL+"/api/dqs_file/"+id,
 				type : "PUT",
 				dataType : "json",
-				data : {"close_flag" :closeflagCheckbox},
+				data : {"process_seq":$("#seqFileManage").val()},
 				async:false,
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
-						
+						alert("Upate Success");
 					}
 				}
 			});
 
 		});
-		alert("Upate Success");
+		/*alert("Upate Success");
 		getDataFn();
 		clearFn();
-		$('#addModalRule').modal('hide');
+		$('#addModalRule').modal('hide');*/
 		
 		
-		console.log($(".embed_closeflag").get());
+		//console.log($(".embed_closeflag").get());
 		
-		/*
-		if($("#closeCheckbox-"+$("#embed_closeflag_id").val()).prop('checked')){ 
-        	closeflagCheckbox = 1;
-        }else{ 
-        	closeflagCheckbox = 0;
-        }
 		
-		$.ajax({
-			url:restfulURL+"/api/dqs_file/"+$("#embed_closeflag_id").val(),
-			type : "PUT",
-			dataType : "json",
-			data : {"close_flag" :closeflagCheckbox},
-			success : function(data) {
-				if (data = "success") {
-					alert("Upate Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		*/
 		return false;
 	};
 	
@@ -180,20 +161,18 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				
 				$("#branchOperationName").val(data['desc']);
-			
 			}
 		});
 	};
 	
 	var searchFn = function(searchText) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_file/?desc__regex=/^"+searchText+"/i",
+			url : restfulURL + "/api/dqs_file/?file_name__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				listBranchFn(data);
+				listFileFn(data);
 			}
 		});
 	}
@@ -204,43 +183,52 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				listBranchFn(data);
+				listFileFn(data);
 			}
 		});
 	}
 	
-	var listBranchFn = function(data) {
+	var listFileFn = function(data) {
 		console.log(data);
 		var htmlTable = "";
 		//var close = $(indexEntry["close_flag"]);
 
 		$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		//htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["processing_seq"]+ "</td>";
+		htmlTable += "<tr>"; 
+		//htmlTable += "<td>"+ (index + 1)+ "</td>"; 
+		htmlTable+="<td><input class=\"form-control input-inline-table input-seq seqFile\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
+		//htmlTable += "<td>"+ indexEntry["processing_seq"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["contact_type"]+ "</td>";
+		
+		if(indexEntry["contact_type"]==1){
+		htmlTable+="<td><select class=\"form-control input-inline-table select-contact\" id=contacttype-"+indexEntry["_id"]+"><option selected >contact ON</option> <option>contact OFF</option></select></td>";
+		}else if (indexEntry["contact_type"]==0){
+		htmlTable+="<td><select class=\"form-control input-inline-table select-contact\" id=contacttype-"+indexEntry["_id"]+"><option  >contact ON</option> <option selected>contact OFF</option></select></td>";
+		}
+		//htmlTable += "<td>"+ indexEntry["contact_type"]+ "</td>";
 		
 		if(indexEntry["kpi_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=kpiCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["kpi_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=kpiCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	 
 		
 		if(indexEntry["last_contact_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=lastContactCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["last_contact_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=lastContactCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	
 		
 		if(indexEntry["source_file_delete_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=sourceFileCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["source_file_delete_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=sourceFileCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	
-		htmlTable += "<td>"+ indexEntry["nof_date_date"]+ "</td>";
+		
+		htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
+		//htmlTable += "<td>"+ indexEntry["nof_date_date"]+ "</td>";
 		
 		htmlTable += "</tr>";
 		});
@@ -252,26 +240,31 @@ $(document).ready(function(){
 		
 		//ปุ่ม Edit ใน table
 		$(".editCheckboxCloseFlag").click(function(){
-			
 			var id = this.id.split("-"); 
-			
-			//alert(id[1]);
 			embedParam(id[1]);
-			//$("#embed_closeflag_id").remove();	
-			//$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id[1]+"' name='embed_closeflag-"+id[1]+"' value='"+id[1]+"'>");	
+		});
+		
+		$(".seqFile").click(function(){
+			var id = this.id.split("-"); 
+			embedParam(id[1]);
+			alert(id[1]);
 		});
 		
 		//ปุ่ม Save
 		$("#btnSave").click(function(){
 	        updateFn();
+			
+			
+			
 		});
 			
 	};
+	// Click แล้ว ฝังข้อมูล
 	var embedParam = function(id){
 		//alert(id);
 		var count = 0;
 		
-		$.each($(".embed_closeflag").get(),function(index,indexEnry){
+		$.each($(".seqFileManage").get(),function(index,indexEnry){
 		//ถ้า id ที่วน == id ที่มี	
 			if($(indexEnry).val()==id){
 				count+=1;
@@ -279,10 +272,10 @@ $(document).ready(function(){
 		});
 		
 		if(count>0){
-			$("#embed_closeflag-"+id).remove();
-			$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id+"' name='embed_closeflag-"+id+"' value='"+id+"'>");
+			$("#seqFileManage-"+id).remove();
+			$("body").append("<input type='hidden' class='seqFileManage' id='seqFileManage' name='seqFileManage-"+id+"' >");
 		}else{
-			$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id+"' name='embed_closeflag-"+id+"' value='"+id+"'>");
+			$("body").append("<input type='hidden' class='seqFileManage' id='seqFileManage' name='seqFileManage-"+id+"' >");
 		}
 		
 	}
@@ -294,7 +287,7 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				listBranchFn(data);
+				listFileFn(data);
 				console.log(data);
 			}
 		});
@@ -304,7 +297,7 @@ $(document).ready(function(){
 	  getDataFn();
 	
 	$("#btnSearch").click(function(){
-		searchFn($("#searchBranch").val());
+		searchFn($("#searchFileName").val());
 		return false;
 	});
 	

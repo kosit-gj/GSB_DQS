@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    
+    <link href="css/file_management.css" rel="stylesheet">
     
     
     
@@ -123,6 +123,7 @@
                                     </a>
                                 </div>
                                  -->
+                                 
                             </div>
                             <div class="ibox-content">
                             
@@ -130,26 +131,18 @@
                                     <div class="col-sm-9 m-b-xs">
                                     
                                     <button type="button" class="btn btn-info " data-target="#editModal" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
-                                    <button type="button" class="btn btn-warning " data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
+                                    <button type="button" class="btn btn-warning " id="btnSave" data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
                                     <button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
                                     
                                      <div class="col-sm-3">
-	                                     <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                         <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+	                                     <div class="input-group"><input type="text" placeholder="Search" id="searchFileName" class="input-sm form-control"> <span class="input-group-btn">
+                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
                                      </div>
                              </div>
                              
                                 <div class="row">
                                     <div class="col-sm-9 m-b-xs">
-                                    
-                                    
-                                    
-                                    
-                                    
-                                  
-					
-					
 					
 										<div class="btn-group">
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
@@ -159,10 +152,7 @@
 					                        <button class="btn btn-white">4</button>
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
 					                    </div>
-                    
-                 
-                            
-			
+
 										<!-- 
                                         <div data-toggle="buttons" class="btn-group">
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
@@ -221,14 +211,12 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                        
-                                        
-                                            	
+   	
                                             	<!-- check box end -->
                                             </td>
                                             <td>
@@ -276,7 +264,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -331,7 +319,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -386,7 +374,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -441,7 +429,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -496,7 +484,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -551,7 +539,7 @@
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
-		                                            <input type="checkbox" checked="" id="checkbox2">
+		                                            <input type="checkbox" checked id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
@@ -587,11 +575,7 @@
                                             </td>
                                         </tr>
                                        
-                                       
-                                       
-                                       
-                                       
-                                       
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -611,9 +595,6 @@
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
 					                    </div>
                     
-                 
-                            
-			
 										<!-- 
                                         <div data-toggle="buttons" class="btn-group">
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>

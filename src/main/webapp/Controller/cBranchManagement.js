@@ -117,7 +117,7 @@ $(document).ready(function(){
 	        }else{ 
 	        	closeflagCheckbox = 0;
 	        }
-			
+			alert(closeflagCheckbox);
 			$.ajax({
 				url:restfulURL+"/api/dqs_branch/"+id,
 				type : "PUT",
@@ -138,31 +138,8 @@ $(document).ready(function(){
 		clearFn();
 		$('#addModalRule').modal('hide');
 		
-		
 		console.log($(".embed_closeflag").get());
-		
-		/*
-		if($("#closeCheckbox-"+$("#embed_closeflag_id").val()).prop('checked')){ 
-        	closeflagCheckbox = 1;
-        }else{ 
-        	closeflagCheckbox = 0;
-        }
-		
-		$.ajax({
-			url:restfulURL+"/api/dqs_branch/"+$("#embed_closeflag_id").val(),
-			type : "PUT",
-			dataType : "json",
-			data : {"close_flag" :closeflagCheckbox},
-			success : function(data) {
-				if (data = "success") {
-					alert("Upate Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		*/
+	
 		return false;
 	};
 	

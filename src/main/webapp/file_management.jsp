@@ -15,14 +15,12 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    <link href="css/file_management.css" rel="stylesheet">
-    
-    
-    
+
+     
     
     <link href="css/style.css" rel="stylesheet">
-     <link href="css/gsbMain.css" rel="stylesheet">
-
+    <link href="css/gsbMain.css" rel="stylesheet">
+	<link href="css/file_management.css" rel="stylesheet">
 
 </head>
 
@@ -130,9 +128,9 @@
                              <div class="row">
                                     <div class="col-sm-9 m-b-xs">
                                     
-                                    <button type="button" class="btn btn-info " data-target="#editModal" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
-                                    <button type="button" class="btn btn-warning " id="btnSave" data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
-                                    <button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
+                                    <button type="button" class="btn btn-info" id="btnEdit" data-target="#editModal" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+                                    <button type="button" class="btn btn-warning" id="btnSave" data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
+                                    <button type="button" class="btn btn-danger" id="btnCancle"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
                                     
                                      <div class="col-sm-3">

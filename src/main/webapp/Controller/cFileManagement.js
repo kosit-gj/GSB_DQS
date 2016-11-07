@@ -103,48 +103,154 @@ $(document).ready(function(){
 	
 	var updateFn = function() {
 		
-		/*var closeflagCheckbox = "";
-		var embed_closeflag="";*/
-		
-		/*var embed_closeflag_obj="";
 	
-		embed_closeflag_obj=$(".embed_closeflag").get();*/
-		
-		$.each($(".seqFileManage").get(),function(index,indexEntry){
-			alert($(indexEntry).val());
+		$.each($(".embed_contactType").get(),function(index,indexEntry){
 			var id=$(indexEntry).val();
-			//alert($(indexEntry).attr("id"));
-			/*if($("#closeCheckbox-"+id).prop('checked')){ 
-	        	closeflagCheckbox = 1;
-	        }else{ 
-	        	closeflagCheckbox = 0;
-	        }*/
-			
 			$.ajax({
 				url:restfulURL+"/api/dqs_file/"+id,
 				type : "PUT",
 				dataType : "json",
-				data : {"process_seq":$("#seqFileManage").val()},
+				data : {"contact_type" : $("#contacttype").val()},
+				success : function(data) {
+					if (data = "success") {
+						alert("Update Success");
+						getDataFn();
+						clearFn();
+						//$('#addModalRule').modal('hide');
+					}
+				}
+			});
+		});
+		
+		var kpiflagCheckbox = "";
+		
+		$.each($(".embed_kpiflag").get(),function(index,indexEntry){
+		
+			var id=$(indexEntry).val();
+			if($("#kpiCheckbox-"+id).prop('checked')){ 
+				kpiflagCheckbox = 1;
+	        }else{ 
+	        	kpiflagCheckbox = 0;
+	        }
+			//alert(closeflagCheckbox);
+			$.ajax({
+				url:restfulURL+"/api/dqs_file/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"kpi_flag" :kpiflagCheckbox},
 				async:false,
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
-						alert("Upate Success");
 					}
 				}
 			});
 
 		});
-		/*alert("Upate Success");
+		
+		var lastcontactCheckbox = "";
+		
+		$.each($(".embed_lastcontact").get(),function(index,indexEntry){
+		
+			var id=$(indexEntry).val();
+			if($("#lastContactCheckbox-"+id).prop('checked')){ 
+	        	lastcontactCheckbox = 1;
+	        }else{ 
+	        	lastcontactCheckbox = 0;
+	        }
+			//alert(closeflagCheckbox);
+			$.ajax({
+				url:restfulURL+"/api/dqs_file/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"last_contact_flag" :lastcontactCheckbox},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						//console.log("Upate Success");
+					}
+				}
+			});
+
+		});
+		 
+		var closeflagCheckbox = "";
+		
+		$.each($(".embed_closeflag").get(),function(index,indexEntry){
+		
+			var id=$(indexEntry).val();
+			if($("#sourceFileDeleteCheckbox-"+id).prop('checked')){ 
+	        	closeflagCheckbox = 1;
+	        }else{ 
+	        	closeflagCheckbox = 0;
+	        }
+			//alert(closeflagCheckbox);
+			$.ajax({
+				url:restfulURL+"/api/dqs_file/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"source_file_delete_flag" :closeflagCheckbox},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						//console.log("Upate Success");
+					}
+				}
+			});
+
+		});
+		
+		//alert( $("#seqFileManage-"+$("#seqFileManage").val()).val() );
+		$.each($(".embed_dateFile").get(),function(index,indexEntry){
+			
+			//alert($(indexEntry).val());
+			var id = $(indexEntry).val();
+					
+			$.ajax({
+				url:restfulURL+"/api/dqs_file/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"nof_date_date":$("#dateFileManage-"+id).val()},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						$(".embed_dateFile").remove(); 
+						//console.log("Upate Success");
+						//alert("Upate Success");
+					} 
+				}
+			});
+
+		});
+		 
+		$.each($(".embed_seqFile").get(),function(index,indexEntry){
+			
+			//alert($(indexEntry).val());
+			var id = $(indexEntry).val();
+					
+			$.ajax({
+				url:restfulURL+"/api/dqs_file/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"processing_seq":$("#seqFileManage-"+id).val()}, 
+				async:false,
+				success : function(data) {
+					if (data = "success") { 
+						$(".embed_seqFile").remove();
+						//console.log("Upate Success");
+						//alert("Upate Success");
+					} 
+				}
+			});
+			return false; 
+		});
+		
+		alert("Upate Success");
 		getDataFn();
 		clearFn();
-		$('#addModalRule').modal('hide');*/
-		
-		
-		//console.log($(".embed_closeflag").get());
-		
-		
+
 		return false;
+	
 	};
 	
 	var clearFn = function() {
@@ -189,46 +295,54 @@ $(document).ready(function(){
 	}
 	
 	var listFileFn = function(data) {
+		
 		console.log(data);
+		
 		var htmlTable = "";
 		//var close = $(indexEntry["close_flag"]);
 
 		$.each(data,function(index,indexEntry) {
+				
 		htmlTable += "<tr>"; 
-		//htmlTable += "<td>"+ (index + 1)+ "</td>"; 
-		htmlTable+="<td><input class=\"form-control input-inline-table input-seq seqFile\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
-		//htmlTable += "<td>"+ indexEntry["processing_seq"]+ "</td>";
+		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
 		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";
 		
-		if(indexEntry["contact_type"]==1){
-		htmlTable+="<td><select class=\"form-control input-inline-table select-contact\" id=contacttype-"+indexEntry["_id"]+"><option selected >contact ON</option> <option>contact OFF</option></select></td>";
-		}else if (indexEntry["contact_type"]==0){
-		htmlTable+="<td><select class=\"form-control input-inline-table select-contact\" id=contacttype-"+indexEntry["_id"]+"><option  >contact ON</option> <option selected>contact OFF</option></select></td>";
+		
+		
+		if(indexEntry["contact_type"]==4){
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='4'>Email</option> <option value='3'>Telephone</option> <option value='2'>Home</option> <option value='1'>Office</option></select></td>";
 		}
-		//htmlTable += "<td>"+ indexEntry["contact_type"]+ "</td>";
+		else if (indexEntry["contact_type"]==3){
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='3'>Telephone</option> <option value='4'>Email</option> <option value='2'>Home</option> <option value='1'>Office</option></select></select></td>";
+		}
+		else if (indexEntry["contact_type"]==2){
+			htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='2'>Home</option> <option value='4'>Email</option> <option value='3'>Telephone</option> <option value='1'>Office</option></select></select></td>";
+		}
+		else if (indexEntry["contact_type"]==1){
+			htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='1'>Office</option> <option value='4'>Email</option> <option value='3'>Telephone</option> <option value='2'>Home</option></select></select></td>";
+		}
 		
 		if(indexEntry["kpi_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=kpiCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["kpi_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=kpiCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	 
 		
 		if(indexEntry["last_contact_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=lastContactCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["last_contact_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=lastContactCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	
 		
 		if(indexEntry["source_file_delete_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=sourceFileCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["source_file_delete_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=sourceFileCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	
 		
-		htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
-		//htmlTable += "<td>"+ indexEntry["nof_date_date"]+ "</td>";
+		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
 		
 		htmlTable += "</tr>";
 		});
@@ -236,35 +350,64 @@ $(document).ready(function(){
 		$("#dataFileManagement").html(htmlTable);
 		
 		//function popover
-		$(".popover-edit-del").popover();
+		//$(".popover-edit-del").popover();
 		
-		//ปุ่ม Edit ใน table
-		$(".editCheckboxCloseFlag").click(function(){
+		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".selectContact").click(function(){		
 			var id = this.id.split("-"); 
-			embedParam(id[1]);
+			embedParamSelectContact(id[1]);
+			//alert(id[1]);		
 		});
 		
-		$(".seqFile").click(function(){
+		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".editkpiCheckbox").click(function(){		
 			var id = this.id.split("-"); 
-			embedParam(id[1]);
-			alert(id[1]);
+			embedParamCheckboxKPI(id[1]);
+			//alert(id[1]);		
 		});
+		
+		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".editlastContact").click(function(){		
+			var id = this.id.split("-"); 
+			embedParamCheckboxContact(id[1]);
+			//alert(id[1]);		
+		});
+		
+		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".editCheckboxCloseFlag").click(function(){		
+			var id = this.id.split("-"); 
+			embedParamCheckboxDelete(id[1]);
+			//alert(id[1]);		
+		});
+		
+		//click ที่ seq แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".seqFile").click(function(){		
+			var id = this.id.split("-"); 
+			embedParamSeq(id[1]);
+			//alert(id[1]);		
+		});
+		//click ที่ date แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".dateFile").click(function(){		
+			var id = this.id.split("-"); 
+			embedParamDate(id[1]);
+			//alert(id[1]);		
+		});
+	
 		
 		//ปุ่ม Save
 		$("#btnSave").click(function(){
-	        updateFn();
-			
-			
-			
+	        updateFn();	
 		});
 			
 	};
+	
+	
 	// Click แล้ว ฝังข้อมูล
-	var embedParam = function(id){
+	var embedParamSelectContact = function(id){
 		//alert(id);
 		var count = 0;
 		
-		$.each($(".seqFileManage").get(),function(index,indexEnry){
+		$.each($(".embed_contactType").get(),function(index,indexEnry){
 		//ถ้า id ที่วน == id ที่มี	
 			if($(indexEnry).val()==id){
 				count+=1;
@@ -272,13 +415,116 @@ $(document).ready(function(){
 		});
 		
 		if(count>0){
-			$("#seqFileManage-"+id).remove();
-			$("body").append("<input type='hidden' class='seqFileManage' id='seqFileManage' name='seqFileManage-"+id+"' >");
+			$("#embed_contactType-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_contactType' id='embed_contactType-"+id+"' name='embed_contactType-"+id+"' value='"+id+"'>");
 		}else{
-			$("body").append("<input type='hidden' class='seqFileManage' id='seqFileManage' name='seqFileManage-"+id+"' >");
+			$("body").append("<input type='hidden' class='embed_contactType' id='embed_contactType-"+id+"' name='embed_contactType-"+id+"' value='"+id+"'>");
 		}
 		
 	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamCheckboxKPI = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_kpiflag").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_kpiflag-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_kpiflag' id='embed_kpiflag-"+id+"' name='embed_kpiflag-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_kpiflag' id='embed_kpiflag-"+id+"' name='embed_kpiflag-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamCheckboxContact = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_lastcontact").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_lastcontact-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_lastcontact' id='embed_lastcontact-"+id+"' name='embed_lastcontact-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_lastcontact' id='embed_lastcontact-"+id+"' name='embed_lastcontact-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamCheckboxDelete = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_closeflag").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_closeflag-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id+"' name='embed_closeflag-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id+"' name='embed_closeflag-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamSeq = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_seqFile").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_seqFileManage").remove();
+			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
+		}	
+	};
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamDate = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_dateFile").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_dateFileManage").remove();
+			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
+		}	
+	};
 	
 	// get ของ branch management
 	var getDataFn = function() {
@@ -320,11 +566,19 @@ $(document).ready(function(){
 		return false;
 	});*/
 	
-	$(".btnCancle").click(function() {
+	$("#btnCancle").click(function() {
 		clearFn();
+		getDataFn();
 	});
 	
-	$("#btnEditBranchOperation").click(function() {
-		getDataBranchOperationFn();
+	$("#btnEdit").click(function() {
+		$(".seqFile").removeAttr("disabled");
+		$(".dateFile").removeAttr("disabled");
+		$(".editCheckboxCloseFlag").removeAttr("disabled");
+		$(".editlastContact").removeAttr("disabled");
+		$(".editkpiCheckbox").removeAttr("disabled"); 
+		$(".selectContact").removeAttr("disabled"); 
+		
+		
 	});
 });

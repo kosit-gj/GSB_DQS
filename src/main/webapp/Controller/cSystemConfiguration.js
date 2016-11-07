@@ -94,8 +94,9 @@ $(document).ready(
 						   });
 					  }; 
 				
+					
+					
 		  var listDataFn = function(data){
-			
 			   console.log(data);
 			   var htmlTable="";
 			   $.each(data,function(index,indexEntry){
@@ -148,10 +149,93 @@ $(document).ready(
 						    success:function(data){
 						     
 						     listDataFn(data);
+						     rootDirectory();
+						     citizenMaxRecord();
+						     mobileMaxRecord();
+						     exDateDelete();
 						 }
 				  });
 			};
 		
+			
+			
+			
+			var rootDirectory = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_system_config" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<input class=\"form-control input-dataroot\" type=\"text\" id=\"\" value="+indexEntry["export_file_path"]+">";		
+							});	
+							$("#listRootDirectory").html(htmlTable);
+						}
+				});
+			};
+			
+			
+			var citizenMaxRecord = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_system_config" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<input class=\"form-control input-data\" type=\"text\" id=\"\" value="+indexEntry["export_citizen_max_record"]+">";		
+							});	
+							$("#citizenMaxRecord").html(htmlTable);
+						}
+				});
+			};
+			
+			var mobileMaxRecord = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_system_config" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<input class=\"form-control input-data\" type=\"text\" id=\"\" value="+indexEntry["export_mobile_max_record"]+">";		
+							});	
+							$("#mobileMaxRecord").html(htmlTable);
+						}
+				});
+			};
+			
+			var exDateDelete = function(data){
+				$.ajax ({
+					url:restfulURL+"/api/dqs_system_config" ,
+					type:"get" ,
+					dataType:"json" ,
+						success:function(data){
+							var htmlTable="";
+							$.each(data,function(index,indexEntry){
+								
+								htmlTable+="<input class=\"form-control input-data\" type=\"text\" id=\"\" value="+indexEntry["export_nof_date_delete"]+">";		
+							});	
+							$("#exDateDelete").html(htmlTable);
+						}
+				});
+			};
+			
+			
+				/*var includeate = "";
+
+			 	if($("#export_include_date_flag:checked").val()){
+			 		includeate = 1;
+				}else if($("#export_include_date_flag:checked").val()){
+					includeate = 0;
+				}*/
+			 	
+			
+			
 			
 			
 			getDataFn();

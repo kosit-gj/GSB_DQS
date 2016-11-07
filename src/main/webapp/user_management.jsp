@@ -159,14 +159,17 @@
                              
 	                             <div class="row">
 	                                    <div class="col-sm-8 m-b-xs">
-		                                    <button type="button" class="btn btn-info "><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
-		                                    <button type="button" class="btn btn-warning "><i class="fa fa-save"></i>&nbsp;Save</button>
-		                                    <button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
+		                                    <button type="button" class="btn btn-info " id="btnEdit"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+		                                    <button type="button" class="btn btn-warning " id="btnSave"><i class="fa fa-save"></i>&nbsp;Save</button>
+		                                    <button type="button" class="btn btn-danger " id="btnCancel"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
 	                                    </div>
 	                                     <div class="col-sm-4">
 		                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
 	                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
 	                                     </div>
+	                                     
+	                                      <input type="hidden" name="id" id="id" value="">
+                                    	  <input type="hidden" name="action" id="action" value="add">
 	                             </div>
                              
 	                                <div class="row">

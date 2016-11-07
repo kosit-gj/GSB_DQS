@@ -221,8 +221,8 @@
 												<div class="col-sm-3" >
 													<label>Root directory &nbsp;:</label>
 												</div>
-												<div class="col-sm-6" align="left">
-													<input class="form-control input-dataroot" id="export_file_path" placeholder="">
+												<div class="col-sm-6" align="left" id="listRootDirectory">
+													<input class="form-control input-dataroot" id="" placeholder="">
 												</div>
 											</div>
 										</div>
@@ -232,16 +232,16 @@
 												<div class="col-sm-3 form-data" >
 													<label>Maximum record for citizen file&nbsp; :</label>
 												</div>
-												<div class="col-sm-1 form-data" align="left">
+												<div class="col-sm-1 form-data" align="left" id="citizenMaxRecord">
 													<input class="form-control input-data" id="export_citizen_max_record" placeholder="">
 												</div>
 												<div class="col-sm-2 form-data" align="right">
 													<label style="padding-left:10px">Records</label>
 												</div>
-												<div class="col-sm-3 form-data" align="right">
+												<div class="col-sm-3 form-data" align="right" > 
 													<label>Maximum record for mobile file &nbsp;:</label>
 												</div>
-												<div class="col-sm-2 form-data" align="left">
+												<div class="col-sm-2 form-data" align="left" id="mobileMaxRecord">
 													<input class="form-control input-data" id="export_mobile_max_record" placeholder="">
 												</div>
 												<div class="col-sm-1 form-data" align="right">
@@ -257,18 +257,18 @@
 												</div>
 												<div class="col-sm-3 form-data" align="left">
 													<div class="radio radio-info radio-inline">
-								                               <input type="radio" checked="" name="radioInline" value="option1" id="inlineRadio1">
+								                               <input type="radio" checked name="radioInline" value="option1" id="">
 								                               <label for="inlineRadio1"> Yes </label>
 								                    </div>
 								                    <div class="radio radio-inline">
-								                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
+								                              <input type="radio" name="radioInline" value="option2" id="">
 								                              <label for="inlineRadio2"> No </label>
 								                    </div>
 												</div>
 												<div class="col-sm-3 form-data" align="right">
 													<label>Delete file older then &nbsp;:</label>
 												</div>
-												<div class="col-sm-2 form-data" align="left">
+												<div class="col-sm-2 form-data" align="left" id="exDateDelete">
 													<input class="form-control input-data" id="export_nof_date_delete" placeholder="">
 												</div>
 												<div class="col-sm-1 form-data" align="left">
@@ -340,12 +340,12 @@
 												</div>
 												<div class="col-sm-3 form-data" align="left">
 													<div class="radio radio-info radio-inline">
-								                               <input type="radio" checked="" name="radioInline" value="option1" id="inlineRadio1">
-								                               <label for="inlineRadio1"> Yes </label>
+								                               <input type="radio" checked name="radioInline" value="option3" id="">
+								                               <label for="inlineRadio3"> Yes </label>
 								                    </div>
 								                    <div class="radio radio-inline">
-								                              <input type="radio" name="radioInline" value="option2" id="inlineRadio2">
-								                              <label for="inlineRadio2"> No </label>
+								                              <input type="radio" name="radioInline" value="option4" id="">
+								                              <label for="inlineRadio4"> No </label>
 								                    </div>
 												</div>
 											</div>

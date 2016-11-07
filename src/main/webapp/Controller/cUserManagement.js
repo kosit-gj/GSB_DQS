@@ -3,7 +3,7 @@ $(document).ready(
 
 		var restfulURL = "http://192.168.1.100:3001";
 		
-		 var checkUniqueFn = function(text){
+		 /*var checkUniqueFn = function(text){
 				   var unique=false; 
 					   $.ajax({
 						    url:restfulURL+"/api/dqs_user?grade="+text+"",
@@ -24,10 +24,10 @@ $(document).ready(
 						    }
 					   });
 				   return unique;
-				  }
+				  }*/
 		
 
-		   var validationFn = function(){
+		   /*var validationFn = function(){
 				   var validateText="";
 					   if($("#grade").val()==""){
 					    	validateText+="name not empty\n";
@@ -48,9 +48,9 @@ $(document).ready(
 					   }else{
 					   		return true;
 					   }
-				  }
+				  }*/
 		
-		 var insertFn = function(){
+	/*	 var insertFn = function(){
 				
 				    $.ajax({
 					     url:restfulURL+"/api/dqs_user",
@@ -70,16 +70,18 @@ $(document).ready(
 				    });         
 				
 				    return false;
-		 		};
-				
+		 		};*/
 
 		 var updateFn = function(){
+				
+			 $.each($(".embed_Super_Flagg").get(),function(index,indexEntry){
+					var id=$(indexEntry).val();
 					
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_user/"+$("#id").val(),
+				 $.ajax({
+					    url:restfulURL+"/api/dqs_user/"+id,
 					    type:"PUT",
 					    dataType:"json",
-					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
+					    data:{"super_flag":$("#operation-"+id).val()},
 					    success:function(data,status){
 					     //alert(data);
 						     if(status=="success"){
@@ -89,20 +91,21 @@ $(document).ready(
 						     }
 						    }
 					   });
+			 });
+			 
 				   return false;
 			 };
 
-			 var clearFn =function(){
+			 
+			 
+			 var clearFn = function(){
 					
 					   $("#id").val("");
 					   $("#action").val("add");
-					   $("#grade").val("");
-					   $("#grade_name").val("");
-					   $("#process_seq").val("");
-					   $("#btnSubmit").val("Add");
-					   $('#addModal').modal('hide');
 			}
-		 var findOneFn = function(id){
+			 
+			 
+		/* var findOneFn = function(id){
 				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_user/"+id,
@@ -110,11 +113,9 @@ $(document).ready(
 					    dataType:"json",
 					    success:function(data){
 					      $("#grade").val(data['grade']);
-						  $("#grade_name").val(data['grade_name']);
-					      $("#process_seq").val(data['process_seq']);
 				    	}
 				   });
-			  };
+			  };*/
 		
 			  var searchFn = function(searchText){
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
@@ -135,7 +136,7 @@ $(document).ready(
 						
 						   console.log(data);
 						   var htmlTable="";
-						 $("#listUser").empty();
+						 //$("#listUser").empty();
 						   $.each(data,function(index,indexEntry){
 							
 						    //console.log(indexEntry);
@@ -146,48 +147,71 @@ $(document).ready(
 								   	  htmlTable+="<td>"+indexEntry["own_cost_center"]+"</td>";
 									  htmlTable+="<td>"+indexEntry["revised_cost_center"]+"</td>";
 									  htmlTable+="<td>"+indexEntry["role_id"]+" </td>";
-									  htmlTable+="<td><select class=\"form-control input-inline-table input-contact-selecttype\" id=\"listBranchOper-"+indexEntry["_id"]+"\">"+dropDownListBranchOper(indexEntry["_id"])+"</select></td>";
-								htmlTable+="</tr>";
+									  
+									  htmlTable+="<td>";
+										if(indexEntry["super_flag"] == "All Branch"){
+											 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editSuperFlag\" id=operation-"+indexEntry["_id"]+"><option selected >All Branch</option> <option>Line</option></select>";
+										}else{
+											 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editSuperFlag\" id=operation-"+indexEntry["_id"]+"><option>All Branch</option> <option selected >Line</option></select>";
+										}
+							          htmlTable+="</td>"; 
+									  
+									  /*htmlTable+="<td>";
+										  if(indexEntry["super_flag"]){
+											  htmlTable+="<select class=\"form-control input-inline-table input-contact-selecttype  editSuperFlag\" id=\"listBranchOper-"+indexEntry["_id"]+"\">"+listBranchOper(indexEntry["_id"])+"</select>";
+										  }else{
+											  htmlTable+="<select class=\"form-control input-inline-table input-contact-selecttype  editSuperFlag\" id=\"listBranchOper-"+indexEntry["_id"]+"\">"+listBranchOper(indexEntry["_id"])+"</select>";
+										  }
+									  htmlTable+="</td>";*/
+									  
+							     htmlTable+="</tr>";
 								
 						   });
 						
 						  $("#listUser").html(htmlTable);
-						   
-						   
-						  //popover 
-						$(".popover-del-edit").popover();
 						
-						//delete
-						$(".popover-del-edit").click(function(){
-							//findOnd
-							$(".edit").on("click",function(){
-								    findOneFn(this.id);
-								    $("#id").val(this.id);
-								    $("#action").val("edit");
-								    $("#btnSubmit").val("Edit");
-								});
+						
+						//ปุ่ม Edit ใน table
+						$(".editSuperFlag").click(function(){
 							
-						   $(".del").click(function(){
-						    if(confirm("Do you want to delete this file?")){
-						     $.ajax({
-							      url:restfulURL+"/api/dqs_user/"+this.id,
-							      type:"delete",
-							      dataType:"json",
-							      //data:{"_id":this.id},
-								      success:function(data){       
-								       
-								       getDataFn();
-								       clearFn();
+							var id = this.id.split("-"); 
+							
+							//alert(id[1]);
+							embedParam(id[1]);
+							
+						});
 						
-				     			 }
-				   			  });
-				   		   }
-				  	 });
+						//ปุ่ม Save
+						$("#btnSave").click(function(){
+					        updateFn();
+					        //alert("btnSave");
+						});
+			
+			};
+			
+			
+			var embedParam = function(id){
+				//alert(id);
+				var count = 0;
+				
+				$.each($(".embed_Super_Flagg").get(),function(index,indexEnry){
+				//ถ้า id ที่วน == id ที่มี	
+					if($(indexEnry).val()==id){
+						count+=1;
+					}
 				});
+				
+				if(count>0){
+					$("#embed_SuperFlag-"+id).remove();
+					$("body").append("<input type='hidden' class='embed_Super_Flagg' id='embed_SuperFlag-"+id+"' name='embed_SuperFlag' value='"+id+"'>");
+				}else{
+					$("body").append("<input type='hidden' class='embed_Super_Flagg' id='embed_SuperFlag-"+id+"' name='embed_SuperFlag' value='"+id+"'>");
+				}
+				
 			}
 			
 			
-			  var getDataFn = function(){
+			var getDataFn = function(){
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_user",
 					    type:"get",
@@ -218,8 +242,8 @@ $(document).ready(
 			};
 			
 			
-			//DropDownList	Branch Operation
-			var dropDownListBranchOper = function(){
+		/*	//DropDownList	Branch Operation
+			var listBranchOper = function(){
 				var htmlTable="";
 				$.ajax ({
 					url:restfulURL+"/api/dqs_branch_operation" ,
@@ -238,12 +262,13 @@ $(document).ready(
 						}
 				});
 				return htmlTable;
-			};
+			};*/
 		
 			
 		//Call Function start
 		  getDataFn();
-		$("#btnSubmit").click(function(){
+		  
+		/*$("#btnSubmit").click(function(){
 			   if(validationFn()==true){
 				    if($("#action").val()=="add" || $("#action").val()=="" ){
 				     
@@ -257,21 +282,20 @@ $(document).ready(
 				    }
 			   }
 			   		return false;
-			  });
+			  });*/
 
-			   $("#btnAdd").click(function(){
-					 clearFn();
-					 //return false;
-			  });
 				
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());
 				   return false;
 			  });
 			
-			  $("#btnCancle").click(function(){
-				   clearFn();
-				   return false;
+			  $("#btnCancel").click(function(){
+				  getDataFn();
+				});
+			
+			  $("#btnEdit").click(function(){
+				$(".editSuperFlag").removeAttr("disabled");
 			  });
 	  
 	  //Call Function End

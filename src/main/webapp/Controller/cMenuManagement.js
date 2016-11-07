@@ -1,4 +1,4 @@
-			var restfulURL="http://192.168.1.42:3001";
+			var restfulURL="http://192.168.1.100:3001";
 			 $(document).ready(function(){
 				//$("#action").val("add");
 				  var checkUniqueFn = function(text){
@@ -202,14 +202,26 @@
 			
 			  };
 			
+			
+			
+			
 			  var listDataRoleFn = function(data){
 				
 				   console.log(data);
 				   var htmlTable="";
 				   $.each(data,function(index,indexEntry){
 							       htmlTable+="<tr >";
-								        htmlTable+="<td><input type=\"checkbox\"  id=\"checkbox\"></td>";
+							
+										htmlTable+="<td>";
+											if(indexEntry["role_id"]==1){
+												htmlTable+="<input type=\"checkbox\" class=\"\" id=closeCheckbox-"+indexEntry["_id"]+">";
+											}else if(indexEntry["role_id"]==0){
+												htmlTable+="<input type=\"checkbox\" class=\"\" id=closeCheckbox-"+indexEntry["_id"]+">";
+											}
+										htmlTable+="</td>";
+										
 								        htmlTable+="<td>"+indexEntry["role_name"]+"</td>";
+								
 								   htmlTable+="</tr>";
 					     });
 					

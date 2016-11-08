@@ -1,6 +1,7 @@
 $(document).ready(function(){
-
-	var restfulURL = "http://192.168.1.100:3001";
+	
+	var restfulURL = "http://192.168.1.51:3001";
+	//var restfulURL = "http://192.168.1.100:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	/*var checkUniqueFn = function(text) {
@@ -103,24 +104,44 @@ $(document).ready(function(){
 	
 	var updateFn = function() {
 		
-	
+		/////////////////////-Dropdown Contact-////////////////////////
+		var valueContatType = "";
 		$.each($(".embed_contactType").get(),function(index,indexEntry){
-			var id=$(indexEntry).val();
+			var id = $(indexEntry).val();
+			
+			//alert($("#contacttype-"+id).val());
+			
+			if($("#contacttype-"+id).val()== "Email"){
+				valueContatType = "1";
+			}else if($("#contacttype-"+id).val()== "Telephone"){
+				valueContatType = "2";
+			}else if($("#contacttype-"+id).val()== "Home"){
+				valueContatType = "3";
+			}else if($("#contacttype-"+id).val()== "Office"){
+				valueContatType = "4";
+			}
+			
+			//alert(valueContatType);
+			
 			$.ajax({
 				url:restfulURL+"/api/dqs_file/"+id,
 				type : "PUT",
 				dataType : "json",
-				data : {"contact_type" : $("#contacttype").val()},
+				data : {"contact_type" : valueContatType},
+				//data : {"contact_type" : $("#contacttype-"+id).val()},
 				success : function(data) {
 					if (data = "success") {
-						alert("Update Success");
-						getDataFn();
-						clearFn();
+						//alert("Update Success");
+						//getDataFn();
+						//clearFn();
 						//$('#addModalRule').modal('hide');
 					}
 				}
 			});
+			
 		});
+		
+		////////////////////////-CheckBox KPI-//////////////////////////////
 		
 		var kpiflagCheckbox = "";
 		
@@ -145,8 +166,10 @@ $(document).ready(function(){
 					}
 				}
 			});
-
+			
 		});
+		
+		//////////////////////////-CheckBox Last Contact-////////////////////////////
 		
 		var lastcontactCheckbox = "";
 		
@@ -171,9 +194,11 @@ $(document).ready(function(){
 					}
 				}
 			});
-
+		
 		});
-		 
+		
+		///////////////////////////-CheckBox Delete-///////////////////////////
+		
 		var closeflagCheckbox = "";
 		
 		$.each($(".embed_closeflag").get(),function(index,indexEntry){
@@ -197,10 +222,11 @@ $(document).ready(function(){
 					}
 				}
 			});
-
+			
 		});
 		
-		//alert( $("#seqFileManage-"+$("#seqFileManage").val()).val() );
+		//////////////////////////-Input Day-////////////////////////////
+		
 		$.each($(".embed_dateFile").get(),function(index,indexEntry){
 			
 			//alert($(indexEntry).val());
@@ -220,8 +246,10 @@ $(document).ready(function(){
 					} 
 				}
 			});
-
+			
 		});
+		
+		///////////////////////////-Input Seq-///////////////////////////
 		 
 		$.each($(".embed_seqFile").get(),function(index,indexEntry){
 			
@@ -242,7 +270,7 @@ $(document).ready(function(){
 					} 
 				}
 			});
-			return false; 
+			
 		});
 		
 		alert("Upate Success");
@@ -297,32 +325,18 @@ $(document).ready(function(){
 	var listFileFn = function(data) {
 		
 		console.log(data);
+		//clear ฟังก์ชัน  data ข้อมูลเก่าทิ้ง 
+		$("#dataFileManagement").empty();
 		
-		var htmlTable = "";
-		//var close = $(indexEntry["close_flag"]);
-
 		$.each(data,function(index,indexEntry) {
-				
+		var htmlTable = "";		
 		htmlTable += "<tr>"; 
 		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
 		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";	
 		
-		
-		
-		if(indexEntry["contact_type"]==4){
-		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='4'>Email</option> <option value='3'>Telephone</option> <option value='2'>Home</option> <option value='1'>Office</option></select></td>";
-		}
-		else if (indexEntry["contact_type"]==3){
-		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='3'>Telephone</option> <option value='4'>Email</option> <option value='2'>Home</option> <option value='1'>Office</option></select></select></td>";
-		}
-		else if (indexEntry["contact_type"]==2){
-			htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='2'>Home</option> <option value='4'>Email</option> <option value='3'>Telephone</option> <option value='1'>Office</option></select></select></td>";
-		}
-		else if (indexEntry["contact_type"]==1){
-			htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"><option selected value='1'>Office</option> <option value='4'>Email</option> <option value='3'>Telephone</option> <option value='2'>Home</option></select></select></td>";
-		}
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"></select></td>";	
 		
 		if(indexEntry["kpi_flag"]==1){
 			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
@@ -340,14 +354,17 @@ $(document).ready(function(){
 			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["source_file_delete_flag"]==0){
 			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" ></td>";
-		}	
+		}
 		
 		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
 		
-		htmlTable += "</tr>";
+		htmlTable +="</tr>";
+		
+		$("#dataFileManagement").append(htmlTable);
+		dropdownContactType(indexEntry["contact_type"],indexEntry["_id"]);
 		});
 		
-		$("#dataFileManagement").html(htmlTable);
+		
 		
 		//function popover
 		//$(".popover-edit-del").popover();
@@ -393,14 +410,72 @@ $(document).ready(function(){
 			//alert(id[1]);		
 		});
 	
-		
-		//ปุ่ม Save
-		$("#btnSave").click(function(){
-	        updateFn();	
-		});
-			
 	};
 	
+	/*var dropdownContactType = function(param_id){
+		
+		//alert(param_id);
+		
+		var HTML="";
+		
+		$.ajax({
+			url:restfulURL+"/api/make_param_contact_type/",
+			type : "get",
+			dataType : "json",
+			async:false,
+			success : function(data) {	
+
+				$.each(data,function(index,indexEntry){
+					alert(param_id);
+					if(param_id==indexEntry['param_contact_id']){
+						HTML+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
+					}else{
+						HTML+="<option>"+indexEntry['param_contact_type']+"</option>";  
+					}
+					   
+				});
+			
+			}
+		});
+		
+		//alert(selectDobMonthHTML);
+		$(".selectContact").html(HTML);
+	}*/
+	
+	var dropdownContactType = function(param_type,param_id){
+		//alert("paramTYPE"+param_type);
+		$.ajax ({
+			url:restfulURL+"/api/make_param_contact_type" ,
+			type:"get" ,
+			dataType:"json" ,
+			async:false,
+				success:function(data){
+					
+					var htmlTable="";
+					
+					$.each(data,function(index,indexEntry){
+						//alert( "contactID"+indexEntry['param_contact_id']);
+						if(param_type==indexEntry['param_contact_id']){
+						//	alert(param_type);
+							
+							htmlTable+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
+						}else{
+							htmlTable+="<option>"+indexEntry['param_contact_type']+"</option>";  
+						}
+						
+						
+						});	
+					//alert(htmlTable);
+				
+					$("#contacttype-"+param_id).html(htmlTable);
+				}
+		});
+	};
+	
+	//ปุ่ม Save
+	$("#btnSave").click(function(){
+        updateFn();	
+	});
 	
 	// Click แล้ว ฝังข้อมูล
 	var embedParamSelectContact = function(id){

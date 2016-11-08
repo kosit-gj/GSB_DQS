@@ -190,7 +190,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="dataFileManagement">
-                                        <tr>
+                                       <!--  <tr>
                                             <td><input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1"></td>
                                             <td><div class='text-inline-table'>ข้อมูลลูก ค้าจาก CBS</div></td>
                                             <td><div class='text-inline-table'>/home/Source</div></td>
@@ -205,7 +205,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -215,20 +215,20 @@
 		                                            </label>
 		                                        </div>
    	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -236,7 +236,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -258,7 +258,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -270,20 +270,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -291,7 +291,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -313,7 +313,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -325,20 +325,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -346,7 +346,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -368,7 +368,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -380,20 +380,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -401,7 +401,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -423,7 +423,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -435,20 +435,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -456,7 +456,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -478,7 +478,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -490,20 +490,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -511,7 +511,7 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
@@ -533,7 +533,7 @@
                                             </select>
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	
                                             	
                                             	<div class="checkbox checkbox-default">
@@ -545,20 +545,20 @@
                                         
                                         
                                             	
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
 		                                               
 		                                            </label>
 		                                        </div>
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
-                                            	<!-- check box start -->
+                                            	check box start
                                             	<div class="checkbox checkbox-default">
 		                                            <input type="checkbox"  id="checkbox2">
 		                                            <label for="checkbox2">
@@ -566,12 +566,12 @@
 		                                            </label>
 		                                        </div>
 		                                         
-                                            	<!-- check box end -->
+                                            	check box end
                                             </td>
                                             <td>
                                             	<input class="form-control input-inline-table input-file-older" type="text" name="" id="" value="">
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                        
 
                                         </tbody>

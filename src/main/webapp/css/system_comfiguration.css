@@ -11,6 +11,7 @@
 }
 .form-data{
 	padding-top: 10px;
+	float:left
 }
 .form-save{
 	padding-top: 33px;
@@ -35,6 +36,11 @@
 .input-dataroot{
 	width: 400px;
 	text-align:left;
+	height:27px;
+	padding: 0px;
+}
+.input-dataselect{
+	width:150px;
 	height:27px;
 	padding: 0px;
 }

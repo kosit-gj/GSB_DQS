@@ -109,11 +109,11 @@
 												<label>Note :กําหนดวันในแต่ละเดือน สําหรับการคิด KPI</label>
 											</div>
 											<div class="col-sm-2" align="right">
-												<input type="text"  class="form-control input-inline-table input-seq" value="1">
+												<input type="text"  class="form-control input-inline-table input-seq" id="default_kpi_date" value="">
 											&nbsp;&nbsp;
 											</div>
 											<div class="col-sm-1">
-												<button class="btn btn-info btn-sm" style="padding-left:15px"><FONT COLOR=white>Set All</FONT></button>
+												<button class="btn btn-info btn-sm" style="padding-left:15px">Set All</button>
 											</div>
 										</div>
 									</div>
@@ -130,25 +130,25 @@
 														<th>Days</th>
 													</tr>
 												</thead>
-												<tbody id="listSystem">
+												<tbody id="">
 													<tr>
 														<td>
 															<div class='text-inline-table'>มกราคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m1" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>กุมภาพันธ์</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m2" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>มีนาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m3" value="">
 														</td>
 													</tr>
 													<tr>
@@ -156,19 +156,19 @@
 															<div class='text-inline-table'>เมษายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m4" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>พฤษภาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m5" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>มิถุนายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m6" value="">
 														</td>
 													</tr>
 													<tr>
@@ -176,26 +176,46 @@
 															<div class='text-inline-table'>กรกฎาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m7" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>สิงหาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m8" value="">
 														</td>
 														<td>
 															<div class='text-inline-table'>กันยายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="" value="1">
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m9" value="">
 														</td>
-													</tr>							
+													</tr>
+													<tr>
+														<td>
+															<div class='text-inline-table'>ตุลาคม</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m10" value="">
+														</td>
+														<td>
+															<div class='text-inline-table'>พฤศจิกายน</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m11" value="">
+														</td>
+														<td>
+															<div class='text-inline-table'>ธันวาคม</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m12" value="">
+														</td>
+													</tr>								
 												</tbody>				
 											</table>
 									<br>
-									<div align="left">
-										<button class="btn btn-warning" >&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+									<div>
+										<button class="btn btn-warning" id="btnSaveDefault">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 									</div>                             
 				             	</div>
 				            </div>
@@ -218,68 +238,86 @@
 		                            
 		                            	<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3" >
 													<label>Root directory &nbsp;:</label>
 												</div>
-												<div class="col-sm-6" align="left" id="listRootDirectory">
-													<input class="form-control input-dataroot" id="" placeholder="">
+												
+												<div class="col-sm-6" align="left" >
+													<input class="form-control input-dataroot" id="export_file_path" placeholder="">
 												</div>
+												
 											</div>
 										</div>
 										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3 form-data" >
 													<label>Maximum record for citizen file&nbsp; :</label>
 												</div>
-												<div class="col-sm-1 form-data" align="left" id="citizenMaxRecord">
-													<input class="form-control input-data" id="export_citizen_max_record" placeholder="">
+												
+												<div class="col-sm-2 form-data" >
+													<input class="form-control input-data" id="export_citizen_max_record" >
 												</div>
-												<div class="col-sm-2 form-data" align="right">
-													<label style="padding-left:10px">Records</label>
-												</div>
-												<div class="col-sm-3 form-data" align="right" > 
-													<label>Maximum record for mobile file &nbsp;:</label>
-												</div>
-												<div class="col-sm-2 form-data" align="left" id="mobileMaxRecord">
-													<input class="form-control input-data" id="export_mobile_max_record" placeholder="">
-												</div>
+												
 												<div class="col-sm-1 form-data" align="right">
 													<label style="padding-left:10px">Records</label>
 												</div>
+												
+												<div class="col-sm-3 form-data" align="right" > 
+													<label>Maximum record for mobile file &nbsp;:</label>
+												</div>
+												
+												<div class="col-sm-2 form-data">
+													<input class="form-control input-data" id="export_mobile_max_record" >
+												</div>
+												
+												<div class="col-sm-1 form-data" align="right">
+													<label style="padding-left:10px">Records</label>
+												</div>
+												
 											</div>
 										</div>
 										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3 form-data" >
 													<label>Include date in filename &nbsp;:</label>
 												</div>
-												<div class="col-sm-3 form-data" align="left">
-													<div class="radio radio-info radio-inline">
-								                               <input type="radio" checked name="radioInline" value="option1" id="">
+												
+												<div class="col-sm-3 form-data" id="export_include_date_flag">
+													<div class="radio radio-info radio-inline" >
+								                               <input type="radio" name="export_include_date_flag" class="export_include_date_flag" id="export_include_date_flag_y" value="1">
 								                               <label for="inlineRadio1"> Yes </label>
 								                    </div>
 								                    <div class="radio radio-inline">
-								                              <input type="radio" name="radioInline" value="option2" id="">
+								                              <input type="radio" name="export_include_date_flag" class="export_include_date_flag" id="export_include_date_flag_n" value="0">
 								                              <label for="inlineRadio2"> No </label>
 								                    </div>
 												</div>
+												
 												<div class="col-sm-3 form-data" align="right">
 													<label>Delete file older then &nbsp;:</label>
 												</div>
-												<div class="col-sm-2 form-data" align="left" id="exDateDelete">
-													<input class="form-control input-data" id="export_nof_date_delete" placeholder="">
+												
+												<div class="col-sm-2 form-data">
+													<input class="form-control input-data" id="export_nof_date_delete" >
 												</div>
-												<div class="col-sm-1 form-data" align="left">
+												
+												<div class="col-sm-1 form-data">
 													<label style="padding-left:10px">Days</label>
 												</div>
+												
 											</div>
 										</div><br>
 										
 			                             <div class="row">
 											<div style="padding-left:25px">
-												<button class="btn btn-warning" id="btnSubmit">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+											
+												<button class="btn btn-warning" id="btnSaveExport">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+											
 											</div>
 		                                </div>
 		                                
@@ -301,59 +339,74 @@
 		                            <div class="ibox-content">
 		                            	<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3" >
 													<label>Root directory &nbsp;:</label>
 												</div>
-												<div class="col-sm-6" align="left">
-													<input class="form-control input-dataroot" id="" placeholder="">
+												
+												<div class="col-sm-6" align="left" >
+													<input class="form-control input-dataroot" id="import_file_path">
 												</div>
+												
 											</div>
 										</div>
 										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3 form-data" >
 													<label>Maximum file size &nbsp; :</label>
 												</div>
-												<div class="col-sm-2 form-data" align="left">
-													<input class="form-control input-data" id="" placeholder="">
+												
+												<div class="col-sm-2 form-data" >
+													<input class="form-control input-data" id="import_max_file_size">
 												</div>
-												<div class="col-sm-1 form-data" align="left">
+												
+												<div class="col-sm-1 form-data">
 													<label style="padding-left:10px">MB.</label>
 												</div>
+												
 												<div class="col-sm-3 form-data" align="right">
 													<label>Delete file older then &nbsp;:</label>
 												</div>
-												<div class="col-sm-2 form-data" align="left">
-													<input class="form-control input-data" id="" placeholder="">
+												
+												<div class="col-sm-2 form-data" >
+													<input class="form-control input-data" id="import_nof_date_delete">
 												</div>
-												<div class="col-sm-1 form-data" align="left">
+												
+												<div class="col-sm-1 form-data" >
 													<label style="padding-left:10px">Days</label>
 												</div>
+												
 											</div>
 										</div>
 										
 										<div class="row">
 	                            	 		<div class="col-lg-12">
+	                            	 		
 												<div class="col-sm-3 form-data" >
 													<label>Include date in filename &nbsp;:</label>
 												</div>
+												
 												<div class="col-sm-3 form-data" align="left">
+												
 													<div class="radio radio-info radio-inline">
-								                               <input type="radio" checked name="radioInline" value="option3" id="">
-								                               <label for="inlineRadio3"> Yes </label>
+								                               <input type="radio" name="import_include_date_flag" class="import_include_date_flag" id="import_include_date_flag_y" value="1" >
+								                               <label for="inlineRadio1">Yes</label>
 								                    </div>
 								                    <div class="radio radio-inline">
-								                              <input type="radio" name="radioInline" value="option4" id="">
-								                              <label for="inlineRadio4"> No </label>
+								                              <input type="radio" name="import_include_date_flag" class="import_include_date_flag " id="import_include_date_flag_n" value="0">
+								                              <label for="inlineRadio2">No</label>
 								                    </div>
+								                    
 												</div>
+												
 											</div>
 										</div><br>
 										
 			                             <div class="row">
 											<div style="padding-left:25px">
-												<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+												<button class="btn btn-warning" id="btnSaveImport">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											</div>
 		                                </div>
 		                                
@@ -382,32 +435,39 @@
 			                            
 											 <div class="row">
 					                             <div class="col-lg-12">
+					                             
 													<div class="col-lg-7 form-data" >
 														<label>#Last contact date to warning branch &nbsp;:</label>
 													</div>
-													<div class="col-lg-4 form-data" align="left">
-														<input class="form-control input-data" id="" placeholder="">
+													
+													<div class="col-lg-4 form-data" >
+														<input class="form-control input-data" id="nof_contact_date" >
 													</div>
+													
 													<div class="col-lg-1 form-data" align="right">
 														<label>Days</label>
 													</div>
+													
 												</div>
 											</div>	
 											
 											<div class="row">
 												<div class="col-lg-12">
+												
 													<div class="col-lg-7 form-data" >
 														<label>when no document to update data &nbsp;:</label>
 													</div>
-													<div class="col-lg-2 form-data" align="left">
+													
+													<div class="col-lg-2 form-data"id="gradeCalculateDate">
 														<label></label>
 													</div>
+													
 												</div>
 											</div>
 											
 											<div class="row">
 												<div class="form-save" style="padding-left:25px">
-													<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+													<button class="btn btn-warning" id="btnSaveWarBranch">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
 											</div>
 											
@@ -425,29 +485,40 @@
 			                            
 				                             <div class="row">
 					                             <div class="col-lg-12">
+					                             
 													<div class="col-lg-6 form-data" >
 														<label>Grade Calculation Date &nbsp;:</label>
 													</div>
-													<div class="col-lg-2 form-data" align="left">
-														<input class="form-control input-data" id="" placeholder="">
+													
+													<div class="col-lg-2 form-data" >
+														<input class="form-control input-data" id="all_cust_grade_calculate_date">
 													</div>
+													
 												</div>
 											</div>	
 											
 											<div class="row">
 												<div class="col-lg-12">
+												
 													<div class="col-lg-6 form-data" >
 														<label>Grade Calulation Source Table &nbsp;:</label>
 													</div>
-													<div class="col-lg-2 form-data" align="left">
-														<select class="form-control input-data" id="" ></select>
+													
+													<div class="col-lg-2 form-data">
+														<select class="form-control input-dataselect" id="grade_data_source" >
+															<option value="1">validate</option>
+															<option value="2">Calulation Source</option>
+															<option value="3">Data Table</option>
+														</select>
+														 
 													</div>
+													
 												</div>
 											</div>
 											
 											<div class="row">
 												<div class="form-save" style="padding-left:25px">
-													<button class="btn btn-warning">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+													<button class="btn btn-warning" id="btnSaveGradeCalDate">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
 											</div>	
 											

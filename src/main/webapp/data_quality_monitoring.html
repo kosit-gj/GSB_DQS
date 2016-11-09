@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -15,10 +15,6 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    
-    
-    
-    
     
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
@@ -406,7 +402,7 @@
                                             
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listDataQuality">
                                         
 	                                        <tr>
 	                                            <td><div class='text-inline-table'>1</div></td>
@@ -610,8 +606,8 @@
                 <div class="ibox-content">
                              <div class="row">
                              	<div class="col-sm-12 title-detail">
-		                             	<div class="alert alert-warning">
-			                             	<div class="label-detail">
+		                             	<div class="alert alert-warning" id="detail_id">
+			                             	 <div class="label-detail">
 			                             		<div class="box1"><b>CIF</b> : 33890712</div>
 			                             	</div>
 			                             	<div class="label-detail">
@@ -730,7 +726,7 @@
 	                                            <td><div class="text-inline-table">
 	                                            	
 	                                            	<!-- checkbox start -->
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	
 	                                            	<!-- checkbox end -->
 	                                            	
@@ -740,7 +736,7 @@
 	                                            	
 	                                            	<!-- checkbox start -->
 	                                            	
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	<!-- checkbox end -->
 	                                            </div></td>
 	                                           
@@ -756,7 +752,7 @@
 	                                            <td><div class="text-inline-table">
 	                                            	
 	                                            	<!-- checkbox start -->
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	
 	                                            	<!-- checkbox end -->
 	                                            	
@@ -766,7 +762,7 @@
 	                                            	
 	                                            	<!-- checkbox start -->
 	                                            	
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	<!-- checkbox end -->
 	                                            </div></td>
 	                                           
@@ -780,7 +776,7 @@
 	                                            <td><div class="text-inline-table">
 	                                            	
 	                                            	<!-- checkbox start -->
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	
 	                                            	<!-- checkbox end -->
 	                                            	
@@ -790,7 +786,7 @@
 	                                            	
 	                                            	<!-- checkbox start -->
 	                                            	
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	<!-- checkbox end -->
 	                                            </div></td>
 	                                           
@@ -804,7 +800,7 @@
 	                                            <td><div class="text-inline-table">
 	                                            	
 	                                            	<!-- checkbox start -->
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	
 	                                            	<!-- checkbox end -->
 	                                            	
@@ -814,7 +810,7 @@
 	                                            	
 	                                            	<!-- checkbox start -->
 	                                            	
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	<!-- checkbox end -->
 	                                            </div></td>
 	                                           
@@ -828,7 +824,7 @@
 	                                            <td><div class="text-inline-table">
 	                                            	
 	                                            	<!-- checkbox start -->
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	
 	                                            	<!-- checkbox end -->
 	                                            	
@@ -838,7 +834,7 @@
 	                                            	
 	                                            	<!-- checkbox start -->
 	                                            	
-	                                            	<input type="checkbox" id="checkbox2" checked="">
+	                                            	<input type="checkbox" id="checkbox2" checked>
 	                                            	<!-- checkbox end -->
 	                                            </div></td>
 	                                           
@@ -895,6 +891,8 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
+            	<input type="hidden" id="id">
+            
                 <button data-dismiss="modal" class="btn btn-white" type="button">Back</button>
                 <button class="btn btn-primary btn-explain" type="button">Explain</button>
             </div>

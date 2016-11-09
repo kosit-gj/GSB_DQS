@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -112,24 +112,27 @@
 								                          	<div class="row">
 								                          	<div class="col-sm-12 m-b-xs"> 
 								                          	<div class="radio"> 
-								                              <input type="radio" name="" value="" id="">
+								                              <input type="radio" name="customer" value="" id="radioCustomer">
 								                              <label for="inlineRadio2">ข้อมูลลูกค้าทั้งหมด</label>
 								                          	</div>
 								                          	
 									                          	<div class="label-import-export">
 									                          	<label for="selectboxyear">ระบุปี&nbsp;</label>
-								                                    <select class="form-control-sm m-b">
+									                          	
+								                                    <select disabled class="form-control-sm m-b" id="yearImportExport">
 								                                    	<option>2559</option>
 																		<option>2560</option>
 																		<option>2561</option>
 																	</select>
 																	&nbsp;&nbsp;
 																	<label for="selectboxyear">ประเภทลูกค้า&nbsp;</label>
-								                                    <select class="form-control-sm m-b">
-								                                    	<option>บุคคล</option>
-																		<option>นิติบุคคล</option>
-																		<option>ไม่เป็นบุคคล</option>
-																	</select>
+																	
+									                                    <select disabled class="form-control-sm m-b customerImportExport" id="customerType">
+									                                    	<option>บุคคล</option>
+																			<option>นิติบุคคล</option>
+																			<option>ไม่เป็นบุคคล</option>
+																		</select>
+																	
 																</div>
 															</div>
 															</div>
@@ -137,12 +140,12 @@
 								                          	<div class="row">
 								                          	<div class="col-sm-12 m-b-xs"> 
 									                          	<div class="radio"> 
-									                              <input type="radio" name="" value="" id="">
+									                              <input type="radio" name="customer" value="" id="radioNewCustomer">
 									                              <label for="inlineRadio2">ข้อมูลลูกใหม่ หรือลูกค้าที่มาติดต่อล่าสุด หรือข้อมูลลูกค้าที่แก้ไขบัตรประชาชน</label>
 									                          	</div>
 																<div class="label-import-export">
 																	<label for="selectboxyear">ประเภทลูกค้า&nbsp;</label>
-								                                    <select class="form-control-sm m-b">
+								                                    <select disabled class="form-control-sm m-b customerImportExport" id="customerTypeNew">
 								                                    	<option>บุคคล</option>
 																		<option>นิติบุคคล</option>
 																		<option>ไม่เป็นบุคคล</option>
@@ -239,5 +242,19 @@
 			
 		</div>  
 	</div><!-- sum content -->
+	
+	 <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+
+	<script src="Controller/cImportExport.js"></script> 
 	
 </body>

@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.100:3001";
+		var restfulURL = "http://192.168.1.60:3001";
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
 		 var checkUniqueFn = function(text){
@@ -140,13 +140,13 @@ $(document).ready(
 			
 			  var listDataFn = function(data){
 						
-						   console.log(data);
+						 //  console.log(data);
 						   var htmlTable="";
 						   $.each(data,function(index,indexEntry){
 						    //console.log(indexEntry);
 							     htmlTable+="<tr >";
 								      htmlTable+="<td>"+(index+1)+"</td>";
-								      htmlTable+="<td>"+indexEntry["grade"]+"</td>";
+								      htmlTable+="<td id=\"gradename-"+indexEntry["_id"]+"\">"+indexEntry["grade"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
 									 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
 								      htmlTable+="<td><i class=\"fa fa-search font-management btnCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
@@ -192,7 +192,9 @@ $(document).ready(
 				$(".btnCondition").click(function(){
 					
 					 $("#embed_grade_id").val(this.id);
-					// alert("555");
+					// $("#embed_grade_name").val();
+					 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
+					 
 					getDataConditionFn();
 					dropDownListRule();
 				 });
@@ -301,36 +303,33 @@ $(document).ready(
 						   		   	}
 						  	 	});
 							
-						   
-						   $(".editCondition").click(function(){
-							
+							$(".editCondition").click(function(){
+								
 								$("#seq-"+this.id).removeAttr("disabled");
 								$("#operater-"+this.id).removeAttr("disabled");
 								$("#Complete-"+this.id).removeAttr("disabled");
 								//alert(this.id);
 								$("#embed_condition_id").remove();
 									$("body").append("<input type='hidden' id='embed_condition_id' name='embed_condition_id' value='"+this.id+"'>");
-								 });
+						});
+							
 							});
-								
 						
-						
-						 $("#btnSaveListCondition").click(function(){
-		
-							 var completeCheack = "";
-		
-							 	if($("#Complete-"+$("#embed_condition_id").val()).prop('checked')){
-							 		completeCheack="1";
-							 	}else{
-							 		completeCheack="0";
-							 	}
-							 	
-							 	updateConditionFn(completeCheack);
-		
-							});
-					
-				
 				}
+				
+				$("#btnSaveListCondition").click(function(){
+					
+					 var completeCheack = "";
+
+					 	if($("#Complete-"+$("#embed_condition_id").val()).prop('checked')){
+					 		completeCheack="1";
+					 	}else{
+					 		completeCheack="0";
+					 	}
+					 	
+					 	updateConditionFn(completeCheack);
+
+					});
 				 
 				 var updateConditionFn = function(completeCheack){
 		
@@ -360,7 +359,8 @@ $(document).ready(
 					var getDataConditionFn = function(){
 						
 						var grade_id = $("#embed_grade_id").val();
-						//  alert(grade_id);
+
+						//alert(grade_id);
 						   $.ajax({
 						    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
 						    type:"get",
@@ -445,14 +445,6 @@ $(document).ready(
 		
 				
 				
-		
-		
-		
-		
-		
-		
-		
-		
 		
 
 			   $("#btnAdd").click(function(){

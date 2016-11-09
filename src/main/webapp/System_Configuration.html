@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -109,11 +109,11 @@
 												<label>Note :กําหนดวันในแต่ละเดือน สําหรับการคิด KPI</label>
 											</div>
 											<div class="col-sm-2" align="right">
-												<input type="text"  class="form-control input-inline-table input-seq" id="default_kpi_date" value="">
+												<input type="text"  class="form-control input-inline-table input-seq" id="default_kpi_date">
 											&nbsp;&nbsp;
 											</div>
 											<div class="col-sm-1">
-												<button class="btn btn-info btn-sm" style="padding-left:15px">Set All</button>
+												<button class="btn btn-info btn-sm" id="btnSetAll" style="padding-left:15px">Set All</button>
 											</div>
 										</div>
 									</div>
@@ -136,19 +136,19 @@
 															<div class='text-inline-table'>มกราคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m1" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m1">
 														</td>
 														<td>
 															<div class='text-inline-table'>กุมภาพันธ์</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m2" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m2">
 														</td>
 														<td>
 															<div class='text-inline-table'>มีนาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m3" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m3">
 														</td>
 													</tr>
 													<tr>
@@ -156,19 +156,19 @@
 															<div class='text-inline-table'>เมษายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m4" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m4">
 														</td>
 														<td>
 															<div class='text-inline-table'>พฤษภาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m5" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m5">
 														</td>
 														<td>
 															<div class='text-inline-table'>มิถุนายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m6" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m6">
 														</td>
 													</tr>
 													<tr>
@@ -176,19 +176,19 @@
 															<div class='text-inline-table'>กรกฎาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m7" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m7">
 														</td>
 														<td>
 															<div class='text-inline-table'>สิงหาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m8" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m8">
 														</td>
 														<td>
 															<div class='text-inline-table'>กันยายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m9" value="">
+															<input class="form-control input-inline-table input-seq" type="text"id="kpi_date_m9">
 														</td>
 													</tr>
 													<tr>
@@ -196,19 +196,19 @@
 															<div class='text-inline-table'>ตุลาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m10" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m10">
 														</td>
 														<td>
 															<div class='text-inline-table'>พฤศจิกายน</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m11" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m11">
 														</td>
 														<td>
 															<div class='text-inline-table'>ธันวาคม</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" name="" id="kpi_date_m12" value="">
+															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m12">
 														</td>
 													</tr>								
 												</tbody>				
@@ -244,7 +244,7 @@
 												</div>
 												
 												<div class="col-sm-6" align="left" >
-													<input class="form-control input-dataroot" id="export_file_path" placeholder="">
+													<input class="form-control input-dataroot" id="export_file_path">
 												</div>
 												
 											</div>
@@ -491,7 +491,7 @@
 													</div>
 													
 													<div class="col-lg-2 form-data" >
-														<input class="form-control input-data" id="all_cust_grade_calculate_date">
+														<input class="form-control input-data" type="date"id="all_cust_grade_calculate_date">
 													</div>
 													
 												</div>

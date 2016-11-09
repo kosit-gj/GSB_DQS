@@ -1,76 +1,8 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.100:3001";
+		var restfulURL = "http://192.168.1.60:3001";
 		
-		 /*var checkUniqueFn = function(text){
-				   var unique=false; 
-					   $.ajax({
-						    url:restfulURL+"/api/dqs_user?grade="+text+"",
-						    type:"get",
-						    dataType:"json",
-						    async:false,
-						    success:function(data){
-						     
-						     console.log(data);
-							     if(data==""){
-							      //alert("data empty");
-							      unique=true;
-							     }else{
-							      unique=false;
-							      //alert("full data");
-							     }
-						     
-						    }
-					   });
-				   return unique;
-				  }*/
-		
-
-		   /*var validationFn = function(){
-				   var validateText="";
-					   if($("#grade").val()==""){
-					    	validateText+="name not empty\n";
-					   }
-						if($("#grade_name").val()==""){
-					   		 validateText+="Decription not empty\n";
-					   }
-					   if($("#process_seq").val()==""){
-					    	validateText+="seq not empty\n";
-					   }
-					    if(isNaN($("#process_seq").val()))
-					    {
-					     	validateText+="seq is number only\n";
-					    }
-					   if(validateText!=""){
-						    alert(validateText);
-						    return false;
-					   }else{
-					   		return true;
-					   }
-				  }*/
-		
-	/*	 var insertFn = function(){
-				
-				    $.ajax({
-					     url:restfulURL+"/api/dqs_user",
-					     type:"POST",
-					     dataType:"json",
-					     data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
-					     success:function(data,status){
-					      //alert(data);
-					      //console.log(data);
-					      console.log(status);
-						      if(status=="success"){
-						       alert("Insert Success");
-						       getDataFn();
-						       clearFn();
-						      }
-						   }
-				    });         
-				
-				    return false;
-		 		};*/
 
 		 var updateFn = function(){
 				
@@ -85,15 +17,18 @@ $(document).ready(
 					    success:function(data,status){
 					     //alert(data);
 						     if(status=="success"){
-						      alert("Upate Success");
-						      getDataFn();
-						      clearFn();
+							$(".embed_Super_Flagg").remove();
+
 						     }
-						    }
-					   });
+						  }
+					});
 			 });
 			 
-				   return false;
+			      alert("Upate Success");
+			      getDataFn();
+			      clearFn();
+				  
+				return false;
 			 };
 
 			 
@@ -104,19 +39,6 @@ $(document).ready(
 					   $("#action").val("add");
 			}
 			 
-			 
-		/* var findOneFn = function(id){
-				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_user/"+id,
-					    type:"get",
-					    dataType:"json",
-					    success:function(data){
-					      $("#grade").val(data['grade']);
-				    	}
-				   });
-			  };*/
-		
 			  var searchFn = function(searchText){
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
 				    
@@ -134,7 +56,7 @@ $(document).ready(
 			
 			  var listDataFn = function(data){
 						
-						   console.log(data);
+						  // console.log(data);
 						   var htmlTable="";
 						 //$("#listUser").empty();
 						   $.each(data,function(index,indexEntry){
@@ -171,25 +93,19 @@ $(document).ready(
 						  $("#listUser").html(htmlTable);
 						
 						
+						
 						//ปุ่ม Edit ใน table
 						$(".editSuperFlag").click(function(){
 							
 							var id = this.id.split("-"); 
 							
-							//alert(id[1]);
 							embedParam(id[1]);
 							
 						});
-						
-						//ปุ่ม Save
-						$("#btnSave").click(function(){
-					        updateFn();
-					        //alert("btnSave");
-						});
-			
+				
 			};
-			
-			
+	
+	
 			var embedParam = function(id){
 				//alert(id);
 				var count = 0;
@@ -267,24 +183,14 @@ $(document).ready(
 			
 		//Call Function start
 		  getDataFn();
-		  
-		/*$("#btnSubmit").click(function(){
-			   if(validationFn()==true){
-				    if($("#action").val()=="add" || $("#action").val()=="" ){
-				     
-				     if(checkUniqueFn($("#grade").val())==true){
-				      	insertFn();
-				     }else{
-				      	alert("name is not unique.");
-				     }
-				     }else{
-				     	updateFn();
-				    }
-			   }
-			   		return false;
-			  });*/
 
-				
+		//ปุ่ม Save
+			$("#btnSave").click(function(){
+		        updateFn();
+		       // alert("btnSave");
+			});
+			
+			
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());
 				   return false;

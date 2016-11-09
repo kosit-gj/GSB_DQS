@@ -2,7 +2,7 @@ $(document).ready(
 	function(){
 		
 		
-		var restfulURL = "http://192.168.1.51:3001";
+		var restfulURL = "http://192.168.1.60:3001";
 		
 		
 		
@@ -30,35 +30,35 @@ $(document).ready(
 				   		return true;
 				   }
 			  }*/
-			
-	    /*var insertFn = function(){
-			
-			    $.ajax({
-				     url:restfulURL+"/api/dqs_system_config",
-				     type:"POST",
-				     dataType:"json",
-				     data:{"export_file_path":$("#export_file_path").val(),
-						   "export_citizen_max_record":$("#export_citizen_max_record").val(),
-						   "export_mobile_max_record":$("#export_mobile_max_record").val(),
-						   "export_include_date_flag":$("#export_include_date_flag").val(),
-						   "export_nof_date_delete":$("#export_nof_date_delete").val(),},
-				     
-					success:function(data,status){
-				      //alert(data);
-				      //console.log(data);
-				      console.log(status);
-					      if(status=="success"){
-					       alert("Insert Success");
-					       getDataFn();
-					       clearFn();
-					      }
-					   }
-			    });         
-			
-			    return false;
-	 		};*/
-					
+				
 		
+		// function update SetAll
+		var updateSetAllFn = function(){
+
+			
+			//alert($("#embed_system_config_id").val());
+			
+			   $.ajax({
+				    url:restfulURL+"/api/dqs_system_config/"+$("#embed_system_config_id").val(),
+				    type:"PUT",
+				    dataType:"json",
+				    data:{
+							"default_kpi_date":$("#default_kpi_date").val()
+						  },
+				   
+						success:function(data,status){
+							
+						    if(status=="success"){
+							
+						     alert("Set All");
+						     setAllFn();
+					    	}
+					    }
+				   });
+			   return false;
+		 };
+		 
+		//function update Default KPI
 		var updateDefaultFn = function(){
 
 			
@@ -68,7 +68,7 @@ $(document).ready(
 				    url:restfulURL+"/api/dqs_system_config/"+$("#embed_system_config_id").val(),
 				    type:"PUT",
 				    dataType:"json",
-				    data:{"default_kpi_date":$("#default_kpi_date").val(),
+				    data:{
 						  "kpi_date_m1":$("#kpi_date_m1").val(),
 						  "kpi_date_m2":$("#kpi_date_m2").val(),
 						  "kpi_date_m3":$("#kpi_date_m3").val(),
@@ -93,6 +93,8 @@ $(document).ready(
 			   return false;
 		 };
 		
+		 
+		//function update Exporting File
 		var updateExportFn = function(){
 			
 			var exportInclude = ""
@@ -130,6 +132,7 @@ $(document).ready(
 		 };
 		 
 		 
+		 //function update Importing File
 		 var updateImportFn = function(){
 				
 				var importInclude = ""
@@ -163,6 +166,7 @@ $(document).ready(
 				   return false;
 			 };
 		 
+			 //function update Warning Branch
 			 var updateWarBranchFn = function(){
 
 					
@@ -185,6 +189,8 @@ $(document).ready(
 					   return false;
 				 };
 				 
+				 
+				 // function update grade calculate date
 				 var updateGradeCalDateFn = function(){
 
 						
@@ -208,7 +214,9 @@ $(document).ready(
 						   return false;
 					 };
 		
-		 var getDataFn = function(){
+		 
+		// get data
+		var getDataFn = function(){
 			 
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_system_config",
@@ -217,7 +225,7 @@ $(document).ready(
 						    success:function(data){
 							
 							//console.log(data['import_include_date_flag']);
-							//alert(data[0]['import_include_date_flag']);
+							//alert(data[0]["kpi_date_m1"]);
 							$("#embed_system_config_id").remove();
 							$("body").append("<input type='hidden' id='embed_system_config_id' name='embed_SuperFlag' value='"+data[0]["_id"]+"'>");
 							
@@ -281,11 +289,43 @@ $(document).ready(
 				  });
 			};
 		
-		
+			// set all table
+			var setAllFn = function(){
+				
+				$.ajax({
+					    url:restfulURL+"/api/dqs_system_config",
+					    type:"get",
+					    dataType:"json",
+						    success:function(data){
+							
+							$("#kpi_date_m1").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m2").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m3").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m4").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m5").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m6").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m7").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m8").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m9").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m10").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m11").val(data[0]["default_kpi_date"]);
+							$("#kpi_date_m12").val(data[0]["default_kpi_date"]);
+						}
+				});
+				
+			};
 			
 			
 			
 			getDataFn();
+			
+			//Start Button
+			$("#btnSetAll").click(function(){
+				
+				
+				   updateSetAllFn();
+				
+				  });
 			
 			$("#btnSaveDefault").click(function(){
 				
@@ -321,7 +361,7 @@ $(document).ready(
 				 updateGradeCalDateFn();
 				
 				  });
-			
+			//End Button
 			
 			
 });

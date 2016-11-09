@@ -1,5 +1,9 @@
-			var restfulURL="http://192.168.1.100:3001";
-			 $(document).ready(function(){
+$(document).ready(function(){
+
+			var restfulURL="http://192.168.1.60:3001";
+			
+			
+
 				//$("#action").val("add");
 				  var checkUniqueFn = function(text){
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
@@ -66,16 +70,16 @@
 			  var updateFn = function(){
 			
 			   $.ajax({
-			    url:restfulURL+"/api/dqs_menu/"+$("#id").val(),
-			    type:"PUT",
-			    dataType:"json",
-			    data:{"menu_name":$("#menu_name").val()},
-			    success:function(data,status){
-			     //alert(data);
-			     if(status=="success"){
-			      alert("Upate Success");
-			      getDataFn();
-			      clearFn();
+				    url:restfulURL+"/api/dqs_menu/"+$("#id").val(),
+				    type:"PUT",
+				    dataType:"json",
+				    data:{"menu_name":$("#menu_name").val()},
+				    success:function(data,status){
+				     //alert(data);
+					     if(status=="success"){
+					      alert("Upate Success");
+					      getDataFn();
+					      clearFn();
 			     }
 			    }
 			   });
@@ -97,13 +101,13 @@
 			  var findOneFn = function(id){
 			   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 			   $.ajax({
-			    url:restfulURL+"/api/dqs_menu/"+id,
-			    type:"get",
-			    dataType:"json",
-			    success:function(data){
-			
-			      $("#menu_name").val(data['menu_name']);
-			      
+				    url:restfulURL+"/api/dqs_menu/"+id,
+				    type:"get",
+				    dataType:"json",
+				    success:function(data){
+				
+				      $("#menu_name").val(data['menu_name']);
+				      
 			    }
 			   });
 			  };
@@ -112,12 +116,12 @@
 			   /* http://localhost:3000/api/products?name__regex=/^test/i */
 			    
 			   $.ajax({
-			    url:restfulURL+"/api/dqs_menu/?menu_name__regex=/^"+searchText+"/i",
-			    type:"get",
-			    dataType:"json",
-			    success:function(data){
-			
-			     listDataFn(data);
+				    url:restfulURL+"/api/dqs_menu/?menu_name__regex=/^"+searchText+"/i",
+				    type:"get",
+				    dataType:"json",
+				    success:function(data){
+				
+				     listDataFn(data);
 			    }
 			   });
 			   
@@ -125,78 +129,83 @@
 			  
 			  var listDataFn = function(data){
 			
-			   console.log(data);
+			   //console.log(data);
 			   var htmlTable="";
 			   $.each(data,function(index,indexEntry){
 						       htmlTable+="<tr >";
 							        htmlTable+="<td>"+(index+1)+"</td>";
-							        htmlTable+="<td>"+indexEntry["menu_name"]+"</td>";
+							        htmlTable+="<td id=\"menuname-"+indexEntry["_id"]+"\"> "+indexEntry["menu_name"]+"</td>";
 							     
-							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
+							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" id="+indexEntry["_id"]+" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
 							       	
 									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>";
 							   htmlTable+="</tr>";
 				     });
 				
 				     $("#listMenu").html(htmlTable);
+				
+				
 			   
-			   
+			   $(".btnAuthorize").click(function(){
+				
+					$("#embed_menu_id").val(this.id);
+					
+					$("#menuname").text(($("#menuname-"+this.id).text()));
+					
+					//getDataAuthorizationFn();
+					getDataRoleFn();
+
+			});
 			//popover 
-			$(".popover-del-edit").popover();
-			
-			//delete
-			$(".popover-del-edit").click(function(){
-			   $(".del").click(function(){
-			    //alert(this.id);
-			    if(confirm("Do you want to delete this file?")){
-			     
-			     $.ajax({
-			      url:restfulURL+"/api/dqs_menu/"+this.id,
-			      type:"delete",
-			      dataType:"json",
-			      //data:{"_id":this.id},
-			      success:function(data){       
-			       
-			       getDataFn();
-			       clearFn();
-			
+				$(".popover-del-edit").popover();
+				
+				//delete
+				$(".popover-del-edit").click(function(){
+				    $(".del").click(function(){
+				    //alert(this.id);
+				    if(confirm("Do you want to delete this file?")){
+				     
+				     $.ajax({
+					      url:restfulURL+"/api/dqs_menu/"+this.id,
+					      type:"delete",
+					      dataType:"json",
+					      //data:{"_id":this.id},
+					      success:function(data){       
+						       getDataFn();
+						       clearFn();
+				
 			      }
 			     });
 			    }
 			
 			   });
 			
-			   //findOnd
-			   $(".edit").click(function(){
-			
-			    findOneFn(this.id);
-			
-			    $("#id").val(this.id);
-			    $("#action").val("edit");
-			    $("#btnSubmit").val("Edit");
-			
+					   //findOnd
+					   $(".edit").click(function(){
+					
+						    findOneFn(this.id);
+						
+						    $("#id").val(this.id);
+						    $("#action").val("edit");
+						    $("#btnSubmit").val("Edit");
+					
 			
 			   });
 			});
 		
-			$(".btnAuthorize").click(function(){
-				//alert("btnAuthorize");
-				getDataRoleFn();
-				
-				 //return false;
-			 });
+					
 			 
-			}
+		}
 			  
 			  var getDataFn = function(){
 			   
 			   $.ajax({
-			    url:restfulURL+"/api/dqs_menu",
-			    type:"get",
-			    dataType:"json",
-			    success:function(data){
-			     
-			     listDataFn(data);
+				    url:restfulURL+"/api/dqs_menu",
+				    type:"get",
+				    dataType:"json",
+				    success:function(data){
+				     
+				     listDataFn(data);
 			    }
 			   });
 			
@@ -207,16 +216,16 @@
 			
 			  var listDataRoleFn = function(data){
 				
-				   console.log(data);
+				  // console.log(data);
 				   var htmlTable="";
 				   $.each(data,function(index,indexEntry){
 							       htmlTable+="<tr >";
 							
 										htmlTable+="<td>";
-											if(indexEntry["role_id"]==1){
-												htmlTable+="<input type=\"checkbox\" class=\"\" id=closeCheckbox-"+indexEntry["_id"]+">";
-											}else if(indexEntry["role_id"]==0){
-												htmlTable+="<input type=\"checkbox\" class=\"\" id=closeCheckbox-"+indexEntry["_id"]+">";
+											if(indexEntry["_id"]==1){
+												htmlTable+="<input type=\"checkbox\" id=closeCheckbox-"+indexEntry["_id"]+">";
+											}else if(indexEntry["_id"]==0){
+												htmlTable+="<input type=\"checkbox\" id=closeCheckbox-"+indexEntry["_id"]+">";
 											}
 										htmlTable+="</td>";
 										
@@ -230,47 +239,59 @@
 			 
 			
 				var getDataRoleFn = function(){
+				
 					   
 					   $.ajax({
-					    url:restfulURL+"/api/dqs_role",
-					    type:"get",
-					    dataType:"json",
-					    success:function(data){
-					     
-					     listDataRoleFn(data);
+						    url:restfulURL+"/api/dqs_role",
+						    type:"get",
+						    dataType:"json",
+						    success:function(data){
+						     
+						     listDataRoleFn(data);
 					    }
 				   });
 			  };
 			  
-			
+			/*var getDataAuthorizationFn = function(){
+				
+				var id = $("#embed_menu_id").val();
+
+				//alert(id);
+				   $.ajax({
+				    url:restfulURL+"/api/dqs_authorization?role_id="+id+"",
+				    type:"get",
+				    dataType:"json",
+				    success:function(data){
+				     
+				     listDataRoleFn(data);
+				    }
+			   });
+		  };*/
 			  
 			  //Call Function start
 			  getDataFn();
 			
 			  $("#btnSubmit").click(function(){
-			   if(validationFn()==true){
-			
-			    if($("#action").val()=="add" || $("#action").val()=="" ){
-			     
-			     if(checkUniqueFn($("#menu_name").val())==true){
-			      insertFn();
-			
-			     }else{
+				   if(validationFn()==true){
 				
-			      alert("name is not unique.");
-			
-			     }
-			      
-			    }else{
-			     updateFn();
-			    }
-			     
-			    
-			   }
+					    if($("#action").val()=="add" || $("#action").val()=="" ){
+					     
+						     if(checkUniqueFn($("#menu_name").val())==true){
+						      insertFn();
+						
+						     }else{
+							
+						      alert("name is not unique.");
+						
+						     }
+					    }else{
+					     updateFn();
+					
+					    }
+				   }
 			   return false;
 			
 			  });
-			
 			
 			 
 			 $("#btnAdd").click(function(){
@@ -279,16 +300,16 @@
 			 });
 			 
 			  $("#btnSearch").click(function(){
-			   
-			   searchFn($("#searchText").val());
-			   return false;
+				   
+				   searchFn($("#searchText").val());
+				   return false;
 			
 			  });
 			
 			  $("#cancel").click(function(){
-				alert("cancel");
-			   clearFn();
-			   return false;
+				   alert("cancel");
+				   clearFn();
+				   return false;
 			
 			  });
 			

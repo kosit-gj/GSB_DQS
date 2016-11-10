@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
-<html>
+<html> 
 
 <head>
 
@@ -241,14 +241,14 @@
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
-                <h4 class="modal-title">Add New Role</h4>
+                <h4 class="modal-title">Add/Edit New Role</h4>
                 <!-- 
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-folder-open icon-title"></i> ADD NEW ROLE</h2>
+                <h2><i class="fa fa fa-folder-open icon-title"></i> ADD/EDIT NEW ROLE</h2>
                 <hr>
                 
                 <!-- form start -->
@@ -259,10 +259,16 @@
 	                
 	                <div class="form-input-role">
 	                	<input type="text" class="form-control" placeholder="" id="role_name" name="role_name">
+	               		  
+                	    <div class="checkbox checkbox-inline">
+                        	<input type="checkbox" name="CheckboxInline" id="authority_checkbox_role">
+                        	<label for="CheckboxInline"> Have Authority on System Monitoring </label>
+                        </div> 
 	                </div>
+	                       
 	                
 	                <br style="clear:both">
-	                
+	               
                 </div>
             </div>
             <div class="modal-footer">

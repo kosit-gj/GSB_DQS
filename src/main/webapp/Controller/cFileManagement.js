@@ -107,13 +107,14 @@ $(document).ready(function(){
 		/////////////////////-Dropdown Contact-////////////////////////
 		var valueContatType = "";
 		$.each($(".embed_contactType").get(),function(index,indexEntry){
+			
 			var id = $(indexEntry).val();
 			
 			//alert($("#contacttype-"+id).val());
 			
 			if($("#contacttype-"+id).val()== "Email"){
 				valueContatType = "1";
-			}else if($("#contacttype-"+id).val()== "Telephone"){
+			}else if($("#contacttype-"+id).val()== "Telphone"){
 				valueContatType = "2";
 			}else if($("#contacttype-"+id).val()== "Home"){
 				valueContatType = "3";
@@ -457,7 +458,6 @@ $(document).ready(function(){
 						//alert( "contactID"+indexEntry['param_contact_id']);
 						if(param_type==indexEntry['param_contact_id']){
 						//	alert(param_type);
-							
 							htmlTable+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
 						}else{
 							htmlTable+="<option>"+indexEntry['param_contact_type']+"</option>";  

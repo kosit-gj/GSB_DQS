@@ -1,10 +1,11 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.100:3001";
+		var restfulURL = "http://192.168.1.60:3001";
 		/*var restfulURL = "http://171.96.200.171:3001";*/
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
+		//function เชค ชื่อซ้ำ
 		 var checkUniqueFn = function(text){
 				   var unique=false; 
 					   $.ajax({
@@ -28,7 +29,7 @@ $(document).ready(
 				   return unique;
 				  }
 		
-
+		 //function เชคค่าว่าง
 		   var validationFn = function(){
 				   var validateText="";
 					   if($("#region_name").val()==""){
@@ -45,13 +46,17 @@ $(document).ready(
 					   }
 				  }
 		
+		 
+		 //function insert data Region
 		 var insertFn = function(){
 				
 				    $.ajax({
 					     url:restfulURL+"/api/dqs_region",
 					     type:"POST",
 					     dataType:"json",
-					     data:{"region_name":$("#region_name").val(),"operation_id":$("#listBranchOper").val()},
+					     data:{ "region_code":$("#region_code").val(),
+								"region_name":$("#region_name").val(),
+								"operation_id":$("#listBranchOper").val()},
 					     success:function(data,status){
 					      //alert(data);
 					      //console.log(data);
@@ -67,14 +72,16 @@ $(document).ready(
 				    return false;
 		 		};
 				
-
+		 	//function update data Region
 		 var updateFn = function(){
 					
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_region/"+$("#id").val(),
 					    type:"PUT",
 					    dataType:"json",
-					    data:{"region_name":$("#region_name").val(),"operation_id":$("#listBranchOper").val()},
+					    data:{ "region_code":$("#region_code").val(),
+							   "region_name":$("#region_name").val(),
+							   "operation_id":$("#listBranchOper").val()},
 					    success:function(data,status){
 					     //alert(data);
 						     if(status=="success"){
@@ -87,28 +94,35 @@ $(document).ready(
 				   return false;
 			 };
 
+			 
+			 //function clear data
 			 var clearFn =function(){
 					
 					   $("#id").val("");
 					   $("#action").val("add");
+					   $("#region_code").val("");
 					   $("#region_name").val("");
 					   $("#operation_id").val("");
 					   $("#btnSubmit").val("Add");
 					   $('#ManagementModal').modal('hide');
 			}
-		 var findOneFn = function(id){
+			 
+			 
+			 var findOneFn = function(id){
 				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_region/"+id,
 					    type:"get",
 					    dataType:"json",
 					    success:function(data){
+						  $("#region_code").val(data['region_code']);
 					      $("#region_name").val(data['region_name']);
 						  $("#operation_id").val(data['operation_id']);
 				    	}
 				   });
 			  };
 		
+			// function search
 			  var searchFn = function(searchText){
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
 				    
@@ -124,6 +138,8 @@ $(document).ready(
 				   
 				  }
 			
+			
+			 // list data Region
 			  var listDataFn = function(data){
 						
 						   console.log(data);
@@ -132,6 +148,7 @@ $(document).ready(
 						    //console.log(indexEntry);
 							     htmlTable+="<tr >";
 								      htmlTable+="<td>"+(index+1)+"</td>";
+								      htmlTable+="<td>"+indexEntry["region_code"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["region_name"]+"</td>";
 									  htmlTable+="<td>"+indexEntry["operation_id"]+"</td>";
 								      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
@@ -172,6 +189,7 @@ $(document).ready(
 				});
 			}
 			
+			//get data Region
 			  var getDataFn = function(){
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_region",
@@ -204,6 +222,7 @@ $(document).ready(
 		
 		//Call Function start
 		  getDataFn();
+		  // ปุ่ม save 
 		$("#btnSubmit").click(function(){
 			   if(validationFn()==true){
 				    if($("#action").val()=="add" || $("#action").val()=="" ){
@@ -219,19 +238,22 @@ $(document).ready(
 			   }
 			   		return false;
 			  });
-
+				
+			//ปุ่ม add in branch operation
 			   $("#btnAdd").click(function(){
 					 clearFn();
 					 dropDownListBranchOper();
 					 //return false;
 			  });
 				
+			   //ปุ่ม search
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());
 				   return false;
 			  });
-			
-			  $("#btnCancle").click(function(){
+				
+			  //ปุ่ม cancel
+			  $("#btnCancel").click(function(){
 				   clearFn();
 				   return false;
 			  });

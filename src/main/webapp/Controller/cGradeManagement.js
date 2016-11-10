@@ -252,8 +252,12 @@ $(document).ready(
 									}
 									
 								    htmlTable+="<tr >";
-									        htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["process_seq"]+">";
-									
+								
+											if(process_seq == indexEntry["process_seq"]){
+									        	htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["process_seq"]+">";
+											}else if(indexEntry["process_seq"]== undefined){
+												htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+process_seq+">";
+											}
 									
 									        htmlTable+="<td>";
 												if(indexEntry["operator"] == "or"){
@@ -317,6 +321,8 @@ $(document).ready(
 						
 				}
 				
+				
+				
 				$("#btnSaveListCondition").click(function(){
 					
 					 var completeCheack = "";
@@ -331,6 +337,8 @@ $(document).ready(
 
 					});
 				 
+				
+				
 				 var updateConditionFn = function(completeCheack){
 		
 					 	
@@ -437,17 +445,13 @@ $(document).ready(
 				 		
 				 		
 				 		
-				 $("#btnAddCondition").click(function(){
-							
-						insertConditionFn();
+			  $("#btnAddCondition").click(function(){
+					insertConditionFn();
 		
-					});
-		
-				
-				
-		
+			  });
 
-			   $("#btnAdd").click(function(){
+
+			  $("#btnAdd").click(function(){
 					 clearFn();
 					 //return false;
 			  });

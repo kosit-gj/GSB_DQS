@@ -60,8 +60,6 @@ $(document).ready(
 		 
 		//function update Default KPI
 		var updateDefaultFn = function(){
-
-			
 			//alert($("#embed_system_config_id").val());
 			
 			   $.ajax({
@@ -106,9 +104,7 @@ $(document).ready(
 					exportInclude = 0;
 				}
 			
-			
-			
-			//alert($("#embed_system_config_id").val());
+			    //alert($("#embed_system_config_id").val());
 			
 			   $.ajax({
 				    url:restfulURL+"/api/dqs_system_config/"+$("#embed_system_config_id").val(),
@@ -166,6 +162,7 @@ $(document).ready(
 				   return false;
 			 };
 		 
+			 
 			 //function update Warning Branch
 			 var updateWarBranchFn = function(){
 
@@ -215,7 +212,7 @@ $(document).ready(
 					 };
 		
 		 
-		// get data
+		// get data System Configuration
 		var getDataFn = function(){
 			 
 				   $.ajax({
@@ -289,7 +286,7 @@ $(document).ready(
 				  });
 			};
 		
-			// set all table
+			//function set all table
 			var setAllFn = function(){
 				
 				$.ajax({
@@ -316,10 +313,12 @@ $(document).ready(
 			};
 			
 			
+		//Call Function start
 			
 			getDataFn();
-			
 			//Start Button
+			
+			//ปุ่ม SetAll
 			$("#btnSetAll").click(function(){
 				
 				
@@ -327,6 +326,7 @@ $(document).ready(
 				
 				  });
 			
+			//ปุ่ม SaveDefault
 			$("#btnSaveDefault").click(function(){
 				
 				
@@ -334,13 +334,14 @@ $(document).ready(
 				
 				  });
 			
+			//ปุ่ม SaveExport
 			$("#btnSaveExport").click(function(){
 				
 				
 				   updateExportFn();
 				
 				  });
-			
+			//ปุ่ม SaveImport
 			$("#btnSaveImport").click(function(){
 				
 				
@@ -348,6 +349,8 @@ $(document).ready(
 				
 				  });
 			
+			
+			//ปุ่ม SaveWarBranch
 			$("#btnSaveWarBranch").click(function(){
 				
 				
@@ -355,6 +358,7 @@ $(document).ready(
 				
 				  });
 			
+			//ปุ่ม SaveGradeCalDate
 			$("#btnSaveGradeCalDate").click(function(){
 				
 				
@@ -363,5 +367,5 @@ $(document).ready(
 				  });
 			//End Button
 			
-			
+			//Call Function End
 });

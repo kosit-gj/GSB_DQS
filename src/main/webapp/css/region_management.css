@@ -7,12 +7,12 @@
     padding: 5px;
 }
 .form-region-mangement{
-	height:37px;
+	height:42px;
+	padding-top:7px;
 }
 
 .form-region-label{
 	float:left;
-	padding-top: 7px;
 	width:150px;
 }
 .form-region-input{

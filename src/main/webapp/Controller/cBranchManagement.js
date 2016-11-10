@@ -211,6 +211,7 @@ $(document).ready(function(){
 		});
 		
 		$("#listBranch").html(htmlTable);
+		 $('#tableBranch').DataTable();
 		
 		//function popover
 		$(".popover-edit-del").popover();

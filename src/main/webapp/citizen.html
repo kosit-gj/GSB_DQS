@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -137,7 +137,7 @@
 
          							<div class="row">
          								<div class="col-sm-9">
-	                                    	
+	                    					<button type="button" class="btn btn-info" id="btnAddCitizen" data-target="#ModalCitizen" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Citizen</button>	 
                                      	</div>
                                     
                                      	<div class="col-sm-3">
@@ -311,22 +311,25 @@
 		</div>  
 	</div><!-- sum content -->
 	
+	
+	
+	
 <!-- Modal Start Edit -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="editModalCitizen" class="modal inmodal" style="display: none;">
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalCitizen" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
-                <h4 class="modal-title">Edit File</h4>
+                <h4 class="modal-title">Add/Edit File</h4>
                 <!-- 
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-folder-open icon-title"></i> EDIT FILE</h2>
+                <h2><i class="fa fa fa-folder-open icon-title"></i> ADD/EDIT FILE</h2>
                 <hr>
                 
                 <!-- form start -->
@@ -625,22 +628,7 @@
 	                       
 	                </div>
 	                <br style="clear:both">
-	                
-		                <!-- <div class="row">
-	                	<div class="col-lg-5">
-	                   
-	                        <div class="ibox-content">
-	                           
-	                            <div class="form-group" id="data_3">
-	                                <label class="font-noraml">Decade view</label>
-	                                <div class="input-group date">
-	                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="10/11/2013">
-	                                </div>
-	                            </div>
-	                        </div>
-		                </div>
-		        		</div> -->
-		        		
+	                   		
                 </div>           
               
                 <!-- form start -->
@@ -648,9 +636,9 @@
             </div>
             <div class="modal-footer">
            	 	<input type="hidden" name="id" id="id" value="">
-   				<!-- <input type="hidden" name="action" id="action" value="add"> -->
+   				<input type="hidden" name="action" id="action" value="add">
    				
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
             </div>
         </div>

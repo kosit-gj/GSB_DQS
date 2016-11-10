@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.100:3001"; 
+	var restfulURL = "http://192.168.1.60:3001"; 
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
-	var checkUniqueFn = function(text) {
-		/* http://localhost:3000/api/products?name__regex=/^test/i */
+	/*var checkUniqueFn = function(text) {
+		 http://localhost:3000/api/products?name__regex=/^test/i 
 		var unique = false;
 		$.ajax({
 			url : restfulURL +"/api/dqs_rule?rule_name="+text+"",
@@ -36,6 +36,100 @@ $(document).ready(function(){
 			return true;
 		}
 	
+	}*/
+	var insertFn = function() {
+		
+		var sex = ""
+			if($("#sex_citizen_men:checked").val()){
+				sex = 1;
+			}else if($("#sex_citizen_women:checked").val()){
+				sex = 0;
+			}
+		
+		var month_citizen = ""
+			if($("#month_citizen").val()=="มกราคม"){
+				month_citizen = "01";
+			}else if($("#month_citizen").val()=="กุมภาพันธ์"){
+				month_citizen = "02";
+			}else if($("#month_citizen").val()=="มีนาคม"){
+				month_citizen = "03";
+			}else if($("#month_citizen").val()=="เมษายน"){
+				month_citizen = "04";
+			}else if($("#month_citizen").val()=="พฤษภาคม"){
+				month_citizen = "05";
+			}else if($("#month_citizen").val()=="มิถุนายน"){
+				month_citizen = "06";
+			}else if($("#month_citizen").val()=="กรกฎาคม"){
+				month_citizen = "07";
+			}else if($("#month_citizen").val()=="สิงหาคม"){
+				month_citizen = "08";
+			}else if($("#month_citizen").val()=="กันยายน"){
+				month_citizen = "09";
+			}else if($("#month_citizen").val()=="ตุลาคม"){
+				month_citizen = "10";
+			}else if($("#month_citizen").val()=="พฤศจิกายน"){
+				month_citizen = "11";
+			}else if($("#month_citizen").val()=="ธันวาคม"){
+				month_citizen = "12";
+			}
+		
+		var day_citizen = ""
+			if($("#day_citizen").val()==1){
+				day_citizen = "01";
+			}else if($("#day_citizen").val()==2){
+				day_citizen = "02";
+			}else if($("#day_citizen").val()==3){
+				day_citizen = "03";
+			}else if($("#day_citizen").val()==4){
+				day_citizen = "04";
+			}else if($("#day_citizen").val()==5){
+				day_citizen = "05";
+			}else if($("#day_citizen").val()==6){
+				day_citizen = "06";
+			}else if($("#day_citizen").val()==7){
+				day_citizen = "07";
+			}else if($("#day_citizen").val()==8){
+				day_citizen = "08";
+			}else if($("#day_citizen").val()==9){
+				day_citizen = "09";
+			}else if($("#day_citizen").val()>=10){
+				day_citizen = $("#day_citizen").val();
+			}
+		
+		var ndob = day_citizen+""+month_citizen+""+$("#year_citizen").val();
+		
+		$.ajax({
+			url:restfulURL+"/api/dqs_citizen_import/",
+			type : "POST",
+			dataType : "json",
+			data : {"pid" : $("#cifno_citizen").val(),
+				"nfname" : $("#nfname_citizen").val(),
+				"nlname" : $("#nlname_citizen").val(),
+				"ntitle" : $("#ntitle_citizen").val(),
+				"ndob": ndob,
+				"sex" :  sex,
+				"hno" : $("#hno_citizen").val(),
+				"moo" : $("#moo_citizen").val(),
+				"trok" : $("#trok_citizen").val(),
+				"soi" : $("#soi_citizen").val(),
+				"thanon" : $("#thanon_citizen").val(),
+				"thumbol" : $("#thumbol_citizen").val(),
+				"amphur" : $("#amphur_citizen").val(),
+				"province" : $("#province_citizen").val(),
+				"flag1" : $("#flag1_citizen").val(),
+				"flag2" : $("#flag2_citizen").val(),
+				
+			},	
+			success : function(data) {
+				if (data = "success") {
+					alert("Insert Success");
+					getDataFn();
+					clearFn();
+					$('#ModalCitizen').modal('hide');
+				}
+			}
+		});
+		
 	}
 	
 	var updateFn = function() {
@@ -127,7 +221,7 @@ $(document).ready(function(){
 					alert("Upate Success");
 					getDataFn();
 					clearFn();
-					$('#addModalRule').modal('hide');
+					$('#ModalCitizen').modal('hide');
 				}
 			}
 		});
@@ -137,8 +231,26 @@ $(document).ready(function(){
 	var clearFn = function() {
 		$("#id").val("");
 		$("#action").val("add");
-		$("#rule_name").val("");
+		//$("#rule_name").val("");
 		$("#btnSubmit").val("Add");
+		
+		$("#cifno_citizen").val(""),
+		$("#nfname_citizen").val(""),
+		$("#nlname_citizen").val(""),
+		$("#ntitle_citizen").val(""),
+		dropdownDobYear();
+		dropdownDobMouth();
+		dropdownDobDay();
+		$("#hno_citizen").val(""),
+		$("#moo_citizen").val(""),
+		$("#trok_citizen").val(""),
+		$("#soi_citizen").val(""),
+		$("#thanon_citizen").val(""),
+		$("#thumbol_citizen").val(""),
+		$("#amphur_citizen").val(""),
+		$("#province_citizen").val(""),
+		$("#flag1_citizen").val(""),
+		$("#flag2_citizen").val("")
 	}
 	
 	var dropdownDobDay = function(day){
@@ -304,8 +416,15 @@ $(document).ready(function(){
 	var listCitizenFn = function(data) {
 		console.log(data);
 		var htmlTable = "";
-		
+		var sexed =""
 		$.each(data,function(index,indexEntry) {
+		
+		if (indexEntry["sex"]==1){
+			sexed = "ชาย"
+		}else if (indexEntry["sex"]==0){
+			sexed = "หญิง"
+		}
+			
 		htmlTable += "<tr>";
 		htmlTable += "<td>"+ indexEntry["pid"]+ "</td>";
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
@@ -313,13 +432,18 @@ $(document).ready(function(){
 		htmlTable += "<td>"+ indexEntry["nfname"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["nlname"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["ndob"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["sex"]+ "</td>";
+		htmlTable += "<td>"+sexed+"</td>";
 
-		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#editModalCitizen data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
+		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#ModalCitizen data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
 		$("#listCitizen").html(htmlTable);
+		
+		//get 3 fuction in add citizen
+		dropdownDobYear();
+		dropdownDobMouth();
+		dropdownDobDay();
 		
 		//function popover
 		$(".popover-edit-del").popover();
@@ -378,10 +502,17 @@ $(document).ready(function(){
 		   return false;
 	});
 	
+	$("#btnAddCitizen").click(function(){
+		clearFn();
+	})
 
 	$("#btnSubmit").click(function(){
-		
-		updateFn();
+		if ($("#action").val() == "add"|| $("#action").val() == "") {
+			insertFn();
+		}else{
+			updateFn();
+		}
+		//updateFn();
 		/*if (validationFn() == true) { 
 			
 			if ($("#action").val() == "add"|| $("#action").val() == "") {

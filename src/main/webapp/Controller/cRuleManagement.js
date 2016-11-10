@@ -182,9 +182,11 @@ $(document).ready(function(){
 				
 				$("#rule_name").val(data['rule_name']);
 				$("#rule_group").val(data['rule_group']);
-				$("#data_flow_id").val(data['data_flow_id']);	
+				//$("#data_flow_id").val(data['data_flow_id']);	
 	
 				$('.processType').prop('checked', false);
+				
+				dropdownDataflow(data['data_flow_id']);
 				
 				if(data['initial_flag']==1){
 					$('#checkboxInitial').prop('checked', true);
@@ -214,6 +216,7 @@ $(document).ready(function(){
 				
 			}
 		});
+		
 	};
 	
 	var searchFn = function(searchText) {
@@ -285,6 +288,7 @@ $(document).ready(function(){
 	
 		$("#listRule").html(htmlTable);
 		
+		
 		//function popover
 		$(".popover-edit-del").popover();
 	
@@ -317,6 +321,42 @@ $(document).ready(function(){
 			
 	};
 	
+	var dropdownDataflow = function(id) {
+		alert("555");
+		var selectDataflowHTML=""
+		var makeDataflowID=""	
+			
+		if (id=="1"){
+			makeDataflowID = "Cleansing"
+		}else if (id=="2"){
+			makeDataflowID = "Matching"
+		}
+		
+		$.ajax({
+			url : restfulURL + "/api/dqs_data_flow",
+			type : "get",
+			dataType : "json",
+			success : function(data) {
+				
+				$.each(data,function(index,indexEntry){
+					
+					
+					if(makeDataflowID==indexEntry['data_flow_name']){
+						//alert(makeDataflowID+"="+indexEntry['data_flow_name']);
+						selectDataflowHTML+="<option selected>"+indexEntry['data_flow_name']+"</option>"; 
+					}else{
+						selectDataflowHTML+="<option>"+indexEntry['data_flow_name']+"</option>";  
+					}
+				
+				});
+				alert(selectDataflowHTML);
+				$("#data_flow_id").html(selectDataflowHTML);
+			}
+		});
+		
+		
+	}
+	//dropdownDataflow();
 	
 	var getDataFn = function() {
 		$.ajax({

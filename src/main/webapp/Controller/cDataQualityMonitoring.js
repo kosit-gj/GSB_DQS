@@ -142,6 +142,25 @@ $(document).ready(function(){
 		$("#month_citizen_area").html(selectDobMonthHTML);
 	}
 	
+	var makeListInitalValidate = function(){
+		$.ajax({
+			url:restfulURL+"/api/make_dqs_inital_validate",
+			type : "get",
+			dataType : "json",
+			async:false,
+			success : function(data) {	
+				
+				alert(data[0]['rule_id']);
+				
+				/*$.each(data,function(index,indexEntry){
+					
+				})*/
+	
+			}
+		})
+	};
+		
+	
 	var dropdownDobYear = function(param_year){
 		
 		var selectDobYearHTML="";
@@ -301,10 +320,45 @@ $(document).ready(function(){
 		});
 		$("#listDataQuality").html(htmlTable);	
 		
+		$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+		
 		$(".modalDetail").click(function(){
 			
 			findOneDataFn(this.id);
 			$("#id").val(this.id);
+			makeListInitalValidate();
+			
+		});
+	};
+	
+	var listMakeDetailRuleFn = function(data) {
+		console.log(data);
+		var htmlTable = "";
+		
+		$.each(data,function(index,indexEntry) {
+			htmlTable += "<tr>";
+			htmlTable += "<td>"+ (index + 1)+ "</td>";
+			htmlTable += "<td>"+ indexEntry["cif"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["customername"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["customertype"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["lastcontactbranch"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["lastcontactdate"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["lasttransbranch"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["rule"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["maxday"]+ "</td>";
+			htmlTable += "<td><div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["_id"]+"></i>&nbsp;&nbsp;<i class='fa fa-paperclip font-management modalPaperchip' data-target='#addModal' data-toggle='modal'></i></div></td>";  
+			htmlTable += "</tr>";
+		});
+		$("#listDataQuality").html(htmlTable);	
+		
+		$('#tableDataMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+		
+		$(".modalDetail").click(function(){
+			
+			findOneDataFn(this.id);
+			$("#id").val(this.id);
+			makeListInitalValidate();
+			
 		});
 	};
 	
@@ -321,6 +375,20 @@ $(document).ready(function(){
 	};
 	//Call Function start
 	  getDataFn();
+	  
+	  var getDataMakeRuleFn = function() {
+			$.ajax({
+				url : restfulURL + "/api/make_dqs_inital_validate/",
+				type : "get",
+				dataType : "json",
+				success : function(data) {
+					listMakeDetailRuleFn(data);
+					console.log(data);
+				}
+			});
+		};
+		//Call Function start
+		  getDataMakeRuleFn();
 	 	
 	$("#btnSearch").click(function(){
 		searchFn($("#searchCitizen").val());
@@ -338,6 +406,7 @@ $(document).ready(function(){
 	$("#btnSubmit").click(function(){
 		
 		updateFn();
+		
 		/*if (validationFn() == true) { 
 			
 			if ($("#action").val() == "add"|| $("#action").val() == "") {

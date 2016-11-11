@@ -219,7 +219,7 @@ $(document).ready(function(){
 		
 	};
 	
-	var searchFn = function(searchText) {
+	/*var searchFn = function(searchText) {
 		$.ajax({
 			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
 			type : "get",
@@ -228,7 +228,7 @@ $(document).ready(function(){
 				listRuleFn(data);
 			}
 		});
-	}
+	}*/
 
 	var searchAdvanceFn = function(searchText) {
 		$.ajax({
@@ -288,6 +288,7 @@ $(document).ready(function(){
 	
 		$("#listRule").html(htmlTable);
 		
+		$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );  
 		
 		//function popover
 		$(".popover-edit-del").popover();
@@ -372,10 +373,10 @@ $(document).ready(function(){
 	//Call Function start
 	  getDataFn();
 	 	
-	$("#btnSearch").click(function(){
+/*	$("#btnSearch").click(function(){
 		searchFn($("#searchRule").val());
 		   return false;
-	});
+	});*/
 	
 	$("#btnSearchAdvance").click(function(){
 		searchAdvanceFn($("#searchAdvanceRule").val());

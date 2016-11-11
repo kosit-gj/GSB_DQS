@@ -117,7 +117,7 @@ $(document).ready(function(){
 	        }else{ 
 	        	closeflagCheckbox = 0;
 	        }
-			alert(closeflagCheckbox);
+			//alert(closeflagCheckbox);
 			$.ajax({
 				url:restfulURL+"/api/dqs_branch/"+id,
 				type : "PUT",
@@ -127,7 +127,6 @@ $(document).ready(function(){
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
-						
 					}
 				}
 			});
@@ -187,6 +186,12 @@ $(document).ready(function(){
 	}
 	
 	var listBranchFn = function(data) {
+		
+		
+		if ($.fn.DataTable.isDataTable('#tableBranch')) {
+		       $('#tableBranch').DataTable().destroy(); 
+		}
+		
 		console.log(data);
 		var htmlTable = "";
 		//var close = $(indexEntry["close_flag"]);
@@ -214,11 +219,17 @@ $(document).ready(function(){
 		 //$('#tableBranch').DataTable();
 		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
+		/*$(".paginate_button").on("click",function(){
+			alert("click");
+		})*/
+		
+		
+		
 		//function popover
 		$(".popover-edit-del").popover();
 		
 		//ปุ่ม Edit ใน table
-		$(".editCheckboxCloseFlag").click(function(){
+		$("#tableBranch").on("click",".editCheckboxCloseFlag",function(){  
 			
 			var id = this.id.split("-"); 
 			
@@ -268,6 +279,8 @@ $(document).ready(function(){
 		
 		});
 		$("#branchOparation").html(htmlTable);
+		
+		$('#tableBranchOperation').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		//function popover
 		$(".popover-edit-del").popover();

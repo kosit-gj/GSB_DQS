@@ -211,7 +211,8 @@ $(document).ready(function(){
 		});
 		
 		$("#listBranch").html(htmlTable);
-		 $('#tableBranch').DataTable();
+		 //$('#tableBranch').DataTable();
+		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		//function popover
 		$(".popover-edit-del").popover();

@@ -1,34 +1,34 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.100:3001";
+		var restfulURL = "http://192.168.1.49:3001";
 		
 		 var getDataFn = function(){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_branch_operation",
+					    url:restfulURL+"/api/dqs_branch",
 					    type:"get",
 					    dataType:"json",
 						    success:function(data){
 						     
 						     
-						     dropDownListBranchOper();
+						     dropDownListBranch();
 						 }
 				  });
 		};
 		
 		
-		var dropDownListBranchOper = function(data){
+		var dropDownListBranch = function(data){
 			$.ajax ({
-				url:restfulURL+"/api/dqs_branch_operation" ,
+				url:restfulURL+"/api/dqs_branch" ,
 				type:"get" ,
 				dataType:"json" ,
 					success:function(data){
 						var htmlTable="";
 						$.each(data,function(index,indexEntry){
 							
-							htmlTable+="<option value="+indexEntry["operation_code"]+">"+indexEntry["operation_name"]+"</option>";		
+							htmlTable+="<option value="+indexEntry["brcd"]+">"+indexEntry["desc"]+"</option>";		
 						});	
-						$("#listBranchOper").html(htmlTable);
+						$("#listBranch").html(htmlTable);
 					}
 			});
 		};

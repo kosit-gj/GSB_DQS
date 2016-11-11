@@ -4,3 +4,9 @@
 .form-input{
 	padding-left:15px;
 }
+
+.kpi-label-title{
+	float: left;
+    font-size: 15px;
+    width: 500px;
+}

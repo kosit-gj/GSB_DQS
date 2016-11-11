@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -104,17 +104,20 @@
                             	<br>
                             	 <div class="row">
                                     <div class="col-sm-6">	
-										<label>เลือก Branch ที่ต้องการคำนวณ KPI</label>
+                                    	<div class="kpi-label-title">
+											<b>เลือก Branch ที่ต้องการคำนวณ KPI</b>
+		               					</div>
 									</div>
 								</div>
+								<br style="clear:both">
 								<div class="row">
 									<div class="form-input">
-										<select class="input form-control input-contact-selecttype" id="listBranchOper">
+										<select class="input form-control input-contact-selecttype" id="listBranch">
 				                              <option>Select Branch</option>
 	                                    </select>
 									</div>
 								</div>
-								<br>
+								<br style="clear:both">
                              	<div class="row">							
                                      <div class="col-sm-6">	                                
                                          <button type="button" class="btn btn-info"data-target="#runModal" data-toggle="modal">&nbsp;&nbsp;<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Run&nbsp;&nbsp;</button>
@@ -122,8 +125,10 @@
                              	</div>
                              	<br>
                              	<div class="row">							
-                                     <div class="col-sm-6">	                                
-                                         <label>Note :</label>&nbsp;การคำนวณ KPI อาจใช้เวลานานหลายนาที
+                                     <div class="col-sm-12">	  
+                                     	<div class="kpi-label-title">
+											<b>Note :</b>&nbsp;การคำนวณ KPI อาจใช้เวลานานหลายนาที
+		               					</div>                              
                                      </div>
                              	</div>
                              	<br>

@@ -17,12 +17,12 @@
     <link href="css/animate.css" rel="stylesheet">
     
     
-    
-    
-    
     <link href="css/style.css" rel="stylesheet">
-     <link href="css/gsbMain.css" rel="stylesheet">
-     <link href="css/user_management.css" rel="stylesheet">
+    <link href="css/gsbMain.css" rel="stylesheet">
+     
+    <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
+     
+    <link href="css/user_management.css" rel="stylesheet">
      
 
 
@@ -163,16 +163,16 @@
 		                                    <button type="button" class="btn btn-warning " id="btnSave"><i class="fa fa-save"></i>&nbsp;Save</button>
 		                                    <button type="button" class="btn btn-danger " id="btnCancel"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
 	                                    </div>
-	                                     <div class="col-sm-4">
+	                                    <!--  <div class="col-sm-4">
 		                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
 	                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
-	                                     </div>
+	                                     </div> -->
 	                                     
 	                                      <input type="hidden" name="id" id="id" value="">
                                     	  <input type="hidden" name="action" id="action" value="add">
 	                             </div>
                              
-	                                <div class="row">
+	                                <!-- <div class="row">
 	                                    <div class="col-sm-9 m-b-xs">
 	       
 											<div class="btn-group">
@@ -197,7 +197,7 @@
 		                                    
 	                                        
 	                                    </div>
-	                                </div>
+	                                </div> -->
 	                                
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableUser">
@@ -317,7 +317,7 @@
                                 
                                 <!-- footer paging start -->
                                 
-                                 <div class="row">
+                                 <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
  
 										<div class="btn-group">
@@ -342,7 +342,7 @@
 	                                    
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- footer paging end -->
 
                             </div>
@@ -378,6 +378,11 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
 
 	 <script src="Controller/cUserManagement.js"></script>
 

@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.100:3001";
+		var restfulURL = "http://192.168.1.49:3001";
 		
 		
 		 var listDataFn = function(data){
@@ -22,6 +22,9 @@ $(document).ready(
 				   });
 				
 				   $("#listMergeCIFReport").html(htmlTable);
+				
+				//DataTable
+				  $('#tableMergeCIFReport').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
 		 }
 		 
 		 

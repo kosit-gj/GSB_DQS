@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.60:3001";
+		var restfulURL = "http://192.168.1.49:3001";
 		/*var restfulURL = "http://171.96.200.171:3001";*/
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
@@ -141,6 +141,10 @@ $(document).ready(
 			
 			 // list data Region
 			  var listDataFn = function(data){
+				
+				if ( $.fn.DataTable.isDataTable('#tableRegion')) {
+				      $('#tableRegion').DataTable().destroy();
+				     }
 						
 						   console.log(data);
 						   var htmlTable="";
@@ -156,13 +160,17 @@ $(document).ready(
 						   });
 						
 						   $("#listRegion").html(htmlTable);
+						
+						   //DataTable
+						   $('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 						   
 						  //popover 
 						$(".popover-del-edit").popover();
 						
 						
-						$(".popover-del-edit").click(function(){
+						$("#tableRegion").on("click" ,".popover-del-edit",function(){
 							//findOnd
+							alert("tableRegion");
 							$(".edit").on("click",function(){
 								    findOneFn(this.id);
 								    $("#id").val(this.id);
@@ -176,6 +184,7 @@ $(document).ready(
 							      url:restfulURL+"/api/dqs_region/"+this.id,
 							      type:"delete",
 							      dataType:"json",
+							
 							      //data:{"_id":this.id},
 								      success:function(data){       
 								       

@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.60:3001";
+		var restfulURL = "http://192.168.1.49:3001";
 		
 		
 		
@@ -108,7 +108,12 @@ $(document).ready(
 			
 			//function list data User
 			  var listDataFn = function(data){
-						
+				
+				
+				if ( $.fn.DataTable.isDataTable('#tableUser')) {
+				      $('#tableUser').DataTable().destroy();
+				     }
+				
 						//  console.log(data);
 						   var htmlTable="";
 						 $("#listUser").empty();
@@ -162,6 +167,8 @@ $(document).ready(
 						
 						  $("#listUser").html(htmlTable);
 						
+						//DataTable
+						  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 						
 						
 						//start ปุ่ม Edit ใน table

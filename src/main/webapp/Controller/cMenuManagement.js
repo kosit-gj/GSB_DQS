@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-			var restfulURL="http://192.168.1.60:3001";
+			var restfulURL="http://192.168.1.49:3001";
 			
 			
 
@@ -80,8 +80,8 @@ $(document).ready(function(){
 					      alert("Upate Success");
 					      getDataFn();
 					      clearFn();
-			     }
-			    }
+			     		}
+			    	}
 			   });
 			
 			   return false;
@@ -108,9 +108,9 @@ $(document).ready(function(){
 				
 				      $("#menu_name").val(data['menu_name']);
 				      
-			    }
-			   });
-			  };
+			    		}
+			   		});
+			  	};
 			  
 			  var searchFn = function(searchText){
 			   /* http://localhost:3000/api/products?name__regex=/^test/i */
@@ -122,10 +122,9 @@ $(document).ready(function(){
 				    success:function(data){
 				
 				     listDataFn(data);
-			    }
-			   });
-			   
-			  }
+			    	}
+			   	});
+			  };
 			  
 			  var listDataFn = function(data){
 			
@@ -146,70 +145,65 @@ $(document).ready(function(){
 				
 				
 			   
-			   $(".btnAuthorize").click(function(){
-				
-					$("#embed_menu_id").val(this.id);
+				   $(".btnAuthorize").click(function(){
 					
-					$("#menuname").text(($("#menuname-"+this.id).text()));
-					
-					//getDataAuthorizationFn();
-					getDataRoleFn();
+						$("#embed_menu_id").val(this.id);
+						
+						$("#menuname").text(($("#menuname-"+this.id).text()));
+						
+						//getDataAuthorizationFn();
+						getDataRoleFn();
 
-			});
-			//popover 
-				$(".popover-del-edit").popover();
-				
-				//delete
-				$(".popover-del-edit").click(function(){
-				    $(".del").click(function(){
-				    //alert(this.id);
-				    if(confirm("Do you want to delete this file?")){
-				     
-				     $.ajax({
-					      url:restfulURL+"/api/dqs_menu/"+this.id,
-					      type:"delete",
-					      dataType:"json",
-					      //data:{"_id":this.id},
-					      success:function(data){       
-						       getDataFn();
-						       clearFn();
-				
-			      }
-			     });
-			    }
-			
+				});
+					//popover 
+					$(".popover-del-edit").popover();
+					
+					//delete
+					$(".popover-del-edit").click(function(){
+						
+					    $(".del").click(function(){
+					    //alert(this.id);
+					    if(confirm("Do you want to delete this file?")){
+					     
+					     $.ajax({
+						      url:restfulURL+"/api/dqs_menu/"+this.id,
+						      type:"delete",
+						      dataType:"json",
+						      //data:{"_id":this.id},
+						      success:function(data){       
+							       getDataFn();
+							       clearFn();
+					
+			     			 }
+			     		});
+			   		 }
 			   });
 			
 					   //findOnd
-					   $(".edit").click(function(){
+					   $(".edit").click(function(){	
 					
 						    findOneFn(this.id);
 						
 						    $("#id").val(this.id);
 						    $("#action").val("edit");
 						    $("#btnSubmit").val("Edit");
-					
-			
-			   });
-			});
-		
-					
+			   			});
+				});
 			 
-		}
+		};
 			  
 			  var getDataFn = function(){
 			   
-			   $.ajax({
-				    url:restfulURL+"/api/dqs_menu",
-				    type:"get",
-				    dataType:"json",
-				    success:function(data){
-				     
-				     listDataFn(data);
-			    }
-			   });
-			
-			  };
+				   $.ajax({
+					    url:restfulURL+"/api/dqs_menu",
+					    type:"get",
+					    dataType:"json",
+					    success:function(data){
+					     
+					     listDataFn(data);
+				    	}
+				   });
+			 };
 			
 			
 			
@@ -221,13 +215,16 @@ $(document).ready(function(){
 				   $.each(data,function(index,indexEntry){
 							       htmlTable+="<tr >";
 							
-										htmlTable+="<td>";
-											if(indexEntry["_id"]==1){
-												htmlTable+="<input type=\"checkbox\" id=closeCheckbox-"+indexEntry["_id"]+">";
-											}else if(indexEntry["_id"]==0){
+							            htmlTable += "<td><input type=\"checkbox\" id=checkbox-"+indexEntry["_id"]+"></td>";
+							            
+										/*htmlTable+="<td>";
+											if(indexEntry["role_id"]==1){
+												htmlTable+="<input type=\"checkbox\" checked='checked' id=closeCheckbox-"+indexEntry["_id"]+">";
+											}else if(indexEntry["role_id"]==0){
 												htmlTable+="<input type=\"checkbox\" id=closeCheckbox-"+indexEntry["_id"]+">";
 											}
-										htmlTable+="</td>";
+										htmlTable+="</td>";*/
+										
 										
 								        htmlTable+="<td>"+indexEntry["role_name"]+"</td>";
 								
@@ -237,6 +234,7 @@ $(document).ready(function(){
 					  $("#listRole").html(htmlTable);
 				}
 			 
+			
 			
 				var getDataRoleFn = function(){
 				

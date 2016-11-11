@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 
@@ -15,13 +15,12 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-
-    
     
     <link href="css/style.css" rel="stylesheet">
-     <link href="css/gsbMain.css" rel="stylesheet">
+    <link href="css/gsbMain.css" rel="stylesheet">
 
-
+	<link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
+	
 </head>
 
 <body class="top-navigation">
@@ -143,7 +142,7 @@
 	                             		</div>
 	                             </div>
                              
-	                                <div class="row">
+	                                <!-- <div class="row">
 	                                    <div class="col-sm-9 m-b-xs">
 	       
 											<div class="btn-group">
@@ -168,10 +167,10 @@
 		                                    
 	                                        
 	                                    </div>
-	                                </div>
+	                                </div> -->
 	                                
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableMergeCIFReport">
                                         <thead>
 	                                        <tr>
 	
@@ -290,7 +289,7 @@
                                 
                                 <!-- footer paging start -->
                                 
-                                 <div class="row">
+                                 <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
  
 										<div class="btn-group">
@@ -315,7 +314,7 @@
 	                                    
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- footer paging end -->
 
                             </div>
@@ -349,9 +348,14 @@
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    Custom and plugin javascript
+    <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
     
     <script src="Controller/cMergeCIFReport.js"></script>
 

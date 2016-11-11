@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.100:3001";
+	var restfulURL = "http://192.168.1.49:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	/*var checkUniqueFn = function(text) {
@@ -211,7 +211,8 @@ $(document).ready(function(){
 		});
 		
 		$("#listBranch").html(htmlTable);
-		 $('#tableBranch').DataTable();
+		 //$('#tableBranch').DataTable();
+		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		//function popover
 		$(".popover-edit-del").popover();

@@ -1,0 +1,75 @@
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+	$(document).ready(function(){
+		//alert("test ajax start");
+		
+		var tokenID=[];
+		var authen = function(){
+			$.ajax({
+				url:"http://192.168.1.100:3100/dqs_api/public/session",
+				type:"POST",
+				dataType:"json",
+				data:{user_name:"Administrator",password:"gj255902!"},
+				success:function(data){
+					//alert(data);
+					//console.log(data);
+					tokenID=data;
+				}
+			});
+		}
+		
+		authen();
+		
+		$("#btnCallAjax").click(function(){
+			
+			$.ajax({
+				url:"http://192.168.1.100:3100/dqs_api/public/dqs_system_config",
+				//url:"http://192.168.1.100:3100/dqs_api/public/dqs_branch?token="+tokenID.token,
+				type:"GET",
+				dataType:"json",
+				headers:{Authorization:"Bearer "+tokenID.token},
+				//data:{token:tokenID.token},
+				success:function(data){
+					console.log(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					
+					console.log(jqXHR.statusText);
+				    //alert(jqXHR.status);
+				    //alert(textStatus);
+				    //alert(errorThrown);
+				}
+				
+			});
+		});
+		
+		$("#btnLogOut").click(function(){
+			$.ajax({
+				url:"http://192.168.1.100:3100/dqs_api/public/session",
+				type:"DELETE",
+				dataType:"json",
+				headers:{Authorization:"Bearer "+tokenID.token},
+				//data:{token:tokenID.token},
+				success:function(data){
+					
+					console.log(data);
+					
+					
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+				    //alert(jqXHR.status);
+				    //alert(textStatus);
+				    //alert(errorThrown);
+				   // console.log(jqXHR);
+				}
+			});
+		});
+		
+		
+	});
+</script>
+<button id="btnLogOut">Logout.</button>
+<button id="btnCallAjax">Call Now.</button>
+			  
+			  
+			  

@@ -18,6 +18,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
     <link href="css/branch_management.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
 
 </head>
 
@@ -40,7 +41,7 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                <!-- 
+                   <!-- 
                     <li class="active">
                         <a aria-expanded="false" role="button" href="layouts.html"> Back to main Layout page</a>
                     </li>
@@ -90,7 +91,7 @@
                                 <h5>Branch List</h5>
 							</div>
                             <div class="ibox-content">
-                            
+                            <!-- 
 								<div class="row">
 								
                                     <div class="col-sm-9 m-b-xs">
@@ -107,7 +108,8 @@
                                     <input type="hidden" name="id" id="id" value="">
                                     <input type="hidden" name="action" id="action" value="add">
                              	</div>
-                             
+                             	 -->
+                             <!-- 
                                 <div class="row">
                                 
                                     <div class="col-sm-9 m-b-xs">
@@ -135,15 +137,15 @@
                                     </div>
                                     
                                 </div>
-                                
+                                --> 
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableBranch">
                                         <thead>
                                         	<tr>
 												<th>Branch Code</th>
 	                                            <th>Branch Name</th>
 	                                            <th>Cost Center</th>
-	                                            <th>Regional<br>Office</th>
+	                                            <th>Regional Office</th>
 	                                            <th>District</th>
 	                                            <th>Close</th>
                                         	</tr>
@@ -263,7 +265,7 @@
                                 
                                 
                                 <!-- footer paging start -->
-                                
+                                <!-- 
 								<div class="row">
 									
 									<div class="col-sm-9 m-b-xs">
@@ -293,6 +295,7 @@
                                     </div>
                                     
                                 </div>
+                                -->
                                 <!-- footer paging end -->
                                 
                             </div>
@@ -454,6 +457,11 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- plugin dataTable start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- plugin dataTable end -->
 
     <!-- Branch -->
     <script src="Controller/cBranchManagement.js"></script> 

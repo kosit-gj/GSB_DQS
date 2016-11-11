@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +17,9 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
     <link href="css/branch_management.css" rel="stylesheet">
-
+    
+	<link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
+	
 </head>
 
 <body class="top-navigation">
@@ -98,16 +99,16 @@
                                     	<button type="button" class="btn btn-warning " id="btnSave"><i class="fa fa-save"></i>&nbsp;Save</button>
                                     	<button type="button" class="btn btn-danger "><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
-                                    
+                                    <!-- 
                                     <div class="col-sm-3">
 	                                    <div class="input-group"><input type="text" id="searchBranch" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
                                     </div>
-                                    
+                                     -->
                                     <input type="hidden" name="id" id="id" value="">
                                     <input type="hidden" name="action" id="action" value="add">
                              	</div>
-                             
+                             	<!-- 
                                 <div class="row">
                                 
                                     <div class="col-sm-9 m-b-xs">
@@ -135,9 +136,10 @@
                                     </div>
                                     
                                 </div>
+                                 -->
                                 
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableBranch">
                                         <thead>
                                         	<tr>
 												<th>Branch Code</th>
@@ -263,7 +265,7 @@
                                 
                                 
                                 <!-- footer paging start -->
-                                
+                                <!-- 
 								<div class="row">
 									
 									<div class="col-sm-9 m-b-xs">
@@ -293,6 +295,7 @@
                                     </div>
                                     
                                 </div>
+                                 -->
                                 <!-- footer paging end -->
                                 
                             </div>
@@ -454,6 +457,11 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
 
     <!-- Branch -->
     <script src="Controller/cBranchManagement.js"></script> 

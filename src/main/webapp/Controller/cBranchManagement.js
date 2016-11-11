@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.60:3001";
+	var restfulURL = "http://192.168.1.49:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	/*var checkUniqueFn = function(text) {

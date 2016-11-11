@@ -1,0 +1,72 @@
+.search-box{
+	
+	/*border: 1px solid;*/
+    float: left;
+    margin-right: 5px;
+    width: 150px;
+    margin-bottom:5px;
+}
+.btn-search{
+	width: 100%;
+}
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+}
+.label-branch{
+	height:25px;
+	font-size:14px;
+}
+.label-count-fail{
+	height:25px;
+	font-size:14px;
+}
+#modalDetail  .modal-body {
+    padding: 0;
+}
+
+.btn-search{
+	margin-bottom:5px;
+}
+.title-detail{
+	padding-top:5px;
+	padding-bottom:20px;
+	font-size:16px;
+}
+.label-detail{
+	
+	float:left;
+}
+.label-detail .box1{
+	width:117px;
+}
+.label-detail .box2{
+	width:174px;
+}
+.label-detail .box3{
+	width:228px;
+}
+.label-detail .box4{
+	width:228px;
+}
+.label-detail .box5{
+	width:260px;
+}
+.explain-label-title{
+	float: left;
+    font-size: 15px;
+    width: 250px;
+}
+.label-explain{
+	float:left;
+	width:100px;
+	font-weight:bold;
+}
+
+.input-explain{
+	float:left;
+	width:438px;
+}
+
+
+

@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.49:3001";
+		var restfulURL = "http://192.168.1.50:3001";
 		/*var restfulURL = "http://171.96.200.171:3001";*/
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
@@ -32,8 +32,11 @@ $(document).ready(
 		 //function เชคค่าว่าง
 		   var validationFn = function(){
 				   var validateText="";
+				       if($("#region_code").val()==""){
+					    	validateText+="region code not empty\n";
+					   }
 					   if($("#region_name").val()==""){
-					    	validateText+="name not empty\n";
+					    	validateText+="region name not empty\n";
 					   }
 						if($("#operation_id").val()==""){
 					   		 validateText+="operation not empty\n";
@@ -107,7 +110,7 @@ $(document).ready(
 					   $('#ManagementModal').modal('hide');
 			}
 			 
-			 
+			 //get data to Edit
 			 var findOneFn = function(id){
 				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 				   $.ajax({
@@ -168,28 +171,31 @@ $(document).ready(
 						$(".popover-del-edit").popover();
 						
 						
-						$("#tableRegion").on("click" ,".popover-del-edit",function(){
+						$(".popover-del-edit").click(function(){
+							
 							//findOnd
-							alert("tableRegion");
+							//alert("tableRegion");
 							$(".edit").on("click",function(){
 								    findOneFn(this.id);
 								    $("#id").val(this.id);
 								    $("#action").val("edit");
 								    $("#btnSubmit").val("Edit");
 								});
+							
 							//delete
-						   $(".del").click(function(){
+						   	$(".del").click(function(){
+							
 						    if(confirm("Do you want to delete this file?")){
+							
 						     $.ajax({
 							      url:restfulURL+"/api/dqs_region/"+this.id,
 							      type:"delete",
 							      dataType:"json",
-							
-							      //data:{"_id":this.id},
+							          //data:{"_id":this.id},
 								      success:function(data){       
 								       
 								       getDataFn();
-								       clearFn();
+								       //clearFn();
 						
 				     			 }
 				   			  });

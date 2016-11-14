@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.49:3001";
+		var restfulURL = "http://192.168.1.50:3001";
 		
 		
 		
@@ -82,12 +82,12 @@ $(document).ready(
 
 			 
 			 
-			 var clearFn = function(){
+			 /*var clearFn = function(){
 					
 					   $("#id").val("");
 					   $("#action").val("add");
 			}
-			 
+			 */
 			 
 			 //function search data
 			  var searchFn = function(searchText){
@@ -174,7 +174,7 @@ $(document).ready(
 						//start ปุ่ม Edit ใน table
 						
 						//Edit SuperFlag
-						$(".editSuperFlag").click(function(){
+						$("#tableUser").on("click",".editSuperFlag",function(){
 							
 							var id = this.id.split("-"); 
 							
@@ -183,7 +183,7 @@ $(document).ready(
 						});
 						
 						//Edit Rule
-						$(".editListRole").click(function(){
+						$("#tableUser").on("click",".editListRole",function(){
 							
 							var id = this.id.split("-"); 
 							
@@ -204,7 +204,8 @@ $(document).ready(
 						//end ปุ่ม Edit ใน table
 				
 			};
-	
+			
+			//ฝัง id เพื่อเรียกใช้งาน  editSuperFlag
 			var embedParam = function(id){
 				//alert(id);
 				var count = 0;
@@ -225,6 +226,7 @@ $(document).ready(
 				
 			}
 			
+			//ฝัง id เพื่อเรียกใช้งาน  editListRole
 			var embedParamRole = function(id){
 				//alert(id);
 				var count = 0;
@@ -351,24 +353,24 @@ $(document).ready(
 			//Call Function start
 		  getDataFn();
 
-		  	//ปุ่ม Save
+		  	//ปุ่ม Save Region
 			$("#btnSave").click(function(){
 		        updateFn();
 		       // alert("btnSave");
 			});
 			
-			//ปุ่ม Search
+			//ปุ่ม Search Region
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());
 				   return false;
 			  });
 			
-			// ปุ่ม Cancel
+			// ปุ่ม Cancel Region
 			  $("#btnCancel").click(function(){
 				  getDataFn();
 				});
 			
-			  //ปุ่ม click Edit 
+			  //ปุ่ม click Edit to table
 			  $("#btnEdit").click(function(){
 				$(".editSuperFlag").removeAttr("disabled");
 				$(".editListRole").removeAttr("disabled");

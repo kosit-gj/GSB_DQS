@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$("#exPlainModal").modal();
 	});
 	
-	var restfulURL = "http://192.168.1.49:3001";  
+	var restfulURL = "http://192.168.1.50:3001";  
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
@@ -140,26 +140,7 @@ $(document).ready(function(){
 		
 		//alert(selectDobMonthHTML);
 		$("#month_citizen_area").html(selectDobMonthHTML);
-	}
-	
-	var makeListInitalValidate = function(){
-		$.ajax({
-			url:restfulURL+"/api/make_dqs_inital_validate",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				
-				alert(data[0]['rule_id']);
-				
-				/*$.each(data,function(index,indexEntry){
-					
-				})*/
-	
-			}
-		})
-	};
-		
+	}	
 	
 	var dropdownDobYear = function(param_year){
 		
@@ -278,6 +259,8 @@ $(document).ready(function(){
 				htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif"]+"</div>";
 				htmlTable += "</div>";
 				
+				htmlTable += "<input type='text' id='cif_id_hidden' value='"+data["cif"]+"'>";
+				
 				htmlTable +="<div class='label-detail'>";
 				htmlTable +="<div class='box2'><b>Name</b> : "+data["customername"]+"</div>";
 				htmlTable +="</div>";
@@ -326,7 +309,8 @@ $(document).ready(function(){
 			
 			findOneDataFn(this.id);
 			$("#id").val(this.id);
-			makeListInitalValidate();
+			
+			
 			
 		});
 	};
@@ -335,30 +319,42 @@ $(document).ready(function(){
 		console.log(data);
 		var htmlTable = "";
 		
+		//$("#cif_id_hidden").val()
+		
 		$.each(data,function(index,indexEntry) {
 			htmlTable += "<tr>";
 			htmlTable += "<td>"+ (index + 1)+ "</td>";
-			htmlTable += "<td>"+ indexEntry["cif"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["customername"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["customertype"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["lastcontactbranch"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["lastcontactdate"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["lasttransbranch"]+ "</td>";
+			htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>";
 			htmlTable += "<td>"+ indexEntry["rule"]+ "</td>";
-			htmlTable += "<td>"+ indexEntry["maxday"]+ "</td>";
-			htmlTable += "<td><div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["_id"]+"></i>&nbsp;&nbsp;<i class='fa fa-paperclip font-management modalPaperchip' data-target='#addModal' data-toggle='modal'></i></div></td>";  
+			htmlTable += "<td>"+ indexEntry["day"]+ "</td>";
+			
+			if(indexEntry["kpi_flag"]==1){
+				htmlTable += "<td><input type=\"checkbox\" class='' id=kpiFlagCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			}else if(indexEntry["kpi_flag"]==0){
+				htmlTable += "<td><input type=\"checkbox\" class='' id=kpiFlagCheckbox-"+indexEntry["_id"]+" ></td>";
+			}
+			
+			htmlTable += "<td><select><option>"+ indexEntry["validate_status"]+"</opion></select></td>";
+			
+			if(indexEntry["cif_no"]==1){
+				htmlTable += "<td><input type=\"checkbox\" class='' id=cifNoCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			}else if(indexEntry["cif_no"]==0){
+				htmlTable += "<td><input type=\"checkbox\" class='' id=cifNoCheckbox-"+indexEntry["_id"]+" ></td>";
+			}
+			
+			
 			htmlTable += "</tr>";
 		});
-		$("#listDataQuality").html(htmlTable);	
+		$("#tableDataMakeRuleQuality").html(htmlTable);	 
 		
-		$('#tableDataMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+		$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		$(".modalDetail").click(function(){
 			
 			findOneDataFn(this.id);
 			$("#id").val(this.id);
-			makeListInitalValidate();
 			
+			//getDataMakeRuleFn();
 		});
 	};
 	

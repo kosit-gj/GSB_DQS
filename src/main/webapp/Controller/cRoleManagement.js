@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.60:3001";
+	var restfulURL = "http://192.168.1.50:3001";
 	
 	var checkUniqueFn = function(text) {
 		/* http://localhost:3000/api/products?name__regex=/^test/i */
@@ -88,7 +88,7 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				$("#role_name").val(data['role_name']);
+				$("#role_name").val(data['role_name']);				
 			}
 		});
 	};
@@ -116,6 +116,22 @@ $(document).ready(function(){
 		});
 	
 		$("#listMenu").html(htmlTable);
+		
+	}
+	
+	listNameRoleFn = function(id) {
+		var htmlName = "";
+		$.ajax({
+			url : restfulURL + "/api/dqs_role/"+id,
+			type : "get",
+			dataType : "json",
+			success : function(data) {
+				
+				htmlName += data["role_name"];
+				
+				$("#label-name-role").html(htmlName);
+			}
+		});
 	}
 	
 	var listRoleFn = function(data) {
@@ -126,7 +142,7 @@ $(document).ready(function(){
 		htmlTable += "<tr>";
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
 		htmlTable += "<td>"+ indexEntry["role_name"]+ "</td>";
-		htmlTable += "<td><i class=\"fa fa-paste font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\"></i></td> ";
+		htmlTable += "<td><i class=\"fa fa-paste font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["_id"]+"></i></td> ";
 		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
@@ -136,6 +152,9 @@ $(document).ready(function(){
 		//getMenu
 		$(".btnAuthorize").click(function(){
 			getListMenuFn(); 	
+			listNameRoleFn(this.id);
+			
+			
 		});
 		//function popover
 		$(".popover-edit-del").popover();

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.49:3001";
+	var restfulURL = "http://192.168.1.50:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
@@ -45,6 +45,7 @@ $(document).ready(function(){
 		var checkboxContact = "";
 		var InformBranchRadio = "";
 		var EditRuleRelease ="";
+		var RuleGroup="";
 		
 		if($("#checkboxInitial:checked").val()=="on"){
 			checkboxInitial="1";
@@ -75,6 +76,13 @@ $(document).ready(function(){
 		}else if($("#EditRuleReleaseFalse:checked").val()){
 			EditRuleRelease="0";
 		}
+		
+		if ($("#rule_group_id").val() == "Cleansing"){
+			RuleGroup = 1
+		}
+		else if ($("#rule_group_id").val() == "Matching"){
+			RuleGroup = 2
+		}
 			
 		$.ajax({
 			
@@ -82,7 +90,7 @@ $(document).ready(function(){
 			type : "POST",
 			dataType : "json",
 			data : {"rule_name" : $("#rule_name").val(),
-					"rule_group" : $("#rule_group").val(),
+					"rule_group" :RuleGroup,
 					"data_flow_id" : $("#data_flow_id").val(),
 					"initial_flag" : checkboxInitial,
 					"update_flag" : checkboxUpdate,
@@ -109,6 +117,7 @@ $(document).ready(function(){
 		var checkboxContact = "";
 		var InformBranchRadio = "";
 		var EditRuleRelease ="";
+		var RuleGroup ="";
 		
 		if($("#checkboxInitial:checked").val()=="on"){
 			checkboxInitial="1";
@@ -140,12 +149,19 @@ $(document).ready(function(){
 			EditRuleRelease="0";
 		}
 		
+		if ($("#rule_group_id").val() == "Cleansing"){
+			RuleGroup = 1
+		}
+		else if ($("#rule_group_id").val() == "Matching"){
+			RuleGroup = 2
+		}
+		
 		$.ajax({
 			url:restfulURL+"/api/dqs_rule/"+$("#id").val(),
 			type : "PUT",
 			dataType : "json",
 			data : {"rule_name" : $("#rule_name").val(),
-				"rule_group" : $("#rule_group").val(),
+				"rule_group" : RuleGroup,
 				"data_flow_id" : $("#data_flow_id").val(),
 				"initial_flag" : checkboxInitial,
 				"update_flag" : checkboxUpdate,
@@ -181,12 +197,16 @@ $(document).ready(function(){
 			success : function(data) {
 				
 				$("#rule_name").val(data['rule_name']);
-				$("#rule_group").val(data['rule_group']);
-				//$("#data_flow_id").val(data['data_flow_id']);	
-	
+				
+				dropdownRuleGroup(data['rule_group']);
+				
+				//alert(data['data_flow_id']);
+				dropdownDataFlow(data['data_flow_id']);
+				
+				
 				$('.processType').prop('checked', false);
 				
-				dropdownDataflow(data['data_flow_id']);
+				
 				
 				if(data['initial_flag']==1){
 					$('#checkboxInitial').prop('checked', true);
@@ -242,13 +262,23 @@ $(document).ready(function(){
 	}
 	
 	var listRuleFn = function(data) {
+		
+		if ($.fn.DataTable.isDataTable('#tableRule')) {
+		       $('#tableRule').DataTable().destroy(); 
+		}
+		
 		console.log(data);
 		var htmlTable = "";
 		
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
 		//htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>";
+		if(indexEntry["rule_group"]==1){
+			htmlTable += "<td>Cleansing</td>";
+		}else if(indexEntry["rule_group"]==2){
+			htmlTable += "<td>Matching</td>";
+		}
+		//htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>"; 
 		htmlTable += "<td>"+ indexEntry["rule_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["data_flow_id"]+ "</td>";
 		
@@ -294,7 +324,7 @@ $(document).ready(function(){
 		$(".popover-edit-del").popover();
 	
 		//findOnd
-		$(".popover-edit-del").click(function(){
+		$("#tableRule").on("click",".popover-edit-del",function(){
 			$(".edit").on("click",function() {
 				
 				findOneFn(this.id);
@@ -303,35 +333,66 @@ $(document).ready(function(){
 				$("#btnSubmit").val("Edit");
 			});
 			
-			$(".del").click(function(){
+			$(".del").on("click",function() {
 			
 				$.ajax({
 					 url:restfulURL+"/api/dqs_rule/"+ this.id,
 					 type : "delete",
 					 dataType:"json",
-				     success:function(data){      
-				       
+				     success:function(data){   
+				    	 
 				       getDataFn();
 				       clearFn();
-	
+				       //return false;
 					 }
 				});
+				
 			});	
 			
 		});
 			
 	};
 	
-	var dropdownDataflow = function(id) {
-		alert("555");
+	
+	var dropdownRuleGroup = function(id) {
+		//alert("555");
 		var selectDataflowHTML=""
-		var makeDataflowID=""	
+		var makeRuleGroupID=""	
 			
 		if (id=="1"){
-			makeDataflowID = "Cleansing"
+			makeRuleGroupID = "Cleansing"
 		}else if (id=="2"){
-			makeDataflowID = "Matching"
+			makeRuleGroupID = "Matching"
 		}
+		
+		$.ajax({
+			url : restfulURL + "/api/dqs_rule_group",
+			type : "get",
+			dataType : "json",
+			success : function(data) {
+				
+				$.each(data,function(index,indexEntry){
+					
+					
+					if(makeRuleGroupID==indexEntry['rule_group_name']){
+						//alert(makeDataflowID+"="+indexEntry['data_flow_name']);
+						selectDataflowHTML+="<option selected>"+indexEntry['rule_group_name']+"</option>"; 
+					}else{
+						selectDataflowHTML+="<option>"+indexEntry['rule_group_name']+"</option>";  
+					}
+				
+				});
+				//alert(selectDataflowHTML);
+				$("#rule_group_id").html(selectDataflowHTML);
+			}
+		});
+	}
+	dropdownRuleGroup();
+	
+	var dropdownDataFlow = function(id) {
+		//alert("data flow "+id);
+		var selectDataflowHTML=""
+		
 		
 		$.ajax({
 			url : restfulURL + "/api/dqs_data_flow",
@@ -342,7 +403,7 @@ $(document).ready(function(){
 				$.each(data,function(index,indexEntry){
 					
 					
-					if(makeDataflowID==indexEntry['data_flow_name']){
+					if(id==indexEntry['data_flow_name']){
 						//alert(makeDataflowID+"="+indexEntry['data_flow_name']);
 						selectDataflowHTML+="<option selected>"+indexEntry['data_flow_name']+"</option>"; 
 					}else{
@@ -350,14 +411,12 @@ $(document).ready(function(){
 					}
 				
 				});
-				alert(selectDataflowHTML);
+				//alert(selectDataflowHTML);
 				$("#data_flow_id").html(selectDataflowHTML);
 			}
 		});
-		
-		
 	}
-	//dropdownDataflow();
+	dropdownDataFlow();
 	
 	var getDataFn = function() {
 		$.ajax({
@@ -389,22 +448,14 @@ $(document).ready(function(){
 	$("#btnSubmit").click(function(){
 		if (validationFn() == true) { 
 			if ($("#action").val() == "add"|| $("#action").val() == "") {	
-				
-				
-				
-				if (checkUniqueFn($("#rule_name").val()) == true) { 
-						
-						insertFn();
-					} else {
-						alert("name is not unique.");
-					}
+				if (checkUniqueFn($("#rule_name").val()) == true) { 	
+					insertFn();
 				}else{
-					if (checkUniqueFn($("#rule_name").val()) == true) {
-						updateFn();
-					} else {
-						alert("name is not unique.");
-					}
+					alert("name is not unique.");
 				}
+			}else{			
+				updateFn();
+			}
 		}
 		return false;
 	});

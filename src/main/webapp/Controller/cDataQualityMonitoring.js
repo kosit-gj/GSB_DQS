@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$("#exPlainModal").modal();
 	});
 	
-	var restfulURL = "http://192.168.1.50:3001";  
+	var restfulURL = "http://192.168.1.52:3001";   
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	

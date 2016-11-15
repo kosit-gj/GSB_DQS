@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$("#exPlainModal").modal();
 	});
 	
-	var restfulURL = "http://192.168.1.50:3001";  
+	var restfulURL = "http://192.168.1.52:3001";  
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
@@ -253,6 +253,7 @@ $(document).ready(function(){
 			url:restfulURL+"/api/make_data_quality_monitoring/"+id,
 			type : "get",
 			dataType : "json",
+			async:false,
 			success : function(data) {	
 				
 				htmlTable += "<div class='label-detail'>";
@@ -306,12 +307,15 @@ $(document).ready(function(){
 		$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		$(".modalDetail").click(function(){
-			
+			alert("test");
 			findOneDataFn(this.id);
 			$("#id").val(this.id);
 			
+			var crf=$(this).parent().parent().parent().children().get()[1];
+			var crfID=$(crf).text();
+			//console.log($(crf).text());
 			
-			
+			getDataMakeRuleFn(crfID);
 		});
 	};
 	
@@ -349,13 +353,7 @@ $(document).ready(function(){
 		
 		$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
-		$(".modalDetail").click(function(){
-			
-			findOneDataFn(this.id);
-			$("#id").val(this.id);
-			
-			//getDataMakeRuleFn();
-		});
+		
 	};
 	
 	var getDataFn = function() {
@@ -372,9 +370,9 @@ $(document).ready(function(){
 	//Call Function start
 	  getDataFn();
 	  
-	  var getDataMakeRuleFn = function() {
+	  var getDataMakeRuleFn = function(id) {
 			$.ajax({
-				url : restfulURL + "/api/make_dqs_inital_validate/",
+				url : restfulURL + "/api/make_dqs_inital_validate/?cif__regex=/^"+id+"/i",
 				type : "get",
 				dataType : "json",
 				success : function(data) {
@@ -384,7 +382,7 @@ $(document).ready(function(){
 			});
 		};
 		//Call Function start
-		  getDataMakeRuleFn();
+		  
 	 	
 	$("#btnSearch").click(function(){
 		searchFn($("#searchCitizen").val());
@@ -399,7 +397,7 @@ $(document).ready(function(){
 	
 	
 
-	$("#btnSubmit").click(function(){
+	$("#btnSave").click(function(){
 		
 		updateFn();
 		

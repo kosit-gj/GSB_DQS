@@ -2,7 +2,7 @@ $(document).ready(
 	function(){
 		
 		
-		var restfulURL = "http://192.168.1.60:3001";
+		var restfulURL = "http://192.168.1.52:3001";
 		
 		
 		
@@ -32,32 +32,7 @@ $(document).ready(
 			  }*/
 				
 		
-		// function update SetAll
-		var updateSetAllFn = function(){
-
-			
-			//alert($("#embed_system_config_id").val());
-			
-			   $.ajax({
-				    url:restfulURL+"/api/dqs_system_config/"+$("#embed_system_config_id").val(),
-				    type:"PUT",
-				    dataType:"json",
-				    data:{
-							"default_kpi_date":$("#default_kpi_date").val()
-						  },
-				   
-						success:function(data,status){
-							
-						    if(status=="success"){
-							
-						     alert("Set All");
-						     setAllFn();
-					    	}
-					    }
-				   });
-			   return false;
-		 };
-		 
+		
 		//function update Default KPI
 		var updateDefaultFn = function(){
 			//alert($("#embed_system_config_id").val());
@@ -66,7 +41,7 @@ $(document).ready(
 				    url:restfulURL+"/api/dqs_system_config/"+$("#embed_system_config_id").val(),
 				    type:"PUT",
 				    dataType:"json",
-				    data:{
+				    data:{"default_kpi_date":$("#default_kpi_date").val(),
 						  "kpi_date_m1":$("#kpi_date_m1").val(),
 						  "kpi_date_m2":$("#kpi_date_m2").val(),
 						  "kpi_date_m3":$("#kpi_date_m3").val(),
@@ -287,28 +262,20 @@ $(document).ready(
 			};
 		
 			//function set all table
-			var setAllFn = function(){
+			var setAllFn = function(default_kpi){
 				
-				$.ajax({
-					    url:restfulURL+"/api/dqs_system_config",
-					    type:"get",
-					    dataType:"json",
-						    success:function(data){
-							
-							$("#kpi_date_m1").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m2").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m3").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m4").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m5").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m6").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m7").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m8").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m9").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m10").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m11").val(data[0]["default_kpi_date"]);
-							$("#kpi_date_m12").val(data[0]["default_kpi_date"]);
-						}
-				});
+				$("#kpi_date_m1").val(default_kpi);
+				$("#kpi_date_m2").val(default_kpi);
+				$("#kpi_date_m3").val(default_kpi);
+				$("#kpi_date_m4").val(default_kpi);
+				$("#kpi_date_m5").val(default_kpi);
+				$("#kpi_date_m6").val(default_kpi);
+				$("#kpi_date_m7").val(default_kpi);
+				$("#kpi_date_m8").val(default_kpi);
+				$("#kpi_date_m9").val(default_kpi);
+				$("#kpi_date_m10").val(default_kpi);
+				$("#kpi_date_m11").val(default_kpi);
+				$("#kpi_date_m12").val(default_kpi);
 				
 			};
 			
@@ -322,7 +289,7 @@ $(document).ready(
 			$("#btnSetAll").click(function(){
 				
 				
-				   updateSetAllFn();
+				   setAllFn($("#default_kpi_date").val());
 				
 				  });
 			

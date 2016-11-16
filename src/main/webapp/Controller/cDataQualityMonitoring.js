@@ -44,187 +44,96 @@ $(document).ready(function(){
 	
 	}
 	
-	var updateFn = function() {		
-		$.ajax({
-			url:restfulURL+"/api/dqs_citizen_import/"+$("#id").val(),
-			type : "PUT",
-			dataType : "json",
-			data : {"pid" : $("#cifno_citizen").val(),
-				"nfname" : $("#nfname_citizen").val(),
-				"nlname" : $("#nlname_citizen").val(),
-				"ntitle" : $("#ntitle_citizen").val(),
-				"sex" : sex ,
-				"ndob": ndob,
-				"hno" : $("#hno_citizen").val(),
-				"moo" : $("#moo_citizen").val(),
-				"trok" : $("#trok_citizen").val(),
-				"soi" : $("#soi_citizen").val(),
-				"thanon" : $("#thanon_citizen").val(),
-				"thumbol" : $("#thumbol_citizen").val(),
-				"amphur" : $("#amphur_citizen").val(),
-				"province" : $("#province_citizen").val(),
-				"flag1" : $("#flag1_citizen").val(),
-				"flag2" : $("#flag2_citizen").val(),
-				
-			},	
-			success : function(data) {
-				if (data = "success") {
-					alert("Upate Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
+	
+	
+	var updateFn = function(){
+		
+		//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
+		var id = $("#cif_id_hidden").val();
+		
+		////////////////////////-CheckBox KPI-//////////////////////////////	
+		
+		var kpiFlagCheckbox = "";
+		
+		$.each($(".embed_kpiflag").get(),function(index,indexEntry){
+		
+			var id=$(indexEntry).val();
+			if($("#kpiFlagCheckbox-"+id).prop('checked')){ 
+				kpiFlagCheckbox = 1;
+	        }else{ 
+	        	kpiFlagCheckbox = 0;
+	        }
+		
+			$.ajax({
+				url:restfulURL+"/api/make_dqs_inital_validate/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"kpi_flag" :kpiFlagCheckbox},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						//console.log("Upate Success");
+					}
 				}
-			}
-		});
-		return false;
-	};
-	
-	var clearFn = function() {
-		$("#id").val("");
-		$("#action").val("add");
-		$("#rule_name").val("");
-		$("#btnSubmit").val("Add");
-	}
-	
-	var dropdownDobDay = function(day){
-		
-		var selectDobDayHTML="";
-		
-		$.ajax({
-			url:restfulURL+"/api/make_param_day",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobDayHTML+="<select class=\"form-control input-inline-table-citizen input-inline-table-citizen\" id=\"day_citizen\">";
-				$.each(data,function(index,indexEntry){
-						
-					if(day==indexEntry['day']){
-						selectDobDayHTML+="<option selected>"+indexEntry['day']+"</option>";  
-					}else{
-						selectDobDayHTML+="<option>"+indexEntry['day']+"</option>";  
-					}
-					   
-				});
-				selectDobDayHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobMonthHTML);
-		$("#day_citizen_area").html(selectDobDayHTML);
-	}
-	
-	var dropdownDobMouth = function(param_month_id){
-		
-		var selectDobMonthHTML="";
-		
-		$.ajax({
-			url:restfulURL+"/api/make_param_month",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobMonthHTML+="<select class=\"form-control input-inline-table-citizen\" id=\"month_citizen\">";
-				$.each(data,function(index,indexEntry){
-						
-					if(param_month_id==indexEntry['month_id']){
-						selectDobMonthHTML+="<option selected>"+indexEntry['month_name']+"</option>";  
-					}else{
-						selectDobMonthHTML+="<option>"+indexEntry['month_name']+"</option>";  
-					}
-					   
-				});
-				selectDobMonthHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobMonthHTML);
-		$("#month_citizen_area").html(selectDobMonthHTML);
-	}	
-	
-	var dropdownDobYear = function(param_year){
-		
-		var selectDobYearHTML="";
-
-		$.ajax({
-			url:restfulURL+"/api/make_param_year",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobYearHTML+="<select class=\"form-control input-inline-table-citizen input-contact-citizen\" id=\"year_citizen\">";
-				$.each(data,function(index,indexEntry){
-					if(param_year==indexEntry['param_year']){
-						selectDobYearHTML+="<option selected>"+indexEntry['param_year']+"</option>";  
-					}else{
-						selectDobYearHTML+="<option>"+indexEntry['param_year']+"</option>";  
-					}
-				});
-				selectDobYearHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobYearHTML);
-		$("#year_citizen_area").html(selectDobYearHTML);
+			});
 			
-	}
-	
-	var findOneFn = function(id) {
-		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
-		$.ajax({
-			url:restfulURL+"/api/dqs_citizen_import/"+ id,
-			type : "get",
-			dataType : "json",
-			success : function(data) {		
-				
-				var dob = data['ndob'].toString(); 
-				
-				var dobYear = dob.substring(4); 
-				var dobMouth = dob.substring(2,4);
-				var dobDay = dob.substring(0,2);
-				
-				dropdownDobYear(dobYear);
-				dropdownDobMouth(dobMouth);
-				dropdownDobDay(dobDay); 
-				
-				$("#id_citizen").val(data['id']);
-				$("#cifno_citizen").val(data['pid']);
-				$("#nfname_citizen").val(data['nfname']);
-				$("#nlname_citizen").val(data['nlname']);
-				$("#ntitle_citizen").val(data['ntitle']);
-				$("#hno_citizen").val(data['hno']);
-				$("#moo_citizen").val(data['moo']);
-				$("#trok_citizen").val(data['trok']);
-				$("#soi_citizen").val(data['soi']);
-				$("#thanon_citizen").val(data['thanon']);
-				$("#thumbol_citizen").val(data['thumbol']);
-				$("#amphur_citizen").val(data['amphur']);
-				$("#province_citizen").val(data['province']);
-				
-				//sex
-				if(data['sex']==1){
-					$('#sex_citizen_men').prop('checked', true);
-				}
-				if(data['sex']==0){
-					$('#sex_citizen_women').prop('checked', true);
-				}
-				
-				$("#flag1_citizen").val(data['flag1']);
-				$("#flag2_citizen").val(data['flag2']);
-				
-				//nation
-				/*if(data['nation']==1){
-					$('#nation_citizen_thai').prop('checked', true);
-				}
-				if(data['nation']==0){
-					$('#nation_citizen_other').prop('checked', true);
-				}*/
-				
-			}
 		});
+		
+		////////////////////////-CheckBox No Doc-//////////////////////////////
+		
+		var noDocCheckbox = "";
+		
+		$.each($(".embed_nodoc").get(),function(index,indexEntry){
+		
+			var id=$(indexEntry).val();
+			if($("#no_doc_checkbox-"+id).prop('checked')){ 
+				noDocCheckbox = 1;
+	        }else{ 
+	        	noDocCheckbox = 0;
+	        }
+			
+			$.ajax({
+				url:restfulURL+"/api/make_dqs_inital_validate/"+id,
+				type : "PUT",
+				dataType : "json",
+				data : {"no_doc" :noDocCheckbox},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						//console.log("Upate Success");
+					}
+				}
+			});
+			
+		});
+		
+		/////////////////////-Dropdown Validate Status-////////////////////////
+		
+		$.each($(".embed_validate_status").get(),function(index,indexEntry){
+			
+			var id = $(indexEntry).val();
+			
+			$.ajax({
+				url:restfulURL+"/api//make_dqs_inital_validate/"+id,
+				type : "PUT",
+				dataType : "json",
+				//data : {"contact_type" : valueContatType},
+				data : {"validate_status" : $("#validate_status-"+id).val()},
+				async:false,
+				success : function(data) {
+					if (data = "success") {
+						//console.log(data)
+					}
+				}
+			});
+			
+		});
+		
+		getDataMakeRuleFn(id);
+		
 	};
 	
-	var searchFn = function(searchText) {
+	/*var searchFn = function(searchText) {
 		$.ajax({
 			url : restfulURL + "/api/dqs_citizen_import/?nfname__regex=/^"+searchText+"/i",
 			type : "get",
@@ -233,7 +142,7 @@ $(document).ready(function(){
 				listCitizenFn(data);
 			}
 		});
-	}
+	}*/
 
 	var searchAdvanceFn = function(searchText) {
 		$.ajax({
@@ -241,7 +150,7 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				listRuleFn(data);
+				//listRuleFn(data);
 			}
 		});
 	}
@@ -260,7 +169,7 @@ $(document).ready(function(){
 				htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif"]+"</div>";
 				htmlTable += "</div>";
 				
-				htmlTable += "<input type='text' id='cif_id_hidden' value='"+data["cif"]+"'>";
+				htmlTable += "<input type='hidden' id='cif_id_hidden' value='"+data["cif"]+"'>";
 				
 				htmlTable +="<div class='label-detail'>";
 				htmlTable +="<div class='box2'><b>Name</b> : "+data["customername"]+"</div>";
@@ -285,6 +194,12 @@ $(document).ready(function(){
 	};
 	
 	var listDataQualityFn = function(data) {
+		
+		// Destroy DataTable
+		if ($.fn.DataTable.isDataTable('#tableDataQuality')) {
+			$('#tableDataQuality').DataTable().destroy(); 
+		}
+		
 		console.log(data);
 		var htmlTable = "";
 		
@@ -307,19 +222,27 @@ $(document).ready(function(){
 		$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		$(".modalDetail").click(function(){
-			alert("test");
+			
 			findOneDataFn(this.id);
 			$("#id").val(this.id);
 			
 			var crf=$(this).parent().parent().parent().children().get()[1];
+			
 			var crfID=$(crf).text();
 			//console.log($(crf).text());
 			
 			getDataMakeRuleFn(crfID);
+			
 		});
 	};
 	
 	var listMakeDetailRuleFn = function(data) {
+		
+		// Destroy DataTable
+		if ($.fn.DataTable.isDataTable('#tableMakeRuleQuality')) {
+			$('#tableMakeRuleQuality').DataTable().destroy(); 
+		}
+		
 		console.log(data);
 		var htmlTable = "";
 		
@@ -333,27 +256,129 @@ $(document).ready(function(){
 			htmlTable += "<td>"+ indexEntry["day"]+ "</td>";
 			
 			if(indexEntry["kpi_flag"]==1){
-				htmlTable += "<td><input type=\"checkbox\" class='' id=kpiFlagCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+				htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 			}else if(indexEntry["kpi_flag"]==0){
-				htmlTable += "<td><input type=\"checkbox\" class='' id=kpiFlagCheckbox-"+indexEntry["_id"]+" ></td>";
+				htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["_id"]+" ></td>";
 			}
 			
-			htmlTable += "<td><select><option>"+ indexEntry["validate_status"]+"</opion></select></td>";
+			htmlTable+="<td><select disabled class=\"form-control input-inline-table validate_status\" id=validate_status-"+indexEntry["_id"]+"></select></td>";	
 			
-			if(indexEntry["cif_no"]==1){
-				htmlTable += "<td><input type=\"checkbox\" class='' id=cifNoCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
-			}else if(indexEntry["cif_no"]==0){
-				htmlTable += "<td><input type=\"checkbox\" class='' id=cifNoCheckbox-"+indexEntry["_id"]+" ></td>";
+			if(indexEntry["no_doc"]==1){
+				htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			}else if(indexEntry["no_doc"]==0){
+				htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["_id"]+" ></td>";
 			}
-			
 			
 			htmlTable += "</tr>";
+			
+			$("#tableDataMakeRuleQuality").html(htmlTable);
+			 
+			//alert(indexEntry["validate_status"]);
+			dropDownListValidateStatus(indexEntry["validate_status"],indexEntry["_id"]);
 		});
-		$("#tableDataMakeRuleQuality").html(htmlTable);	 
-		
+			 
 		$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
+		//click ที่ checkox KPI แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".kpi_checkbox").click(function(){	
+			var id = this.id.split("-"); 
+			embedParamCheckboxKPI(id[1]);
+			//alert(id[1]);		
+		});
 		
+		//click ที่ dropdown validate แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".validate_status").click(function(){		
+			var id = this.id.split("-"); 
+			embedParamValidateStatus(id[1]);
+			//alert(id[1]);		
+		});
+		
+		//click ที่ checkox KPI แล้ว แยกไอดี ส่งไปฝัง(embed) 
+		$(".no_doc_checkbox").click(function(){	
+			var id = this.id.split("-"); 
+			embedParamCheckboxNoDoc(id[1]);
+			//alert(id[1]);		
+		});
+	};
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamValidateStatus = function(id){
+		//alert(id);
+		var count = 0;
+		
+		$.each($(".embed_validate_status").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		
+		if(count>0){
+			$("#embed_validate_status-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_validate_status' id='embed_validate_status-"+id+"' name='embed_validate_status-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_validate_status' id='embed_validate_status-"+id+"' name='embed_validate_status-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamCheckboxKPI = function(id){
+
+		var count = 0;	
+		$.each($(".embed_kpiflag").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		if(count>0){
+			$("#embed_kpiflag-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_kpiflag' id='embed_kpiflag-"+id+"' name='embed_kpiflag-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_kpiflag' id='embed_kpiflag-"+id+"' name='embed_kpiflag-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	// Click แล้ว ฝังข้อมูล
+	var embedParamCheckboxNoDoc = function(id){
+
+		var count = 0;	
+		$.each($(".embed_nodoc").get(),function(index,indexEnry){
+		//ถ้า id ที่วน == id ที่มี	
+			if($(indexEnry).val()==id){
+				count+=1;
+			}
+		});
+		if(count>0){
+			$("#embed_nodoc-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_nodoc' id='embed_nodoc-"+id+"' name='embed_nodoc-"+id+"' value='"+id+"'>");
+		}else{
+			$("body").append("<input type='hidden' class='embed_nodoc' id='embed_nodoc-"+id+"' name='embed_nodoc-"+id+"' value='"+id+"'>");
+		}
+		
+	}
+	
+	//DropDownValidate
+	var dropDownListValidateStatus = function(name,id){
+		//alert(name);
+		$.ajax ({
+			url:restfulURL+"/api/make_param_validate_status",
+			type:"get" ,
+			dataType:"json" ,
+				success:function(data){
+					var htmlTable="";
+					$.each(data,function(index,indexEntry){
+						if(name==indexEntry["validate_status_name"]){
+							htmlTable+="<option value="+indexEntry["validate_status_name"]+" selected>"+indexEntry["validate_status_name"]+"</option>";		
+						}else{
+							htmlTable+="<option value="+indexEntry["validate_status_name"]+">"+indexEntry["validate_status_name"]+"</option>";		
+						}
+					});	
+					$("#validate_status-"+id).html(htmlTable);
+				}
+		});
 	};
 	
 	var getDataFn = function() {
@@ -370,18 +395,19 @@ $(document).ready(function(){
 	//Call Function start
 	  getDataFn();
 	  
-	  var getDataMakeRuleFn = function(id) {
-			$.ajax({
-				url : restfulURL + "/api/make_dqs_inital_validate/?cif__regex=/^"+id+"/i",
-				type : "get",
-				dataType : "json",
-				success : function(data) {
-					listMakeDetailRuleFn(data);
-					console.log(data);
-				}
-			});
-		};
-		//Call Function start
+	var getDataMakeRuleFn = function(id) {
+		$.ajax({
+			url : restfulURL + "/api/make_dqs_inital_validate/?cif__regex=/^"+id+"/i",
+			type : "get",
+			dataType : "json",
+			async:false,
+			success : function(data) {
+				listMakeDetailRuleFn(data);
+				console.log(data);
+			}
+		});
+	};
+	//Call Function start
 		  
 	 	
 	$("#btnSearch").click(function(){
@@ -393,35 +419,22 @@ $(document).ready(function(){
 		searchAdvanceFn($("#searchAdvanceRule").val());
 		   return false;
 	});
-	
-	
-	
 
-	$("#btnSave").click(function(){
-		
-		updateFn();
-		
-		/*if (validationFn() == true) { 
-			
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if(checkUniqueFn($("#rule_name").val()) == true) { 	
-					insertFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}else{
-				if(checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}
-		}*/
-		return false;
+	$("#btnSubmit").click(function(){
+		alert("save");
+		updateFn(); 
 	});
 	
-	$(".btnCancle").click(function() {
-		clearFn();
+	$("#btnEdit").click(function() {
+		$(".kpi_checkbox").removeAttr("disabled");
+		$(".no_doc_checkbox").removeAttr("disabled");
+		$(".validate_status").removeAttr("disabled");
+		
+	});
+	
+	$("#btnCancle").click(function() {
+		var id = $("#cif_id_hidden").val();
+		getDataMakeRuleFn(id);
 	});
 
 });

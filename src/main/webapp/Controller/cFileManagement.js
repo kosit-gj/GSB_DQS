@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	var restfulURL = "http://192.168.1.60:3001";
+	var restfulURL = "http://192.168.1.52:3001";
 	//var restfulURL = "http://192.168.1.100:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
@@ -378,7 +378,7 @@ $(document).ready(function(){
 		});
 		
 		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".editkpiCheckbox").click(function(){		
+		$(".editkpiCheckbox").click(function(){	
 			var id = this.id.split("-"); 
 			embedParamCheckboxKPI(id[1]);
 			//alert(id[1]);		
@@ -413,35 +413,6 @@ $(document).ready(function(){
 	
 	};
 	
-	/*var dropdownContactType = function(param_id){
-		
-		//alert(param_id);
-		
-		var HTML="";
-		
-		$.ajax({
-			url:restfulURL+"/api/make_param_contact_type/",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-
-				$.each(data,function(index,indexEntry){
-					alert(param_id);
-					if(param_id==indexEntry['param_contact_id']){
-						HTML+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
-					}else{
-						HTML+="<option>"+indexEntry['param_contact_type']+"</option>";  
-					}
-					   
-				});
-			
-			}
-		});
-		
-		//alert(selectDobMonthHTML);
-		$(".selectContact").html(HTML);
-	}*/
 	
 	var dropdownContactType = function(param_type,param_id){
 		//alert("paramTYPE"+param_type);
@@ -455,18 +426,14 @@ $(document).ready(function(){
 					var htmlTable="";
 					
 					$.each(data,function(index,indexEntry){
-						//alert( "contactID"+indexEntry['param_contact_id']);
+						
 						if(param_type==indexEntry['param_contact_id']){
-						//	alert(param_type);
 							htmlTable+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
 						}else{
 							htmlTable+="<option>"+indexEntry['param_contact_type']+"</option>";  
 						}
 						
-						
-						});	
-					//alert(htmlTable);
-				
+					});	
 					$("#contacttype-"+param_id).html(htmlTable);
 				}
 		});

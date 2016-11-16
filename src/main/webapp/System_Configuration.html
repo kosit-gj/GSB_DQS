@@ -112,8 +112,8 @@
 												<input type="text"  class="form-control input-inline-table input-seq" id="default_kpi_date">
 											&nbsp;&nbsp;
 											</div>
-											<div class="col-sm-1">
-												<button class="btn btn-info btn-sm" id="btnSetAll" style="padding-left:15px">Set All</button>
+											<div class="col-sm-1 btn-setall" >
+												<button class="btn btn-info btn-sm " id="btnSetAll">Set All</button>
 											</div>
 										</div>
 									</div>
@@ -243,7 +243,7 @@
 													<label>Root directory &nbsp;:</label>
 												</div>
 												
-												<div class="col-sm-6" align="left" >
+												<div class="col-sm-6">
 													<input class="form-control input-dataroot" id="export_file_path">
 												</div>
 												
@@ -261,11 +261,11 @@
 													<input class="form-control input-data" id="export_citizen_max_record" >
 												</div>
 												
-												<div class="col-sm-1 form-data" align="right">
-													<label style="padding-left:10px">Records</label>
+												<div class="col-sm-1 form-data">
+													<label>Records</label>
 												</div>
 												
-												<div class="col-sm-3 form-data" align="right" > 
+												<div class="col-sm-3 form-data " align="right" > 
 													<label>Maximum record for mobile file &nbsp;:</label>
 												</div>
 												
@@ -273,8 +273,8 @@
 													<input class="form-control input-data" id="export_mobile_max_record" >
 												</div>
 												
-												<div class="col-sm-1 form-data" align="right">
-													<label style="padding-left:10px">Records</label>
+												<div class="col-sm-1 form-data">
+													<label>Records</label>
 												</div>
 												
 											</div>
@@ -307,14 +307,14 @@
 												</div>
 												
 												<div class="col-sm-1 form-data">
-													<label style="padding-left:10px">Days</label>
+													<label>Days</label>
 												</div>
 												
 											</div>
 										</div><br>
 										
 			                             <div class="row">
-											<div style="padding-left:25px">
+											<div class="form-save">
 											
 												<button class="btn btn-warning" id="btnSaveExport">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											
@@ -344,7 +344,7 @@
 													<label>Root directory &nbsp;:</label>
 												</div>
 												
-												<div class="col-sm-6" align="left" >
+												<div class="col-sm-6">
 													<input class="form-control input-dataroot" id="import_file_path">
 												</div>
 												
@@ -363,7 +363,7 @@
 												</div>
 												
 												<div class="col-sm-1 form-data">
-													<label style="padding-left:10px">MB.</label>
+													<label>MB.</label>
 												</div>
 												
 												<div class="col-sm-3 form-data" align="right">
@@ -375,7 +375,7 @@
 												</div>
 												
 												<div class="col-sm-1 form-data" >
-													<label style="padding-left:10px">Days</label>
+													<label>Days</label>
 												</div>
 												
 											</div>
@@ -388,7 +388,7 @@
 													<label>Include date in filename &nbsp;:</label>
 												</div>
 												
-												<div class="col-sm-3 form-data" align="left">
+												<div class="col-sm-3 form-data">
 												
 													<div class="radio radio-info radio-inline">
 								                               <input type="radio" name="import_include_date_flag" class="import_include_date_flag" id="import_include_date_flag_y" value="1" >
@@ -405,7 +405,7 @@
 										</div><br>
 										
 			                             <div class="row">
-											<div style="padding-left:25px">
+											<div class="form-save">
 												<button class="btn btn-warning" id="btnSaveImport">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											</div>
 		                                </div>
@@ -466,7 +466,7 @@
 											</div>
 											
 											<div class="row">
-												<div class="form-save" style="padding-left:25px">
+												<div class="form-saveWarning">
 													<button class="btn btn-warning" id="btnSaveWarBranch">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
 											</div>
@@ -491,7 +491,7 @@
 													</div>
 													
 													<div class="col-lg-2 form-data" >
-														<input class="form-control input-data" type="date"id="all_cust_grade_calculate_date">
+														<input class="form-control input-data" type="text" id="all_cust_grade_calculate_date">
 													</div>
 													
 												</div>
@@ -532,7 +532,7 @@
 											</div>
 											
 											<div class="row">
-												<div class="form-save" style="padding-left:25px">
+												<div class="form-save">
 													<button class="btn btn-warning" id="btnSaveGradeCalDate">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 												</div>
 											</div>	

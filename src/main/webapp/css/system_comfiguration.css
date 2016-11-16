@@ -11,10 +11,15 @@
 }
 .form-data{
 	padding-top: 10px;
-	float:left
+	float:left;
 }
 .form-save{
-	padding-top: 33px;
+	padding-top: 25px;
+	padding-left: 25px;
+}
+.form-saveWarning{
+	padding-top: 65px;
+	padding-left: 25px;
 }
 .form-system-label{
 	float:left;
@@ -43,4 +48,7 @@
 	width:150px;
 	height:27px;
 	padding: 0px;
+}
+.btn-setall{
+	padding-left: 25px;
 }

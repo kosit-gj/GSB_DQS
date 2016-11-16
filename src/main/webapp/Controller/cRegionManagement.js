@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.50:3001";
+		var restfulURL = "http://192.168.1.52:3001";
 		/*var restfulURL = "http://171.96.200.171:3001";*/
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
@@ -145,7 +145,7 @@ $(document).ready(
 			 // list data Region
 			  var listDataFn = function(data){
 				
-				if ( $.fn.DataTable.isDataTable('#tableRegion')) {
+					if ( $.fn.DataTable.isDataTable('#tableRegion')) {
 				      $('#tableRegion').DataTable().destroy();
 				     }
 						
@@ -171,7 +171,7 @@ $(document).ready(
 						$(".popover-del-edit").popover();
 						
 						
-						$(".popover-del-edit").click(function(){
+						$('#tableRegion').on("click",".popover-del-edit",function(){
 							
 							//findOnd
 							//alert("tableRegion");
@@ -195,7 +195,7 @@ $(document).ready(
 								      success:function(data){       
 								       
 								       getDataFn();
-								       //clearFn();
+								       clearFn();
 						
 				     			 }
 				   			  });

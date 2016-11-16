@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.50:3001";
+		var restfulURL = "http://192.168.1.52:3001";
 		
 		
 		
@@ -105,6 +105,20 @@ $(document).ready(
 				   
 				  }
 			
+			var advanceSearchFn = function(searchName,searchOwnCost,searchRevisedCost){
+				   /* http://localhost:3000/api/products?name__regex=/^test/i */
+				    
+				   $.ajax({
+				    url:restfulURL+"/api/dqs_user/?user_name__regex=/^Nann/i&role_id__regex=/^5822cd8839b88f125485ea73/i&super_flag__regex=/^Line/i",
+				    type:"get",
+				    dataType:"json",
+				    success:function(data){
+				
+				     listDataFn(data);
+				    }
+				   });
+				   
+				  }
 			
 			//function list data User
 			  var listDataFn = function(data){
@@ -362,6 +376,13 @@ $(document).ready(
 			//ปุ่ม Search Region
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());
+				   return false;
+			  });
+			
+			//ปุ่ม Advance Search
+
+			  $("#btnAdvanceSearch").click(function(){
+				   advanceSearchFn($("#searchName").val(),$("#listRole").val(),$("#searchSuperFlag").val());
 				   return false;
 			  });
 			

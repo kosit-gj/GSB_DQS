@@ -41,9 +41,9 @@
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                     <i class="fa fa-reorder"></i>
                 </button>
-                <!-- <i class="fa fa-cc-mastercard icon-logo"></i> -->
+                
                 <img class="grayscale" src="img/small-logo3.png">
-               <!--  <a href="#" class="  navbar-brand"></a>  --> 
+                
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
@@ -146,67 +146,16 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableRegion">
                                         <thead>
-                                        <tr>
-
-                                            <th>No.</th>
-                                            <th>Regional Office Code</th>
-                                            <th>Regional Office Name</th>
-                                            <th>Branch Operation</th>
-                                            <th>Manage</th>
-                                            
-                                        </tr>
+	                                        <tr>
+	                                            <th>No.</th>
+	                                            <th>Regional Office Code</th>
+	                                            <th>Regional Office Name</th>
+	                                            <th>Branch Operation</th>
+	                                            <th>Manage</th>
+	                                        </tr>
                                         </thead>
                                         <tbody id="listRegion">
                                         
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>1</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 1 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 1</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management" data-html="true" data-container="body" data-toggle="popover" data-placement="top" 
-                                    data-content="<button class='btn btn-warning btn-xs edit-action' type='button'>Edit</button> <button class='btn btn-danger btn-xs' type='button'>Delete</button>"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>2</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 2 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 2</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>3</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 3 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 3</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>4</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 4 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 4</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>5</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 5 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 5</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>6</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 6 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 6</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>7</div></td>
-	                                            <td><div class='text-inline-table'>Regional Office Name 7 </div></td>
-	                                            <td><div class='text-inline-table'>Branch Operation 7</div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
                                         
                                         </tbody>
                                     </table>
@@ -348,6 +297,100 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal Start -->
+
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="modalOperation" class="modal inmodal" style="display: none;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+    
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Branch Operation Management</h4>   
+            </div>
+            
+            <div class="modal-body">
+                <!-- content start -->
+                <h3><i class="fa fa fa-folder-open icon-title"></i>BRANCH OPERATION MANAGEMENT</h3>
+                <hr>
+                
+                <!-- form start -->
+                <div class='form-region-mangement'>
+	                <div class="form-Operation-label">
+	                 	<label>Branch Operation Name :</label> 
+	                </div>
+	                
+	                <div class="form-Operation-input">
+	                	<input type="text" class="form-control" id=operation_name>
+	                </div>
+	                <br style="clear:both">
+                </div>
+                
+                <div class='form-region-mangement'>
+	                <div class="form-Operation-label">
+	                	<label>Cost Center :</label>
+	                </div>
+	                
+	                <div class="form-Operation-input">
+	                	<select class="form-control" id="cost_center">
+	                		<option value="Contact 1">Contact 1</option>
+	                		<option value="Contact 2">Contact 2</option>
+	                		<option value="Contact 3">Contact 3</option>
+	                		<option value="Contact 4">Contact 4</option>
+	                		<option value="Contact 5">Contact 5</option>
+	                	</select>
+	                </div>
+	                
+	                <br style="clear:both">
+	                
+                </div>
+                <br>
+                
+                <div >
+                	<input type="hidden" name="id" id="id" value="">
+   					<input type="hidden" name="action" id="action" value="">
+   					
+                	<button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                    <button class="btn btn-primary" type="button" name="btnSaveOper" id="btnSaveOper">Save</button>
+
+            	</div>
+            	
+            	<br>
+                <hr>
+                <div class="modal-table-branch-management">
+                <div class="table-responsive">
+	                <table class="table table-striped" id="tableBranchOperation">
+		                <thead>
+			                <tr>
+								<th>No.</th>
+					            <!-- <th>Branch Operation<br>Code</th> -->
+					            <th>Branch Operation<br>Name</th>
+					            <th>Cost Center</th>
+					            <th>Manage</th>
+					            
+			                </tr>
+		                </thead>
+		                <tbody id="listTableBranchOper">
+			                
+		                </tbody>
+	                </table>
+                </div>
+                </div>
+                
+			</div>
+            <div class="modal-footer">
+                
+            </div>
+                
+                <!-- form end -->
+                <!-- content end -->
+				
+        </div>
+    </div>
+</div>
+                            
+<!-- Modal End -->
                             
 <!-- Modal End -->
 

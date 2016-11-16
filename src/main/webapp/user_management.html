@@ -106,13 +106,13 @@
                             	 
                                     <div class="col-sm-2">
  												
-										<input class="form-control" id="" placeholder="Personnel ID">
+										<input class="form-control" id="searchName" name="searchName" placeholder="Personnel Name">
 									</div>
 									<div class="col-sm-2">
-										<input class="form-control" id="" placeholder="Own CostCenter">
+										<input class="form-control" id="searchOwnCost" name="searchOwnCost" placeholder="Own CostCenter">
 									</div>
 									<div class="col-sm-2">
-										<input class="form-control" id="" placeholder="Revised CostCenter">
+										<input class="form-control" id="searchRevisedCost" name="searchRevisedCost" placeholder="Revised CostCenter">
 									</div>
 									<div class="col-sm-2">
 										<select class="input form-control" id="listRole">
@@ -121,13 +121,14 @@
 	                                    </select>
 	                                </div>
 	                                <div class="col-sm-2">
-				                        <select class="form-control">
-				                              <option>Is Active</option>
-				                              <option>20</option>
+				                        <select class="form-control" id="searchSuperFlag">
+				                              <option value="0">Is Active</option>
+				                              <option value="All Branch">All Branch</option>
+				                              <option value="Line">Line</option>
 				                        </select>
 									</div>
                                      <div class="col-sm-2" align="right">	                                
-                                         <button type="button" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</button>
+                                         <button type="button" class="btn btn-info" id="btnAdvanceSearch"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</button>
                                      </div>
                              	</div>
                              	<br>

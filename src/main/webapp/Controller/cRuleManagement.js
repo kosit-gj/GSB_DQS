@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.50:3001";
+	var restfulURL = "http://192.168.1.52:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
@@ -64,7 +64,7 @@ $(document).ready(function(){
 		}else{
 			checkboxContact="0";
 		}
-		
+		//แก้ไข Inform
 		if($("#InformBranchRadioTrue:checked").val()){
 			InformBranchRadio="1";
 		}else if($("#InformBranchRadioFalse:checked").val()){
@@ -250,9 +250,9 @@ $(document).ready(function(){
 		});
 	}*/
 
-	var searchAdvanceFn = function(searchText) {
+	var searchAdvanceFn = function(searchText,searchDropdown) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
+			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^TESTTT/i&rule_group__regex=/^2/i",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
@@ -425,7 +425,7 @@ $(document).ready(function(){
 			dataType : "json",
 			success : function(data) {
 				listRuleFn(data);
-				console.log(data);
+				//console.log(data);
 			}
 		});
 	};
@@ -438,7 +438,7 @@ $(document).ready(function(){
 	});*/
 	
 	$("#btnSearchAdvance").click(function(){
-		searchAdvanceFn($("#searchAdvanceRule").val());
+		searchAdvanceFn($("#searchAdvanceRule").val(),$("#searchDropdownRule").val());
 		   return false;
 	});
 	

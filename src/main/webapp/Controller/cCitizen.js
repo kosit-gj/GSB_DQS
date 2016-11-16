@@ -1,8 +1,9 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.49:3001"; 
+	var restfulURL = "http://192.168.1.52:3001"; 
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
+	//CIF ID
 	
 	/*var checkUniqueFn = function(text) {
 		 http://localhost:3000/api/products?name__regex=/^test/i 
@@ -280,7 +281,7 @@ $(document).ready(function(){
 		//alert(selectDobMonthHTML);
 		$("#day_citizen_area").html(selectDobDayHTML);
 	}
-	
+	// แก้ๆๆๆๆๆๆๆ =name
 	var dropdownDobMouth = function(param_month_id){
 		
 		var selectDobMonthHTML="";

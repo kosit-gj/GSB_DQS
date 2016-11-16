@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.50:3001";
+	var restfulURL = "http://192.168.1.52:3001";
 	
 	var checkUniqueFn = function(text) {
 		/* http://localhost:3000/api/products?name__regex=/^test/i */

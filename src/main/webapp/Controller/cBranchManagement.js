@@ -132,7 +132,12 @@ $(document).ready(function(){
 			});
 
 		});
-		alert("Upate Success");
+		$(".alert-success").fadeTo(1000,2000).slideUp(500);
+			
+		
+		/*$(".alert-success").fadeIn(800);
+		$(".alert-success").fadeOut(1500);*/
+		
 		getDataFn();
 		clearFn();
 		$('#addModalRule').modal('hide');
@@ -142,11 +147,8 @@ $(document).ready(function(){
 		return false;
 	};
 	
-	var clearFn = function() {
-		$("#id").val("");
-		$("#action").val("add");
-		$("#rule_name").val("");
-		$("#btnSubmit").val("Add");
+	var clearFn = function(){
+		$("#action").val("");
 	}
 	
 	var findOneFn = function(id) {
@@ -206,9 +208,9 @@ $(document).ready(function(){
 		htmlTable += "<td>"+ indexEntry["dist"]+ "</td>";
 		
 		if(indexEntry["close_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["close_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	 
 		
 		//htmlTable += "<td><button class='btn btn-warning btn-xs editCheckboxCloseFlag' type='button' id="+indexEntry["_id"]+">Edit</button></td>";
@@ -237,10 +239,7 @@ $(document).ready(function(){
 			//$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id[1]+"' name='embed_closeflag-"+id[1]+"' value='"+id[1]+"'>");	
 		});
 		
-		//ปุ่ม Save
-		$("#btnSave").click(function(){
-	        updateFn();
-		});
+		
 			
 	};
 	var embedParam = function(id){
@@ -263,7 +262,7 @@ $(document).ready(function(){
 		
 	}
 	//list ข้อมูลใน  Model
-	var listBranchOperationFn = function(data) {
+	/*var listBranchOperationFn = function(data) {
 		console.log(data);
 		var htmlTable = "";
 
@@ -306,7 +305,7 @@ $(document).ready(function(){
 			});	
 			
 		})
-	};
+	};*/
 	
 	
 	// get ของ branch management
@@ -323,7 +322,7 @@ $(document).ready(function(){
 	};
 	
 	// get ของ branch operation management
-	var getDataBranchOperationFn = function() {
+	/*var getDataBranchOperationFn = function() {
 		$.ajax({
 			url : restfulURL + "/api/dqs_branch",
 			type : "get",
@@ -333,11 +332,20 @@ $(document).ready(function(){
 				console.log(data);
 			}
 		});
-	};
+	};*/
 	
 	//Call Function start
 	  getDataFn();
 	
+	//ปุ่ม Save
+	$("#btnSave").click(function(){
+		if ($("#action").val() == "edit") {	
+				updateFn();
+		}else{
+			return false;
+		}
+	});
+	  
 	$("#btnSearch").click(function(){
 		searchFn($("#searchBranch").val());
 		return false;
@@ -362,11 +370,15 @@ $(document).ready(function(){
 		return false;
 	});*/
 	
-	$(".btnCancle").click(function() {
+	
+	
+	$("#btnCancle").click(function() {
+		getDataFn();
 		clearFn();
 	});
 	
 	$("#btnEditBranchOperation").click(function() {
-		getDataBranchOperationFn();
+		$(".editCheckboxCloseFlag").removeAttr("disabled");
+		$("#action").val("edit");
 	});
 });

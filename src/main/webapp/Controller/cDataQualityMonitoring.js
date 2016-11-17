@@ -155,7 +155,7 @@ $(document).ready(function(){
 		});
 	}
 	
-	var findOneDataFn = function(id) {
+	var findOneFn = function(id) {
 		//console.log(data);
 		var htmlTable = "";
 		$.ajax({
@@ -221,9 +221,11 @@ $(document).ready(function(){
 		
 		$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
+		//*******click แล้ว clear ข้อมูล ด้วย********
 		$(".modalDetail").click(function(){
 			
-			findOneDataFn(this.id);
+			
+			findOneFn(this.id);
 			$("#id").val(this.id);
 			
 			var crf=$(this).parent().parent().parent().children().get()[1];
@@ -232,6 +234,7 @@ $(document).ready(function(){
 			//console.log($(crf).text());
 			
 			getDataMakeRuleFn(crfID);
+			
 			
 		});
 	};
@@ -436,5 +439,11 @@ $(document).ready(function(){
 		var id = $("#cif_id_hidden").val();
 		getDataMakeRuleFn(id);
 	});
+	
+	$(".btn-explain").click(function() {
+		$("#explain_id").val($("#cif_id_hidden").val());
+		
+	});
+
 
 });

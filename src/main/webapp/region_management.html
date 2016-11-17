@@ -100,7 +100,14 @@
                                 <h5>Region List </h5>
                              
                             </div>
+                            
+                             
+                            
                             <div class="ibox-content">
+                            
+                            	<div class="alert alert-success" hidden="hidden">
+							    	<strong>Success!</strong> This alert box could indicate a successful or positive action.
+							  	</div>
                             
                              <div class="row">
                                     <div class="col-sm-8 m-b-xs">
@@ -230,6 +237,9 @@
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
             </div>
+            <div class="alert alert-success ManagementModal" hidden="hidden">
+				<strong>Success!</strong> This alert box could indicate a successful or positive action.
+			</div>
             <div class="modal-body">
                 <!-- content start -->
                 <h2><i class="fa fa fa-folder-open icon-title"></i> ADD REGIONAL OFFICE</h2>
@@ -270,7 +280,7 @@
 	                
 	                <div class="form-region-input">
 	                
-	                	<select class="form-control" id="listBranchOper">
+	                	<select class="form-control" id="list_Branch_Oper">
 	                		<option value="0" selected>- Branch Operation Name -</option>
 	                		<!-- <option value="1">Branch Operation 1</option>
 	                		<option value="2">Branch Operation 2</option>
@@ -292,6 +302,7 @@
                 <input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button class="btn btn-primary" type="button" name="btnSaveAnother" id="btnSaveAnother">Save & Add Another</button>
                 <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
             </div>
         </div>
@@ -349,9 +360,9 @@
                 
                 <div >
                 	<input type="hidden" name="id" id="id" value="">
-   					<input type="hidden" name="action" id="action" value="">
+   					<input type="hidden" name="action" id="action" value="add">
    					
-                	<button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                	<button class="btn btn-white" type="button" id="btnCancelOper">Cancel</button>
                     <button class="btn btn-primary" type="button" name="btnSaveOper" id="btnSaveOper">Save</button>
 
             	</div>

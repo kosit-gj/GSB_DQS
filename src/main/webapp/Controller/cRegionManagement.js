@@ -61,7 +61,7 @@ $(document).ready(
 					   if($("#region_name").val()==""){
 					    	validateText+="region name not empty\n";
 					   }
-						if($("#operation_id").val()==""){
+						if($("#list_Branch_Oper").val()==""){
 					   		 validateText+="operation not empty\n";
 					   }
 					   if(validateText!=""){
@@ -96,24 +96,27 @@ $(document).ready(
 					     dataType:"json",
 					     data:{ "region_code":$("#region_code").val(),
 								"region_name":$("#region_name").val(),
-								"operation_id":$("#listBranchOper").val()},
+								"operation_id":$("#list_Branch_Oper").val()},
 					     success:function(data,status){
-					      //alert(data);
-					      //console.log(data);
-					      console.log(status);
+					      //console.log(status);
 						      if(status=="success"){
-						       alert("Insert Success");
+						       //alert("Insert Success");
 						       getDataFn();
 						       clearFn();
 						      }
 						   }
 				    });         
 				
+				     $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
+				
+					/*$(".ManagementModal").fadeIn("slow");
+					$(".ManagementModal").fadeOut("slow");*/
 				    return false;
 		 		};
+
 				
 		 	//function update data Region
-		 var updateFn = function(){
+		    var updateFn = function(){
 					
 				   $.ajax({
 					    url:restfulURL+"/api/dqs_region/"+$("#id").val(),
@@ -121,20 +124,31 @@ $(document).ready(
 					    dataType:"json",
 					    data:{ "region_code":$("#region_code").val(),
 							   "region_name":$("#region_name").val(),
-							   "operation_id":$("#listBranchOper").val()},
+							   "operation_id":$("#list_Branch_Oper").val()},
 					    success:function(data,status){
-					     //alert(data);
 						     if(status=="success"){
-						      alert("Upate Success");
+						      //alert("Upate Success");
 						      getDataFn();
-						      clearFn();
+						      //clearFn();
 						     }
 						    }
 					   });
+				
+					$(".ManagementModal").fadeTo(1000, 2000).slideUp(500);
+					/*$(".ManagementModal").fadeIn("slow");
+					$(".ManagementModal").fadeOut("slow");*/
 				   return false;
 			 };
+			
+			var clostModalFn =function(){
+				$('#ManagementModal').modal('hide');
+				
+				$(".alert-success").fadeTo(1000, 2000).slideUp(500);
+				
+				/*$(".alert-success").fadeIn("slow");
+				$(".alert-success").fadeOut("slow")*/
 
-			 
+			} 
 			 //function clear data
 			 var clearFn =function(){
 					
@@ -142,9 +156,10 @@ $(document).ready(
 					   $("#action").val("add");
 					   $("#region_code").val("");
 					   $("#region_name").val("");
-					   $("#listBranchOper").val("");
+					   $("#list_Branch_Oper").val("");
 					   $("#btnSubmit").val("Add");
-					   $('#ManagementModal').modal('hide');
+					   $("#btnSaveAnother").val("Add");
+					   
 			}
 			 
 			 //get data to Edit
@@ -157,7 +172,7 @@ $(document).ready(
 					    success:function(data){
 						  $("#region_code").val(data['region_code']);
 					      $("#region_name").val(data['region_name']);
-						 // $("#listBranchOper").val(data['operation_id']);
+						 // $("#list_Branch_Oper").val(data['operation_id']);
 					//alert(data['operation_id']);
 						  dropDownListBranchOper(data['operation_id']);
 				    	}
@@ -219,6 +234,7 @@ $(document).ready(
 								    $("#id").val(this.id);
 								    $("#action").val("edit");
 								    $("#btnSubmit").val("Edit");
+								    $("#btnSaveAnother").val("Edit");
 								
 								});
 							
@@ -250,21 +266,7 @@ $(document).ready(
 				});
 			}
 			
-			//get data Region
-			  var getDataFn = function(){
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_region",
-					    type:"get",
-					    dataType:"json",
-						    success:function(data){
-						     
-						     listDataFn(data);
-						 }
-				  });
-			};
-		
-			
-			var insertBranchOperFn = function(){
+               var insertBranchOperFn = function(){
 				
 				    $.ajax({
 					     url:restfulURL+"/api/dqs_branch_operation",
@@ -328,10 +330,12 @@ $(document).ready(
 						   $("#id").val("");
 						   $("#action").val("add");
 						   $("#operation_name").val("");
-						   $("#cost_center").val();
+						   $("#cost_center").val("");
 						   $("#btnSaveOper").val("Add");
+						   
 				}
-			var listDataBranchOperFn = function(data){
+				 
+			     var listDataBranchOperFn = function(data){
 					
 					  // console.log(data);
 					   var htmlTable="";
@@ -411,36 +415,69 @@ $(document).ready(
 						success:function(data){
 							var htmlTable="";
 							$.each(data,function(index,indexEntry){
-								if(indexEntry["operation_code"] == operation_id){
-									htmlTable+="<option selected=\"selected\" value="+indexEntry["operation_code"]+">"+indexEntry["operation_name"]+"</option>";		
+								if(indexEntry["_id"] == operation_id){
+									htmlTable+="<option selected=\"selected\" value="+indexEntry["_id"]+">"+indexEntry["operation_name"]+"</option>";		
 								}else{
-									htmlTable+="<option value="+indexEntry["operation_code"]+">"+indexEntry["operation_name"]+"</option>";		
+									htmlTable+="<option value="+indexEntry["_id"]+">"+indexEntry["operation_name"]+"</option>";		
 								}
 								
 								
 							});	
 							
-							$("#listBranchOper").html(htmlTable);
+							$("#list_Branch_Oper").html(htmlTable);
 						}
 				});
 			};
-		
 			
-		//Call Function start
-		  getDataFn();
-		  // ปุ่ม save 
-		$("#btnSubmit").click(function(){
-			   if(validationFn()==true){
-				    if($("#action").val()=="add" || $("#action").val()=="" ){
-				     
-				     if(checkUniqueFn($("#region_name").val())==true){
-				      	insertFn();
-				     }else{
-				      	alert("Name is aleady please fill name other. ");
-				     }
-				    }else{
-				     	updateFn();
-				    }
+			//get data Region
+			  var getDataFn = function(){
+				   $.ajax({
+					    url:restfulURL+"/api/dqs_region",
+					    type:"get",
+					    dataType:"json",
+						    success:function(data){
+						     
+						     listDataFn(data);
+						 }
+				  });
+			};
+			//Call Function start
+			getDataFn();
+				  
+				  
+				  
+				  // ปุ่ม save 
+		  		$("#btnSubmit").click(function(){
+				   if(validationFn()==true){
+					    if($("#action").val()=="add" || $("#action").val()=="" ){
+					     
+						     if(checkUniqueFn($("#region_name").val())==true){
+						      	insertFn();
+								clostModalFn();
+						     }else{
+						      	alert("Name is aleady please fill name other. ");
+						     }
+					    }else{
+					     	updateFn();
+					        clostModalFn();
+					    }
+				   }
+			   		return false;
+			  });
+		
+		 // ปุ่ม SaveAnother 
+		 	  $("#btnSaveAnother").click(function(){
+			   		if(validationFn()==true){
+					    if($("#action").val()=="add" || $("#action").val()=="" ){
+					     
+					     if(checkUniqueFn($("#region_name").val())==true){
+					      	insertFn();
+					     }else{
+					      	alert("Name is aleady please fill name other. ");
+					     }
+					    }else{
+					     	updateFn();
+					    }
 			   }
 			   		return false;
 			  });
@@ -467,7 +504,12 @@ $(document).ready(
 					   }
 					   		return false;
 			  }); 
-			  
+			   
+			   $("#btnCancelOper").click(function(){
+					   clearOperFn();
+					   return false;
+				  });
+			   
 			   //ปุ่ม search
 			  $("#btnSearch").click(function(){
 				   searchFn($("#searchText").val());

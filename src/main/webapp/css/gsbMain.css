@@ -13,8 +13,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -24,19 +24,19 @@ body {
     padding: 14px 15px 7px;
 }
 .top-navigation .navbar-brand{
-	background: #ec228c none ;
+	background: #EC068D none ;
 }
 .btn-primary {
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     color: #ffffff;
 }
 .top-navigation .nav > li.active > a {
-    color: #ec228c;
+    color: #EC068D;
 }
 
 .spin-icon {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
  
 }
 .white-bg {
@@ -44,11 +44,11 @@ body {
 }
 .pink-bg{
 
-   background-color: #ec228c;
+   background-color: #EC068D;
 
 }
 .navbar-fixed-top, .navbar-static-top {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
 }
 .top-navigation .nav > li > a {
     color: white;
@@ -119,7 +119,7 @@ body {
 .btn-pink {
     background-color: white;
     border-color: white;
-    color: #ec228c;
+    color: #EC068D;
 }
 .top-navigation .navbar-right {
     margin-right: 10px;
@@ -136,10 +136,12 @@ body {
     padding: 0;
 }
 .breadcrumb {
-    background-color: #ffffff;
+   /* background-color: #ffffff;*/
     border-radius: 0;
     margin-bottom: 0;
     padding: 5px;
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%) repeat scroll 0 0;
+    
 }
 .icon-title{
 	color:#dddddd;
@@ -154,8 +156,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -174,7 +176,7 @@ body {
     margin-top: 72px;
 }
 .form-control:focus, .single-line:focus{
-	border-color:#ec228c !important;
+	border-color:#EC068D !important;
 }
 .input-inline-table{
 	height:23px;
@@ -202,7 +204,7 @@ body {
 	padding-top:3px;
 }
 .inmodal .modal-header {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
     padding: 2px 15px;
     text-align: left;
     color:white;
@@ -279,8 +281,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -290,19 +292,19 @@ body {
     padding: 14px 15px 7px;
 }
 .top-navigation .navbar-brand{
-	background: #ec228c none ;
+	background: #EC068D none ;
 }
 .btn-primary {
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     color: #ffffff;
 }
 .top-navigation .nav > li.active > a {
-    color: #ec228c;
+    color: #EC068D;
 }
 
 .spin-icon {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
  
 }
 .white-bg {
@@ -310,11 +312,11 @@ body {
 }
 .pink-bg{
 
-   background-color: #ec228c;
+   background-color: #EC068D;
 
 }
 .navbar-fixed-top, .navbar-static-top {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
 }
 .top-navigation .nav > li > a {
     color: white;
@@ -385,7 +387,7 @@ body {
 .btn-pink {
     background-color: white;
     border-color: white;
-    color: #ec228c;
+    color: #EC068D;
 }
 .top-navigation .navbar-right {
     margin-right: 10px;
@@ -420,8 +422,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -440,7 +442,7 @@ body {
     margin-top: 72px;
 }
 .form-control:focus, .single-line:focus{
-	border-color:#ec228c !important;
+	border-color:#EC068D !important;
 }
 .input-inline-table{
 	height:23px;
@@ -468,7 +470,7 @@ body {
 	padding-top:3px;
 }
 .inmodal .modal-header {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
     padding: 2px 15px;
     text-align: left;
     color:white;
@@ -549,8 +551,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -560,19 +562,19 @@ body {
     padding: 14px 15px 7px;
 }
 .top-navigation .navbar-brand{
-	background: #ec228c none ;
+	background: #EC068D none ;
 }
 .btn-primary {
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     color: #ffffff;
 }
 .top-navigation .nav > li.active > a {
-    color: #ec228c;
+    color: #EC068D;
 }
 
 .spin-icon {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
  
 }
 .white-bg {
@@ -580,11 +582,11 @@ body {
 }
 .pink-bg{
 
-   background-color: #ec228c;
+   background-color: #EC068D;
 
 }
 .navbar-fixed-top, .navbar-static-top {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
 }
 .top-navigation .nav > li > a {
     color: white;
@@ -655,7 +657,7 @@ body {
 .btn-pink {
     background-color: white;
     border-color: white;
-    color: #ec228c;
+    color: #EC068D;
 }
 .top-navigation .navbar-right {
     margin-right: 10px;
@@ -690,8 +692,8 @@ body {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #ec228c;
-    border-color: #ec228c;
+    background-color: #EC068D;
+    border-color: #EC068D;
     border-image: none;
     border-style: solid solid none;
     border-width: 3px 0 0;
@@ -710,7 +712,7 @@ body {
     margin-top: 72px;
 }
 .form-control:focus, .single-line:focus{
-	border-color:#ec228c !important;
+	border-color:#EC068D !important;
 }
 .input-inline-table{
 	height:23px;
@@ -738,7 +740,7 @@ body {
 	padding-top:3px;
 }
 .inmodal .modal-header {
-    background: #ec228c none repeat scroll 0 0;
+    background: #EC068D none repeat scroll 0 0;
     padding: 2px 15px;
     text-align: left;
     color:white;
@@ -798,4 +800,32 @@ hr {
 .alert {
     margin-bottom: 0;
 }
->>>>>>> branch 'master' of https://github.com/kosit-gj/GSB_DQS.git
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.btn-primary.active:focus {
+  background-color: #EC068D;
+  border-color: #EC068D;
+  color: #FFFFFF;
+}
+.ibox {
+    clear: both;
+    margin-bottom: 5px;
+    margin-top: 0;
+    padding: 0;
+}
+.ibox-content {
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+    color: inherit;
+    padding: 5px 20px 0px;
+}

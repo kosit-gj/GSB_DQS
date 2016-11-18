@@ -1,20 +1,14 @@
 $(document).ready(
 	function(){
-
-		var restfulURL = "http://192.168.1.49:3001";
-		
-		
 		
 		//function update data
-		 var updateFn = function(){
-				
-			 
+		 var updateFn = function(){ 
 			 //update super_flag
 			 $.each($(".embed_Super_Flagg").get(),function(index,indexEntry){
 					var id=$(indexEntry).val();
 					
 				 $.ajax({
-					    url:restfulURL+"/api/dqs_user/"+id,
+					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
 					    type:"PUT",
 					    dataType:"json",
 					    data:{"super_flag":$("#operation-"+id).val()},
@@ -35,7 +29,7 @@ $(document).ready(
 					//alert($("#listRole-"+id).val());
 					
 				 $.ajax({
-					    url:restfulURL+"/api/dqs_user/"+id,
+					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
 					    type:"PUT",
 					    dataType:"json",
 					    data:{"role_id":$("#listRole-"+id).val()},
@@ -58,7 +52,7 @@ $(document).ready(
 					//alert($("#listRole-"+id).val());
 					
 				 $.ajax({
-					    url:restfulURL+"/api/dqs_user/"+id,
+					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
 					    type:"PUT",
 					    dataType:"json",
 					    data:{"revised_cost_center":$("#Revised-"+id).val()},
@@ -91,10 +85,10 @@ $(document).ready(
 			 
 			 //function search data
 			  var searchFn = function(searchText){
-				   /* http://localhost:3000/api/products?name__regex=/^test/i */
+				   /* http://localhost:3000/dqs_api/public/products?name__regex=/^test/i */
 				    
 				   $.ajax({
-				    url:restfulURL+"/api/dqs_user/?user_name__regex=/^"+searchText+"/i",
+				    url:restfulURL+"/dqs_api/public/dqs_user/?user_name__regex=/^"+searchText+"/i",
 				    type:"get",
 				    dataType:"json",
 				    success:function(data){
@@ -114,35 +108,30 @@ $(document).ready(
 				      $('#tableUser').DataTable().destroy();
 				     }
 				
-						//  console.log(data);
+	
 						   var htmlTable="";
 						 $("#listUser").empty();
 						   $.each(data,function(index,indexEntry){
-							
-						    //console.log(indexEntry);
+							/*
+							personnel_id
+							thai_full_name
+							position_name
+							branch_code
+							own_cost_center
+							revised_cost_center
+							role_id
+							*/
 							     htmlTable+="<tr >";
-								     /* htmlTable+="<td>"+(index+1)+"</td>";*/
-								      htmlTable+="<td>"+indexEntry["user_name"]+"</td>";
-								      htmlTable+="<td>"+indexEntry["position"]+"</td>";
+								  
+								      htmlTable+="<td>"+indexEntry["thai_full_name"]+"</td>";
+								      htmlTable+="<td>"+indexEntry["position_name"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["own_cost_center"]+"</td>";
 								
 								
-									  htmlTable+="<td>"+indexEntry["revised_cost_center"]+"</td>";
+									  htmlTable+="<td>"+indexEntry["branch_code"]+"</td>";
 									
-									  /*htmlTable+="<td>";
-										if(indexEntry["revised_cost_center"] == "Revised Cost Center 1"){
-											 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editRevised\" id=Revised-"+indexEntry["_id"]+"><option selected >Revised Cost Center 1</option> <option>Revised Cost Center 2</option></select>";
-										}else{
-											 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editRevised\" id=Revised-"+indexEntry["_id"]+"><option>Revised Cost Center 1</option> <option selected >Revised Cost Center 2</option></select>";
-										}
-									  htmlTable+="</td>";*/
-									
-									
-									  //htmlTable+="<td>"+indexEntry["role_id"]+" </td>";
-									  
-									  htmlTable+="<td>";
-										  htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRole \" id=\"listRole-"+indexEntry["_id"]+"\">"+listDataRole(indexEntry["role_id"])+"</select>";
-									  htmlTable+="</td>";
+									 
+									 
 									  
 									  
 									  htmlTable+="<td>";
@@ -152,14 +141,13 @@ $(document).ready(
 											 htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editSuperFlag\" id=operation-"+indexEntry["_id"]+"><option>All Branch</option> <option selected >Line</option></select>";
 										}
 							          htmlTable+="</td>"; 
+							          
+							          
+									  htmlTable+="<td>";
+										  htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRole \" id=\"listRole-"+indexEntry["_id"]+"\">"+listDataRole(indexEntry["role_id"])+"</select>";
+									  htmlTable+="</td>";
 									  
-									  /*htmlTable+="<td>";
-										  if(indexEntry["super_flag"]){
-											  htmlTable+="<select class=\"form-control input-inline-table input-contact-selecttype  editSuperFlag\" id=\"listBranchOper-"+indexEntry["_id"]+"\">"+listBranchOper(indexEntry["_id"])+"</select>";
-										  }else{
-											  htmlTable+="<select class=\"form-control input-inline-table input-contact-selecttype  editSuperFlag\" id=\"listBranchOper-"+indexEntry["_id"]+"\">"+listBranchOper(indexEntry["_id"])+"</select>";
-										  }
-									  htmlTable+="</td>";*/
+									 
 									  
 							     htmlTable+="</tr>";
 								
@@ -168,7 +156,8 @@ $(document).ready(
 						  $("#listUser").html(htmlTable);
 						
 						//DataTable
-						  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+						 // $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+						  $('#tableUser').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">' } ); 
 						
 						
 						//start ปุ่ม Edit ใน table
@@ -268,13 +257,14 @@ $(document).ready(
 			//Get data User
 			var getDataFn = function() {
 						$.ajax({
-							url : restfulURL + "/api/dqs_user",
+							url : restfulURL + "/dqs_api/public/dqs_user",
 							type : "get",
 							dataType : "json",
+							headers:{Authorization:"Bearer "+tokenID.token},
 							success : function(data) {
 
-								listDataFn(data);
-								dropDownListRole();
+								listDataFn(data['data']);
+								//dropDownListRole();
 							}
 						});
 					};
@@ -282,7 +272,7 @@ $(document).ready(
 			//DropDownList Role
 			var dropDownListRole = function(data){
 				$.ajax ({
-					url:restfulURL+"/api/dqs_role" ,
+					url:restfulURL+"/dqs_api/public/dqs_role" ,
 					type:"get" ,
 					dataType:"json" ,
 						success:function(data){
@@ -302,9 +292,10 @@ $(document).ready(
 				
 				var htmlTable="";
 				$.ajax ({
-					url:restfulURL+"/api/dqs_role" ,
+					url:restfulURL+"/dqs_api/public/dqs_role" ,
 					type:"get" ,
 					dataType:"json" ,
+					headers:{Authorization:"Bearer "+tokenID.token},
 					async:false,
 						success:function(data){
 							
@@ -328,7 +319,7 @@ $(document).ready(
 			var listBranchOper = function(){
 				var htmlTable="";
 				$.ajax ({
-					url:restfulURL+"/api/dqs_branch_operation" ,
+					url:restfulURL+"/dqs_api/public/dqs_branch_operation" ,
 					type:"get" ,
 					dataType:"json" ,
 					async:false,

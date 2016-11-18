@@ -4,12 +4,12 @@
 	
 }
 .form-menu-mangement{
-	height:37px;
+	height:43px;
+	padding-top: 7px;
 }
 
 .form-menu-label{
 	float:left;
-	padding-top: 7px;
 	width:140px;
 }
 .form-menu-input{

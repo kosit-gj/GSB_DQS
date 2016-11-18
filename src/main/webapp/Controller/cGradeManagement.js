@@ -1,10 +1,10 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.60:3001";
+		var restfulURL = "http://192.168.1.52:3001";
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
-		 var checkUniqueFn = function(text){
+		 var checkUniqueFn = function(text,textseq){
 				   var unique=false; 
 					   $.ajax({
 						    url:restfulURL+"/api/dqs_grade?grade="+text+"",
@@ -12,14 +12,11 @@ $(document).ready(
 						    dataType:"json",
 						    async:false,
 						    success:function(data){
-						     
 						     console.log(data);
 							     if(data==""){
-							      //alert("data empty");
 							      unique=true;
 							     }else{
 							      unique=false;
-							      //alert("full data");
 							     }
 						     
 						    }
@@ -58,9 +55,7 @@ $(document).ready(
 					     dataType:"json",
 					     data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
 					     success:function(data,status){
-					      //alert(data);
 					      //console.log(data);
-					      console.log(status);
 						      if(status=="success"){
 						       alert("Insert Success");
 						       getDataFn();
@@ -81,17 +76,23 @@ $(document).ready(
 					    dataType:"json",
 					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
 					    success:function(data,status){
-					     //alert(data);
 						     if(status=="success"){
 						      alert("Upate Success");
 						      getDataFn();
-						      clearFn();
+						      // clearFn();
 						     }
 						    }
 					   });
 				   return false;
 			 };
 
+			 
+			 var clostModal = function(){
+				   $('#addModal').modal('hide');
+				   
+				   $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
+			 }
+			 
 			 var clearFn =function(){
 					
 					   $("#id").val("");
@@ -100,7 +101,7 @@ $(document).ready(
 					   $("#grade_name").val("");
 					   $("#process_seq").val("");
 					   $("#btnSubmit").val("Add");
-					   $('#addModal').modal('hide');
+					   $("#btnAddAnother").val("Add");	
 			}
 		 var findOneFn = function(id){
 				   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
@@ -112,13 +113,6 @@ $(document).ready(
 					      $("#grade").val(data['grade']);
 						  $("#grade_name").val(data['grade_name']);
 					      $("#process_seq").val(data['process_seq']);
-					      
-						/*	if(data['inform_flag']==1){
-								$('#InformBranchRadioTrue').prop('checked', true);
-							}
-							if(data['inform_flag']==0){
-								$('#InformBranchRadioFalse').prop('checked', true);
-							}*/
 				    	}
 				   });
 			  };
@@ -143,14 +137,13 @@ $(document).ready(
 						 //  console.log(data);
 						   var htmlTable="";
 						   $.each(data,function(index,indexEntry){
-						    //console.log(indexEntry);
 							     htmlTable+="<tr >";
 								      htmlTable+="<td>"+(index+1)+"</td>";
 								      htmlTable+="<td id=\"gradename-"+indexEntry["_id"]+"\">"+indexEntry["grade"]+"</td>";
 								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
 									 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
-								      htmlTable+="<td><i class=\"fa fa-search font-management btnCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
-								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
+								      //htmlTable+="<td><i class=\"fa fa-search font-management showCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
+								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs btnCondition' data-target=#condition data-toggle='modal' type='button' id="+indexEntry["_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
 							htmlTable+="</tr>";
 						   });
 						
@@ -167,6 +160,7 @@ $(document).ready(
 								    $("#id").val(this.id);
 								    $("#action").val("edit");
 								    $("#btnSubmit").val("Edit");
+								    $("#btnAddAnother").val("Edit");
 								});
 							
 						   $(".del").click(function(){
@@ -186,18 +180,15 @@ $(document).ready(
 				   		   		}
 				  	 		});
 						
-						
+						//add condition
+						$(".btnCondition").click(function(){
+							 $("#embed_grade_id").val(this.id);
+							 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
+							 
+							getDataConditionFn();
+							dropDownListRule();
+						 });
 				});
-						
-				$(".btnCondition").click(function(){
-					
-					 $("#embed_grade_id").val(this.id);
-					// $("#embed_grade_name").val();
-					 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
-					 
-					getDataConditionFn();
-					dropDownListRule();
-				 });
 			}
 			
 			
@@ -213,18 +204,36 @@ $(document).ready(
 						 }
 				  });
 			};
-			
-			
-		//Call Function start
+					//Call Function start
 				  getDataFn();
+				  
 				$("#btnSubmit").click(function(){
+					   if(validationFn()==true){
+						    if($("#action").val()=="add" || $("#action").val()=="" ){
+						     
+						     if(checkUniqueFn($("#grade").val())==true){
+								insertFn();
+						        clostModal();
+						     }else{
+						      	alert("name or seq is not unique.");
+						     }
+						    }else{
+						     	updateFn();
+						        clostModal();
+						    }
+					   }
+					   		return false;
+					  });
+				
+				
+				$("#btnAddAnother").click(function(){
 					   if(validationFn()==true){
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
 						     
 						     if(checkUniqueFn($("#grade").val())==true){
 						      	insertFn();
 						     }else{
-						      	alert("name is not unique.");
+						      	alert("name or seq is not unique.");
 						     }
 						    }else{
 						     	updateFn();
@@ -232,7 +241,6 @@ $(document).ready(
 					   }
 					   		return false;
 					  });
-		
 		
 		
 		
@@ -312,13 +320,10 @@ $(document).ready(
 								$("#seq-"+this.id).removeAttr("disabled");
 								$("#operater-"+this.id).removeAttr("disabled");
 								$("#Complete-"+this.id).removeAttr("disabled");
-								//alert(this.id);
 								$("#embed_condition_id").remove();
 									$("body").append("<input type='hidden' id='embed_condition_id' name='embed_condition_id' value='"+this.id+"'>");
 						});
-							
-							});
-						
+					});
 				}
 				
 				
@@ -368,15 +373,14 @@ $(document).ready(
 						
 						var grade_id = $("#embed_grade_id").val();
 
-						//alert(grade_id);
 						   $.ajax({
-						    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
-						    type:"get",
-						    dataType:"json",
-						    success:function(data){
-						     
-						     listDataConditionFn(data);
-						    }
+							    url:restfulURL+"/api/dqs_grade_condition?grade_id="+grade_id+"",
+							    type:"get",
+							    dataType:"json",
+							    success:function(data){
+							     
+							     listDataConditionFn(data);
+							    }
 					   });
 				  };
 				
@@ -397,28 +401,7 @@ $(document).ready(
 							}
 					});
 				};
-				
-		
-				//DropDownList make_param_operator
-				/*var dropDownListOperator = function(data){
-					var htmlTable="";
-					$.ajax ({
-						url:restfulURL+"/api/make_param_operator" ,
-						type:"get" ,
-						dataType:"json" ,
-						async:false,
-							success:function(data){
-								
-								$.each(data,function(index,indexEntry){
-									
-									htmlTable+="<option value="+indexEntry["param_operator"]+">"+indexEntry["param_operator"]+"</option>";		
-								});	
-								$("#listOperator").html(htmlTable);
-							}
-					});
-					return htmlTable;
-				};*/
-				
+
 				 var insertConditionFn = function(){
 					 var completeCheack = "0";
 						    $.ajax({

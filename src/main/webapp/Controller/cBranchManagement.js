@@ -133,13 +133,10 @@ $(document).ready(function(){
 
 		});
 		$(".alert-success").fadeTo(1000,2000).slideUp(500);
-			
-		
-		/*$(".alert-success").fadeIn(800);
-		$(".alert-success").fadeOut(1500);*/
-		
+
 		getDataFn();
 		clearFn();
+		
 		$('#addModalRule').modal('hide');
 		
 		console.log($(".embed_closeflag").get());

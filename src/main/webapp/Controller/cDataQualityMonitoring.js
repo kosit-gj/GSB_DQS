@@ -19,7 +19,7 @@ $(document).ready(function(){
 			dataType : "json",
 			async : false,
 			success : function(data) {
-				console.log(data);
+				//console.log(data);
 				if(data == ""){
 					unique = true;
 				}else{
@@ -41,10 +41,7 @@ $(document).ready(function(){
 		} else {
 			return true;
 		}
-	
 	}
-	
-	
 	
 	var updateFn = function(){
 		
@@ -129,22 +126,38 @@ $(document).ready(function(){
 			
 		});
 		
-		getDataMakeRuleFn(id);
+		//getDataMakeRuleFn(id);
 		
 	};
 	
-	/*var searchFn = function(searchText) {
+	
+	updateExplainFn = function(id){
+		
+		var approve = ""	
+			if($("#cdmd_explain_no_explanation:checked").val()){
+				approve = 1;
+			}else if($("#cdmd_explain_pending:checked").val()){
+				approve = 2;
+			}else if($("#cdmd_explain_approve:checked").val()){
+				approve = 3;
+			}else if($("#cdmd_explain_not_allowed:checked").val()){
+				approve = 4;
+			}
+		alert(approve);
+		
 		$.ajax({
-			url : restfulURL + "/api/dqs_citizen_import/?nfname__regex=/^"+searchText+"/i",
-			type : "get",
+			url : restfulURL + "/api/make_data_quality_monitoring/"+id,							
+			type : "PUT",
 			dataType : "json",
+			data : {"cdmd":approve},	
 			success : function(data) {
-				listCitizenFn(data);
+				alert("สำเร็จ");
 			}
 		});
-	}*/
+		return false;
+	}
 
-	var searchAdvanceFn = function(searchText) {
+	/*var searchAdvanceFn = function(searchText) {
 		$.ajax({
 			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
 			type : "get",
@@ -153,7 +166,7 @@ $(document).ready(function(){
 				//listRuleFn(data);
 			}
 		});
-	}
+	}*/
 	
 	var findOneFn = function(id) {
 		//console.log(data);
@@ -169,7 +182,7 @@ $(document).ready(function(){
 				htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif"]+"</div>";
 				htmlTable += "</div>";
 				
-				htmlTable += "<input type='hidden' id='cif_id_hidden' value='"+data["cif"]+"'>";
+				htmlTable += "<input type='hidden' id='cif_id_hidden' value='"+data["_id"]+"'>";
 				
 				htmlTable +="<div class='label-detail'>";
 				htmlTable +="<div class='box2'><b>Name</b> : "+data["customername"]+"</div>";
@@ -200,7 +213,7 @@ $(document).ready(function(){
 			$('#tableDataQuality').DataTable().destroy(); 
 		}
 		
-		console.log(data);
+		//console.log(data);
 		var htmlTable = "";
 		
 		$.each(data,function(index,indexEntry) {
@@ -228,13 +241,13 @@ $(document).ready(function(){
 			findOneFn(this.id);
 			$("#id").val(this.id);
 			
-			var crf=$(this).parent().parent().parent().children().get()[1];
+			/*var crf=$(this).parent().parent().parent().children().get()[1];
 			
-			var crfID=$(crf).text();
+			var crfID=$(crf).text();*/
 			//console.log($(crf).text());
 			
-			getDataMakeRuleFn(crfID);
-			
+			//getDataMakeRuleFn(crfID);
+			getDataMakeRuleFn(this.id);
 			
 		});
 	};
@@ -246,7 +259,7 @@ $(document).ready(function(){
 			$('#tableMakeRuleQuality').DataTable().destroy(); 
 		}
 		
-		console.log(data);
+		//console.log(data);
 		var htmlTable = "";
 		
 		//$("#cif_id_hidden").val()
@@ -303,6 +316,22 @@ $(document).ready(function(){
 			//alert(id[1]);		
 		});
 	};
+	
+	var fineOneExplainFn = function(data){
+		//console.log(data[0]['cdmd']);
+		if(data[0]['cdmd']==1){
+			$('#cdmd_explain_no_explanation').prop('checked', true);
+		}
+		if(data[0]['cdmd']==2){
+			$('#cdmd_explain_pending').prop('checked', true);
+		}
+		if(data[0]['cdmd']==3){
+			$('#cdmd_explain_approve').prop('checked', true);
+		}
+		if(data[0]['cdmd']==4){
+			$('#cdmd_explain_not_allowed').prop('checked', true);
+		}
+	}
 	
 	// Click แล้ว ฝังข้อมูล
 	var embedParamValidateStatus = function(id){
@@ -391,7 +420,7 @@ $(document).ready(function(){
 			dataType : "json",
 			success : function(data) {
 				listDataQualityFn(data);
-				console.log(data);
+				//console.log(data);
 			}
 		});
 	};
@@ -400,27 +429,39 @@ $(document).ready(function(){
 	  
 	var getDataMakeRuleFn = function(id) {
 		$.ajax({
-			url : restfulURL + "/api/make_dqs_inital_validate/?cif__regex=/^"+id+"/i",
+			url : restfulURL + "/api/make_dqs_inital_validate/?validate_header_id__regex=/^"+id+"/i",
 			type : "get",
 			dataType : "json",
 			async:false,
 			success : function(data) {
 				listMakeDetailRuleFn(data);
-				console.log(data);
+				//console.log(data);
 			}
 		});
 	};
-	//Call Function start
-		  
-	 	
+	
+	var getDataMakeExplainFn = function(id) {
+		//alert(id);
+		$.ajax({
+			url : restfulURL + "/api/make_data_quality_monitoring/",
+			type : "get",
+			dataType : "json",
+			async:false,
+			success : function(data) {
+				fineOneExplainFn(data);
+				//console.log(data);
+			}
+		});
+	};
+	
 	$("#btnSearch").click(function(){
 		searchFn($("#searchCitizen").val());
-		   return false;
+		return false;
 	});
 	
 	$("#btnSearchAdvance").click(function(){
 		searchAdvanceFn($("#searchAdvanceRule").val());
-		   return false;
+		return false;
 	});
 
 	$("#btnSubmit").click(function(){
@@ -431,19 +472,21 @@ $(document).ready(function(){
 	$("#btnEdit").click(function() {
 		$(".kpi_checkbox").removeAttr("disabled");
 		$(".no_doc_checkbox").removeAttr("disabled");
-		$(".validate_status").removeAttr("disabled");
-		
+		$(".validate_status").removeAttr("disabled");	
 	});
 	
 	$("#btnCancle").click(function() {
 		var id = $("#cif_id_hidden").val();
-		getDataMakeRuleFn(id);
+		//getDataMakeRuleFn(id);
 	});
 	
 	$(".btn-explain").click(function() {
+		getDataMakeExplainFn($("#cif_id_hidden").val());
 		$("#explain_id").val($("#cif_id_hidden").val());
-		
 	});
-
+	
+	$("#btnSaveExplain").click(function() {
+		updateExplainFn($("#explain_id").val());
+	});
 
 });

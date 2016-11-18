@@ -59,13 +59,19 @@
 }
 .label-explain{
 	float:left;
-	width:100px;
+	width:145px;
 	font-weight:bold;
+	padding-top:5px;
 }
-
 .input-explain{
+	padding-top:5px;
 	float:left;
-	width:438px;
+	width:300px;
+}
+.label-hr{
+	float:left;
+	padding-top:18px;
+	width:530px;
 }
 
 

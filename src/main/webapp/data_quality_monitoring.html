@@ -639,35 +639,52 @@
 						Attachment :	
 					</div>
 					<div class="input-explain">
-						<div>
+						<!-- <div>
 							<input type="checkbox"> ไม่มีเอกสารเพียงพอในการปรับปรุง
 						</div>
 						<div>
 							<button data-toggle="modal" data-target="#addModal" class="btn btn-white " type="button">&nbsp;Choose File</button>
 							<button data-toggle="modal" data-target="#addModal" class="btn btn-info " type="button"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
-						</div>
+						</div> -->
 						<div>
-						Upload File Name, Upload File Name2<br>
-						<font color="red">* หมายเหตุ ลูกค้าเข้ามาติดต่อล่าสุดไม่เกิน 3 เดือน เหตุใดถึงไม่พบเอกสาร</font>
+						Upload File Name, Upload File Name2,<br> 
+						Upload File Name, Upload File Name4,<br>
+						Upload File Name5
+						<!-- <font color="red">* หมายเหตุ ลูกค้าเข้ามาติดต่อล่าสุดไม่เกิน 3 เดือน เหตุใดถึงไม่พบเอกสาร</font> -->
 						</div>
 						
 						
 					</div>
 				</div>
 				
-				<div >
+				<div>
 					<div class="label-explain">
-						Explain By :	
+						Explained By :	
 					</div>
 					<div class="input-explain">
-						 [Persionel Name]
+						 [Sir Apiwat]
 					</div>
 				 
 				</div>
 				
+				<div >
+					<div class="label-explain">
+						Explained Datetime :	
+					</div>
+					<div class="input-explain">
+						18/11/2016 14:50:33
+					</div>
+				 
+				</div>
 				
 				<hr>
 				
+				<div>
+					<div class="label-hr">
+						<hr>
+					</div>		
+				</div>
+					
 				<div>
 					
 					<div class="label-explain">
@@ -675,12 +692,31 @@
 					</div>
 					
 					<div class="input-explain ">
-	  					 <input type="radio" name="radioAppove"> ไม่ชี้แจง  
-	  					 <input type="radio" name="radioAppove"> รออนุมัติ  
-	  					 <input type="radio" name="radioAppove"> อนุมัติ  
-	  					 <input type="radio" name="radioAppove"> ไม่อนุมัตื  
+	  					 <input type="radio" name="radioAppove" id="cdmd_explain_no_explanation"> ไม่ชี้แจง  
+	  					 <input type="radio" name="radioAppove" id="cdmd_explain_pending"> รออนุมัติ  
+	  					 <input type="radio" name="radioAppove" id="cdmd_explain_approve"> อนุมัติ  
+	  					 <input type="radio" name="radioAppove" id="cdmd_explain_not_allowed"> ไม่อนุมัติ 
 					</div>
 				
+				</div>
+				<div>
+					<div class="label-explain">
+						Approved By :	
+					</div>
+					<div class="input-explain">
+						 [Sir Apiwat]
+					</div>
+				 
+				</div>
+				
+				<div >
+					<div class="label-explain">
+						Approved Datetime :	
+					</div>
+					<div class="input-explain">
+						18/11/2016 15:00:01
+					</div>
+				 
 				</div>
 				 
 				<br style="clear:both">
@@ -690,7 +726,7 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary" type="button" id="btnSaveExplain">Save</button>
             </div>
         </div>
     </div>

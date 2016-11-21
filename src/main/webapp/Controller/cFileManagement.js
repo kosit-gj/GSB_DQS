@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	var restfulURL = "http://192.168.1.52:3001";
+	var restfulURL = "http://192.168.1.48:3001";
 	//var restfulURL = "http://192.168.1.100:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
@@ -112,14 +112,10 @@ $(document).ready(function(){
 			
 			//alert($("#contacttype-"+id).val());
 			
-			if($("#contacttype-"+id).val()== "Email"){
+			if($("#contacttype-"+id).val()== "เปิดบัญชีเงินฝาก"){
 				valueContatType = "1";
-			}else if($("#contacttype-"+id).val()== "Telphone"){
+			}else if($("#contacttype-"+id).val()== "เปิดบัญชีใหม่สินเชื่อ"){
 				valueContatType = "2";
-			}else if($("#contacttype-"+id).val()== "Home"){
-				valueContatType = "3";
-			}else if($("#contacttype-"+id).val()== "Office"){
-				valueContatType = "4";
 			}
 			
 			//alert(valueContatType);
@@ -129,6 +125,7 @@ $(document).ready(function(){
 				type : "PUT",
 				dataType : "json",
 				data : {"contact_type" : valueContatType},
+				async:false,
 				//data : {"contact_type" : $("#contacttype-"+id).val()},
 				success : function(data) {
 					if (data = "success") {
@@ -274,7 +271,8 @@ $(document).ready(function(){
 			
 		});
 		
-		alert("Upate Success");
+		$(".alert-success").fadeTo(1000,2000).slideUp(500);
+		
 		getDataFn();
 		clearFn();
 
@@ -283,10 +281,10 @@ $(document).ready(function(){
 	};
 	
 	var clearFn = function() {
-		$("#id").val("");
-		$("#action").val("add");
-		$("#rule_name").val("");
-		$("#btnSubmit").val("Add");
+		//$("#id").val("");
+		$("#action").val("");
+		//$("#rule_name").val("");
+		//$("#btnSubmit").val("Add");
 	}
 	
 	var findOneFn = function(id) {
@@ -325,6 +323,10 @@ $(document).ready(function(){
 	
 	var listFileFn = function(data) {
 		
+		if ($.fn.DataTable.isDataTable('#tableFile')) {
+		       $('#tableFile').DataTable().destroy(); 
+		}
+		
 		console.log(data);
 		//clear ฟังก์ชัน  data ข้อมูลเก่าทิ้ง 
 		$("#dataFileManagement").empty();
@@ -332,7 +334,7 @@ $(document).ready(function(){
 		$.each(data,function(index,indexEntry) {
 		var htmlTable = "";		
 		htmlTable += "<tr>"; 
-		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
+		htmlTable+="<td><input disabled class=\" input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
 		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";	
@@ -357,7 +359,7 @@ $(document).ready(function(){
 			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" ></td>";
 		}
 		
-		htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
+		htmlTable+="<td><input disabled class=\" input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
 		
 		htmlTable +="</tr>";
 		
@@ -365,47 +367,48 @@ $(document).ready(function(){
 		dropdownContactType(indexEntry["contact_type"],indexEntry["_id"]);
 		});
 		
-		
+		$('#tableFile').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		//function popover
 		//$(".popover-edit-del").popover();
+		//$("#tableBranch").on("click",".editCheckboxCloseFlag",function()
 		
 		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".selectContact").click(function(){		
+		$('#tableFile').on("click",".selectContact",function(){		
 			var id = this.id.split("-"); 
 			embedParamSelectContact(id[1]);
 			//alert(id[1]);		
 		});
 		
 		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".editkpiCheckbox").click(function(){	
+		$('#tableFile').on("click",".editkpiCheckbox",function(){	
 			var id = this.id.split("-"); 
 			embedParamCheckboxKPI(id[1]);
 			//alert(id[1]);		
 		});
 		
 		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".editlastContact").click(function(){		
+		$('#tableFile').on("click",".editlastContact",function(){		
 			var id = this.id.split("-"); 
 			embedParamCheckboxContact(id[1]);
 			//alert(id[1]);		
 		});
 		
 		//click ที่ checkox Close แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".editCheckboxCloseFlag").click(function(){		
+		$('#tableFile').on("click",".editCheckboxCloseFlag",function(){	
 			var id = this.id.split("-"); 
 			embedParamCheckboxDelete(id[1]);
 			//alert(id[1]);		
 		});
 		
 		//click ที่ seq แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".seqFile").click(function(){		
+		$('#tableFile').on("click",".seqFile",function(){		
 			var id = this.id.split("-"); 
 			embedParamSeq(id[1]);
 			//alert(id[1]);		
 		});
 		//click ที่ date แล้ว แยกไอดี ส่งไปฝัง(embed) 
-		$(".dateFile").click(function(){		
+		$('#tableFile').on("click",".dateFile",function(){		
 			var id = this.id.split("-"); 
 			embedParamDate(id[1]);
 			//alert(id[1]);		
@@ -439,10 +442,7 @@ $(document).ready(function(){
 		});
 	};
 	
-	//ปุ่ม Save
-	$("#btnSave").click(function(){
-        updateFn();	
-	});
+	
 	
 	// Click แล้ว ฝังข้อมูล
 	var embedParamSelectContact = function(id){
@@ -574,6 +574,7 @@ $(document).ready(function(){
 			url : restfulURL + "/api/dqs_file",
 			type : "get",
 			dataType : "json",
+			
 			success : function(data) {
 				listFileFn(data);
 				console.log(data);
@@ -589,24 +590,19 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	/*$("#btnSubmit").click(function(){
-		if (validationFn() == true) {
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if (checkUniqueFn($("#rule_name").val()) == true) { 	
-						insertFn();
-					} else {
-						alert("name is not unique.");
-					}
-			}else{
-				if(checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}
-		}
-		return false;
+	
+	/*$("#btnSave").click(function(){
+        updateFn();	
 	});*/
+	
+	//ปุ่ม Save
+	$("#btnSubmit").click(function(){
+		if ($("#action").val() == "edit") {	
+				updateFn();
+		}else{
+			return false;
+		}
+	});
 	
 	$("#btnCancle").click(function() {
 		clearFn();
@@ -620,7 +616,7 @@ $(document).ready(function(){
 		$(".editlastContact").removeAttr("disabled");
 		$(".editkpiCheckbox").removeAttr("disabled"); 
 		$(".selectContact").removeAttr("disabled"); 
-		
+		$("#action").val("edit");
 		
 	});
 });

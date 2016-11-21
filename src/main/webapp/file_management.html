@@ -15,12 +15,11 @@
     <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-
-     
-    
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
 	<link href="css/file_management.css" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
 
 </head>
 
@@ -124,24 +123,25 @@
                                  
                             </div>
                             <div class="ibox-content">
-                            <div class="alert alert-success">
+                            <div class="alert alert-success" hidden="hidden">
 							    <p><strong>Success!</strong> This alert box could indicate a successful or positive action.</p>
 							</div> 
                              <div class="row">
                                     <div class="col-sm-9 m-b-xs">
+                                    <input type="hidden" id="action">
                                     
                                     <button type="button" class="btn btn-info" id="btnEdit" data-target="#editModal" data-toggle="modal"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
-                                    <button type="button" class="btn btn-warning" id="btnSave" data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
+                                    <button type="button" class="btn btn-warning" id="btnSubmit" data-target="#addModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;Save</button>
                                     <button type="button" class="btn btn-danger" id="btnCancle"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
                                     </div>
                                     
-                                     <div class="col-sm-3">
+                                     <!-- <div class="col-sm-3">
 	                                     <div class="input-group"><input type="text" placeholder="Search" id="searchFileName" class="input-sm form-control"> <span class="input-group-btn">
                                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch"> Go!</button> </span></div>
-                                     </div>
+                                     </div> -->
                              </div>
                              
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
 					
 										<div class="btn-group">
@@ -153,13 +153,13 @@
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
 					                    </div>
 
-										<!-- 
+										
                                         <div data-toggle="buttons" class="btn-group">
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                                             <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
                                         </div>
-                                         -->
+                                        
                                     </div>
                                     
                                     <div class="col-sm-2 object-right paging-text">Results per page</div>
@@ -174,9 +174,10 @@
 	                                    
                                         
                                     </div>
-                                </div>
+                                </div> -->
+                                
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableFile">
                                         <thead>
                                         <tr>
 
@@ -583,7 +584,7 @@
                                 
                                 <!-- footer paging start -->
                                 
-                                 <div class="row">
+                                 <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
  
 										<div class="btn-group">
@@ -595,13 +596,13 @@
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
 					                    </div>
                     
-										<!-- 
+										
                                         <div data-toggle="buttons" class="btn-group">
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
                                             <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
                                             <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
                                         </div>
-                                         -->
+                                        
                                     </div>
                                     
                                     <div class="col-sm-2 object-right paging-text">Results per page</div>
@@ -616,7 +617,7 @@
 	                                    
                                         
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- footer paging end -->
 
                             </div>
@@ -939,6 +940,11 @@ Modal End -->
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
 
     <!-- File -->
     <script src="Controller/cFileManagement.js"></script> 

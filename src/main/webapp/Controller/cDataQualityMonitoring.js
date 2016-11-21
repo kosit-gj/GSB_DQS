@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$("#exPlainModal").modal();
 	});
 
-	var restfulURL = "http://192.168.1.52:3001";  
+	var restfulURL = "http://192.168.1.48:3001";  
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
@@ -46,7 +46,7 @@ $(document).ready(function(){
 	var updateFn = function(){
 		
 		//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
-		var id = $("#cif_id_hidden").val();
+		var id = $("#validate_header_id_hidden").val();
 		
 		////////////////////////-CheckBox KPI-//////////////////////////////	
 		
@@ -126,7 +126,7 @@ $(document).ready(function(){
 			
 		});
 		
-		//getDataMakeRuleFn(id);
+		getDataMakeRuleFn(id);
 		
 	};
 	
@@ -143,7 +143,7 @@ $(document).ready(function(){
 			}else if($("#cdmd_explain_not_allowed:checked").val()){
 				approve = 4;
 			}
-		alert(approve);
+		//alert(approve);
 		
 		$.ajax({
 			url : restfulURL + "/api/make_data_quality_monitoring/"+id,							
@@ -182,7 +182,7 @@ $(document).ready(function(){
 				htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif"]+"</div>";
 				htmlTable += "</div>";
 				
-				htmlTable += "<input type='hidden' id='cif_id_hidden' value='"+data["_id"]+"'>";
+				htmlTable += "<input type='hidden' id='validate_header_id_hidden' value='"+data["_id"]+"'>";
 				
 				htmlTable +="<div class='label-detail'>";
 				htmlTable +="<div class='box2'><b>Name</b> : "+data["customername"]+"</div>";
@@ -262,7 +262,7 @@ $(document).ready(function(){
 		//console.log(data);
 		var htmlTable = "";
 		
-		//$("#cif_id_hidden").val()
+		//$("#validate_header_id_hidden").val()
 		
 		$.each(data,function(index,indexEntry) {
 			htmlTable += "<tr>";
@@ -476,13 +476,13 @@ $(document).ready(function(){
 	});
 	
 	$("#btnCancle").click(function() {
-		var id = $("#cif_id_hidden").val();
-		//getDataMakeRuleFn(id);
+		var id = $("#validate_header_id_hidden").val();
+		getDataMakeRuleFn(id);
 	});
 	
 	$(".btn-explain").click(function() {
-		getDataMakeExplainFn($("#cif_id_hidden").val());
-		$("#explain_id").val($("#cif_id_hidden").val());
+		getDataMakeExplainFn($("#validate_header_id_hidden").val());
+		$("#explain_id").val($("#validate_header_id_hidden").val());
 	});
 	
 	$("#btnSaveExplain").click(function() {

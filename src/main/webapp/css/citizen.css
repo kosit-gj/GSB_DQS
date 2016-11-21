@@ -1,6 +1,7 @@
 .form-input-citizen{
 	float:left;
-	width: 425px;
+	width: 300px;
+	/* 425 */
 }
 .form-label-citizen{
 	float:left;

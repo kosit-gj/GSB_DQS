@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.52:3001"; 
+	var restfulURL = "http://192.168.1.48:3001"; 
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	//CIF ID
@@ -252,6 +252,21 @@ $(document).ready(function(){
 		$("#province_citizen").val(""),
 		$("#flag1_citizen").val(""),
 		$("#flag2_citizen").val("")
+		
+		$("#cifno_citizen").removeAttr("disabled"); 
+		$("#ntitle_citizen").removeAttr("disabled"); 
+		$("#nfname_citizen").removeAttr("disabled"); 
+		$("#nlname_citizen").removeAttr("disabled"); 
+		$("#hno_citizen").removeAttr("disabled"); 
+		$("#moo_citizen").removeAttr("disabled"); 
+		$("#trok_citizen").removeAttr("disabled"); 
+		$("#soi_citizen").removeAttr("disabled"); 
+		$("#thanon_citizen").removeAttr("disabled"); 
+		$("#thumbol_citizen").removeAttr("disabled"); 
+		$("#amphur_citizen").removeAttr("disabled");
+		$("#province_citizen").removeAttr("disabled");
+		$("#flag1_citizen").removeAttr("disabled");
+		$("#flag2_citizen").removeAttr("disabled");
 	}
 	
 	var dropdownDobDay = function(day){
@@ -454,6 +469,22 @@ $(document).ready(function(){
 		//findOnd
 		$(".popover-edit-del").click(function(){
 			$(".edit").on("click",function() {
+				$(".text_add_edit").text("EDIT FILE");
+				
+				$("#cifno_citizen").attr("disabled","disabled"); 
+				$("#ntitle_citizen").attr("disabled","disabled"); 
+				$("#nfname_citizen").attr("disabled","disabled"); 
+				$("#nlname_citizen").attr("disabled","disabled"); 
+				$("#hno_citizen").attr("disabled","disabled"); 
+				$("#moo_citizen").attr("disabled","disabled"); 
+				$("#trok_citizen").attr("disabled","disabled"); 
+				$("#soi_citizen").attr("disabled","disabled"); 
+				$("#thanon_citizen").attr("disabled","disabled"); 
+				$("#thumbol_citizen").attr("disabled","disabled"); 
+				$("#amphur_citizen").attr("disabled","disabled");
+				$("#province_citizen").attr("disabled","disabled");
+				$("#flag1_citizen").attr("disabled","disabled");
+				$("#flag2_citizen").attr("disabled","disabled");
 				
 				findOneFn(this.id);
 				$("#id").val(this.id);
@@ -507,6 +538,7 @@ $(document).ready(function(){
 	
 	$("#btnAddCitizen").click(function(){
 		clearFn();
+		$(".text_add_edit").text("ADD FILE");
 	})
 
 	$("#btnSubmit").click(function(){

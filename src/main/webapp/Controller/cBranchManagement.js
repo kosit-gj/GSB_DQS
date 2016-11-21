@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.52:3001";
-	//var restfulURL = "http://goingjesse.hopto.org:3001";
+	var restfulURL = "http://192.168.1.48:3001";
 	
 	/*var checkUniqueFn = function(text) {
 		 http://localhost:3000/api/products?name__regex=/^test/i 
@@ -109,15 +108,15 @@ $(document).ready(function(){
 		embed_closeflag_obj=$(".embed_closeflag").get();
 		
 		$.each($(".embed_closeflag").get(),function(index,indexEntry){
-			//alert($(indexEntry).val());
+			
 			var id=$(indexEntry).val();
-			//alert($(indexEntry).attr("id"));
+			
 			if($("#closeCheckbox-"+id).prop('checked')){ 
 	        	closeflagCheckbox = 1;
 	        }else{ 
 	        	closeflagCheckbox = 0;
 	        }
-			//alert(closeflagCheckbox);
+			
 			$.ajax({
 				url:restfulURL+"/api/dqs_branch/"+id,
 				type : "PUT",
@@ -126,7 +125,7 @@ $(document).ready(function(){
 				async:false,
 				success : function(data) {
 					if (data = "success") {
-						//console.log("Upate Success");
+						
 					}
 				}
 			});
@@ -155,9 +154,7 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				
 				$("#branchOperationName").val(data['desc']);
-			
 			}
 		});
 	};
@@ -186,9 +183,8 @@ $(document).ready(function(){
 	
 	var listBranchFn = function(data) {
 		
-		
 		if ($.fn.DataTable.isDataTable('#tableBranch')) {
-		       $('#tableBranch').DataTable().destroy(); 
+			$('#tableBranch').DataTable().destroy(); 
 		}
 		
 		console.log(data);
@@ -215,8 +211,8 @@ $(document).ready(function(){
 		});
 		
 		$("#listBranch").html(htmlTable);
-		 //$('#tableBranch').DataTable();
-		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+		
+		$('#tableBranch').DataTable({ "dom": '<"top"flp>rt<"bottom"lp><"clear">' }); 
 		
 		/*$(".paginate_button").on("click",function(){
 			alert("click");
@@ -236,8 +232,6 @@ $(document).ready(function(){
 			//$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id[1]+"' name='embed_closeflag-"+id[1]+"' value='"+id[1]+"'>");	
 		});
 		
-		
-			
 	};
 	var embedParam = function(id){
 		//alert(id);
@@ -256,54 +250,8 @@ $(document).ready(function(){
 		}else{
 			$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id+"' name='embed_closeflag-"+id+"' value='"+id+"'>");
 		}
-		
-	}
-	//list ข้อมูลใน  Model
-	/*var listBranchOperationFn = function(data) {
-		console.log(data);
-		var htmlTable = "";
-
-		$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
-		htmlTable += "<td><i class=\"fa fa-cog font-gear-branch popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ ">Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
-		
-		});
-		$("#branchOparation").html(htmlTable);
-		
-		$('#tableBranchOperation').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
-		
-		//function popover
-		$(".popover-edit-del").popover();
-		
-		$(".popover-edit-del").click(function(){
-			$(".edit").on("click",function() {
-				
-				findOneFn(this.id);
-				$("#id").val(this.id);
-				$("#action").val("edit");
-				$("#btnSubmit").val("Edit");
-				
-			})
-			
-			$(".del").click(function(){
-				$.ajax({
-					 url:restfulURL+"/api/dqs_branch/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-				     success:function(data){      
-				       getDataBranchOperationFn();
-				       clearFn();
-					 }
-				});
-			});	
-			
-		})
-	};*/
 	
+	}
 	
 	// get ของ branch management
 	var getDataFn = function() {
@@ -317,26 +265,13 @@ $(document).ready(function(){
 			}
 		});
 	};
-	
-	// get ของ branch operation management
-	/*var getDataBranchOperationFn = function() {
-		$.ajax({
-			url : restfulURL + "/api/dqs_branch",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listBranchOperationFn(data);
-				console.log(data);
-			}
-		});
-	};*/
-	
+
 	//Call Function start
 	  getDataFn();
 	
 	//ปุ่ม Save
-	$("#btnSave").click(function(){
-		if ($("#action").val() == "edit") {	
+	$("#btnSubmit").click(function(){
+		if ($("#action").val() == "edit"){	
 				updateFn();
 		}else{
 			return false;
@@ -347,34 +282,13 @@ $(document).ready(function(){
 		searchFn($("#searchBranch").val());
 		return false;
 	});
-	
-	/*$("#btnSubmit").click(function(){
-		if (validationFn() == true) {
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if (checkUniqueFn($("#rule_name").val()) == true) { 	
-						insertFn();
-					} else {
-						alert("name is not unique.");
-					}
-			}else{
-				if(checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}
-		}
-		return false;
-	});*/
-	
-	
-	
-	$("#btnCancle").click(function() {
+
+	$("#btnCancle").click(function(){
 		getDataFn();
 		clearFn();
 	});
 	
-	$("#btnEditBranchOperation").click(function() {
+	$("#btnEditBranchOperation").click(function(){
 		$(".editCheckboxCloseFlag").removeAttr("disabled");
 		$("#action").val("edit");
 	});

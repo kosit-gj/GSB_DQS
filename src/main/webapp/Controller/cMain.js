@@ -2,6 +2,17 @@ var tokenID= eval("("+localStorage.getItem("tokenID")+")");
 var restfulURL="http://192.168.1.58";
 
 
+if(tokenID==null){
+	window.location.href = "login.html"; 
+};
+
+$( document ).ajaxStart(function() {
+	$("body").mLoading();
+});
+$( document ).ajaxStop(function() {
+	$("body").mLoading('hide');
+});
+
 var checkSession = function(){
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/session",
@@ -14,6 +25,7 @@ var checkSession = function(){
 				window.location.href = "login.html"; 
 			}else{
 				$("#mainContent").show();
+				$("#fullName").html(tokenID.data['full_name']);
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -39,6 +51,8 @@ var logoutFn = function(){
 			if(data['status']=="200"){
 			
 				window.location.href = "login.html"; 
+				localStorage.setItem("tokenID","{}");
+				
 			}
 			
 			
@@ -93,12 +107,8 @@ $(".mainMenu").click(function(){
 	
 	
 });
-$( document ).ajaxStart(function() {
-	$("body").mLoading();
-});
-$( document ).ajaxStop(function() {
-	$("body").mLoading('hide');
-});
+
+
 
 
 

@@ -11,7 +11,7 @@ $(document).ready(function(){
 		localStorage.setItem("lastname", "Smith");
 		localStorage.getItem("lastname"); 
 		//localStorage.removeItem("lastname");
-		sessionStorage.username="kosit";
+		sessionStorage.full_name="kosit";
 		console.log(sessionStorage.username);
 		
 		
@@ -30,6 +30,7 @@ $(document).ready(function(){
 				//tokenID=data;
 				console.log(data);
 				localStorage.setItem("tokenID",data);
+				
 				//console.log(eval("("+localStorage.getItem("tokenID")+")"));
 				window.location.href = "http://localhost:8080/GSB_DQS/index.html"; 
 			}

@@ -15,7 +15,7 @@
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
      <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
-    
+     
     
     <link rel="stylesheet" href="css/jquery.mloading.css">
     
@@ -52,7 +52,7 @@
                         <a aria-expanded="false" role="button" href="index.html"><i class="fa fa-home"></i>Home</a>
                     </li>
                     <li class="dropdown">
-	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>System Management<span class="caret"></span></a>
+	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>DQ Management<span class="caret"></span></a>
 	                        <ul role="menu" class="dropdown-menu">
 	                            <li><a class="mainMenu" id="User" href="#">1) User</a></li>
 	                            <li><a class="mainMenu" id="Role" href="#">2) Role</a></li>
@@ -70,7 +70,7 @@
 	                    </li>
 	                    
 	                   <li class="dropdown">
-	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-dashboard"></i>Data Quanlity Monitoring <span class="caret"></span></a>
+	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-dashboard"></i>DQ Monitoring <span class="caret"></span></a>
 	                        <ul role="menu" class="dropdown-menu">
                         		
 								
@@ -88,6 +88,27 @@
 								<li><a class="mainMenu" href="#" id="">6.9.6 รายงานแสดงขข้อมมูลลมูกคข้าทอีที่ควรจะรวมเปป็น CIF เดอียวกจัน (Merge CIF)</a></li>
 	                        </ul>
 	                    </li>
+	                    
+	                    <li class="dropdown">
+	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i>Report <span class="caret"></span></a>
+	                        <ul role="menu" class="dropdown-menu">
+                        		
+								
+								<li><a class="mainMenu" href="#" id="">6.7.1 Data Quality Monitoring for CDMD</a></li>
+							 	
+								<li><a class="mainMenu" href="#" id="">6.8.1 Import Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.2 Reject Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.3 System Usage Log Report</a></li>
+								
+								<li><a class="mainMenu" href="#" id="">6.9.1 รายงานสรคุปจกานวนลมูกคข้าทอีที่ยจังไมส่ไดข้ดกาเนพินการ</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.2 รายงานสรคุปจกานวนลมูกคข้าทอีที่ดกาเนพินการแล้ว</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.3 รายงานสรคุปจกานวนลมูกคข้ารายสาขา</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.4 รายงานสรคุปคะแนน KPI</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.5 รายงานสรคุปยอดคงเหลชอทอีที่ยจังไมส่ดกาเนพินการของขข้อมมูลลมูกคข้าตามเงชที่อนไข KPI ตามงวดทอีที่คข้าง</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.6 รายงานแสดงขข้อมมูลลมูกคข้าทอีที่ควรจะรวมเปป็น CIF เดอียวกจัน (Merge CIF)</a></li>
+	                        </ul>
+	                    </li>
+	                    
 	                     
 	                    
 
@@ -96,7 +117,7 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
                     <button type="button" class="btn btn-pink btn-circle "><i class="fa fa-user font-user"></i>
-                            </button> <span class='fullName'>Firstname Lastname  </span>
+                            </button> <span class='fullName' id="fullName">Firstname Lastname  </span>
                        
                     </li>
                      <li>
@@ -135,13 +156,13 @@
 				        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
 				        <ol class="breadcrumb">
 				            <li>
-				                <a href="#"><i class="fa fa-home "></i> Home</a>
+				                <a href="index.html"><i class="fa fa-home "></i> Home</a>
 				            </li>
 				            <li>
-				            <i class="fa fa-gears"></i> System Management
+				            <div id="naviLabelCateMenu"><i class="fa fa-gears"></i> System Management</div>
 				            </li>
 				            <li class="active">
-				             <strong><i class="fa fa-user"></i> User </strong>
+				             <div id="naviLabelMenu"><strong><i class="fa fa-user"></i> User </strong></div>
 				            </li>
 				        </ol>
 				    </div>
@@ -176,11 +197,10 @@
         </div>
 
 
-
-
-
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery-ui-1.10.4.min.js"></script>
+    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -197,11 +217,6 @@
     <script src="Controller/cMain.js"></script>
     <script src="Controller/cIndex.js"></script>
 
-
-
-
-   
-<div class="mloading-text">Loading...</div>
 
 </body>
 

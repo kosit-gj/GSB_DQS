@@ -17,11 +17,10 @@
     <link href="css/animate.css" rel="stylesheet">
     
     
-    
-    
-    
     <link href="css/style.css" rel="stylesheet">
     <link href="css/gsbMain.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
+    
     <link href="css/grade_management.css" rel="stylesheet">
 
 
@@ -50,7 +49,8 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                <!-- 
+                   
+                   <!--
                     <li class="active">
                         <a aria-expanded="false" role="button" href="layouts.html"> Back to main Layout page</a>
                     </li>
@@ -113,30 +113,23 @@
 	                            
                             <div class="ibox-content">
                             
-	                            <div class="alert alert-success ManagementModal" hidden="hidden">
-									<strong>Success!</strong> This alert box could indicate a successful or positive action.
+	                            <div class="alert alert-success alertManagement" hidden="hidden">
+									<strong>Success!</strong> บันทึกข้อมูลเรียบร้อย 
 								</div>
 								
                              <div class="row">
                                     <div class="col-sm-8 m-b-xs">
-                                    
-                                    
-                                    
-                                    <button type="button" class="btn btn-info " id="btnAdd" data-target="#addModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Grade</button>
-                                    
-                                    
+                                    	<button type="button" class="btn btn-info " id="btnAdd" data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Grade</button>
                                     </div>
                                     
-                                     <div class="col-sm-4">
+                                     <!-- <div class="col-sm-4">
 	                                     <div class="input-group"><input type="text" placeholder="Search" name="searchText" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
                                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class=' fa fa-search'> </i></button> </span></div>
-                                     </div>
+                                     </div> -->
                              </div>
                              
-                                <div class="row">
+                        <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
-                                    
-                                  
 										<div class="btn-group">
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
 					                        <button class="btn btn-white">1</button>
@@ -148,6 +141,7 @@
                                     </div>
                                     
                                     <div class="col-sm-2 object-right paging-text">Results per page</div>
+                                    
                                     <div class="col-sm-1">
                                     
                                     	<select name="account" class="form-control m-b">
@@ -159,9 +153,10 @@
 	                                    
                                         
                                     </div>
-                                </div>
+                                </div> -->
+                                
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableGrade">
                                         <thead>
                                         <tr>
 
@@ -183,7 +178,7 @@
                                 
                                 <!-- footer paging start -->
                                 
-                                 <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-sm-9 m-b-xs">
  
 										<div class="btn-group">
@@ -195,13 +190,10 @@
 					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
 					                    </div>
                     
-                 
-                            
-			
-										
                                     </div>
                                     
                                     <div class="col-sm-2 object-right paging-text">Results per page</div>
+                                    
                                     <div class="col-sm-1">
                                     
                                     	<select name="account" class="form-control m-b">
@@ -211,9 +203,8 @@
 	                                        <option>40</option>
 	                                    </select>
 	                                    
-                                        
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- footer paging end -->
 
                             </div>
@@ -242,7 +233,7 @@
 
 <!-- Add Modal Start -->
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="addModal" class="modal inmodal" style="display: none;">
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="managementModal" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -253,9 +244,15 @@
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
             </div>
+            
+            <div class="alert alert-success ManagementModal" hidden="hidden">
+				<strong>Success!</strong> บันทึกข้อมูลเรียบร้อย 
+			</div>
+            
             <div class="modal-body">
                 <!-- content start -->
                 <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
+                
                 <hr>
                 
                 <!-- form start -->
@@ -306,7 +303,9 @@
             	<input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add"> 
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                
                 <button class="btn btn-primary" type="button" id="btnAddAnother">Save & Add Another</button>
+                
                 <button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
             </div>
         </div>
@@ -316,7 +315,7 @@
 
 
 <!-- Condition Start -->
-<div aria-hidden="true" role="dialog" tabindex="-1" id="condition" class="modal inmodal" style="display: none;">
+<div aria-hidden="true" role="dialog" tabindex="-1" id="conditionModal" class="modal inmodal" style="display: none;">
     <div class="modal-dialog modal-lg">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -394,7 +393,7 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white" type="button" id="btnCancle">Cancel</button>
                 <button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
             </div>
         </div>
@@ -412,6 +411,11 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
+    <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
     
     <script src="Controller/cGradeManagement.js"></script>
 

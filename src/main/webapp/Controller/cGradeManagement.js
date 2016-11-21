@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.52:3001";
+		var restfulURL = "http://192.168.1.48:3001";
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
 		 var checkUniqueFn = function(text,textseq){
@@ -12,7 +12,7 @@ $(document).ready(
 						    dataType:"json",
 						    async:false,
 						    success:function(data){
-						     console.log(data);
+						    //console.log(data);
 							     if(data==""){
 							      unique=true;
 							     }else{
@@ -24,6 +24,7 @@ $(document).ready(
 				   return unique;
 				  }
 		 
+		 	
 		   var validationFn = function(){
 				   var validateText="";
 					   if($("#grade").val()==""){
@@ -57,13 +58,13 @@ $(document).ready(
 					     success:function(data,status){
 					      //console.log(data);
 						      if(status=="success"){
-						       alert("Insert Success");
+						      //alert("Insert Success");
 						       getDataFn();
 						       clearFn();
 						      }
 						   }
 				    });         
-				
+					$(".ManagementModal").fadeTo(1000,2000).slideUp(500);
 				    return false;
 		 		};
 				
@@ -77,12 +78,13 @@ $(document).ready(
 					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"process_seq":$("#process_seq").val()},
 					    success:function(data,status){
 						     if(status=="success"){
-						      alert("Upate Success");
+						     //alert("Upate Success");
 						      getDataFn();
-						      // clearFn();
+						      //clearFn();
 						     }
 						    }
 					   });
+				   $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
 				   return false;
 			 };
 
@@ -90,7 +92,7 @@ $(document).ready(
 			 var clostModal = function(){
 				   $('#addModal').modal('hide');
 				   
-				   $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
+				   $(".alertManagement").fadeTo(1000,2000).slideUp(500);
 			 }
 			 
 			 var clearFn =function(){
@@ -121,20 +123,24 @@ $(document).ready(
 				   /* http://localhost:3000/api/products?name__regex=/^test/i */
 				    
 				   $.ajax({
-				    url:restfulURL+"/api/dqs_grade/?grade__regex=/^"+searchText+"/i",
-				    type:"get",
-				    dataType:"json",
-				    success:function(data){
-				
-				     listDataFn(data);
-				    }
-				   });
+					    url:restfulURL+"/api/dqs_grade/?grade__regex=/^"+searchText+"/i",
+					    type:"get",
+					    dataType:"json",
+					    success:function(data){
+					
+					     	listDataFn(data);
+					    }
+					  });
 				   
 				  }
 			
 			  var listDataFn = function(data){
+				
+				if ( $.fn.DataTable.isDataTable('#tableGrade')) {
+				      $('#tableGrade').DataTable().destroy();
+			     }
 						
-						 //  console.log(data);
+						 //console.log(data);
 						   var htmlTable="";
 						   $.each(data,function(index,indexEntry){
 							     htmlTable+="<tr >";
@@ -143,16 +149,20 @@ $(document).ready(
 								   	  htmlTable+="<td>"+indexEntry["grade_name"]+"</td>";
 									 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["process_seq"]+"></td>";
 								      //htmlTable+="<td><i class=\"fa fa-search font-management showCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
-								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs btnCondition' data-target=#condition data-toggle='modal' type='button' id="+indexEntry["_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#addModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
+								      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs btnCondition' data-target=#conditionModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#managementModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
 							htmlTable+="</tr>";
 						   });
 						
 						   $("#listGrade").html(htmlTable);
-						   
+						
+						
+						  //DataTable
+						  $('#tableGrade').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
+						
 						  //popover 
 						$(".popover-del-edit").popover();
 						
-						//delete
+						
 						$(".popover-del-edit").click(function(){
 							//findOnd
 							$(".edit").on("click",function(){
@@ -163,6 +173,7 @@ $(document).ready(
 								    $("#btnAddAnother").val("Edit");
 								});
 							
+							//delete
 						   $(".del").click(function(){
 						    if(confirm("Do you want to delete this file?")){
 						     $.ajax({
@@ -248,11 +259,11 @@ $(document).ready(
 				var listDataConditionFn = function(data){
 					
 					   var process_seq = "";
-					   console.log(data);
+					  //console.log(data);
 					   var htmlTable="";
 					   $("#listCondition").empty();
 					   $.each(data,function(index,indexEntry){
-						
+						            //เชค ว่าถ้าข้อมูล undefined ให้แสดงออกมาเป็นค่าว่าง
 									if (indexEntry["process_seq"] == undefined){
 										process_seq = "";
 									}else{
@@ -261,7 +272,7 @@ $(document).ready(
 									
 								    htmlTable+="<tr >";
 								
-											if(process_seq == indexEntry["process_seq"]){
+											if(process_seq == indexEntry["process_seq"]){//เชค ว่าถ้าข้อมูล undefined ให้แสดงออกมาเป็นค่าว่าง
 									        	htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+indexEntry["process_seq"]+">";
 											}else if(indexEntry["process_seq"]== undefined){
 												htmlTable+="<td><input disabled class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=seq-"+indexEntry["_id"]+" value="+process_seq+">";
@@ -291,7 +302,6 @@ $(document).ready(
 						
 						  $("#listCondition").html(htmlTable);
 						
-						
 						//popover 
 						$(".popover-del-editCondition").popover();
 						
@@ -314,7 +324,7 @@ $(document).ready(
 						   			  	});
 						   		   	}
 						  	 	});
-							
+							//การรับส่งค่า id
 							$(".editCondition").click(function(){
 								
 								$("#seq-"+this.id).removeAttr("disabled");
@@ -327,7 +337,7 @@ $(document).ready(
 				}
 				
 				
-				
+				//ปุ่ม add Condition
 				$("#btnSaveListCondition").click(function(){
 					
 					 var completeCheack = "";
@@ -343,7 +353,7 @@ $(document).ready(
 					});
 				 
 				
-				
+				//ฟังก์ชั่น update condition
 				 var updateConditionFn = function(completeCheack){
 		
 					 	
@@ -368,7 +378,7 @@ $(document).ready(
 					 };
 				
 				
-				
+				    //ฟังก์ชั่น get data condition
 					var getDataConditionFn = function(){
 						
 						var grade_id = $("#embed_grade_id").val();
@@ -384,6 +394,31 @@ $(document).ready(
 					   });
 				  };
 				
+				
+				 var insertConditionFn = function(){
+					 var completeCheack = "0";
+						    $.ajax({
+							     url:restfulURL+"/api/dqs_grade_condition",
+							     type:"POST",
+							     dataType:"json",
+							     data:{"rule_id":$("#listRule").val(),
+										"grade_id":$("#embed_grade_id").val(),
+										"complete_flag":completeCheack },
+							     success:function(data,status){
+							    //console.log(status);
+								      if(status=="success"){
+								       alert("Insert Success");
+								
+								       //listDataConditionFn();
+									   getDataConditionFn();
+								       //clearFn();
+								      }
+								   }
+						    });         
+						
+						    return false;
+				 		};
+				 		
 				
 				//DropDownList Rule 
 				var dropDownListRule = function(data){
@@ -402,30 +437,7 @@ $(document).ready(
 					});
 				};
 
-				 var insertConditionFn = function(){
-					 var completeCheack = "0";
-						    $.ajax({
-							     url:restfulURL+"/api/dqs_grade_condition",
-							     type:"POST",
-							     dataType:"json",
-							     data:{"rule_id":$("#listRule").val(),
-										"grade_id":$("#embed_grade_id").val(),
-										"complete_flag":completeCheack },
-							     success:function(data,status){
-							      console.log(status);
-								      if(status=="success"){
-								       alert("Insert Success");
-								
-								       //listDataConditionFn();
-									   getDataConditionFn();
-								       //clearFn();
-								      }
-								   }
-						    });         
-						
-						    return false;
-				 		};
-				 		
+				
 				 		
 				 		
 			  $("#btnAddCondition").click(function(){
@@ -445,8 +457,8 @@ $(document).ready(
 			  });
 			
 			  $("#btnCancle").click(function(){
-				   clearFn();
-				   return false;
+				   getDataConditionFn();
+				   //return false;
 			  });
 	  
 	  //Call Function End

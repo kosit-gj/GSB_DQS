@@ -121,9 +121,18 @@ $(".mainMenu").click(function(){
 		$("#naviTitle").show();
 	}else if(this.id=="Menu"){
 		page="menu_management.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-group\"></i> Role");
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Menu");
+		$("#naviTitle").show();
+	}else if(this.id=="Configuration"){
+		page="System_Configuration.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Configuration");
+		$("#naviTitle").show();
+	}else if(this.id=="Branch"){
+		page="branch_management.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Branch");
 		$("#naviTitle").show();
 	}
+	
 	
 	
 	includeFileFn(page);

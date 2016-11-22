@@ -219,7 +219,12 @@ $(document).ready(function(){
 	
 		$("#listRole").html(htmlTable);
 		
-		 $('#tableRole').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">' } ); 
+		 $('#tableRole').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+		 
+		 $("#tableRole_wrapper").click(function(){
+			 $(".popover-edit-del").popover();
+		 });
+	
 		
 		//getMenu
 		$(".btnAuthorize").click(function(){
@@ -267,9 +272,13 @@ $(document).ready(function(){
 		});
 		//function popover
 		$(".popover-edit-del").popover();
+		
 	
 		//findOnd
-		$(".popover-edit-del").click(function(){
+		$("#tableRole").off("click",".popover-edit-del");
+		$("#tableRole").on("click",".popover-edit-del",function(){
+			//$("#tableRole").on("click",".edit",function(){
+			
 			$(".edit").on("click",function() {
 				
 				findOneFn(this.id);
@@ -277,15 +286,21 @@ $(document).ready(function(){
 				$("#action").val("edit");
 				$("#btnSubmit").val("Edit");
 				$("#popover-edit-del-"+this.id).click();
+				
+				//$(".edit").off("click");
+				
 			});
 			
-			$(".del").click(function(){
+			//$("#tableRole").on("click",".del",function(){
+			
+			$(".del").on("click",function(){
 			
 				$.ajax({
 					 url:restfulURL+"/dqs_api/public/dqs_role/"+ this.id,
 					 type : "delete",
 					 dataType:"json",
 					 headers:{Authorization:"Bearer "+tokenID.token},
+					 async:false,
 				     success:function(data){      
 				       
 				    	if(data['status']==200){
@@ -299,12 +314,12 @@ $(document).ready(function(){
 	
 					 }
 				});
-			});	
+				//$(".del").off("click");
+			});
 			
 		});
 		
 		
-			
 	};
 	
 	

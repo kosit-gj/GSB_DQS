@@ -51,7 +51,7 @@
                                     </div>
                                 </div> -->
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="tableMenu">
                                         <thead>
                                         <tr>
 
@@ -327,62 +327,7 @@
                                   </tr>
                             </thead>
                             <tbody id="listRole">                                       
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Administrator</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Deployer</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Monitor</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Operater</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Power User</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>User</div></td>
-	                             </tr>
-	                             <tr>	
-	                             	<td>
-	                             		<div class="checkbox checkbox-default">
-		                                       <input type="checkbox"  id="checkbox2">
-		                                </div>
-		                            </td>
-	                             	<td><div class='text-inline-table'>Validator</div></td>
-	                             </tr>
+	                             
 	                        </tbody>
 	                 </table>
 	            </div>
@@ -392,7 +337,8 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <input type="hidden" id="menu_id" name="menu_id" value=""> 
+                <button class="btn btn-primary" id="btnSaveAuthorize" type="button">Save</button>
             </div>
         </div>
     </div>

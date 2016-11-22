@@ -136,6 +136,11 @@ $(document).ready(function(){
 			  
 			  var listDataFn = function(data){
 			
+				
+				if ( $.fn.DataTable.isDataTable('#tableMenu')) {
+				      $('#tableMenu').DataTable().destroy();
+				     }
+				
 			   //console.log(data);
 			   var htmlTable="";
 			   $.each(data,function(index,indexEntry){
@@ -152,21 +157,63 @@ $(document).ready(function(){
 				     $("#listMenu").html(htmlTable);
 				
 				
+				 $('#tableMenu').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+				 
+				 $("#tableMenu_wrapper").click(function(){
+					 $(".popover-edit-del").popover();
+				 });
+			
+				
+				     
+				
 			   
 				   $(".btnAuthorize").click(function(){
 					
-						$("#embed_menu_id").val(this.id);
-						
+						$("#menu_id").val(this.id);
 						$("#menuname").text(($("#menuname-"+this.id).text()));
+						getDataRoleFn(this.id);
 						
-						//getDataAuthorizationFn();
-						getDataRoleFn();
+						$("#btnSaveAuthorize").on("click",function(){
+							var roles = [];
+							$.each($(".role").get(),function(index,indexEntry){
+								//console.log(indexEntry);
+								if($(indexEntry).is(":checked")){
+									//console.log($(indexEntry).val());
+									roles.push($(indexEntry).val());
+								}
+								
+								
+							});
+							//console.log(menus);
+							
+								$.ajax({
+									url : restfulURL + "/dqs_api/public/dqs_menu/"+$("#menu_id").val()+"/authorize",
+									type : "post",
+									dataType : "json",
+									headers:{Authorization:"Bearer "+tokenID.token},
+									async:false,
+									data:{"roles":roles},
+									success : function(data) {
+										
+										
+										if(data['status']==200){
+											callFlashSlide("Save Authorize is Successfully.");
+											$('#authorize').modal('hide');
+											
+										}
+									}
+								});
+								
+								
+						$("#btnSaveAuthorize").off("click");
+						});
 
 				});
 					//popover 
 					$(".popover-del-edit").popover();
 					
 					//delete
+					
 					$(".popover-del-edit").click(function(){
 						
 					    $(".del").click(function(){
@@ -226,19 +273,14 @@ $(document).ready(function(){
 				  // console.log(data);
 				   var htmlTable="";
 				   $.each(data,function(index,indexEntry){
-							       htmlTable+="<tr >";
-							
-							            htmlTable += "<td><input type=\"checkbox\" id=checkbox-"+indexEntry["_id"]+"></td>";
-							            
-										/*htmlTable+="<td>";
-											if(indexEntry["role_id"]==1){
-												htmlTable+="<input type=\"checkbox\" checked='checked' id=closeCheckbox-"+indexEntry["_id"]+">";
-											}else if(indexEntry["role_id"]==0){
-												htmlTable+="<input type=\"checkbox\" id=closeCheckbox-"+indexEntry["_id"]+">";
-											}
-										htmlTable+="</td>";*/
+							       htmlTable+="<tr >";							
+									if(indexEntry['menu_active']=="1"){
+										htmlTable += "<td><input class=\"role\" name=\"role_id-"+indexEntry["role_id"]+"\" id=\"role_id-"+indexEntry["role_id"]+"\" checked='checked' type=\"checkbox\" value="+indexEntry["role_id"]+"></td>";
+									}else{
+										htmlTable += "<td><input class=\"role\" name=\"role_id-"+indexEntry["role_id"]+"\" id=\"role_id-"+indexEntry["role_id"]+"\" type=\"checkbox\" value="+indexEntry["role_id"]+"></td>";
 										
-										
+									}
+							         //htmlTable += "<td><input type=\"checkbox\" id=checkbox-"+indexEntry["_id"]+"></td>";
 								        htmlTable+="<td>"+indexEntry["role_name"]+"</td>";
 								
 								   htmlTable+="</tr>";
@@ -249,19 +291,20 @@ $(document).ready(function(){
 			 
 			
 			
-				var getDataRoleFn = function(){
+				var getDataRoleFn = function(menu_id){
 				
-					   
+					   //http://192.168.1.58/dqs_api/public/dqs_menu/{menu_id}/authorize
 					   $.ajax({
-						    url:restfulURL+"/dqs_api/public/dqs_role",
+						    url:restfulURL+"/dqs_api/public/dqs_menu/"+menu_id+"/authorize",
 						    type:"get",
 						    dataType:"json",
 							headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 						     
 						     listDataRoleFn(data);
-					    }
-				   });
+						    }
+					   });
+					
 			  };
 			  
 			/*var getDataAuthorizationFn = function(){

@@ -1,6 +1,97 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
+<!DOCTYPE html>
+<html>
 
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>System | Configuration</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/plugins/iCheck/custom.css">
+    <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+
+    
+    
+    
+    
+    <link href="css/style.css" rel="stylesheet">
+     <link href="css/gsbMain.css" rel="stylesheet">
 	 <link href="css/system_comfiguration.css" rel="stylesheet">
 
+</head>
+
+<body class="top-navigation">
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom pink-bg" >
+        <nav class="navbar navbar-static-top" role="navigation">
+        
+        <!-- nav header start -->
+        <div class="container"><!-- container start -->  
+            <div class="navbar-header gsb-logo" >
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <!-- <i class="fa fa-cc-mastercard icon-logo"></i> -->
+                <img class="grayscale" src="img/small-logo3.png">
+               <!--  <a href="#" class="  navbar-brand"></a>  --> 
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                <!-- 
+                    <li class="active">
+                        <a aria-expanded="false" role="button" href="layouts.html"> Back to main Layout page</a>
+                    </li>
+                   -->
+
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                    <button type="button" class="btn btn-pink btn-circle "><i class="fa fa-user font-user"></i>
+                            </button> <span class='fullName'>Firstname Lastname </span>
+                       
+                    </li>
+                </ul>
+            </div>
+            
+            </div> <!-- container end -->  
+         <!-- nav header end -->  
+          
+           
+            
+        </nav>
+        </div>
+        <div class="wrapper wrapper-content">
+            <div class="container">
+            
+               
+				
+				
+				<div class="row wrapper border-bottom  page-heading">
+				    <div class="col-lg-12">
+				        <h2><i class="fa fa fa-pencil-square-o icon-title"></i>System Configuration</h2>       
+				        <ol class="breadcrumb">
+				            <li>
+				                <a href="#">Home</a>
+				            </li>
+				            <li>
+				               System Management
+				            </li>
+				             <li class="active">
+				                <strong>System Configuration</strong>
+				            </li>
+				        </ol>
+				    </div>
+				   
+				</div>
+                
 				
 				<!-- Default KPI Calculation Date -->
 				
@@ -329,128 +420,164 @@
 		      
 		      			<!-- Warning Branch -->
 		      			
-		       		
-                   	<div class="row">
-                   	
-                   		<div class="col-lg-6">
-                   			<div class="ibox-title">
-                              	<h5>Warning Branch</h5>
-                          	</div>
-                          	
-                           <div class="ibox-content">
-                           
-							 <div class="row">
-	                             <div class="col-lg-12">
-	                             
-									<div class="col-lg-7 form-data" >
-										<label>#Last contact date to warning branch &nbsp;:</label>
-									</div>
-									
-									<div class="col-lg-4 form-data" >
-										<input class="form-control input-data" id="nof_contact_date" >
-									</div>
-									
-									<div class="col-lg-1 form-data" align="right">
-										<label>Days</label>
-									</div>
-									
-								</div>
-							</div>	
-							
-							<div class="row">
-								<div class="col-lg-12">
-								
-									<div class="col-lg-7 form-data" >
-										<label>when no document to update data &nbsp;:</label>
-									</div>
-									
-									<div class="col-lg-2 form-data"id="gradeCalculateDate">
-										<label></label>
-									</div>
-									
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="form-saveWarning">
-									<button class="btn btn-primary" id="btnSaveWarBranch">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
-								</div>
-							</div>
-							
-                           </div>
-                   		</div>
-                   		
-                   		
-                   		<!-- Grade Calculation Date -->
-                   		
-                   		<div class="col-lg-6">
-                   			<div class="ibox-title">
-                              	<h5>Grade Calculation Date</h5>
-                          	</div>
-                           <div class="ibox-content">
-                           
-                             <div class="row">
-	                             <div class="col-lg-12">
-	                             
-									<div class="col-lg-6 form-data" >
-										<label>Grade Calculation Date &nbsp;:</label>
-									</div>
-									
-									<div class="col-lg-2 form-data" >
-										<input class="form-control input-data" type="text" id="all_cust_grade_calculate_date">
-									</div>
-									
-								</div>
-							</div>	
-							
-							<div class="row">
-								<div class="col-lg-12">
-								
-									<div class="col-lg-6 form-data" >
-										<label>Grade Calulation Source Table &nbsp;:</label>
-									</div>
-									
-									<div class="col-lg-2 form-data">
-										<select class="form-control input-dataselect" id="grade_data_source" >
-											<option value="1">validate</option>
-											<option value="2">Calulation Source</option>
-											<option value="3">Data Table</option>
-										</select>
-										 
-									</div>
-									
-								</div>
-							</div>
-							
-							
-                             <div class="row">
-	                             <div class="col-lg-12">
-	                             
-									<div class="col-lg-6 form-data" >
-										<label>Merge CIF Date &nbsp;:</label>
-									</div>
-									
-									<div class="col-lg-2 form-data" >
-										<input class="form-control input-data" type="date"id="all_cust_grade_calculate_date">
-									</div>
-									
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="form-save">
-									<button class="btn btn-primary" id="btnSaveGradeCalDate">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
-								</div>
-							</div>	
-							
-                           </div>
-                   		</div>
-                   		
-                   		
-                   </div>
-                   
+		       <div class="row">
+                    <div class="col-lg-12">
+                    
+                        <div class="ibox float-e-margins">       		
+		                     	<div class="row">
+		                     	
+		                     		<div class="col-lg-6">
+		                     			<div class="ibox-title">
+		                                	<h5>Warning Branch</h5>
+		                            	</div>
+		                            	
+			                            <div class="ibox-content">
+			                            
+											 <div class="row">
+					                             <div class="col-lg-12">
+					                             
+													<div class="col-lg-7 form-data" >
+														<label>#Last contact date to warning branch &nbsp;:</label>
+													</div>
+													
+													<div class="col-lg-4 form-data" >
+														<input class="form-control input-data" id="nof_contact_date" >
+													</div>
+													
+													<div class="col-lg-1 form-data" align="right">
+														<label>Days</label>
+													</div>
+													
+												</div>
+											</div>	
+											
+											<div class="row">
+												<div class="col-lg-12">
+												
+													<div class="col-lg-7 form-data" >
+														<label>when no document to update data &nbsp;:</label>
+													</div>
+													
+													<div class="col-lg-2 form-data"id="gradeCalculateDate">
+														<label></label>
+													</div>
+													
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="form-saveWarning">
+													<button class="btn btn-primary" id="btnSaveWarBranch">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+												</div>
+											</div>
+											
+			                            </div>
+		                     		</div>
+		                     		
+		                     		
+		                     		<!-- Grade Calculation Date -->
+		                     		
+		                     		<div class="col-lg-6">
+		                     			<div class="ibox-title">
+		                                	<h5>Grade Calculation Date</h5>
+		                            	</div>
+			                            <div class="ibox-content">
+			                            
+				                             <div class="row">
+					                             <div class="col-lg-12">
+					                             
+													<div class="col-lg-6 form-data" >
+														<label>Grade Calculation Date &nbsp;:</label>
+													</div>
+													
+													<div class="col-lg-2 form-data" >
+														<input class="form-control input-data" type="text" id="all_cust_grade_calculate_date">
+													</div>
+													
+												</div>
+											</div>	
+											
+											<div class="row">
+												<div class="col-lg-12">
+												
+													<div class="col-lg-6 form-data" >
+														<label>Grade Calulation Source Table &nbsp;:</label>
+													</div>
+													
+													<div class="col-lg-2 form-data">
+														<select class="form-control input-dataselect" id="grade_data_source" >
+															<option value="1">validate</option>
+															<option value="2">Calulation Source</option>
+															<option value="3">Data Table</option>
+														</select>
+														 
+													</div>
+													
+												</div>
+											</div>
+											
+											
+				                             <div class="row">
+					                             <div class="col-lg-12">
+					                             
+													<div class="col-lg-6 form-data" >
+														<label>Merge CIF Date &nbsp;:</label>
+													</div>
+													
+													<div class="col-lg-2 form-data" >
+														<input class="form-control input-data" type="date"id="all_cust_grade_calculate_date">
+													</div>
+													
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="form-save">
+													<button class="btn btn-primary" id="btnSaveGradeCalDate">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+												</div>
+											</div>	
+											
+			                            </div>
+		                     		</div>
+		                     		
+		                     		
+		                     </div>
+                        </div>
+                    </div>     	
+                </div>
+                
+                
+            </div>
+        </div>
+        
+		        <div class="footer">
+		            <div class="pull-right">
+		                10GB of <strong>250GB</strong> Free.
+		            </div>
+		            <div>
+		                <strong>Copyright</strong> Example Company &copy; 2014-2015
+		            </div>
+		        </div>
+		        
+        </div>
+</div>
 
-	<!--  <script src="Controller/cSystemConfiguration.js"></script>
- -->
 
 
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+	 <script src="Controller/cSystemConfiguration.js"></script>
+
+
+</body>
+
+</html>

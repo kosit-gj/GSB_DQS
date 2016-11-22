@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	var restfulURL = "http://192.168.1.48:3001";
+	var restfulURL = "http://192.168.1.57:3001";
 	//var restfulURL = "http://192.168.1.100:3001";
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
@@ -367,8 +367,8 @@ $(document).ready(function(){
 		dropdownContactType(indexEntry["contact_type"],indexEntry["_id"]);
 		});
 		
-		$('#tableFile').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
+		$('#tableFile').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } );
 		//function popover
 		//$(".popover-edit-del").popover();
 		//$("#tableBranch").on("click",".editCheckboxCloseFlag",function()

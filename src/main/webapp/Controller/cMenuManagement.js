@@ -1,18 +1,17 @@
 $(document).ready(function(){
 
-			var restfulURL="http://192.168.1.49:3001";
-			
 			
 
 				//$("#action").val("add");
 				  var checkUniqueFn = function(text){
-				   /* http://localhost:3000/api/products?name__regex=/^test/i */
+				   /* http://localhost:3000/dqs_api/public/products?name__regex=/^test/i */
 				   var unique=false; 
 					   $.ajax({
-						    url:restfulURL+"/api/dqs_menu?menu_name="+text+"",
+						    url:restfulURL+"/dqs_api/public/dqs_menu?menu_name="+text+"",
 						    type:"get",
 						    dataType:"json",
 						    async:false,
+							headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 					     	console.log(data);
 							     if(data==""){
@@ -48,16 +47,19 @@ $(document).ready(function(){
 			  var insertFn = function(){
 			
 			    $.ajax({
-				     url:restfulURL+"/api/dqs_menu",
+				     url:restfulURL+"/dqs_api/public/dqs_menu",
 				     type:"POST",
 				     dataType:"json",
-				     data:{"menu_name":$("#menu_name").val()},
+				     data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val()},
+					 headers:{Authorization:"Bearer "+tokenID.token},
+					 async:false,
 				     success:function(data,status){
 				      //alert(data);
 				      //console.log(data);
 				      console.log(status);
 					      if(status=="success"){
-					       alert("Insert Success");
+					      // alert("Insert Success");
+						   callFlashSlide("Insert Successfully.");
 					       getDataFn();
 					       clearFn();
 					      }
@@ -70,14 +72,16 @@ $(document).ready(function(){
 			  var updateFn = function(){
 			
 			   $.ajax({
-				    url:restfulURL+"/api/dqs_menu/"+$("#id").val(),
+				    url:restfulURL+"/dqs_api/public/dqs_menu/"+$("#id").val(),
 				    type:"PUT",
 				    dataType:"json",
-				    data:{"menu_name":$("#menu_name").val()},
+				    data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val()},
+					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data,status){
 				     //alert(data);
 					     if(status=="success"){
-					      alert("Upate Success");
+					     // alert("Upate Success");
+						  callFlashSlide("Update Successfully.");
 					      getDataFn();
 					      clearFn();
 			     		}
@@ -94,6 +98,7 @@ $(document).ready(function(){
 					   $("#menu_name").val("");
 					   $("#btnSubmit").val("Add");
 					   $('#managementModal').modal('hide');
+					   $("#app_url").val("");
 			
 			  }
 			
@@ -101,24 +106,27 @@ $(document).ready(function(){
 			  var findOneFn = function(id){
 			   //http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 			   $.ajax({
-				    url:restfulURL+"/api/dqs_menu/"+id,
+				    url:restfulURL+"/dqs_api/public/dqs_menu/"+id,
 				    type:"get",
 				    dataType:"json",
+					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data){
 				
 				      $("#menu_name").val(data['menu_name']);
+					  $("#app_url").val(data['app_url']);
 				      
 			    		}
 			   		});
 			  	};
 			  
 			  var searchFn = function(searchText){
-			   /* http://localhost:3000/api/products?name__regex=/^test/i */
+			   /* http://localhost:3000/dqs_api/public/products?name__regex=/^test/i */
 			    
 			   $.ajax({
-				    url:restfulURL+"/api/dqs_menu/?menu_name__regex=/^"+searchText+"/i",
+				    url:restfulURL+"/dqs_api/public/dqs_menu/?menu_name__regex=/^"+searchText+"/i",
 				    type:"get",
 				    dataType:"json",
+					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data){
 				
 				     listDataFn(data);
@@ -133,11 +141,11 @@ $(document).ready(function(){
 			   $.each(data,function(index,indexEntry){
 						       htmlTable+="<tr >";
 							        htmlTable+="<td>"+(index+1)+"</td>";
-							        htmlTable+="<td id=\"menuname-"+indexEntry["_id"]+"\"> "+indexEntry["menu_name"]+"</td>";
+							        htmlTable+="<td id=\"menuname-"+indexEntry["menu_id"]+"\"> "+indexEntry["menu_name"]+"</td>";
 							     
-							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" id="+indexEntry["_id"]+" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
+							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" id="+indexEntry["menu_id"]+" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
 							       	
-									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>";
+									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["menu_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["menu_id"]+">Delete</button>\"></i></td>";
 							   htmlTable+="</tr>";
 				     });
 				
@@ -163,27 +171,31 @@ $(document).ready(function(){
 						
 					    $(".del").click(function(){
 					    //alert(this.id);
-					    if(confirm("Do you want to delete this file?")){
+					   // if(confirm("Do you want to delete this file?")){
 					     
 					     $.ajax({
-						      url:restfulURL+"/api/dqs_menu/"+this.id,
+						      url:restfulURL+"/dqs_api/public/dqs_menu/"+this.id,
 						      type:"delete",
 						      dataType:"json",
+							  headers:{Authorization:"Bearer "+tokenID.token},
 						      //data:{"_id":this.id},
-						      success:function(data){       
+						      success:function(data){  
+							
+								if(data['status']==200){
+									callFlashSlide("Delete Successfully.");    
 							       getDataFn();
 							       clearFn();
+								}
 					
 			     			 }
 			     		});
-			   		 }
+			   		 //}
 			   });
 			
 					   //findOnd
 					   $(".edit").click(function(){	
 					
 						    findOneFn(this.id);
-						
 						    $("#id").val(this.id);
 						    $("#action").val("edit");
 						    $("#btnSubmit").val("Edit");
@@ -193,11 +205,12 @@ $(document).ready(function(){
 		};
 			  
 			  var getDataFn = function(){
-			   
+			  
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_menu",
+					    url:restfulURL+"/dqs_api/public/dqs_menu",
 					    type:"get",
 					    dataType:"json",
+						headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data){
 					     
 					     listDataFn(data);
@@ -240,9 +253,10 @@ $(document).ready(function(){
 				
 					   
 					   $.ajax({
-						    url:restfulURL+"/api/dqs_role",
+						    url:restfulURL+"/dqs_api/public/dqs_role",
 						    type:"get",
 						    dataType:"json",
+							headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 						     
 						     listDataRoleFn(data);
@@ -256,7 +270,7 @@ $(document).ready(function(){
 
 				//alert(id);
 				   $.ajax({
-				    url:restfulURL+"/api/dqs_authorization?role_id="+id+"",
+				    url:restfulURL+"/dqs_api/public/dqs_authorization?role_id="+id+"",
 				    type:"get",
 				    dataType:"json",
 				    success:function(data){
@@ -274,14 +288,14 @@ $(document).ready(function(){
 				
 					    if($("#action").val()=="add" || $("#action").val()=="" ){
 					     
-						     if(checkUniqueFn($("#menu_name").val())==true){
+						    // if(checkUniqueFn($("#menu_name").val())==true){
 						      insertFn();
 						
-						     }else{
+						     //}else{
 							
-						      alert("name is not unique.");
+						      //alert("name is not unique.");
 						
-						     }
+						     //}
 					    }else{
 					     updateFn();
 					

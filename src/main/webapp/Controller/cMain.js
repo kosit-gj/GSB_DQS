@@ -73,6 +73,17 @@ var logoutFn = function(){
 $("#logOut").click(function(){
 	logoutFn();
 });
+
+var callFlashSlide = function(text){
+	
+		setTimeout(function(){
+		$("#slide_status").html(text).slideDown("slow");
+		},1000);
+		setTimeout(function(){
+			$("#slide_status").slideUp();
+		},3000);
+}
+
 var includeFileFn = function(paramUrl){
 	
 	$.ajax({
@@ -97,12 +108,25 @@ var includeFileFn = function(paramUrl){
 
 $(".mainMenu").click(function(){
 	//alert(this.id);
+	$("#naviTitle").hide();
 	$("#includePage").empty();
-	var paramPage="";
-	if(this.id="User"){
-		paramPage="user_management.html";
+	var page="";
+	if(this.id=="User"){
+		page="user_management.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-user\"></i> User");
+		$("#naviTitle").show();
+	}else if(this.id=="Role"){
+		page="rolemanagement.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-group\"></i> Role");
+		$("#naviTitle").show();
+	}else if(this.id=="Menu"){
+		page="menu_management.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-group\"></i> Role");
+		$("#naviTitle").show();
 	}
-	includeFileFn(paramPage);
+	
+	
+	includeFileFn(page);
 	//return false;
 	
 	

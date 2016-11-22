@@ -1,104 +1,5 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.57:3001";
-	
-	/*var checkUniqueFn = function(text) {
-		 http://localhost:3000/api/products?name__regex=/^test/i 
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/api/dqs_branch?name_filde="+text+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
-	
-	var validationFn = function() {
-		var validateText = "";
-		if ($("#rule_name").val()=="") {
-			validateText += "name not empty\n";
-		}
-		if (validateText != "") {
-			alert(validateText);
-			return false;
-		} else {
-			return true;
-		}
-	
-	}*/
-	
-	/*var insertFn = function() {
-			
-		var checkboxInitial = "";
-		var checkboxUpdate = "";
-		var checkboxContact = "";
-		var InformBranchRadio = "";
-		var EditRuleRelease ="";
-		
-		if($("#checkboxInitial:checked").val()=="on"){
-			checkboxInitial="1";
-		}else{
-			checkboxInitial="0";
-		}
-		
-		if($("#checkboxUpdate:checked").val()=="on"){
-			checkboxUpdate="1";
-		}else{
-			checkboxUpdate="0";
-		}
-		
-		if($("#checkboxContact:checked").val()=="on"){
-			checkboxContact="1";
-		}else{
-			checkboxContact="0";
-		}
-		
-		if($("#InformBranchRadioTrue:checked").val()){
-			InformBranchRadio="1";
-		}else if($("#InformBranchRadioFalse:checked").val()){
-			InformBranchRadio="0";
-		}
-		
-		if($("#EditRuleReleaseTrue:checked").val()){
-			EditRuleRelease="1";
-		}else if($("#EditRuleReleaseFalse:checked").val()){
-			EditRuleRelease="0";
-		}
-			
-		$.ajax({
-			
-			url:restfulURL+"/api/dqs_branch",
-			type : "POST",
-			dataType : "json",
-			data : {"rule_name" : $("#rule_name").val(),
-					"rule_group" : $("#rule_group").val(),
-					"data_flow_id" : $("#data_flow_id").val(),
-					"initial_flag" : checkboxInitial,
-					"update_flag" : checkboxUpdate,
-					"last_contact_flag" : checkboxContact,
-					"inform_flag" : InformBranchRadio,
-					"edit_rule_release_flag" : EditRuleRelease
-			},
-			success : function(data) {
-				if (data = "success") {
-					alert("Insert Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		return false;
-	};*/
 	
 	var updateFn = function() {
 		
@@ -118,11 +19,12 @@ $(document).ready(function(){
 	        }
 			
 			$.ajax({
-				url:restfulURL+"/api/dqs_branch/"+id,
-				type : "PUT",
+				url:restfulURL+"/dqs_api/public/dqs_branch/"+id,
+				type : "PATCH",
 				dataType : "json",
 				data : {"close_flag" :closeflagCheckbox},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						
@@ -147,39 +49,31 @@ $(document).ready(function(){
 		$("#action").val("");
 	}
 	
-	var findOneFn = function(id) {
+	/*var findOneFn = function(id) {
 		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 		$.ajax({
-			url:restfulURL+"/api/dqs_branch/"+ id,
+			url:restfulURL+"/dqs_api/public/dqs_branch/"+ id,
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				$("#branchOperationName").val(data['desc']);
 			}
 		});
-	};
+	};*/
 	
-	var searchFn = function(searchText) {
+	/*var searchFn = function(searchText) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?desc__regex=/^"+searchText+"/i",
+			url : restfulURL + "/dqs_api/public/dqs_branch/?desc__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
 			success : function(data) {
 				listBranchFn(data);
 			}
 		});
-	}
+	}*/
 	
-	var dropdownCheckbox = function(id) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?rule_name__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listBranchFn(data);
-			}
-		});
-	}
+	
 	
 	var listBranchFn = function(data) {
 		
@@ -189,11 +83,11 @@ $(document).ready(function(){
 		
 		console.log(data);
 		var htmlTable = "";
-		//var close = $(indexEntry["close_flag"]);
+		
 
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
-		//htmlTable += "<td>"+ (index + 1)+ "</td>";
+		
 		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
@@ -206,7 +100,6 @@ $(document).ready(function(){
 			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
 		}	 
 		
-		//htmlTable += "<td><button class='btn btn-warning btn-xs editCheckboxCloseFlag' type='button' id="+indexEntry["_id"]+">Edit</button></td>";
 		htmlTable += "</tr>";
 		});
 		
@@ -257,11 +150,12 @@ $(document).ready(function(){
 	// get ของ branch management
 	var getDataFn = function() {
 		$.ajax({
-			url : restfulURL + "/api/dqs_branch",
+			url : restfulURL + "/dqs_api/public/dqs_branch",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				listBranchFn(data);
+				listBranchFn(data['data']);
 				console.log(data);
 			}
 		});

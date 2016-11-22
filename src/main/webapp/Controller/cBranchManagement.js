@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.48:3001";
+	var restfulURL = "http://192.168.1.57:3001";
 	
 	/*var checkUniqueFn = function(text) {
 		 http://localhost:3000/api/products?name__regex=/^test/i 
@@ -212,7 +212,8 @@ $(document).ready(function(){
 		
 		$("#listBranch").html(htmlTable);
 		
-		$('#tableBranch').DataTable({ "dom": '<"top"flp>rt<"bottom"lp><"clear">' }); 
+		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } );
+		
 		
 		/*$(".paginate_button").on("click",function(){
 			alert("click");

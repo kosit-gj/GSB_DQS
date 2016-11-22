@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.48:3001"; 
+	var restfulURL = "http://192.168.1.57:3001"; 
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	//CIF ID
@@ -430,6 +430,12 @@ $(document).ready(function(){
 	}
 	
 	var listCitizenFn = function(data) {
+		
+		
+		if ($.fn.DataTable.isDataTable('#tableCitizen')) {
+		       $('#tableCitizen').DataTable().destroy(); 
+		}	
+	
 		console.log(data);
 		var htmlTable = "";
 		var sexed =""
@@ -463,11 +469,18 @@ $(document).ready(function(){
 		dropdownDobMouth();
 		dropdownDobDay();
 		
+		
+		$("#tableCitizen_wrapper").click(function(){
+			$(".popover-edit-del").popover();
+		});
+		
 		//function popover
 		$(".popover-edit-del").popover();
-	
+		
+		$("#tableCitizen").off("click",".popover-edit-del");
 		//findOnd
-		$(".popover-edit-del").click(function(){
+		$("#tableCitizen").on("click",".popover-edit-del",function(){
+			
 			$(".edit").on("click",function() {
 				$(".text_add_edit").text("EDIT FILE");
 				
@@ -491,9 +504,10 @@ $(document).ready(function(){
 				$("#action").val("edit");
 				$("#btnSubmit").val("Edit");		
 				
+				
 			});
 			
-			$(".del").click(function(){
+			$(".del").on("click",function(){
 			
 				$.ajax({
 					 url:restfulURL+"/api/dqs_citizen_import/"+ this.id,
@@ -507,7 +521,7 @@ $(document).ready(function(){
 					 }
 				});
 			});	
-			
+		
 		});
 			
 	};

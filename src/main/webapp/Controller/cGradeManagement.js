@@ -1,7 +1,7 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.48:3001";
+		var restfulURL = "http://192.168.1.57:3001";
 		/*var restfulURL = "http://goingjesse.hopto.org:3001";*/
 		
 		 var checkUniqueFn = function(text,textseq){
@@ -90,7 +90,7 @@ $(document).ready(
 
 			 
 			 var clostModal = function(){
-				   $('#addModal').modal('hide');
+				   $('#managementModal').modal('hide');
 				   
 				   $(".alertManagement").fadeTo(1000,2000).slideUp(500);
 			 }
@@ -157,24 +157,34 @@ $(document).ready(
 						
 						
 						  //DataTable
-						  $('#tableGrade').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
+						$('#tableGrade').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } );
+						
+						//เมื่อ click แล้วให้มันไปผูกกับ popover
+						$("#tableGrade_wrapper").click(function(){
+							    $(".popover-del-edit").popover();
+						});
 						
 						  //popover 
 						$(".popover-del-edit").popover();
 						
 						
-						$(".popover-del-edit").click(function(){
+						$("#tableGrade").off("click",".popover-del-edit");
+						$("#tableGrade").on("click",".popover-del-edit",function(){
+							
 							//findOnd
 							$(".edit").on("click",function(){
+									$(".textadd_edit").text("EDIT GRADE");
+								
 								    findOneFn(this.id);
 								    $("#id").val(this.id);
 								    $("#action").val("edit");
 								    $("#btnSubmit").val("Edit");
 								    $("#btnAddAnother").val("Edit");
+								    
 								});
 							
 							//delete
-						   $(".del").click(function(){
+						   $(".del").on("click",function(){
 						    if(confirm("Do you want to delete this file?")){
 						     $.ajax({
 							      url:restfulURL+"/api/dqs_grade/"+this.id,
@@ -186,9 +196,10 @@ $(document).ready(
 								       getDataFn();
 								       clearFn();
 						
-				     			 }
-				   			  });
-				   		   		}
+				     			 	}
+				   			  	});
+				   		   	}
+						
 				  	 		});
 						
 						//add condition
@@ -448,6 +459,7 @@ $(document).ready(
 
 			  $("#btnAdd").click(function(){
 					 clearFn();
+					 $(".textadd_edit").text("ADD NEW GRADE");
 					 //return false;
 			  });
 				

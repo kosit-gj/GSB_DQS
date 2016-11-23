@@ -172,6 +172,8 @@ $(".mainMenu").click(function(){
 		page="kpi_calculation.html";
 		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Re-Calculate");
 		$("#naviTitle").show();
+	}else{
+return false;
 	}
 	
 	

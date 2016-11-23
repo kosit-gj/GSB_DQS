@@ -2,7 +2,11 @@
 
 var golbalContactType=[];
 
+var golbalDataFile=[];
+
 //galbol parameter end
+
+
 
 //get 1 ครั้งและเก็บค่า ใน golbalContactType ให้โปรแกรมเรียกใช้ได้ตลอด 
 var getContactType= function(){
@@ -19,185 +23,93 @@ var getContactType= function(){
 			}
 	});
 }
-getContactType();
+//call contact dropdown
+	getContactType();
+	
 $(document).ready(function(){
 	
 	var updateFn = function() {
 		
-		/////////////////////-Dropdown Contact-////////////////////////
-		var valueContatType = "";
-		$.each($(".embed_contactType").get(),function(index,indexEntry){
-			
-			var id = $(indexEntry).val();
-			
-			//alert($("#contacttype-"+id).val());
-			
-			if($("#contacttype-"+id).val()== "เปิดบัญชีเงินฝาก"){
-				valueContatType = "1";
-			}else if($("#contacttype-"+id).val()== "เปิดบัญชีใหม่สินเชื่อ"){
-				valueContatType = "2";
-			}
-			
-			//alert(valueContatType);
-			
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"contact_type" : valueContatType},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						
-					}
-				}
-			});
-			
-		});
-		
-		////////////////////////-CheckBox KPI-//////////////////////////////
-		
-		var kpiflagCheckbox = "";
-		
-		$.each($(".embed_kpiflag").get(),function(index,indexEntry){
-		
-			var id=$(indexEntry).val();
-			if($("#kpiCheckbox-"+id).prop('checked')){ 
-				kpiflagCheckbox = 1;
-	        }else{ 
-	        	kpiflagCheckbox = 0;
-	        }
-			//alert(closeflagCheckbox);
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"kpi_flag" :kpiflagCheckbox},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						//console.log("Upate Success");
-					}
-				}
-			});
-			
-		});
-		
-		//////////////////////////-CheckBox Last Contact-////////////////////////////
-		
-		var lastcontactCheckbox = "";
-		
-		$.each($(".embed_lastcontact").get(),function(index,indexEntry){
-		
-			var id=$(indexEntry).val();
-			if($("#lastContactCheckbox-"+id).prop('checked')){ 
-	        	lastcontactCheckbox = 1;
-	        }else{ 
-	        	lastcontactCheckbox = 0;
-	        }
-			//alert(closeflagCheckbox);
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"last_contact_flag" :lastcontactCheckbox},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						//console.log("Upate Success");
-					}
-				}
-			});
-		
-		});
-		
-		///////////////////////////-CheckBox Delete-///////////////////////////
-		
-		var closeflagCheckbox = "";
-		
-		$.each($(".embed_closeflag").get(),function(index,indexEntry){
-		
-			var id=$(indexEntry).val();
-			if($("#sourceFileDeleteCheckbox-"+id).prop('checked')){ 
-	        	closeflagCheckbox = 1;
-	        }else{ 
-	        	closeflagCheckbox = 0;
-	        }
-			//alert(closeflagCheckbox);
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"source_file_delete_flag" :closeflagCheckbox},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						//console.log("Upate Success");
-					}
-				}
-			});
-			
-		});
-		
-		//////////////////////////-Input Day-////////////////////////////
-		
-		$.each($(".embed_dateFile").get(),function(index,indexEntry){
-			
-			//alert($(indexEntry).val());
-			var id = $(indexEntry).val();
-					
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"nof_date_date":$("#dateFileManage-"+id).val()},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						$(".embed_dateFile").remove(); 
-						//console.log("Upate Success");
-						//alert("Upate Success");
-					} 
-				}
-			});
-			
-		});
-		
-		///////////////////////////-Input Seq-///////////////////////////
+		var file_list = [];
+		  $.each(golbalDataFile,function(index,indexEntry){
+		  //console.log($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()); 
+			  console.log(indexEntry);
+		  
+		  var processing_seq = "";
+		  var contact_type = "";
+		  var kpi_flag = "";
+		  var last_contact_flag = "";
+		  var source_file_delete_flag = "";
+		  var nof_date_delete = "";
 		 
-		$.each($(".embed_seqFile").get(),function(index,indexEntry){
-			
-			//alert($(indexEntry).val());
-			var id = $(indexEntry).val();
-					
-			$.ajax({
-				url:restfulURL+"/api/dqs_file/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"processing_seq":$("#seqFileManage-"+id).val()}, 
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") { 
-						$(".embed_seqFile").remove();
-						//console.log("Upate Success");
-						//alert("Upate Success");
-					} 
-				}
-			});
-			
-		});
-		
-		//$(".alert-success").fadeTo(1000,2000).slideUp(500);
-		
-		getDataFn();
-		clearFn();
-
+		  if($("#embed_seqFileManage-"+indexEntry['file_id']).val()!=undefined 
+			|| $("#embed_contactType-"+indexEntry['file_id']).val()!=undefined
+			|| $("#embed_kpiflag-"+indexEntry['file_id']).val()!=undefined
+			|| $("#embed_lastcontact-"+indexEntry['file_id']).val()!=undefined
+			|| $("#embed_closeflag-"+indexEntry['file_id']).val()!=undefined
+			|| $("#embed_dateFileManage-"+indexEntry['file_id']).val()!=undefined)
+		  {
+			  
+		  	   //send value Seq
+			   processing_seq=$("#seqFileManage-"+indexEntry['file_id']).val();
+			   //send value ContactType 
+			   contact_type=$("#contacttype-"+indexEntry['file_id']).val();
+		 
+			   //send value KPI 
+			   if($("#kpiCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+				   kpi_flag = 1;
+		        }else{ 
+		        	kpi_flag = 0;
+		        }
+			   
+			   //send value LastContact
+			   if($("#lastContactCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+				   last_contact_flag = 1;
+		        }else{ 
+		           last_contact_flag = 0;
+		        }
+			   
+			   //send value Delete
+			   if($("#sourceFileDeleteCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+				   source_file_delete_flag = 1;
+		        }else{ 
+		        	source_file_delete_flag = 0;
+		        }
+			   
+			   //send value Days
+			   nof_date_delete=$("#dateFileManage-"+indexEntry['file_id']).val();
+			  
+			   file_list.push({
+				    processing_seq:""+processing_seq+"",
+				   	file_id: ""+indexEntry['file_id']+"",
+				   	contact_type: ""+contact_type+"",
+				   	kpi_flag: ""+kpi_flag+"",
+				   	last_contact_flag: ""+last_contact_flag+"",
+				   	source_file_delete_flag: ""+source_file_delete_flag+"",
+				   	nof_date_delete: ""+nof_date_delete+"",
+			   });
+		  }
+		  
+		  });
+		  //console.log(file_list);
+		  
+		  $.ajax({
+		      url:restfulURL+"/dqs_api/public/dqs_file",
+		      type:"PATCH",
+		      dataType:"json",
+		      data:{"file_list":file_list},
+		      headers:{Authorization:"Bearer "+tokenID.token},
+		      async:false,
+		      success:function(data,status){
+		       console.log(data);
+		        if(status=="success"){
+		        	callFlashSlide("Update Successfully.");
+		        	getDataFn();
+		    		clearFn();
+		        }
+		     }
+		  });
+		  
 		return false;
 	
 	};
@@ -212,7 +124,7 @@ $(document).ready(function(){
 	var findOneFn = function(id) {
 		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 		$.ajax({
-			url:restfulURL+"/api/dqs_file/"+ id,
+			url:restfulURL+"/dqs_api/public/dqs_file/"+ id,
 			type : "get",
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
@@ -243,21 +155,6 @@ $(document).ready(function(){
 		console.log(data);
 		//clear ฟังก์ชัน  data ข้อมูลเก่าทิ้ง 
 		$("#dataFileManagement").empty();
-		
-		/*
-		"data":[{"file_id":"4",
-			"processing_seq":"2",
-			"file_name":"File 2",
-			"source_file_path":"source\/file2\/path",
-			"target_file_path":"target\/file2\/path",
-			"contact_type":"SAVING",
-			"kpi_flag":"0",
-			"last_contact_flag":"0",
-			"source_file_delete_flag":"0",
-			"nof_date_delete":"12"}
-			*/
-		
-		
 		
 		$.each(data,function(index,indexEntry) {
 		var htmlTable = "";		
@@ -459,10 +356,10 @@ $(document).ready(function(){
 		});
 		
 		if(count>0){
-			$("#embed_seqFileManage").remove();
-			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
+			$("#embed_seqFileManage-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage-"+id+"' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
 		}else{
-			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
+			$("body").append("<input type='hidden' class='embed_seqFile' id='embed_seqFileManage-"+id+"' name='embed_seqFileManage-"+id+"' value='"+id+"'>");
 		}	
 	};
 	
@@ -479,10 +376,10 @@ $(document).ready(function(){
 		});
 		
 		if(count>0){
-			$("#embed_dateFileManage").remove();
-			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
+			$("#embed_dateFileManage-"+id).remove();
+			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage-"+id+"' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
 		}else{
-			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
+			$("body").append("<input type='hidden' class='embed_dateFile' id='embed_dateFileManage-"+id+"' name='embed_dateFileManage-"+id+"' value='"+id+"'>");
 		}	
 	};
 	
@@ -496,6 +393,7 @@ $(document).ready(function(){
 			success : function(data) {
 				listFileFn(data['data']);
 				//console.log(data);
+				golbalDataFile=data['data'];
 			}
 		});
 	};

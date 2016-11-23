@@ -30,8 +30,6 @@ $(document).ready(function(){
 
 		});
 		
-		
-		
 	    console.log(branches);
 	    
 		$.ajax({
@@ -43,6 +41,7 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				if (data = "success") {
+					callFlashSlide("Update Successfully.");
 					getDataFn();
 				}
 			}

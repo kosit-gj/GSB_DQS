@@ -46,11 +46,13 @@ $(document).ready(function(){
 			  
 			  var insertFn = function(){
 			
+				//alert($(".menuCategory:checked").val());
+				
 			    $.ajax({
 				     url:restfulURL+"/dqs_api/public/dqs_menu",
 				     type:"POST",
 				     dataType:"json",
-				     data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val()},
+				     data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val(),"menu_category":$(".menuCategory:checked").val()},
 					 headers:{Authorization:"Bearer "+tokenID.token},
 					 async:false,
 				     success:function(data,status){

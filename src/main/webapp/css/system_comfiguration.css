@@ -33,9 +33,9 @@
 
 .input-data{
 	width:150px;
-	text-align:center;
+	text-align:left;
 	height:27px;
-	padding: 0px;
+	padding: 5px;
 }
 
 .input-dataroot{

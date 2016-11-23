@@ -4,7 +4,7 @@ var golbalContactType=[];
 
 //galbol parameter end
 
-//get 1 ครั้งและเก็บค่า ใน golbalContactType ให้โปรแกรมเรียกใช้ได้ตลอด
+//get 1 ครั้งและเก็บค่า ใน golbalContactType ให้โปรแกรมเรียกใช้ได้ตลอด 
 var getContactType= function(){
 	$.ajax ({
 		url:restfulURL+"/dqs_api/public/dqs_file/contact_type" ,

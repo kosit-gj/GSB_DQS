@@ -1,5 +1,8 @@
 var tokenID= eval("("+localStorage.getItem("tokenID")+")");
 var restfulURL="http://192.168.1.58";
+//Global Parameter Start
+var galbaMenuObj=[];
+//Global Parameter End
 
 
 if(tokenID==null){
@@ -74,6 +77,36 @@ $("#logOut").click(function(){
 	logoutFn();
 });
 
+var getMainMenu = function(role_id){
+	//galbaMenuObj
+	http://192.168.1.58/dqs_api/public/dqs_role/{role_id}/authorize
+	$.ajax({
+		url:restfulURL+"/dqs_api/public/dqs_role/"+role_id+"/authorize",
+		type:"GET",
+		dataType:"json",
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			console.log(data);
+			galbaMenuObj=data;
+		}
+	});
+};
+getMainMenu(1);
+
+var listMenuFn = function(){
+	var htmlMenu="";
+	$.each(galbaMenuObj,function(index,indexEntry){
+		console.log(indexEntry['menu_id']);
+		//console.log(indexEntry['menu_name']);
+		//console.log(indexEntry['role_active']);
+		htmlMenu+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\">"+indexEntry['menu_name']+"</a></li>";
+		
+	});
+	$("#DQManagementMenuCate").html(htmlMenu);
+};
+//listMenuFn();
+
 var callFlashSlide = function(text){
 	
 		setTimeout(function(){
@@ -131,7 +164,16 @@ $(".mainMenu").click(function(){
 		page="branch_management.html";
 		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Branch");
 		$("#naviTitle").show();
+	}else if(this.id=="File"){
+		page="file_management.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> File");
+		$("#naviTitle").show();
+	}else if(this.id=="Re-Calculate"){
+		page="kpi_calculation.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Re-Calculate");
+		$("#naviTitle").show();
 	}
+	
 	
 	
 	

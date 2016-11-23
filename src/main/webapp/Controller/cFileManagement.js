@@ -1,106 +1,26 @@
+//galbol parameter start
+
+var golbalContactType=[];
+
+//galbol parameter end
+
+//get 1 ครั้งและเก็บค่า ใน golbalContactType ให้โปรแกรมเรียกใช้ได้ตลอด
+var getContactType= function(){
+	$.ajax ({
+		url:restfulURL+"/dqs_api/public/dqs_file/contact_type" ,
+		type:"get" ,
+		dataType:"json" ,
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+			success:function(data){
+				//console.log(data);
+				
+				golbalContactType=data;
+			}
+	});
+}
+getContactType();
 $(document).ready(function(){
-	
-	var restfulURL = "http://192.168.1.57:3001";
-	//var restfulURL = "http://192.168.1.100:3001";
-	//var restfulURL = "http://goingjesse.hopto.org:3001";
-	
-	/*var checkUniqueFn = function(text) {
-		 http://localhost:3000/api/products?name__regex=/^test/i 
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/api/dqs_file?name_filde="+text+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
-	
-	var validationFn = function() {
-		var validateText = "";
-		if ($("#rule_name").val()=="") {
-			validateText += "name not empty\n";
-		}
-		if (validateText != "") {
-			alert(validateText);
-			return false;
-		} else {
-			return true;
-		}
-	
-	}*/
-	
-	/*var insertFn = function() {
-			
-		var checkboxInitial = "";
-		var checkboxUpdate = "";
-		var checkboxContact = "";
-		var InformBranchRadio = "";
-		var EditRuleRelease ="";
-		
-		if($("#checkboxInitial:checked").val()=="on"){
-			checkboxInitial="1";
-		}else{
-			checkboxInitial="0";
-		}
-		
-		if($("#checkboxUpdate:checked").val()=="on"){
-			checkboxUpdate="1";
-		}else{
-			checkboxUpdate="0";
-		}
-		
-		if($("#checkboxContact:checked").val()=="on"){
-			checkboxContact="1";
-		}else{
-			checkboxContact="0";
-		}
-		
-		if($("#InformBranchRadioTrue:checked").val()){
-			InformBranchRadio="1";
-		}else if($("#InformBranchRadioFalse:checked").val()){
-			InformBranchRadio="0";
-		}
-		
-		if($("#EditRuleReleaseTrue:checked").val()){
-			EditRuleRelease="1";
-		}else if($("#EditRuleReleaseFalse:checked").val()){
-			EditRuleRelease="0";
-		}
-			
-		$.ajax({
-			
-			url:restfulURL+"/api/dqs_file",
-			type : "POST",
-			dataType : "json",
-			data : {"rule_name" : $("#rule_name").val(),
-					"rule_group" : $("#rule_group").val(),
-					"data_flow_id" : $("#data_flow_id").val(),
-					"initial_flag" : checkboxInitial,
-					"update_flag" : checkboxUpdate,
-					"last_contact_flag" : checkboxContact,
-					"inform_flag" : InformBranchRadio,
-					"edit_rule_release_flag" : EditRuleRelease
-			},
-			success : function(data) {
-				if (data = "success") {
-					alert("Insert Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		return false;
-	};*/
 	
 	var updateFn = function() {
 		
@@ -126,13 +46,10 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"contact_type" : valueContatType},
 				async:false,
-				//data : {"contact_type" : $("#contacttype-"+id).val()},
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
-						//alert("Update Success");
-						//getDataFn();
-						//clearFn();
-						//$('#addModalRule').modal('hide');
+						
 					}
 				}
 			});
@@ -158,6 +75,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"kpi_flag" :kpiflagCheckbox},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
@@ -186,6 +104,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"last_contact_flag" :lastcontactCheckbox},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
@@ -214,6 +133,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"source_file_delete_flag" :closeflagCheckbox},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
@@ -236,6 +156,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"nof_date_date":$("#dateFileManage-"+id).val()},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						$(".embed_dateFile").remove(); 
@@ -260,6 +181,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"processing_seq":$("#seqFileManage-"+id).val()}, 
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") { 
 						$(".embed_seqFile").remove();
@@ -271,7 +193,7 @@ $(document).ready(function(){
 			
 		});
 		
-		$(".alert-success").fadeTo(1000,2000).slideUp(500);
+		//$(".alert-success").fadeTo(1000,2000).slideUp(500);
 		
 		getDataFn();
 		clearFn();
@@ -293,33 +215,24 @@ $(document).ready(function(){
 			url:restfulURL+"/api/dqs_file/"+ id,
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				$("#branchOperationName").val(data['desc']);
 			}
 		});
 	};
 	
-	var searchFn = function(searchText) {
+	/*var searchFn = function(searchText) {
 		$.ajax({
 			url : restfulURL + "/api/dqs_file/?file_name__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listFileFn(data);
 			}
 		});
-	}
-	
-	var dropdownCheckbox = function(id) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_file/?rule_name__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listFileFn(data);
-			}
-		});
-	}
+	}*/
 	
 	var listFileFn = function(data) {
 		
@@ -331,40 +244,55 @@ $(document).ready(function(){
 		//clear ฟังก์ชัน  data ข้อมูลเก่าทิ้ง 
 		$("#dataFileManagement").empty();
 		
+		/*
+		"data":[{"file_id":"4",
+			"processing_seq":"2",
+			"file_name":"File 2",
+			"source_file_path":"source\/file2\/path",
+			"target_file_path":"target\/file2\/path",
+			"contact_type":"SAVING",
+			"kpi_flag":"0",
+			"last_contact_flag":"0",
+			"source_file_delete_flag":"0",
+			"nof_date_delete":"12"}
+			*/
+		
+		
+		
 		$.each(data,function(index,indexEntry) {
 		var htmlTable = "";		
 		htmlTable += "<tr>"; 
-		htmlTable+="<td><input disabled class=\" input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["_id"]+" value="+indexEntry["processing_seq"]+">";
+		htmlTable+="<td><input disabled class=\" input-inline-table input-seq seqFile\" type=\"text\" name=\"seqFileManage\" id=seqFileManage-"+indexEntry["file_id"]+" value="+indexEntry["processing_seq"]+">";
 		htmlTable += "<td>"+ indexEntry["file_name"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["source_file_path"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["target_file_path"]+ "</td>";	
 		
-		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["_id"]+"></select></td>";	
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table selectContact\" id=contacttype-"+indexEntry["file_id"]+"></select></td>";	
 		
 		if(indexEntry["kpi_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["file_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["kpi_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editkpiCheckbox' id=kpiCheckbox-"+indexEntry["file_id"]+" ></td>";
 		}	 
 		
 		if(indexEntry["last_contact_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["file_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["last_contact_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editlastContact' id=lastContactCheckbox-"+indexEntry["file_id"]+" ></td>";
 		}	
 		
 		if(indexEntry["source_file_delete_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["file_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["source_file_delete_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='editCheckboxCloseFlag' id=sourceFileDeleteCheckbox-"+indexEntry["file_id"]+" ></td>";
 		}
 		
-		htmlTable+="<td><input disabled class=\" input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["_id"]+" value="+indexEntry["nof_date_date"]+">";
+		htmlTable+="<td><input disabled class=\" input-inline-table input-seq dateFile\" type=\"text\" name=\"\" id=dateFileManage-"+indexEntry["file_id"]+" value="+indexEntry["nof_date_delete"]+">";
 		
 		htmlTable +="</tr>";
 		
 		$("#dataFileManagement").append(htmlTable);
-		dropdownContactType(indexEntry["contact_type"],indexEntry["_id"]);
+		dropdownContactType(golbalContactType,indexEntry["contact_type"],indexEntry["file_id"]);
 		});
 		
 		
@@ -417,32 +345,22 @@ $(document).ready(function(){
 	};
 	
 	
-	var dropdownContactType = function(param_type,param_id){
-		//alert("paramTYPE"+param_type);
-		$.ajax ({
-			url:restfulURL+"/api/make_param_contact_type" ,
-			type:"get" ,
-			dataType:"json" ,
-			async:false,
-				success:function(data){
-					
-					var htmlTable="";
-					
-					$.each(data,function(index,indexEntry){
-						
-						if(param_type==indexEntry['param_contact_id']){
-							htmlTable+="<option selected>"+indexEntry['param_contact_type']+"</option>";  
-						}else{
-							htmlTable+="<option>"+indexEntry['param_contact_type']+"</option>";  
-						}
-						
-					});	
-					$("#contacttype-"+param_id).html(htmlTable);
-				}
-		});
+	var dropdownContactType = function(data,param_type,param_id){
+			
+		var htmlTable="";
+		
+		$.each(data,function(index,indexEntry){
+			
+			if(param_type==indexEntry['contact_type']){
+				htmlTable+="<option selected>"+indexEntry['contact_type']+"</option>";  
+			}else{
+				htmlTable+="<option>"+indexEntry['contact_type']+"</option>";  
+			}
+			
+		});	
+		$("#contacttype-"+param_id).html(htmlTable);
 	};
-	
-	
+
 	
 	// Click แล้ว ฝังข้อมูล
 	var embedParamSelectContact = function(id){
@@ -571,13 +489,13 @@ $(document).ready(function(){
 	// get ของ branch management
 	var getDataFn = function() {
 		$.ajax({
-			url : restfulURL + "/api/dqs_file",
+			url : restfulURL + "/dqs_api/public/dqs_file",
 			type : "get",
 			dataType : "json",
-			
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				listFileFn(data);
-				console.log(data);
+				listFileFn(data['data']);
+				//console.log(data);
 			}
 		});
 	};
@@ -585,10 +503,10 @@ $(document).ready(function(){
 	//Call Function start
 	  getDataFn();
 	
-	$("#btnSearch").click(function(){
+	/*$("#btnSearch").click(function(){
 		searchFn($("#searchFileName").val());
 		return false;
-	});
+	});*/
 	
 	
 	/*$("#btnSave").click(function(){

@@ -42,82 +42,82 @@
 												<tbody id="">
 													<tr>
 														<td>
-															<div class='text-inline-table'>มกราคม</div>
+															<div class='text-inline-table'>January</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m1">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m1">
 														</td>
 														<td>
-															<div class='text-inline-table'>กุมภาพันธ์</div>
+															<div class='text-inline-table'>February</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m2">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m2">
 														</td>
 														<td>
-															<div class='text-inline-table'>มีนาคม</div>
+															<div class='text-inline-table'>March</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m3">
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class='text-inline-table'>เมษายน</div>
-														</td>
-														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m4">
-														</td>
-														<td>
-															<div class='text-inline-table'>พฤษภาคม</div>
-														</td>
-														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m5">
-														</td>
-														<td>
-															<div class='text-inline-table'>มิถุนายน</div>
-														</td>
-														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m6">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m3">
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<div class='text-inline-table'>กรกฎาคม</div>
+															<div class='text-inline-table'>April</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m7">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m4">
 														</td>
 														<td>
-															<div class='text-inline-table'>สิงหาคม</div>
+															<div class='text-inline-table'>May</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m8">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m5">
 														</td>
 														<td>
-															<div class='text-inline-table'>กันยายน</div>
+															<div class='text-inline-table'>June</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text"id="kpi_date_m9">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m6">
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<div class='text-inline-table'>ตุลาคม</div>
+															<div class='text-inline-table'>July</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m10">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m7">
 														</td>
 														<td>
-															<div class='text-inline-table'>พฤศจิกายน</div>
+															<div class='text-inline-table'>August</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m11">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m8">
 														</td>
 														<td>
-															<div class='text-inline-table'>ธันวาคม</div>
+															<div class='text-inline-table'>September</div>
 														</td>
 														<td>
-															<input class="form-control input-inline-table input-seq" type="text" id="kpi_date_m12">
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text"id="kpi_date_m9">
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class='text-inline-table'>October</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m10">
+														</td>
+														<td>
+															<div class='text-inline-table'>November</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m11">
+														</td>
+														<td>
+															<div class='text-inline-table'>December</div>
+														</td>
+														<td>
+															<input class="form-control input-inline-table input-seq kpi_date_m" type="text" id="kpi_date_m12">
 														</td>
 													</tr>								
 												</tbody>				
@@ -397,7 +397,7 @@
 									</div>
 									
 									<div class="col-lg-2 form-data" >
-										<input class="form-control input-data" type="text" id="all_cust_grade_calculate_date">
+										<input class="form-control input-data" type="date" id="all_cust_grade_calculate_date">
 									</div>
 									
 								</div>
@@ -411,10 +411,10 @@
 									</div>
 									
 									<div class="col-lg-2 form-data">
-										<select class="form-control input-dataselect" id="grade_data_source" >
-											<option value="1">validate</option>
-											<option value="2">Calulation Source</option>
-											<option value="3">Data Table</option>
+										<select class="form-control input-dataselect" id="grade_data_source" name="grade_data_source">
+											<option value="1">dqs_initial_validate </option>
+											<option value="2">dqs_validate</option>
+											<option value="3">dqs_validate และ dqs_initial_validate</option>
 										</select>
 										 
 									</div>
@@ -431,7 +431,7 @@
 									</div>
 									
 									<div class="col-lg-2 form-data" >
-										<input class="form-control input-data" type="date"id="all_cust_grade_calculate_date">
+										<input class="form-control input-data" type="date"id="merge_cif_date">
 									</div>
 									
 								</div>
@@ -450,6 +450,6 @@
                    </div>
                    
 
-	<!--  <script src="Controller/cSystemConfiguration.js"></script>
- -->
+<script src="Controller/cSystemConfiguration.js"></script>
+
 

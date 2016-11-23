@@ -1,17 +1,15 @@
 $(document).ready(
 	function(){
 
-		var restfulURL = "http://192.168.1.49:3001";
 		
 		 var getDataFn = function(){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_branch",
+					    url:restfulURL+"/dqs_api/public/dqs_branch",
 					    type:"get",
 					    dataType:"json",
+					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
-						     
-						     
-						     dropDownListBranch();
+								dropDownListBranch();
 						 }
 				  });
 		};
@@ -19,16 +17,17 @@ $(document).ready(
 		
 		var dropDownListBranch = function(data){
 			$.ajax ({
-				url:restfulURL+"/api/dqs_branch" ,
+				url:restfulURL+"/dqs_api/public/dqs_branch" ,
 				type:"get" ,
 				dataType:"json" ,
+				headers:{Authorization:"Bearer "+tokenID.token},
 					success:function(data){
 						var htmlTable="";
-						$.each(data,function(index,indexEntry){
+						$.each(data['data'],function(index,indexEntry){
 							
-							htmlTable+="<option value="+indexEntry["brcd"]+">"+indexEntry["desc"]+"</option>";		
+							htmlTable+="<option value="+indexEntry["brcd"]+">"+indexEntry["desc_1"]+"</option>";		
 						});	
-						$("#listBranch").html(htmlTable);
+					  $("#listBranch").html(htmlTable);
 					}
 			});
 		};

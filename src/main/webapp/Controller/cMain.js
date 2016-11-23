@@ -105,11 +105,11 @@ var listMenuFn = function(){
 		console.log(indexEntry['menu_category']);
 		//console.log(indexEntry['role_active']);//menu_category
 		if(indexEntry['menu_category']=="MM"){
-			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
+			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}else if(indexEntry['menu_category']=="MN"){
-			DQMonitoringMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
+			DQMonitoringMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}else if(indexEntry['menu_category']=="RP"){
-			reportMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
+			reportMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}
 	});
 	$("#DQManagementMenuCate").html(DQManagementMenuCate);
@@ -117,7 +117,7 @@ var listMenuFn = function(){
 	$("#reportMenuCate").html(reportMenuCate);
 	//console.log(tokenID.data.menu);
 };
-//listMenuFn();
+listMenuFn();
 
 var callFlashSlide = function(text){
 	
@@ -152,47 +152,21 @@ var includeFileFn = function(paramUrl){
 }
 
 $(".mainMenu").click(function(){
-	//alert(this.id);
+
 	$("#naviTitle").hide();
 	$("#includePage").empty();
-	var page="";
-	if(this.id=="User"){
-		page="user_management.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-user\"></i> User");
-		$("#naviTitle").show();
-	}else if(this.id=="Role"){
-		page="rolemanagement.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-group\"></i> Role");
-		$("#naviTitle").show();
-	}else if(this.id=="Menu"){
-		page="menu_management.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Menu");
-		$("#naviTitle").show();
-	}else if(this.id=="Configuration"){
-		page="System_Configuration.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Configuration");
-		$("#naviTitle").show();
-	}else if(this.id=="Branch"){
-		page="branch_management.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Branch");
-		$("#naviTitle").show();
-	}else if(this.id=="File"){
-		page="file_management.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> File");
-		$("#naviTitle").show();
-	}else if(this.id=="Re-Calculate"){
-		page="kpi_calculation.html";
-		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Re-Calculate");
-		$("#naviTitle").show();
+	var page=$(".app_url",this).text();
+	var menuName=$(".menu_name",this).text();
+	//alert(page.trim());
+	if(page.trim()=="#"){
+		//return false;
 	}else{
-return false;
+		includeFileFn(page);
 	}
+	$("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
+	$("#naviTitle").show();
 	
 	
-	
-	
-	includeFileFn(page);
-	//return false;
 	
 	
 });

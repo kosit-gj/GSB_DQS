@@ -192,7 +192,7 @@ $(document).ready(function(){
 				 $('#tableMenu').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 				 
 				 $("#tableMenu_wrapper").click(function(){
-					 $(".popover-edit-del").popover();
+					 $(".popover-del-edit").popover();
 				 });
 			
 				
@@ -246,7 +246,14 @@ $(document).ready(function(){
 					
 					//delete
 					
-					$(".popover-del-edit").click(function(){
+					//$(".popover-del-edit").click(function(){
+					//findOnd
+					
+					
+				
+					
+					$("#tableMenu").off("click",".popover-del-edit");
+					$("#tableMenu").on("click",".popover-del-edit",function(){
 						
 					    $(".del").click(function(){
 					    //alert(this.id);

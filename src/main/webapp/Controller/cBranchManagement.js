@@ -6,8 +6,17 @@ $(document).ready(function(){
 		var closeflagCheckbox = "";
 		var embed_closeflag="";
 		var embed_closeflag_obj="";
+		var branches=[];
 		embed_closeflag_obj=$(".embed_closeflag").get();
-		
+		/*
+		branches: [
+		           {
+		             brcd: "",
+		             close_flag: ""
+		           }, ...
+		         ]
+		         */
+		//console.log(embed_closeflag_obj);
 		$.each($(".embed_closeflag").get(),function(index,indexEntry){
 			
 			var id=$(indexEntry).val();
@@ -17,30 +26,37 @@ $(document).ready(function(){
 	        }else{ 
 	        	closeflagCheckbox = 0;
 	        }
-			
-			$.ajax({
-				url:restfulURL+"/dqs_api/public/dqs_branch/"+id,
-				type : "PATCH",
-				dataType : "json",
-				data : {"close_flag" :closeflagCheckbox},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						
-					}
-				}
-			});
+			branches.push({"brcd":id,"close_flag":closeflagCheckbox});
 
 		});
-		$(".alert-success").fadeTo(1000,2000).slideUp(500);
+		
+		
+		
+	    console.log(branches);
+	    
+		$.ajax({
+			url:restfulURL+"/dqs_api/public/dqs_branch",
+			type : "PATCH",
+			dataType : "json",
+			data : {"branches" :branches},
+			async:false,
+			headers:{Authorization:"Bearer "+tokenID.token},
+			success : function(data) {
+				if (data = "success") {
+					getDataFn();
+				}
+			}
+		});
+	
+		
+		//$(".alert-success").fadeTo(1000,2000).slideUp(500);
 
-		getDataFn();
-		clearFn();
+		//getDataFn();
+		//clearFn();
 		
-		$('#addModalRule').modal('hide');
+		//$('#addModalRule').modal('hide');
 		
-		console.log($(".embed_closeflag").get());
+		//console.log($(".embed_closeflag").get());
 	
 		return false;
 	};
@@ -81,7 +97,7 @@ $(document).ready(function(){
 			$('#tableBranch').DataTable().destroy(); 
 		}
 		
-		console.log(data);
+		//console.log(data);
 		var htmlTable = "";
 		
 
@@ -89,15 +105,15 @@ $(document).ready(function(){
 		htmlTable += "<tr>";
 		
 		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["desc_1"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["region"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["dist"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["regdesc"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["distdesc"]+ "</td>";
 		
 		if(indexEntry["close_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["brcd"]+" checked='checked' ></td>";
 		}else if(indexEntry["close_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input type=\"checkbox\" disabled class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["brcd"]+" ></td>";
 		}	 
 		
 		htmlTable += "</tr>";
@@ -156,7 +172,7 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listBranchFn(data['data']);
-				console.log(data);
+				//console.log(data);
 			}
 		});
 	};

@@ -115,10 +115,9 @@ $(document).ready(function(){
 	};
 	
 	var clearFn = function() {
-		//$("#id").val("");
+		
 		$("#action").val("");
-		//$("#rule_name").val("");
-		//$("#btnSubmit").val("Add");
+		
 	}
 	
 	var findOneFn = function(id) {
@@ -406,10 +405,6 @@ $(document).ready(function(){
 		return false;
 	});*/
 	
-	
-	/*$("#btnSave").click(function(){
-        updateFn();	
-	});*/
 	
 	//ปุ่ม Save
 	$("#btnSubmit").click(function(){

@@ -8,14 +8,7 @@ $(document).ready(function(){
 		var embed_closeflag_obj="";
 		var branches=[];
 		embed_closeflag_obj=$(".embed_closeflag").get();
-		/*
-		branches: [
-		           {
-		             brcd: "",
-		             close_flag: ""
-		           }, ...
-		         ]
-		         */
+	
 		//console.log(embed_closeflag_obj);
 		$.each($(".embed_closeflag").get(),function(index,indexEntry){
 			
@@ -27,7 +20,17 @@ $(document).ready(function(){
 	        	closeflagCheckbox = 0;
 	        }
 			branches.push({"brcd":id,"close_flag":closeflagCheckbox});
-
+			
+			//requirement data
+			
+			/*
+			branches: [
+			           {
+			             brcd: "",
+			             close_flag: ""
+			           }, ...
+			         ]
+			*/
 		});
 		
 	    console.log(branches);
@@ -47,35 +50,12 @@ $(document).ready(function(){
 			}
 		});
 	
-		
-		//$(".alert-success").fadeTo(1000,2000).slideUp(500);
-
-		//getDataFn();
-		//clearFn();
-		
-		//$('#addModalRule').modal('hide');
-		
-		//console.log($(".embed_closeflag").get());
-	
 		return false;
 	};
 	
 	var clearFn = function(){
 		$("#action").val("");
 	}
-	
-	/*var findOneFn = function(id) {
-		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
-		$.ajax({
-			url:restfulURL+"/dqs_api/public/dqs_branch/"+ id,
-			type : "get",
-			dataType : "json",
-			headers:{Authorization:"Bearer "+tokenID.token},
-			success : function(data) {
-				$("#branchOperationName").val(data['desc']);
-			}
-		});
-	};*/
 	
 	/*var searchFn = function(searchText) {
 		$.ajax({
@@ -88,8 +68,6 @@ $(document).ready(function(){
 		});
 	}*/
 	
-	
-	
 	var listBranchFn = function(data) {
 		
 		if ($.fn.DataTable.isDataTable('#tableBranch')) {
@@ -98,7 +76,6 @@ $(document).ready(function(){
 		
 		//console.log(data);
 		var htmlTable = "";
-		
 
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
@@ -122,11 +99,6 @@ $(document).ready(function(){
 		
 		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } );
 		
-		
-		/*$(".paginate_button").on("click",function(){
-			alert("click");
-		})*/
-		
 		//function popover
 		$(".popover-edit-del").popover();
 		
@@ -135,10 +107,8 @@ $(document).ready(function(){
 			
 			var id = this.id.split("-"); 
 			
-			//alert(id[1]);
 			embedParam(id[1]);
-			//$("#embed_closeflag_id").remove();	
-			//$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id[1]+"' name='embed_closeflag-"+id[1]+"' value='"+id[1]+"'>");	
+			
 		});
 		
 	};
@@ -202,4 +172,5 @@ $(document).ready(function(){
 		$(".editCheckboxCloseFlag").removeAttr("disabled");
 		$("#action").val("edit");
 	});
+	
 });

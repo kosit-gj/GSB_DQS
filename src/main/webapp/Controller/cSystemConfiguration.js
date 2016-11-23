@@ -1,35 +1,58 @@
 $(document).ready(
 	function(){
 
-		/*var validationFn = function(){
+		var validationFn = function(){
+			
 			   var validateText="";
-				   if($("#export_file_path").val()==""){
-				    	validateText+="name not empty\n";
-				   }
-					if($("#export_citizen_max_record").val()==""){
-				   		 validateText+="operation not empty\n";
-				   }
-					if($("#export_mobile_max_record").val()==""){
-						   		 validateText+="operation not empty\n";
-						   }
-					if($("#export_include_date_flag").val()==""){
-						   		 validateText+="operation not empty\n";
-						   }
-					if($("#export_nof_date_delete").val()==""){
-						   		 validateText+="operation not empty\n";
-						   }
+					 if($("#kpi_date_m1").val()==""){
+						    	validateText+="Kpi in January is not empty"+" , ";
+					 }
+					if($("#kpi_date_m2").val()==""){
+						    	validateText+="Kpi in February is not empty"+" , ";
+					 }
+					if($("#kpi_date_m3").val()==""){
+						    	validateText+="Kpi in March is not empty"+" , ";
+					 }
+					if($("#kpi_date_m4").val()==""){
+						    	validateText+="Kpi in April is not empty"+" , ";
+					 }
+					if($("#kpi_date_m5").val()==""){
+						    	validateText+="Kpi in May is not empty"+" , ";
+					 }
+					if($("#kpi_date_m6").val()==""){
+						    	validateText+="Kpi in June is not empty"+" , ";
+					 }
+					if($("#kpi_date_m7").val()==""){
+						    	validateText+="Kpi in July is not empty"+" , ";
+					 }
+					if($("#kpi_date_m8").val()==""){
+						    	validateText+="Kpi in August is not empty"+" , ";
+					 }
+					if($("#kpi_date_m9").val()==""){
+						    	validateText+="Kpi in September is not empty"+" , ";
+					 }
+					if($("#kpi_date_m10").val()==""){
+						    	validateText+="Kpi in October is not empty"+" , ";
+					 }
+					if($("#kpi_date_m11").val()==""){
+						    	validateText+="Kpi in November is not empty"+" , ";
+					 }
+					if($("#kpi_date_m12").val()==""){
+						    	validateText+="Kpi in December is not empty"+" , ";
+					 }
 				   if(validateText!=""){
-					    alert(validateText);
+					    callFlashSlide(validateText);
 					    return false;
 				   }else{
 				   		return true;
 				   }
-			  }*/
 				
+			  };
+			
 		
 		
-		//function update Default KPI
-		var updateDefaultFn = function(){
+		//function insert Default KPI
+		var insertDefaultFn = function(){
 			//alert($("#embed_system_config_id").val());
 			
 			   $.ajax({
@@ -54,8 +77,7 @@ $(document).ready(
 					success:function(data,status){
 						
 					     if(status=="success"){
-					     //alert("Upate Success");
-					      callFlashSlide("Update Successfully.");
+					      callFlashSlide("insert Successfully.");
 					      getDataFn();
 					     }
 					    }
@@ -64,8 +86,8 @@ $(document).ready(
 		 };
 		
 		 
-		//function update Exporting File
-		var updateExportFn = function(){
+		//function insert Exporting File
+		var insertExportFn = function(){
 			
 			var exportInclude = ""
 				
@@ -92,8 +114,7 @@ $(document).ready(
 					success:function(data,status){
 						
 					     if(status=="success"){
-					      //alert("Upate Success");
-					      callFlashSlide("Update Successfully.");
+					      callFlashSlide("insert Successfully.");
 					      getDataFn();
 					     }
 					    }
@@ -102,8 +123,8 @@ $(document).ready(
 		 };
 		 
 		 
-		 //function update Importing File
-		 var updateImportFn = function(){
+		 //function insert Importing File
+		 var insertImportFn = function(){
 				
 				var importInclude = ""
 					
@@ -114,7 +135,7 @@ $(document).ready(
 						importInclude = 0;
 					}
 				
-				alert($("#import_nof_date_delete").val());
+				//alert($("#import_nof_date_delete").val());
 				
 				   $.ajax({
 					    url:restfulURL+"/dqs_api/public/dqs_system_config/import_file",  //+$("#embed_system_config_id").val(),
@@ -129,8 +150,7 @@ $(document).ready(
 						success:function(data,status){
 							
 						     if(status=="success"){
-						      //alert("Upate Success");
-						      callFlashSlide("Update Successfully.");
+						      callFlashSlide("insert Successfully.");
 						      getDataFn();
 						     }
 						    }
@@ -139,8 +159,8 @@ $(document).ready(
 			 };
 		 
 			 
-			 //function update Warning Branch
-			 var updateWarBranchFn = function(){
+			 //function insert Warning Branch
+			 var insertWarBranchFn = function(){
 
 					
 					//alert($("#embed_system_config_id").val());
@@ -155,8 +175,7 @@ $(document).ready(
 							success:function(data,status){
 								
 							     if(status=="success"){
-							      //alert("Upate Success");
-							      callFlashSlide("Update Successfully.");
+							      callFlashSlide("insert Successfully.");
 							      getDataFn();
 							     }
 							    }
@@ -165,10 +184,8 @@ $(document).ready(
 				 };
 				 
 				 
-				 // function update grade calculate date
-				 var updateGradeCalDateFn = function(){
-
-						
+				 // function insert grade calculate date
+				 var insertGradeCalDateFn = function(){
 						//alert($("#all_cust_grade_calculate_date").val());
 						
 						   $.ajax({
@@ -183,8 +200,7 @@ $(document).ready(
 								success:function(data,status){
 									
 								     if(status=="success"){
-								     // alert("Upate Success");
-								      callFlashSlide("Update Successfully.");
+								      callFlashSlide("insert Successfully.");
 								      getDataFn();
 								     }
 								    }
@@ -308,44 +324,63 @@ $(document).ready(
 			
 			//ปุ่ม SaveDefault
 			$("#btnSaveDefault").click(function(){
-				
-				
-				   updateDefaultFn();
-				
-				  });
+				 if(validationFn()==true){
+				   insertDefaultFn();
+				}
+				return false;
+			});
 			
 			//ปุ่ม SaveExport
 			$("#btnSaveExport").click(function(){
-				
-				
-				   updateExportFn();
-				
-				  });
+				   insertExportFn();
+			});
 			//ปุ่ม SaveImport
 			$("#btnSaveImport").click(function(){
-				
-				
-				   updateImportFn();
-				
-				  });
-			
+				   insertImportFn();
+			});
 			
 			//ปุ่ม SaveWarBranch
 			$("#btnSaveWarBranch").click(function(){
-				
-				
-				   updateWarBranchFn();
-				
-				  });
+				   insertWarBranchFn();
+			});
 			
 			//ปุ่ม SaveGradeCalDate
 			$("#btnSaveGradeCalDate").click(function(){
-				
-				
-				 updateGradeCalDateFn();
-				
-				  });
+				 insertGradeCalDateFn();
+			});
 			//End Button
 			
 			//Call Function End
+			
+			//กำหนดค่า kpi ต้องเปนตัวเลข
+			$(".kpi_date_m").keydown(function (e) {
+				        // Allow: backspace, delete, tab, escape, enter and .
+					
+				        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				             // Allow: Ctrl+A, Command+A
+				            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+				             // Allow: home, end, left, right, down, up
+				            (e.keyCode >= 35 && e.keyCode <= 40)) {
+				                 // let it happen, don't do anything
+				                 return;
+				        }
+				        // Ensure that it is a number and stop the keypress
+				        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				            e.preventDefault();
+				        }
+				});
+			//กำหนดค่า kpi ไม่เกิด 28
+			$(".kpi_date_m").keyup(function(){
+				if($(this).val()<=28){
+					//return true;
+					//console.log("Y");
+				}else{
+					//return false;
+					$(this).val("");
+					//console.log("N");
+					callFlashSlide("ค่า  KPI ไม่เกิน 28");
+					
+					
+				}
+			});
 });

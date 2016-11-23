@@ -164,6 +164,10 @@ $(".mainMenu").click(function(){
 		page="branch_management.html";
 		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> Branch");
 		$("#naviTitle").show();
+	}else if(this.id=="File"){
+		page="file_management.html";
+		$("#naviLabelMenu").html("<i class=\"fa fa-th-list\"></i> File");
+		$("#naviTitle").show();
 	}
 	
 	

@@ -31,7 +31,6 @@ var embedParam = function(id){
 var embedParamRole = function(id){
 	//alert(id);
 	var count = 0;
-	
 	$.each($(".embed_Role").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
 		if($(indexEnry).val()==id){
@@ -95,7 +94,7 @@ var embedParamRole = function(id){
 			
 			//DataTable
 			 // $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
-			  $('#tableUser').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">' } ); 
+			  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 			
 			
 			//start ปุ่ม Edit ใน table
@@ -275,7 +274,7 @@ $(document).ready(function(){
 		    success:function(data,status){
 		     console.log(data);
 			     if(status=="success"){
-				
+				callFlashSlide("Update Successfully.");
 				//$(".embed_Role").remove();
 
 			     }
@@ -381,14 +380,49 @@ $(document).ready(function(){
 				   
 				  }
 			//function advance search data
-			var advanceSearchFn = function(searchText){
+			var advanceSearchFn = function(){
+				var personnelID=$("#personnelID").val();
+				var ownCostCenter=$("#ownCostCenter").val().split("-");	
+				var ownCostCenterCode=ownCostCenter[0];
+				
+				var revisedCostCenter=$("#revisedCostCenter").val().split("-");	
+				var revisedCostCenterCode=revisedCostCenter[0];
+				
+				var listRole=$("#listRole").val();
+				var isActive=$("#isActive").val();
+				/*
+				"page,
+				rpp,
+				personnel_id,
+				own_cost_center,
+				revised_cost_center,
+				role_id,
+				active_flag"
+				*/
+				/*
+				alert(personnelID);
+				alert(ownCostCenter);
+				alert(revisedCostCenter);
+				alert(listRole);
+				alert(isActive);
+				*/
+				//http://192.168.1.58/dqs_api/public/dqs_user
 				   $.ajax({
-				    url:restfulURL+"/dqs_api/public/dqs_user/?user_name__regex=/^"+searchText+"/i",
+				    url:restfulURL+"/dqs_api/public/dqs_user",
 				    type:"get",
 				    dataType:"json",
+				    headers:{Authorization:"Bearer "+tokenID.token},
+					data:{"personnel_id":personnelID,
+						"own_cost_center":ownCostCenterCode,
+						"revised_cost_center":revisedCostCenterCode,
+						"role_id":listRole,
+						"active_flag":isActive},
 				    success:function(data){
-				
-				    // listDataFn(data);
+					console.log(data['data']);
+						if(data['data']!=""){
+							listDataFn(data['data']);
+						}
+				     //
 				    }
 				   });
 				   
@@ -554,8 +588,8 @@ $(document).ready(function(){
     						
 	    						response($.map(data, function (item) {
 	                                return {
-	                                    label: item.desc_1,
-	                                    value: item.desc_1
+	                                    llabel: item.ccdef+" - "+item.desc_1,
+	                                    value: item.ccdef+" - "+item.desc_1
 	                                }
 	                            }));
     						
@@ -584,8 +618,8 @@ $(document).ready(function(){
     						
 	    						response($.map(data, function (item) {
 	                                return {
-	                                    label: item.desc_1,
-	                                    value: item.desc_1
+	                                    label: item.ccdef+" - "+item.desc_1,
+	                                    value: item.ccdef+" - "+item.desc_1
 	                                }
 	                            }));
     						
@@ -596,6 +630,15 @@ $(document).ready(function(){
             });
 		    
 		  //Auto Complete Own Cost Center end
+			
+			
+			$("#btnAdvanceSearch").click(function(){
+				
+				
+				advanceSearchFn();
+				
+				
+			});
 		    
 		    
 	  

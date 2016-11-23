@@ -34,9 +34,13 @@ $(document).ready(function(){
 						   if($("#menu_name").val()==""){
 						    validateText+="name not empty\n";
 						   }
+						   if($(".menuCategory:checked").val()==undefined){
+							 validateText+="please select category name\n";
+						   }
 						   
 							   if(validateText!=""){
 							    alert(validateText);
+								//callFlashSlide(validateText);
 							    return false;
 							   }else{
 						    return true;
@@ -75,9 +79,9 @@ $(document).ready(function(){
 			
 			   $.ajax({
 				    url:restfulURL+"/dqs_api/public/dqs_menu/"+$("#id").val(),
-				    type:"PUT",
+				    type:"PATCH",
 				    dataType:"json",
-				    data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val()},
+				    data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val(),"menu_category":$(".menuCategory:checked").val()},
 					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data,status){
 				     //alert(data);
@@ -101,6 +105,11 @@ $(document).ready(function(){
 					   $("#btnSubmit").val("Add");
 					   $('#managementModal').modal('hide');
 					   $("#app_url").val("");
+					   
+					   $("#DQManagement").prop('checked', false);
+					   $("#DQMornitoring").prop('checked', false);
+					   $("#report").prop('checked', false);
+						  
 			
 			  }
 			
@@ -114,9 +123,30 @@ $(document).ready(function(){
 					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data){
 				
-				      $("#menu_name").val(data['menu_name']);
-					  $("#app_url").val(data['app_url']);
-				      
+					      $("#menu_name").val(data['menu_name']);
+						  $("#app_url").val(data['app_url']);
+						  console.log(data['menu_category']);
+						  
+						  if(data['menu_category']=="MM"){
+							  
+							  $("#DQManagement").prop('checked', true);
+							  $("#DQMornitoring").prop('checked', false);
+							  $("#report").prop('checked', false);
+							  
+						  }else if(data['menu_category']=="MN"){
+							  
+							  $("#DQManagement").prop('checked', false);
+							  $("#DQMornitoring").prop('checked', true);
+							  $("#report").prop('checked', false);
+							  
+						  }else if(data['menu_category']=="RP"){
+							  
+							  $("#DQManagement").prop('checked', false);
+							  $("#DQMornitoring").prop('checked', false);
+							  $("#report").prop('checked', true);
+							  
+						  }
+						  
 			    		}
 			   		});
 			  	};
@@ -159,7 +189,7 @@ $(document).ready(function(){
 				     $("#listMenu").html(htmlTable);
 				
 				
-				 $('#tableMenu').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+				 $('#tableMenu').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 				 
 				 $("#tableMenu_wrapper").click(function(){
 					 $(".popover-edit-del").popover();
@@ -364,7 +394,7 @@ $(document).ready(function(){
 			  });
 			
 			  $("#cancel").click(function(){
-				   alert("cancel");
+				   
 				   clearFn();
 				   return false;
 			

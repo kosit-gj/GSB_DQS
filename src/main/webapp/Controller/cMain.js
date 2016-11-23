@@ -101,14 +101,14 @@ var listMenuFn = function(){
 	var reportMenuCate="";
 	
 	$.each(tokenID.data.menu,function(index,indexEntry){
-		console.log(indexEntry['menu_id']);
-		//console.log(indexEntry['menu_name']);
+		//console.log(indexEntry['menu_id']);
+		console.log(indexEntry['menu_category']);
 		//console.log(indexEntry['role_active']);//menu_category
-		if(indexEntry['menu_category']==11){
+		if(indexEntry['menu_category']=="MM"){
 			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
-		}else if(indexEntry['menu_category']==22){
+		}else if(indexEntry['menu_category']=="MN"){
 			DQMonitoringMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
-		}else if(indexEntry['menu_category']==33){
+		}else if(indexEntry['menu_category']=="RP"){
 			reportMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\""+indexEntry['app_url']+"\">"+indexEntry['menu_name']+"</a></li>";
 		}
 	});

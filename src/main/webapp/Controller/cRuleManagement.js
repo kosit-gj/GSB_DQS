@@ -1,17 +1,16 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.52:3001";
-	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	
 	var checkUniqueFn = function(text) {
 		/* http://localhost:3000/api/products?name__regex=/^test/i */
 		var unique = false;
 		$.ajax({
-			url : restfulURL +"/api/dqs_rule?rule_name="+text+"",
+			url : restfulURL +"/dqs_api/public/dqs_rule?rule_name="+text+"",
 			type : "get",
 			dataType : "json",
 			async : false,
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				console.log(data);
 				if(data == ""){
@@ -86,7 +85,7 @@ $(document).ready(function(){
 			
 		$.ajax({
 			
-			url:restfulURL+"/api/dqs_rule",
+			url:restfulURL+"/dqs_api/public/dqs_rule",
 			type : "POST",
 			dataType : "json",
 			data : {"rule_name" : $("#rule_name").val(),
@@ -98,6 +97,7 @@ $(document).ready(function(){
 					"inform_flag" : InformBranchRadio,
 					"edit_rule_release_flag" : EditRuleRelease
 			},
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				if (data = "success") {
 					alert("Insert Success");
@@ -157,9 +157,10 @@ $(document).ready(function(){
 		}
 		
 		$.ajax({
-			url:restfulURL+"/api/dqs_rule/"+$("#id").val(),
+			url:restfulURL+"/dqs_api/public/dqs_rule/"+$("#id").val(),
 			type : "PUT",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			data : {"rule_name" : $("#rule_name").val(),
 				"rule_group" : RuleGroup,
 				"data_flow_id" : $("#data_flow_id").val(),
@@ -191,9 +192,10 @@ $(document).ready(function(){
 	var findOneFn = function(id) {
 		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 		$.ajax({
-			url:restfulURL+"/api/dqs_rule/"+ id,
+			url:restfulURL+"/dqs_api/public/dqs_rule/"+ id,
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
 				$("#rule_name").val(data['rule_name']);
@@ -238,23 +240,32 @@ $(document).ready(function(){
 		});
 		
 	};
-	
-	/*var searchFn = function(searchText) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listRuleFn(data);
-			}
-		});
-	}*/
 
-	var searchAdvanceFn = function(searchText,searchDropdown) {
+
+	var searchAdvanceFn = function(paramRuleGroup,paramRuleName,paramInitial,paramUpdate,paramLastContact) {
+		//http://192.168.1.58/dqs_api/public/dqs_rule
+		/*
+		 "page,
+			rpp,
+			rule_group,
+			rule_name,
+			initial_flag,
+			update_flag,
+			last_contact_flag
+			"
+		 */
 		$.ajax({
-			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^TESTTT/i&rule_group__regex=/^2/i",
+			url : restfulURL + "/dqs_api/public/dqs_rule",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
+			data:{
+				"rule_group":paramRuleGroup,
+				"rule_name":paramRuleName,
+				"initial_flag":paramInitial,
+				"update_flag":paramUpdate,
+				"last_contact_flag":paramLastContact
+			},
 			success : function(data) {
 				listRuleFn(data);
 			}
@@ -267,20 +278,20 @@ $(document).ready(function(){
 		       $('#tableRule').DataTable().destroy(); 
 		}
 		
-		console.log(data);
+	/*
+{"rule_id":"1","rule_group":"Mapping","rule_name":"Rule Number 1.1","data_flow_name"
+:"Test Flow","initial_flag":"0","update_flag":"0","last_contact_flag":"0","inform_flag":"0",
+"edit_rule_release_flag"
+:"0"}
+	 */
 		var htmlTable = "";
 		
 		$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
-		//htmlTable += "<td>"+ (index + 1)+ "</td>";
-		if(indexEntry["rule_group"]==1){
-			htmlTable += "<td>Cleansing</td>";
-		}else if(indexEntry["rule_group"]==2){
-			htmlTable += "<td>Matching</td>";
-		}
-		//htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>"; 
+
+		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>"; 
 		htmlTable += "<td>"+ indexEntry["rule_name"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["data_flow_id"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["data_flow_name"]+ "</td>";
 		
 		if(indexEntry["initial_flag"]==1){
 			htmlTable += "<td><input type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
@@ -312,7 +323,7 @@ $(document).ready(function(){
 			htmlTable += "<td><input type='checkbox' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
 		}
 
-		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
+		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["rule_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["rule_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
@@ -336,9 +347,10 @@ $(document).ready(function(){
 			$(".del").on("click",function() {
 			
 				$.ajax({
-					 url:restfulURL+"/api/dqs_rule/"+ this.id,
+					 url:restfulURL+"/dqs_api/public/dqs_rule/"+ this.id,
 					 type : "delete",
 					 dataType:"json",
+					 headers:{Authorization:"Bearer "+tokenID.token},
 				     success:function(data){   
 				    	 
 				       getDataFn();
@@ -366,9 +378,10 @@ $(document).ready(function(){
 		}
 		
 		$.ajax({
-			url : restfulURL + "/api/dqs_rule_group",
+			url : restfulURL + "/dqs_api/public/dqs_rule_group",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
 				$.each(data,function(index,indexEntry){
@@ -387,7 +400,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	dropdownRuleGroup();
+	//dropdownRuleGroup();
 	
 	var dropdownDataFlow = function(id) {
 		//alert("data flow "+id);
@@ -398,6 +411,7 @@ $(document).ready(function(){
 			url : restfulURL + "/api/dqs_data_flow",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
 				$.each(data,function(index,indexEntry){
@@ -416,29 +430,86 @@ $(document).ready(function(){
 			}
 		});
 	}
-	dropdownDataFlow();
+	//dropdownDataFlow();
 	
 	var getDataFn = function() {
 		$.ajax({
-			url : restfulURL + "/api/dqs_rule",
+			url : restfulURL + "/dqs_api/public/dqs_rule",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				listRuleFn(data);
-				//console.log(data);
+				listRuleFn(data['data']);
+				//console.log(data['data']);
 			}
 		});
 	};
 	//Call Function start
 	  getDataFn();
 	 	
-/*	$("#btnSearch").click(function(){
+	/*	
+    $("#btnSearch").click(function(){
 		searchFn($("#searchRule").val());
 		   return false;
 	});*/
+	  
+	  
+	//Auto Complete Rule Name start
+		$("#ruleName").autocomplete({
+          source: function (request, response) {
+        	 
+          	 $.ajax({
+					    url:restfulURL+"/dqs_api/public/dqs_rule/rule_name",
+					    type:"get",
+					    dataType:"json",
+						headers:{Authorization:"Bearer "+tokenID.token},
+						data:{"q":request.term},
+						async:false,
+                      error: function (xhr, textStatus, errorThrown) {
+                          alert('Error: ' + xhr.responseText);
+                      },
+					    success:function(data){
+						
+  						response($.map(data, function (item) {
+                              return {
+                                  label: item.rule_id+"-"+item.rule_name,
+                                  value: item.rule_id+"-"+item.rule_name
+                              }
+                          }));
+						
+					    }
+					   });
+          	
+          }
+      });
+		//Auto Complete Rule Name end
+		
 	
 	$("#btnSearchAdvance").click(function(){
-		searchAdvanceFn($("#searchAdvanceRule").val(),$("#searchDropdownRule").val());
+		var paramInitial="";
+		var paramUpdate="";
+		var paramLastContact="";
+		
+		console.log($("#checkboxInitialSearch").is(":checked"));
+		if($("#checkboxInitialSearch").is(":checked")){
+			paramInitial=1;
+		}else{
+			paramInitial=0;
+		}
+		
+		if($("#checkboxUpdateSearch").is(":checked")){
+			paramUpdate=1;
+		}else{
+			paramUpdate=0;
+		}
+		
+		if($("#checkboxContactSearch").is(":checked")){
+			paramLastContact=1;
+		}else{
+			paramLastContact=0;
+		}
+		
+		searchAdvanceFn($("#ruleGroup").val(),$("#ruleName").val(),paramInitial,paramUpdate,paramLastContact);
 		   return false;
 	});
 	

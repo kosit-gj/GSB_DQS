@@ -1,8 +1,4 @@
-<link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
 <link href="css/rulemanagement.css" rel="stylesheet">
-
-
-
 <div class="row"><!-- start--row -->
 
           <div class="col-lg-12">
@@ -14,14 +10,20 @@
 					<div class="ibox-content"> 
 						<div class="row">
                            <div class="col-sm-3 m-b-xs">
-                            <select class="input form-control" id="searchDropdownRule">
-                            	
-	</select>
-</div>
+                            <select class="input form-control" id="ruleGroup">
+                               <option>  All</option>
+				               <option> Cleansing</option>
+								<option> Mapping</option>
+								<option> Matching</option>
+								<option> Edit</option>
+								<option> KPI</option>
+								
+							</select>
+						</div>
 
-<div class="col-sm-4 m-b-xs">            
-	<input class="form-control" placeholder="Rule Name" type="text" id="searchAdvanceRule" name="searchAdvanceRule">		
-</div>
+					<div class="col-sm-4 m-b-xs">            
+						<input class="form-control" placeholder="Rule Name" type="text" id="ruleName" name="ruleName">		
+					</div>
                         		
                            <div class="col-sm-3" align="right">
                            
@@ -49,9 +51,14 @@
                    		</div>
    		</div><!-- content end -->
  		</div>
- 		<div class="row">
+ 		
+	</div>
+
+</div><!-- end--row -->
+
+<div class="row">
  		<div class="col-lg-12">
-  	<div class="ibox-title">
+  		<div class="ibox-title">
                      <h5>Rule List </h5>
 			</div>
 			
@@ -61,7 +68,7 @@
 				<div class="row">
 					<div class="col-sm-9 m-b-xs">
                         		<button type="button" class="btn btn-info " data-target="#addModalRule" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Rule</button>	                                    	
-                         </div>   
+                    </div>   
 				</div>
 				
 			
@@ -82,212 +89,19 @@
                             </tr>
                             </thead>
                             <tbody id="listRule">
-                            <tr>
-                                <td>Cleansing</td>
-                                <td>ตรวจสอบประเภทลูกค้า</td>
-                                <td>CusTYpe_DF</td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">     
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">   
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                </td>
-                            </tr>
-                              
-                            <!-- ////// -->
-                            <tr>
-                                <td>Cleansing</td>
-                                <td>ตรวจสอบประเภทลูกค้า</td>
-                                <td>CusTYpe_DF</td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">     
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">   
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                </td>
-                                
-                            </tr>
-                            <!-- ////// -->
-                            <tr>
-                                <td>Cleansing</td>
-                                <td>ตรวจสอบประเภทลูกค้า</td>
-                                <td>CusTYpe_DF</td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox" checked="" id="checkbox2">
-                                  <label for="checkbox2">    
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">     
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<!-- check box start -->
-                                	<div class="checkbox checkbox-default">
-                                  <input type="checkbox"  id="checkbox2">
-                                  <label for="checkbox2">   
-                                  </label>
-                              </div>
-                                	<!-- check box end -->
-                                </td>
-                                <td>
-                                	<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRule data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                </td>
-                            </tr>
+                           
                             
                             </tbody>
                             </table>
                             </div>
                             
-                        	<!-- end table //////////////////////////////////////////////////-->
+                        	<!-- end table -->
                         	
-                    	<!-- footer paging start -->
-                    
-                    <!--  <div class="row">
-                          <div class="col-sm-9 m-b-xs">
-
-<div class="btn-group">
-                   <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-                   <button class="btn btn-white active">1</button>
-                   <button class="btn btn-white ">2</button>
-                   <button class="btn btn-white">3</button>
-                   <button class="btn btn-white">4</button>
-                   <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-               </div>
-                          </div>
-                          
-                          <div class="col-sm-2 object-right paging-text">Results per page</div>
-                          <div class="col-sm-1">
-                          
-                          	<select name="account" class="form-control m-b">
-                               <option>10</option>
-                               <option>20</option>
-                               <option>30</option>
-                               <option>40</option>
-                           </select>
-                           
-                              
-                          </div>
-                      </div> -->
-                    <!-- footer paging end -->
+                    	
                     	
 			</div><!-- content end -->
 		</div>
 		</div>
-	</div>
-
-</div><!-- end--row -->
          		
 
 	
@@ -330,7 +144,12 @@
 	                
 	                <div class="form-input-rule">
 	                	<select class="input form-control" id="rule_group_id">
-			                
+			               <option>  All</option>
+			               <option> Cleansing</option>
+							<option> Mapping</option>
+							<option> Matching</option>
+							<option> Edit</option>
+							<option> KPI</option>
 						</select>
 	                </div>
 	                <br style="clear:both">
@@ -339,7 +158,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-rule">
 	                
-	                Dataflow
+	                Data flow
 	                </div>
 	                
 	                <div class="form-input-rule">
@@ -428,5 +247,6 @@
     </div>
 </div>                      
 <!-- Modal End -->
+
 <script src="Controller/cRuleManagement.js"></script> 
-	
+

@@ -861,3 +861,6 @@ hr {
 	
 	display:none;
 }
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
+	display: block;
+}

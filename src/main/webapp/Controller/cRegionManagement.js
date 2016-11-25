@@ -1,54 +1,5 @@
 $(document).ready(
 	function(){
-
-		var restfulURL = "http://192.168.1.57:3001";
-		
-		//function เชค ชื่อซ้ำ
-		 var checkUniqueFn = function(text){
-			   var unique=false; 
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_region?region_name="+text+"",
-					    type:"get",
-					    dataType:"json",
-					    async:false,
-					    success:function(data){
-					     
-					     console.log(data);
-						     if(data==""){
-						      //alert("data empty");
-						      unique=true;
-						     }else{
-						      unique=false;
-						      //alert("full data");
-						     }
-					     
-					    }
-				   });
-			   return unique;
-			  }
-	
-		 var checkUniqueOperFn = function(text){
-			   var unique=false; 
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_branch_operation?operation_name="+text+"",
-					    type:"get",
-					    dataType:"json",
-					    async:false,
-					    success:function(data){
-					     
-					     console.log(data);
-						     if(data==""){
-						      //alert("data empty");
-						      unique=true;
-						     }else{
-						      unique=false;
-						      //alert("full data");
-						     }
-					     
-					    }
-				   });
-			   return unique;
-			  }
 		 
 		 
 		 //function เชคค่าว่าง
@@ -57,14 +8,11 @@ $(document).ready(
 			       if($("#region_code").val()==""){
 				    	validateText+="region code not empty\n";
 				   }
-				   if($("#region_name").val()==""){
-				    	validateText+="region name not empty\n";
-				   }
 					if($("#list_Branch_Oper").val()==""){
 				   		 validateText+="operation not empty\n";
 				   }
 				   if(validateText!=""){
-					    alert(validateText);
+					    callFlashSlide(validateText);
 					    return false;
 				   }else{
 				   		return true;
@@ -81,7 +29,7 @@ $(document).ready(
 				    	validateText+="Cost Center not empty\n";
 				   }
 				   if(validateText!=""){
-					    alert(validateText);
+					    callFlashSlide(validateText);
 					    return false;
 				   }else{
 				   		return true;
@@ -92,23 +40,20 @@ $(document).ready(
 		 //function insert data Region
 		 var insertFn = function(){
 			    $.ajax({
-				     url:restfulURL+"/api/dqs_region",
+				     url:restfulURL+"/dqs_api/public/dqs_region",
 				     type:"POST",
 				     dataType:"json",
+				     headers:{Authorization:"Bearer "+tokenID.token},
 				     data:{ "region_code":$("#region_code").val(),
-							"region_name":$("#region_name").val(),
 							"operation_id":$("#list_Branch_Oper").val()},
 				     success:function(data,status){
-				      //console.log(status);
 					      if(status=="success"){
-					       //alert("Insert Success");
+						   callFlashSlide("insert Successfully.");
 					       getDataFn();
 					       clearFn();
 					      }
 					   }
 			    });         
-			
-			     $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
 			    return false;
 	 		};
 
@@ -116,22 +61,20 @@ $(document).ready(
 		 	//function update data Region
 		    var updateFn = function(){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_region/"+$("#id").val(),
-					    type:"PUT",
+					    url:restfulURL+"/dqs_api/public/dqs_region/"+$("#region_id").val(),
+					    type:"PATCH",
 					    dataType:"json",
+					    headers:{Authorization:"Bearer "+tokenID.token},
 					    data:{ "region_code":$("#region_code").val(),
-							   "region_name":$("#region_name").val(),
 							   "operation_id":$("#list_Branch_Oper").val()},
 					    success:function(data,status){
 						     if(status=="success"){
-						      //alert("Upate Success");
-						      getDataFn();
+						     callFlashSlide("Update Successfully.");
+							 getDataFn();
 						      //clearFn();
 						     }
 						   }
 					   });
-				
-					$(".ManagementModal").fadeTo(1000, 2000).slideUp(500);
 				   return false;
 			 };
 			
@@ -139,31 +82,31 @@ $(document).ready(
 			 
 			var clostModalFn =function(){
 				$('#ManagementModal').modal('hide');
-				$(".alert-success").fadeTo(1000, 2000).slideUp(500);
 			} 
 			
 			
 			 //function clear data
 		    var clearFn =function(){
-			   $("#id").val("");
+			   $("#region_id").val("");
 			   $("#action").val("add");
 			   $("#region_code").val("");
 			   $("#region_name").val("");
-			   $("#list_Branch_Oper").val("");
 			   $("#btnSubmit").val("Add");
 			   $("#btnSaveAnother").val("Add");
+			   dropDownListBranchOper();
 					   
 			}
 			 
 			 //get data to Edit
 			 var findOneFn = function(id){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_region/"+id,
+					    url:restfulURL+"/dqs_api/public/dqs_region/"+id,
 					    type:"get",
 					    dataType:"json",
+					    headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data){
 						  $("#region_code").val(data['region_code']);
-					      $("#region_name").val(data['region_name']);
+					      $("#region_name").val(data['regdesc']);
 						  dropDownListBranchOper(data['operation_id']);
 				    	}
 				   });
@@ -172,7 +115,7 @@ $(document).ready(
 			// function search
 			  var searchFn = function(searchText){
 				   $.ajax({
-				    url:restfulURL+"/api/dqs_region/?region_name__regex=/^"+searchText+"/i",
+				    url:restfulURL+"/dqs_api/public/dqs_region/?region_name__regex=/^"+searchText+"/i",
 				    type:"get",
 				    dataType:"json",
 				    success:function(data){
@@ -193,15 +136,15 @@ $(document).ready(
 						     htmlTable+="<tr >";
 							      htmlTable+="<td>"+(index+1)+"</td>";
 							      htmlTable+="<td>"+indexEntry["region_code"]+"</td>";
-							   	  htmlTable+="<td>"+indexEntry["region_name"]+"</td>";
-								  htmlTable+="<td>"+indexEntry["operation_id"]+"</td>";
-							      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs showBranchOper' data-target=#modalOperation data-toggle='modal' type='button' id="+indexEntry["_id"]+">Operation</button> <button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
+							   	  htmlTable+="<td>"+indexEntry["regdesc"]+"</td>";
+								  htmlTable+="<td>"+indexEntry["operation_name"]+"</td>";
+							      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs showBranchOper' data-target=#modalOperation data-toggle='modal' type='button' id="+indexEntry["region_id"]+">Operation</button> <button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["region_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["region_id"]+">Delete</button>\"></i></td>"
 							 htmlTable+="</tr>";
 					   });
 					   $("#listRegion").html(htmlTable);
 						
 					   //DataTable
-					   $('#tableRegion').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+					   $('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 					
 						//เมื่อ click แล้วให้มันไปผูกกับ popover
 						$("#tableRegion_wrapper").click(function(){
@@ -219,7 +162,7 @@ $(document).ready(
 						$(".edit").on("click",function(){
 							$(".textadd_edit").text("EDIT REGIONAL OFFICE");
 							    findOneFn(this.id);
-							    $("#id").val(this.id);
+							    $("#region_id").val(this.id);
 							    $("#action").val("edit");
 							    $("#btnSubmit").val("Edit");
 							    $("#btnSaveAnother").val("Edit");
@@ -230,33 +173,96 @@ $(document).ready(
 					   	$(".del").on("click",function(){
 					    	if(confirm("Do you want to delete this file?")){
 						    	 $.ajax({
-							      url:restfulURL+"/api/dqs_region/"+this.id,
-							      type:"delete",
+							      url:restfulURL+"/dqs_api/public/dqs_region/"+this.id,
+							      type:"DELETE",
 							      dataType:"json",
-							          //data:{"_id":this.id},
+								  headers:{Authorization:"Bearer "+tokenID.token},
 								      success:function(data){       
 									       getDataFn();
 									       clearFn();
 				     			 }
 				   			  });
 				   		   }
-						
-						$(".showBranchOper").click(function(){
-							getDataBranchOperFn();
-						});
 				  	 });
+					
+					$(".showBranchOper").on("click",function(){
+						getDataBranchOperFn();
+						dropDownListCostCenter();
+					});
 				});
 			}
 			
+			//get data Region
+			  var getDataFn = function(){
+				   $.ajax({
+					    url:restfulURL+"/dqs_api/public/dqs_region",
+					    type:"get",
+					    dataType:"json",
+					    headers:{Authorization:"Bearer "+tokenID.token},
+						    success:function(data){
+						     	listDataFn(data['data']);
+						 }
+				  });
+			};
+			//Call Function start
+			getDataFn();
+			
+			
+			/*//////////////////////// Start BranchOperation /////////////// */
+			
+			var listDataBranchOperFn = function(data){
+				   var htmlTable="";
+				   $.each(data,function(index,indexEntry){
+					     htmlTable+="<tr >";
+						      htmlTable+="<td>"+(index+1)+"</td>";
+						   	  htmlTable+="<td>"+indexEntry["operation_name"]+"</td>";
+							  htmlTable+="<td>"+indexEntry["cost_center"]+"</td>";
+						      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editOper\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editOper' type='button' id="+indexEntry["operation_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteOper' type='button' id="+indexEntry["operation_id"]+">Delete</button>\"></i></td>"
+						 htmlTable+="</tr>";
+				   });
+				   $("#listTableBranchOper").html(htmlTable);
+				
+			       $(".popover-del-editOper").popover();
+				
+				
+				   $('.popover-del-editOper').click(function(){
+						//findOnd
+						$(".editOper").on("click",function(){
+							    findOneOperationFn(this.id);
+							    $("#operation_id").val(this.id);
+							    $("#action").val("edit");
+							    $("#btnSaveOper").val("Edit");
+							});
+					
+					//delete
+				   	$(".deleteOper").click(function(){
+					
+				    if(confirm("Do you want to delete this file?")){
+					     $.ajax({
+						      url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+this.id,
+						      type:"delete",
+						      dataType:"json",
+						      headers:{Authorization:"Bearer "+tokenID.token},
+							      success:function(data){       
+								       getDataBranchOperFn();
+								       clearOperFn();
+					
+					     			 }
+					   			  });
+				   		   	  }
+						});
+				   });
+			};
+			
                var insertBranchOperFn = function(){
 				    $.ajax({
-					     url:restfulURL+"/api/dqs_branch_operation",
+					     url:restfulURL+"/dqs_api/public/dqs_branch_operation",
 					     type:"POST",
 					     dataType:"json",
+					     headers:{Authorization:"Bearer "+tokenID.token},
 					     data:{ "operation_name":$("#operation_name").val(),
-								"cost_center":$("#cost_center").val(),},
+								"cost_center":$("#list_cost_center").val(),},
 					     success:function(data,status){
-					      //console.log(data);
 					      console.log(status);
 						      if(status=="success"){
 						       alert("Insert Success");
@@ -271,11 +277,12 @@ $(document).ready(
 		 		
 	 		 var updateBranchOperFn = function(){
 					   $.ajax({
-						    url:restfulURL+"/api/dqs_branch_operation/"+$("#id").val(),
-						    type:"PUT",
+						    url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+$("#operation_id").val(),
+						    type:"PATCH",
 						    dataType:"json",
+						    headers:{Authorization:"Bearer "+tokenID.token},
 						    data:{ "operation_name":$("#operation_name").val(),
-								   "cost_center":$("#cost_center").val(),},
+								   "cost_center":$("#list_cost_center").val(),},
 						    success:function(data,status){
 							     if(status=="success"){
 								      alert("Upate Success");
@@ -289,12 +296,13 @@ $(document).ready(
 		 		
 		 		var findOneOperationFn = function(id) {
 					$.ajax({
-						url:restfulURL+"/api/dqs_branch_operation/"+ id,
+						url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+ id,
 						type : "get",
 						dataType : "json",
+						headers:{Authorization:"Bearer "+tokenID.token},
 						success : function(data) {
 							$("#operation_name").val(data["operation_name"]);
-							$("#cost_center").val(data["cost_center"]);
+							$("#list_cost_center").val(data["cost_center"]);
 						}
 					});
 				};
@@ -302,66 +310,25 @@ $(document).ready(
 
 				 //function clear data
 				 var clearOperFn =function(){
-					   $("#id").val("");
+					   $("#operation_id").val("");
 					   $("#action").val("add");
 					   $("#operation_name").val("");
-					   $("#cost_center").val("");
 					   $("#btnSaveOper").val("Add");
+						dropDownListCostCenter();
 						   
 				}
 				 
-			    var listDataBranchOperFn = function(data){
-					   var htmlTable="";
-					   $.each(data,function(index,indexEntry){
-						     htmlTable+="<tr >";
-							      htmlTable+="<td>"+(index+1)+"</td>";
-							   	  htmlTable+="<td>"+indexEntry["operation_name"]+"</td>";
-								  htmlTable+="<td>"+indexEntry["cost_center"]+"</td>";
-							      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editOper\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editOper' type='button' id="+indexEntry["_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteOper' type='button' id="+indexEntry["_id"]+">Delete</button>\"></i></td>"
-							 htmlTable+="</tr>";
-					   });
-					   $("#listTableBranchOper").html(htmlTable);
-					
-				       $(".popover-del-editOper").popover();
-					
-					
-					   $('.popover-del-editOper').click(function(){
-							//findOnd
-							$(".editOper").on("click",function(){
-								    findOneOperationFn(this.id);
-								    $("#id").val(this.id);
-								    $("#action").val("edit");
-								    $("#btnSaveOper").val("Edit");
-								});
-						
-						//delete
-					   	$(".deleteOper").click(function(){
-						
-					    if(confirm("Do you want to delete this file?")){
-						     $.ajax({
-							      url:restfulURL+"/api/dqs_branch_operation/"+this.id,
-							      type:"delete",
-							      dataType:"json",
-							          //data:{"_id":this.id},
-								      success:function(data){       
-									       getDataBranchOperFn();
-									       clearOperFn();
-						
-						     			 }
-						   			  });
-					   		   	  }
-							});
-				});
-					
-			};
+			    
 			
 			var getDataBranchOperFn = function(){
 				   $.ajax({
-					    url:restfulURL+"/api/dqs_branch_operation",
+					    url:restfulURL+"/dqs_api/public/dqs_branch_operation",
 					    type:"get",
 					    dataType:"json",
+					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 						    	 listDataBranchOperFn(data);
+						        
 						 }
 				  });
 			};
@@ -371,16 +338,18 @@ $(document).ready(
 			//DropDownList	Branch Operation
 			var dropDownListBranchOper = function(operation_id){
 				$.ajax ({
-					url:restfulURL+"/api/dqs_branch_operation" ,
+					url:restfulURL+"/dqs_api/public/dqs_branch_operation" ,
 					type:"get" ,
 					dataType:"json" ,
+					headers:{Authorization:"Bearer "+tokenID.token},
 						success:function(data){
+							
 							var htmlTable="";
 							$.each(data,function(index,indexEntry){
-								if(indexEntry["_id"] == operation_id){
-									htmlTable+="<option selected=\"selected\" value="+indexEntry["_id"]+">"+indexEntry["operation_name"]+"</option>";		
+								if(indexEntry["operation_id"] == operation_id){
+									htmlTable+="<option selected=\"selected\" value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
 								}else{
-									htmlTable+="<option value="+indexEntry["_id"]+">"+indexEntry["operation_name"]+"</option>";		
+									htmlTable+="<option value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
 								}
 							});	
 							$("#list_Branch_Oper").html(htmlTable);
@@ -388,47 +357,50 @@ $(document).ready(
 				});
 			};
 			
-			//get data Region
-			  var getDataFn = function(){
-				   $.ajax({
-					    url:restfulURL+"/api/dqs_region",
-					    type:"get",
-					    dataType:"json",
-						    success:function(data){
-						     	listDataFn(data);
-						 }
-				  });
+			var dropDownListCostCenter = function(ccdef){
+				$.ajax ({
+					url:restfulURL+"/dqs_api/public/dqs_branch" ,
+					type:"get" ,
+					dataType:"json" ,
+					headers:{Authorization:"Bearer "+tokenID.token},
+						success:function(data){
+							console.log(data)
+							var htmlTable="";
+							$.each(data['data'],function(index,indexEntry){
+								if(indexEntry["ccdef"] == ccdef){
+									htmlTable+="<option selected=\"selected\" value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";		
+								}else{
+									htmlTable+="<option value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";		
+								}
+							});	
+							$("#list_cost_center").html(htmlTable);
+						}
+				});
 			};
-			//Call Function start
-			getDataFn();
-
+			
+			/*//////////////////////////// End BranchOperation ///////////////////// */
+			
+			
+			
 				// ปุ่ม save 
-		  		$("#btnSubmit").click(function(){
-				   if(validationFn()==true){
-					    if($("#action").val()=="add" || $("#action").val()=="" ){
-						     if(checkUniqueFn($("#region_name").val())==true){
-						      	insertFn();
-								clostModalFn();
-						     }else{
-						      	alert("Name is aleady please fill name other. ");
-						     }
-					    }else{
-					     	updateFn();
-					        clostModalFn();
-					    }
-				   }
-			   		return false;
-			  });
+	  		$("#btnSubmit").click(function(){
+			   if(validationFn()==true){
+				    if($("#action").val()=="add" || $("#action").val()=="" ){
+					      	insertFn();
+							clostModalFn();
+				    }else{
+				     	updateFn();
+				        clostModalFn();
+				    }
+			   }
+		   		return false;
+		  });
 		
 		 // ปุ่ม SaveAnother 
 		 	  $("#btnSaveAnother").click(function(){
 			   		if(validationFn()==true){
 					    if($("#action").val()=="add" || $("#action").val()=="" ){
-						     if(checkUniqueFn($("#region_name").val())==true){
-						      	insertFn();
-						     }else{
-						      	alert("Name is aleady please fill name other. ");
-						     }
+						     insertFn();
 					    }else{
 					     	updateFn();
 					    }
@@ -440,17 +412,12 @@ $(document).ready(
 			   $("#btnAdd").click(function(){
 					 clearFn();
 					 $(".textadd_edit").text("ADD REGIONAL OFFICE");
-					 dropDownListBranchOper();
 			  });
 				
 			   $("#btnSaveOper").click(function(){
 				   if(validationOperFn()==true){
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
-							     if(checkUniqueOperFn($("#operation_name").val())==true){
-							      	insertBranchOperFn();
-							     }else{
-							      	alert("Name is aleady please fill name other. ");
-							     }
+							    insertBranchOperFn();
 						    }else{
 						     	updateBranchOperFn();
 						    }
@@ -474,6 +441,24 @@ $(document).ready(
 				   clearFn();
 				   return false;
 			  });
+			
+			$("#region_code").keyup(function(){
+				$.ajax ({
+					url:restfulURL+"/dqs_api/public/dqs_branch/region/getRegionName",
+					type:"POST" ,
+					dataType:"json" ,
+					async:false,
+					headers:{Authorization:"Bearer "+tokenID.token},
+					data:{"region_code":$(this).val()},
+					
+						success:function(data){
+							
+							console.log(data['regdesc']);
+							$("#region_name").val(data['regdesc']);
+							
+						}
+				});
+			});
 	  
 	  //Call Function End
 });

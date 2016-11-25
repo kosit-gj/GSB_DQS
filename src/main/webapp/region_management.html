@@ -29,10 +29,10 @@
                                     
                                     </div>
                                     
-                                    <div class="col-sm-4">
+                                    <!-- <div class="col-sm-4">
 	                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
                                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
-                                     </div>
+                                     </div> -->
                              </div>
                              <!-- 
                                 <div class="row">
@@ -178,13 +178,7 @@
 	                
 	                	<select class="form-control" id="list_Branch_Oper">
 	                		<option value="0" selected>- Branch Operation Name -</option>
-	                		<!-- <option value="1">Branch Operation 1</option>
-	                		<option value="2">Branch Operation 2</option>
-	                		<option value="3">Branch Operation 3</option>
-	                		<option value="4">Branch Operation 4</option>
-	                		<option value="5">Branch Operation 5</option>
-	                		<option value="6">Branch Operation 6</option>
-	                		<option value="7">Branch Operation 7</option> -->
+	                		
 	                	</select>
 	                	
 	                </div>
@@ -195,7 +189,7 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-                <input type="hidden" name="id" id="id" value="">
+                <input type="hidden" name="region_id" id="region_id" value="">
  				<input type="hidden" name="action" id="action" value="add">
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
                 <button class="btn btn-primary" type="button" name="btnSaveAnother" id="btnSaveAnother">Save & Add Another</button>
@@ -240,12 +234,8 @@
 	                </div>
 	                
 	                <div class="form-Operation-input">
-	                	<select class="form-control" id="cost_center">
-	                		<option value="Contact 1">Contact 1</option>
-	                		<option value="Contact 2">Contact 2</option>
-	                		<option value="Contact 3">Contact 3</option>
-	                		<option value="Contact 4">Contact 4</option>
-	                		<option value="Contact 5">Contact 5</option>
+	                	<select class="form-control" id="list_cost_center">
+	                		
 	                	</select>
 	                </div>
 	                
@@ -255,7 +245,7 @@
                 <br>
                 
                 <div >
-                	<input type="hidden" name="id" id="id" value="">
+                	<input type="hidden" name="operation_id" id="operation_id" value="">
    					<input type="hidden" name="action" id="action" value="add">
    					
                 	<button class="btn btn-white" type="button" id="btnCancelOper">Cancel</button>

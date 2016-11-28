@@ -1,92 +1,7 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> -->
-<!DOCTYPE html>
-<html>
-
-<head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Citizen</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/plugins/iCheck/custom.css">
-    <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    
-    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-    <link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-    <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-    
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/gsbMain.css" rel="stylesheet">
     <link href="css/citizen.css" rel="stylesheet">
     
-    <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
-    
-	
-</head>
-
-	
-<body class="top-navigation">
-	<div id="wrapper">
-		<div id="page-wrapper" class="gray-bg">
-		
-        <div class="row border-bottom pink-bg" >
-        <nav class="navbar navbar-static-top" role="navigation"><!-- nav header start -->
-        <div class="container"><!-- container start -->  
-            <div class="navbar-header gsb-logo" >
-                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                    <i class="fa fa-reorder"></i>
-                </button>
-                <!-- <i class="fa fa-cc-mastercard icon-logo"></i> -->
-                <img class="grayscale" src="img/small-logo3.png">
-               <!--  <a href="#" class="  navbar-brand"></a>  --> 
-            </div>
-            <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                <!-- 
-                    <li class="active">
-                        <a aria-expanded="false" role="button" href="layouts.html"> Back to main Layout page</a>
-                    </li>
-                   -->
-
-                </ul>
-                <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                    <button type="button" class="btn btn-pink btn-circle "><i class="fa fa-user font-user"></i>
-                            </button> <span class='fullName'>Apiwat Tongsukmak </span>
-                       
-                    </li>
-                </ul>
-            </div>
-            
-            </div> <!-- container end -->  
-			
-         </nav><!-- nav header end --> 
-         </div>
-         
-          <div class="wrapper wrapper-content">
-            <div class="container"><!-- container start -->  
-         
-         		<div class="row wrapper border-bottom  page-heading">
-				    <div class="col-lg-12">
-				        <h2><i class="fa fa fa-pencil-square-o icon-title"></i>ข้อมูลทะเบียนราฏษร์</h2>
-				        <ol class="breadcrumb">
-				            <li>
-				                <a href="#">Home</a>
-				            </li>
-				            <li>
-				               System Management
-				            </li>
-				             <li class="active">
-				                <strong>ข้อมูลทะเบียนราฏษร์</strong>
-				            </li>
-				        </ol>
-				    </div>
-				</div>
 				<div class="row"><!-- start--row -->
 
                     <div class="col-lg-12">
@@ -123,10 +38,14 @@
                              		</div>
 				         		</div><!-- content end -->
 				         		</div>
-				         		<div class="row">
+				         		
+         				</div>
+	
+         			</div><!-- end--row -->
+         			<div class="row">
 				         		<div class="col-lg-12">
 					         	<div class="ibox-title">
-	                                <h5>Rule List </h5>
+	                                <h5>Citizen List </h5>
 	         					</div>
 	         					
 	         					
@@ -138,36 +57,11 @@
                                      	</div>
                                     
                                      	
-                                     	<br><br>
+                                     	
          							</div>
          							
-         							<!-- <div class="row">
-                                    	<div class="col-sm-9 m-b-xs">
-
-											<div class="btn-group">
-						                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-						                        <button class="btn btn-white active">1</button>
-						                        <button class="btn btn-white">2</button>
-						                        <button class="btn btn-white">3</button>
-						                        <button class="btn btn-white">4</button>
-						                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-						                    </div>
-                   
-                                    	</div>
-                                    
-	                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-	                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control m-b">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select> 
-                                        
-                                    	</div>
-                                    	</div> --> <!-- end row -->
-                                    	<!-- start table ////////////////////////////////////////////////-->
+         							
+                                    	<!-- start table -->
                                     	<div class="table-responsive">
                                    		<table class="table table-striped" id="tableCitizen">
                                         <thead>
@@ -188,60 +82,11 @@
                                         </table>
                                         </div>
                                         
-                                    	<!-- end table //////////////////////////////////////////////////-->
-                                    	
-                                	<!-- footer paging start -->
-                                
-                                <!--  <div class="row">
-                                    <div class="col-sm-9 m-b-xs">
- 
-										<div class="btn-group">
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white active">1</button>
-					                        <button class="btn btn-white ">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control m-b">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-	                                    
-                                        
-                                    </div>
-                                </div> -->
-                                <!-- footer paging end -->
-                                	
+                                    	<!-- end table -->
          						</div><!-- content end -->
          					</div>
          					</div>
-         				</div>
-	
-         			</div><!-- end--row -->
-         		</div>	<!-- container end -->
-         			
-         	</div> 
-         	<br>
-         	<div class="footer">
-				<div class="pull-right">
-					11GB of <strong>250GB</strong> Free.
-				</div>
-				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
-				</div>
-			</div>
-			
-		</div>  
-	</div><!-- sum content -->
-	
+         		
 	
 	
 	
@@ -577,28 +422,7 @@
 <!-- Modal End Edit -->
 
 	
-	 
- <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    
+<!--     
+<script src="Controller/cCitizen.js"></script> 
+ -->
 
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-    <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
-    
-    
-     <!-- table data start -->
-    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
-    <!-- table data end -->
-    
-    <script src="Controller/cCitizen.js"></script> 
-
-    
-    
-
-</body>

@@ -32,7 +32,7 @@ $(document).ready(function(){
 				localStorage.setItem("tokenID",data);
 				
 				//console.log(eval("("+localStorage.getItem("tokenID")+")"));
-				window.location.href = "http://localhost:8080/GSB_DQS/index.html"; 
+				window.location.href = "./"; 
 			}
 		})
 		

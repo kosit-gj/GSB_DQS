@@ -150,7 +150,7 @@ $(document).ready(function(){
 						   	  htmlTable+="<td id=\"gradename-"+indexEntry["grade_id"]+"\">"+indexEntry["grade_name"]+"</td>";
 							 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["processing_seq"]+"></td>";
 						      //htmlTable+="<td><i class=\"fa fa-search font-management showCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
-						      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs btnCondition' data-target=#conditionModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#managementModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["grade_id"]+">Delete</button>\"></i></td>"
+						      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs  btnCondition' data-target=#conditionModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#managementModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["grade_id"]+">Delete</button>\"></i></td>"
 							  htmlTable+="</tr>";
 						   });
 						
@@ -207,7 +207,6 @@ $(document).ready(function(){
 						$(".btnCondition").click(function(){
 							
 							 $("#embed_grade_id").val(this.id);
-							 
 							 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
 							 
 							getDataConditionFn();

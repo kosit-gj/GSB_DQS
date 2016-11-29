@@ -102,14 +102,17 @@ var listMenuFn = function(){
 	
 	$.each(tokenID.data.menu,function(index,indexEntry){
 		//console.log(indexEntry['menu_id']);
+		var URLNotExtension=indexEntry['app_url'].split(".");
+		URLNotExtension=URLNotExtension[0];
+		
 		console.log(indexEntry['menu_category']);
 		//console.log(indexEntry['role_active']);//menu_category
 		if(indexEntry['menu_category']=="MM"){
-			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
+			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#/pages/"+URLNotExtension+"\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}else if(indexEntry['menu_category']=="MN"){
-			DQMonitoringMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
+			DQMonitoringMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#/pages/"+URLNotExtension+"\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}else if(indexEntry['menu_category']=="RP"){
-			reportMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
+			reportMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#/pages/"+URLNotExtension+"\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";
 		}
 	});
 	$("#DQManagementMenuCate").html(DQManagementMenuCate);
@@ -151,26 +154,64 @@ var includeFileFn = function(paramUrl){
 	});
 }
 
-$(".mainMenu").click(function(){
+//$(".mainMenu").click(function(){
+//
+//	$("#naviTitle").hide();
+//	$("#includePage").empty();
+//	var page=$(".app_url",this).text();
+//	var menuName=$(".menu_name",this).text();
+//	//alert(page.trim());
+//	if(page.trim()=="#"){
+//		//return false;
+//	}else{
+//		includeFileFn(page);
+//	}
+//	$("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
+//	$("#naviTitle").show();
+//	
+//	
+//	
+//	
+//});
 
-	$("#naviTitle").hide();
-	$("#includePage").empty();
-	var page=$(".app_url",this).text();
-	var menuName=$(".menu_name",this).text();
-	//alert(page.trim());
-	if(page.trim()=="#"){
-		//return false;
-	}else{
-		includeFileFn(page);
-	}
-	$("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
-	$("#naviTitle").show();
+$(".mainMenu").click(function(){
+	var url=$(".menu_name",this).text();
+	var link=$(".app_url",this).text();
 	
-	
-	
-	
+//routeTest(url,link);
+});
+var app = angular.module("myApp", ["ngRoute"]);
+
+
+
+app.config(function($routeProvider) {
+	$routeProvider
+	.when("/", {
+        templateUrl : "home.html"
+    })
+    .when("/pages/:url", {
+        templateUrl : "home.html",
+        controller:"pageController"
+    	
+    })
+    
+    .otherwise({
+    	templateUrl : "home.html"
+    });
 });
 
+app.controller("pageController",function($scope, $route, $routeParams){
+
+	$route.current.templateUrl = './' + $routeParams.url + ".html";
+	
+	  $.get($route.current.templateUrl, function (data) {
+	      // console.log(data);
+	       $("#includePage").html(data);
+	      // $("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
+	   	   $("#naviTitle").show();
+	    });
+
+});
 
 
 

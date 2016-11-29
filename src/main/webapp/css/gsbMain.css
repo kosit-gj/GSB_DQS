@@ -299,6 +299,9 @@ body {
     border-color: #EC068D;
     color: #ffffff;
 }
+.btn{
+	padding: 4px 10px;
+}
 .top-navigation .nav > li.active > a {
     color: #EC068D;
 }
@@ -864,3 +867,13 @@ hr {
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
 	display: block;
 }
+.form-control, .single-line{
+	padding: 1px 3px;
+}
+.popover-content {
+    padding: 5px;
+}
+.popover-content .btn {
+    margin-bottom: 0px;
+}
+

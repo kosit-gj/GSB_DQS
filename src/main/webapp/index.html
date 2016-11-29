@@ -32,7 +32,9 @@
 
 </head>
 
-<body class="top-navigation" id="mainContent" style='display:none'>
+<body class="top-navigation" id="mainContent" style="display:none;" ng-app="myApp">
+
+
 
     <div id="wrapper">
         <div id="page-wrapper" class="gray-bg">
@@ -54,10 +56,10 @@
                 <ul class="nav navbar-nav">
                 
                     <li class="active">
-                        <a aria-expanded="false" role="button" href="index.html"><i class="fa fa-home"></i>Home</a>
+                        <a aria-expanded="false" role="button" href="#/"><i class="fa fa-home"></i>Home</a>
                     </li>
                     <li class="dropdown">
-	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>DQ Management<span class="caret"></span></a>
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>DQ Management<span class="caret"></span></a>
 	                        <ul role="menu" class="dropdown-menu" id="DQManagementMenuCate">
 	                        	
 	                            <li><a class="mainMenu" id="User" href="#">1) User</a></li>
@@ -77,7 +79,7 @@
 	                    </li>
 	                    
 	                   <li class="dropdown">
-	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-dashboard"></i>DQ Monitoring <span class="caret"></span></a>
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-dashboard"></i>DQ Monitoring <span class="caret"></span></a>
 	                        <ul role="menu" class="dropdown-menu" id="DQMonitoringMenuCate">
                         		
 								
@@ -97,7 +99,7 @@
 	                    </li>
 	                    
 	                    <li class="dropdown">
-	                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i>Report <span class="caret"></span></a>
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i>Report <span class="caret"></span></a>
 	                        <ul role="menu" class="dropdown-menu" id="reportMenuCate">
                         		
 								
@@ -152,44 +154,26 @@
         </nav>
         </div>
         <div class="wrapper wrapper-content">
+        
+       		
        
-            <div class="container">
-            
-       
-               
+           <!--  <div class="container ng-view" id="includePage"> -->
+             <div class="container">
+             
+
+			<!-- 	<div class="ng-view"></div> -->
 				
 
+				<!--  nav bar -->
 				
-				<div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
-				    <div class="col-lg-12">
-				     <div id="slide_status">
-						flash.
-					</div>
-				        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
-				        <ol class="breadcrumb">
-				            <li>
-				                <a href="index.html"><i class="fa fa-home "></i> Home</a>
-				            </li>
-				            <li>
-				            <!-- <div id="naviLabelCateMenu"> </div>-->
-				            <i class="fa fa-gears"></i> System Management
-				            </li>
-				            <li class="active">
-				            <!-- <div id="naviLabelMenu"></div> -->
-				             <strong id="naviLabelMenu"><i class="fa fa-user"></i> User </strong>
-				            </li>
-				        </ol>
-				    </div>
-				   
-				</div>
+				<!-- nav bar -->
+				
 				 
 	
 				
-				<div id="includePage">
+				<div id="includePage"  class="ng-view"></div>
 				
-				</div>
-				
-				
+				<!-- <div class="container ng-view" id="includePage"></div> -->
 				<!-- 
                 <button id="calData">Call Data</button>
                 <button id="logOut2">Logout</button>
@@ -200,10 +184,10 @@
         </div>
         <div class="footer">
             <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
+                GSB <strong> DQS</strong>(Data Quality System)
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2015
+                <strong>Copyright</strong> GSB Company &copy; 2014-2015
             </div>
         </div>
 
@@ -228,8 +212,8 @@
     <!-- table data end -->
     
     <!-- load angular fame work start-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/angular-route.js"></script>
     <!-- load angular fame work end -->
     
     
@@ -237,6 +221,30 @@
     
     <script src="Controller/cMain.js"></script>
     <script src="Controller/cIndex.js"></script>
+    
+    
+    <script>
+    /*
+    var app = angular.module("myApp", ["ngRoute"]);
+    app.config(function($routeProvider) {
+    	$routeProvider
+    	.when("/", {
+            templateUrl : "main.htm"
+        })
+        .when("/red", {
+            templateUrl : "red.htm"
+        })
+        .when("/green", {
+            templateUrl : "green.htm"
+        })
+        .when("/blue", {
+            templateUrl : "blue.htm"
+        })
+        .otherwise({
+            template : "index.html"
+        });
+    });*/
+    </script>
 
 
 </body>

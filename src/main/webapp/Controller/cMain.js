@@ -203,15 +203,26 @@ app.config(function($routeProvider) {
 app.controller("pageController",function($scope, $route, $routeParams){
 
 	$route.current.templateUrl = './' + $routeParams.url + ".html";
-	
-	  $.get($route.current.templateUrl, function (data) {
+	//$route.current.controller = $routeParams.url;
+	  $.get($route.current.templateUrl, function (data){
 	      // console.log(data);
 	       $("#includePage").html(data);
 	      // $("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
 	   	   $("#naviTitle").show();
 	    });
-
 });
+/*
+app.controller('myCtrl2', function($scope) {
+    $scope.firstname = "John11";
+    $scope.lastname = "Doe";   
+    console.log($scope.lastname);
+});
+*/
+
+
+
+
+
 
 
 

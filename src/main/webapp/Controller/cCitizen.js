@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var restfulURL = "http://192.168.1.57:3001"; 
+	//var restfulURL = "http://192.168.1.57:3001"; 
 	//var restfulURL = "http://goingjesse.hopto.org:3001";
 	
 	//CIF ID
@@ -40,181 +40,129 @@ $(document).ready(function(){
 	}*/
 	var insertFn = function() {
 		
-		var sex = ""
+		var sex = "";
 			if($("#sex_citizen_men:checked").val()){
 				sex = 1;
 			}else if($("#sex_citizen_women:checked").val()){
 				sex = 0;
 			}
+		var nation_citizen="";
 		
-		var month_citizen = ""
-			if($("#month_citizen").val()=="มกราคม"){
-				month_citizen = "01";
-			}else if($("#month_citizen").val()=="กุมภาพันธ์"){
-				month_citizen = "02";
-			}else if($("#month_citizen").val()=="มีนาคม"){
-				month_citizen = "03";
-			}else if($("#month_citizen").val()=="เมษายน"){
-				month_citizen = "04";
-			}else if($("#month_citizen").val()=="พฤษภาคม"){
-				month_citizen = "05";
-			}else if($("#month_citizen").val()=="มิถุนายน"){
-				month_citizen = "06";
-			}else if($("#month_citizen").val()=="กรกฎาคม"){
-				month_citizen = "07";
-			}else if($("#month_citizen").val()=="สิงหาคม"){
-				month_citizen = "08";
-			}else if($("#month_citizen").val()=="กันยายน"){
-				month_citizen = "09";
-			}else if($("#month_citizen").val()=="ตุลาคม"){
-				month_citizen = "10";
-			}else if($("#month_citizen").val()=="พฤศจิกายน"){
-				month_citizen = "11";
-			}else if($("#month_citizen").val()=="ธันวาคม"){
-				month_citizen = "12";
+			if($("#nation_citizen_thai:checked").val()){
+				nation_citizen="1";
+			}else{
+				nation_citizen="0";
 			}
-		
-		var day_citizen = ""
-			if($("#day_citizen").val()==1){
-				day_citizen = "01";
-			}else if($("#day_citizen").val()==2){
-				day_citizen = "02";
-			}else if($("#day_citizen").val()==3){
-				day_citizen = "03";
-			}else if($("#day_citizen").val()==4){
-				day_citizen = "04";
-			}else if($("#day_citizen").val()==5){
-				day_citizen = "05";
-			}else if($("#day_citizen").val()==6){
-				day_citizen = "06";
-			}else if($("#day_citizen").val()==7){
-				day_citizen = "07";
-			}else if($("#day_citizen").val()==8){
-				day_citizen = "08";
-			}else if($("#day_citizen").val()==9){
-				day_citizen = "09";
-			}else if($("#day_citizen").val()>=10){
-				day_citizen = $("#day_citizen").val();
-			}
-		
-		var ndob = day_citizen+""+month_citizen+""+$("#year_citizen").val();
-		
+			/*
+			ref_no,
+			pid,
+			ntitle,
+			fname,
+			lname,
+			dob,
+			sex,
+			hno,
+			moo,
+			trok,
+			soi,
+			thanon,
+			thumbol,
+			amphur,
+			province,
+			flag,
+			flag_1,
+			manual_add_flag,
+			thai_flag
+			
+			
+			
+			
+			*/
 		$.ajax({
-			url:restfulURL+"/api/dqs_citizen_import/",
+			url:restfulURL+"/dqs_api/public/dqs_citizen_import",
 			type : "POST",
 			dataType : "json",
-			data : {"pid" : $("#cifno_citizen").val(),
-				"nfname" : $("#nfname_citizen").val(),
-				"nlname" : $("#nlname_citizen").val(),
-				"ntitle" : $("#ntitle_citizen").val(),
-				"ndob": ndob,
-				"sex" :  sex,
-				"hno" : $("#hno_citizen").val(),
-				"moo" : $("#moo_citizen").val(),
-				"trok" : $("#trok_citizen").val(),
-				"soi" : $("#soi_citizen").val(),
-				"thanon" : $("#thanon_citizen").val(),
-				"thumbol" : $("#thumbol_citizen").val(),
-				"amphur" : $("#amphur_citizen").val(),
-				"province" : $("#province_citizen").val(),
-				"flag1" : $("#flag1_citizen").val(),
-				"flag2" : $("#flag2_citizen").val(),
+			data : {
+				
+				"ref_no":$("#cifno_citizen").val(),
+				"pid":$("#id_citizen").val(),
+				"ntitle":$("#ntitle_citizen").val(),
+				"fname":$("#nfname_citizen").val(),
+				"lname":$("#nlname_citizen").val(),
+				"dob":$("#dob_citizen").val(),
+				"sex":sex,
+				"hno":$("#hno_citizen").val(),
+				"moo":$("#moo_citizen").val(),
+				"trok":$("#trok_citizen").val(),
+				"soi":$("#soi_citizen").val(),
+				"thanon":$("#thanon_citizen").val(),
+				"thumbol":$("#thumbol_citizen").val(),
+				"amphur":$("#amphur_citizen").val(),
+				"province":$("#province_citizen").val(),
+				"flag":$("#flag1_citizen").val(),
+				"flag_1":$("#flag2_citizen").val(),
+				"manual_add_flag":$("#manual_add_flag").val(),
+				"thai_flag":nation_citizen
 				
 			},	
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				if (data = "success") {
+				if (data['status'] == "200") {
 					alert("Insert Success");
 					getDataFn();
 					clearFn();
 					$('#ModalCitizen').modal('hide');
 				}
+				else{
+					return false;
+				}
 			}
 		});
 		
-	}
+	};
 	
 	var updateFn = function() {
 		
-		var sex = ""
-			
+		var sex = "";
+		var nation_citizen="";
+		
 		if($("#sex_citizen_men:checked").val()){
 			sex = 1;
 		}else if($("#sex_citizen_women:checked").val()){
 			sex = 0;
 		}
 		
-		var month_citizen = ""
-			if($("#month_citizen").val()=="มกราคม"){
-				month_citizen = "01";
-			}else if($("#month_citizen").val()=="กุมภาพันธ์"){
-				month_citizen = "02";
-			}else if($("#month_citizen").val()=="มีนาคม"){
-				month_citizen = "03";
-			}else if($("#month_citizen").val()=="เมษายน"){
-				month_citizen = "04";
-			}else if($("#month_citizen").val()=="พฤษภาคม"){
-				month_citizen = "05";
-			}else if($("#month_citizen").val()=="มิถุนายน"){
-				month_citizen = "06";
-			}else if($("#month_citizen").val()=="กรกฎาคม"){
-				month_citizen = "07";
-			}else if($("#month_citizen").val()=="สิงหาคม"){
-				month_citizen = "08";
-			}else if($("#month_citizen").val()=="กันยายน"){
-				month_citizen = "09";
-			}else if($("#month_citizen").val()=="ตุลาคม"){
-				month_citizen = "10";
-			}else if($("#month_citizen").val()=="พฤศจิกายน"){
-				month_citizen = "11";
-			}else if($("#month_citizen").val()=="ธันวาคม"){
-				month_citizen = "12";
-			}
 		
-		var day_citizen = ""
-			if($("#day_citizen").val()==1){
-				day_citizen = "01";
-			}else if($("#day_citizen").val()==2){
-				day_citizen = "02";
-			}else if($("#day_citizen").val()==3){
-				day_citizen = "03";
-			}else if($("#day_citizen").val()==4){
-				day_citizen = "04";
-			}else if($("#day_citizen").val()==5){
-				day_citizen = "05";
-			}else if($("#day_citizen").val()==6){
-				day_citizen = "06";
-			}else if($("#day_citizen").val()==7){
-				day_citizen = "07";
-			}else if($("#day_citizen").val()==8){
-				day_citizen = "08";
-			}else if($("#day_citizen").val()==9){
-				day_citizen = "09";
-			}else if($("#day_citizen").val()>=10){
-				day_citizen = $("#day_citizen").val();
-			}
-		
-		var ndob = day_citizen+""+month_citizen+""+$("#year_citizen").val();
-			
+		if($("#nation_citizen_thai:checked").val()){
+			nation_citizen="1";
+		}else{
+			nation_citizen="0";
+		}
 		$.ajax({
-			url:restfulURL+"/api/dqs_citizen_import/"+$("#id").val(),
-			type : "PUT",
+			url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+$("#id").val(),
+			type : "PATCH",
 			dataType : "json",
-			data : {"pid" : $("#cifno_citizen").val(),
-				"nfname" : $("#nfname_citizen").val(),
-				"nlname" : $("#nlname_citizen").val(),
-				"ntitle" : $("#ntitle_citizen").val(),
-				"sex" : sex ,
-				"ndob": ndob,
-				"hno" : $("#hno_citizen").val(),
-				"moo" : $("#moo_citizen").val(),
-				"trok" : $("#trok_citizen").val(),
-				"soi" : $("#soi_citizen").val(),
-				"thanon" : $("#thanon_citizen").val(),
-				"thumbol" : $("#thumbol_citizen").val(),
-				"amphur" : $("#amphur_citizen").val(),
-				"province" : $("#province_citizen").val(),
-				"flag1" : $("#flag1_citizen").val(),
-				"flag2" : $("#flag2_citizen").val(),
+			headers:{Authorization:"Bearer "+tokenID.token},
+			data : {
+				"ref_no":$("#cifno_citizen").val(),
+				"pid":$("#id_citizen").val(),
+				"ntitle":$("#ntitle_citizen").val(),
+				"fname":$("#nfname_citizen").val(),
+				"lname":$("#nlname_citizen").val(),
+				"dob":$("#dob_citizen").val(),
+				"sex":sex,
+				"hno":$("#hno_citizen").val(),
+				"moo":$("#moo_citizen").val(),
+				"trok":$("#trok_citizen").val(),
+				"soi":$("#soi_citizen").val(),
+				"thanon":$("#thanon_citizen").val(),
+				"thumbol":$("#thumbol_citizen").val(),
+				"amphur":$("#amphur_citizen").val(),
+				"province":$("#province_citizen").val(),
+				"flag":$("#flag1_citizen").val(),
+				"flag_1":$("#flag2_citizen").val(),
+				"manual_add_flag":$("#manual_add_flag").val(),
+				"thai_flag":nation_citizen
 				
 			},	
 			success : function(data) {
@@ -230,7 +178,7 @@ $(document).ready(function(){
 	};
 	
 	var clearFn = function() {
-		$("#id").val("");
+		$("#id_citizen").val("");
 		$("#action").val("add");
 		//$("#rule_name").val("");
 		$("#btnSubmit").val("Add");
@@ -239,19 +187,19 @@ $(document).ready(function(){
 		$("#nfname_citizen").val(""),
 		$("#nlname_citizen").val(""),
 		$("#ntitle_citizen").val(""),
-		dropdownDobYear();
-		dropdownDobMouth();
-		dropdownDobDay();
-		$("#hno_citizen").val(""),
-		$("#moo_citizen").val(""),
-		$("#trok_citizen").val(""),
-		$("#soi_citizen").val(""),
-		$("#thanon_citizen").val(""),
-		$("#thumbol_citizen").val(""),
-		$("#amphur_citizen").val(""),
-		$("#province_citizen").val(""),
-		$("#flag1_citizen").val(""),
-		$("#flag2_citizen").val("")
+		//dropdownDobYear();
+		//dropdownDobMouth();
+		//dropdownDobDay();
+		$("#hno_citizen").val("");
+		$("#moo_citizen").val("");
+		$("#trok_citizen").val("");
+		$("#soi_citizen").val("");
+		$("#thanon_citizen").val("");
+		$("#thumbol_citizen").val("");
+		$("#amphur_citizen").val("");
+		$("#province_citizen").val("");
+		$("#flag1_citizen").val("");
+		$("#flag2_citizen").val("");
 		
 		$("#cifno_citizen").removeAttr("disabled"); 
 		$("#ntitle_citizen").removeAttr("disabled"); 
@@ -267,113 +215,26 @@ $(document).ready(function(){
 		$("#province_citizen").removeAttr("disabled");
 		$("#flag1_citizen").removeAttr("disabled");
 		$("#flag2_citizen").removeAttr("disabled");
-	}
+	};
 	
-	var dropdownDobDay = function(day){
-		
-		var selectDobDayHTML="";
-		
-		$.ajax({
-			url:restfulURL+"/api/make_param_day",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobDayHTML+="<select class=\"form-control input-inline-table-citizen input-inline-table-citizen\" id=\"day_citizen\">";
-				$.each(data,function(index,indexEntry){
-						
-					if(day==indexEntry['day']){
-						selectDobDayHTML+="<option selected>"+indexEntry['day']+"</option>";  
-					}else{
-						selectDobDayHTML+="<option>"+indexEntry['day']+"</option>";  
-					}
-					   
-				});
-				selectDobDayHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobMonthHTML);
-		$("#day_citizen_area").html(selectDobDayHTML);
-	}
-	// แก้ๆๆๆๆๆๆๆ =name
-	var dropdownDobMouth = function(param_month_id){
-		
-		var selectDobMonthHTML="";
-		
-		$.ajax({
-			url:restfulURL+"/api/make_param_month",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobMonthHTML+="<select class=\"form-control input-inline-table-citizen\" id=\"month_citizen\">";
-				$.each(data,function(index,indexEntry){
-						
-					if(param_month_id==indexEntry['month_id']){
-						selectDobMonthHTML+="<option selected>"+indexEntry['month_name']+"</option>";  
-					}else{
-						selectDobMonthHTML+="<option>"+indexEntry['month_name']+"</option>";  
-					}
-					   
-				});
-				selectDobMonthHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobMonthHTML);
-		$("#month_citizen_area").html(selectDobMonthHTML);
-	}
 	
-	var dropdownDobYear = function(param_year){
-		
-		var selectDobYearHTML="";
-
-		$.ajax({
-			url:restfulURL+"/api/make_param_year",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				selectDobYearHTML+="<select class=\"form-control input-inline-table-citizen input-contact-citizen\" id=\"year_citizen\">";
-				$.each(data,function(index,indexEntry){
-					if(param_year==indexEntry['param_year']){
-						selectDobYearHTML+="<option selected>"+indexEntry['param_year']+"</option>";  
-					}else{
-						selectDobYearHTML+="<option>"+indexEntry['param_year']+"</option>";  
-					}
-				});
-				selectDobYearHTML+="</select>";
-			}
-		});
-		
-		//alert(selectDobYearHTML);
-		$("#year_citizen_area").html(selectDobYearHTML);
-			
-	}
+	
 	
 	var findOneFn = function(id) {
-		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
+		// http://192.168.1.58/dqs_api/public/dqs_citizen_import/{ref_no}
 		$.ajax({
-			url:restfulURL+"/api/dqs_citizen_import/"+ id,
+			url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ id,
 			type : "get",
 			dataType : "json",
+			 headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {		
-				
-				var dob = data['ndob'].toString(); 
-				
-				var dobYear = dob.substring(4); 
-				var dobMouth = dob.substring(2,4);
-				var dobDay = dob.substring(0,2);
-				
-				dropdownDobYear(dobYear);
-				dropdownDobMouth(dobMouth);
-				dropdownDobDay(dobDay); 
-				
-				$("#id_citizen").val(data['id']);
-				$("#cifno_citizen").val(data['pid']);
-				$("#nfname_citizen").val(data['nfname']);
-				$("#nlname_citizen").val(data['nlname']);
+			
+				//data=data['data'];
+			
+				$("#id_citizen").val(data['pid']);
+				$("#cifno_citizen").val(data['ref_no']);
+				$("#nfname_citizen").val(data['fname']);
+				$("#nlname_citizen").val(data['lname']);
 				$("#ntitle_citizen").val(data['ntitle']);
 				$("#hno_citizen").val(data['hno']);
 				$("#moo_citizen").val(data['moo']);
@@ -383,51 +244,57 @@ $(document).ready(function(){
 				$("#thumbol_citizen").val(data['thumbol']);
 				$("#amphur_citizen").val(data['amphur']);
 				$("#province_citizen").val(data['province']);
+				$("#dob_citizen").val(data['ndob']);
 				
 				//sex
-				if(data['sex']==1){
+				if(data['nsex']==1){
 					$('#sex_citizen_men').prop('checked', true);
 				}
-				if(data['sex']==0){
+				if(data['nsex']==0){
 					$('#sex_citizen_women').prop('checked', true);
 				}
 				
-				$("#flag1_citizen").val(data['flag1']);
-				$("#flag2_citizen").val(data['flag2']);
+				$("#flag1_citizen").val(data['flag']);
+				
+				$("#flag2_citizen").val(data['flag_1']);
 				
 				//nation
-				/*if(data['nation']==1){
+				if(data['thai_flag']==1){
 					$('#nation_citizen_thai').prop('checked', true);
 				}
-				if(data['nation']==0){
+				if(data['thai_flag']==0){
 					$('#nation_citizen_other').prop('checked', true);
-				}*/
+				}
+				//manual_add_flag
+				if(data['manual_add_flag']==1){
+					$('#manual_add_flag').prop('checked', true);
+				}else{
+					$('#manual_add_flag').prop('checked', false);
+				}
+				
 				
 			}
 		});
 	};
 	
-	var searchFn = function(searchText) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_citizen_import/?nfname__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listCitizenFn(data);
-			}
-		});
-	}
 
-	var searchAdvanceFn = function(searchText) {
+
+	var searchAdvanceFn = function(cif_no,npid,flag_2,manual_add) {
 		$.ajax({
-			url : restfulURL + "/api/dqs_rule/?rule_name__regex=/^"+searchText+"/i",
+			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",
 			dataType : "json",
+			data:{
+				"cif_no":cif_no,
+				"npid":npid,
+				"flag_2":flag_2
+			},
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				listRuleFn(data);
+				listCitizenFn(data['data']);
 			}
 		});
-	}
+	};
 	
 	var listCitizenFn = function(data) {
 		
@@ -438,25 +305,34 @@ $(document).ready(function(){
 	
 		console.log(data);
 		var htmlTable = "";
-		var sexed =""
+		var sexed ="";
+		var manualAdd="";
 		$.each(data,function(index,indexEntry) {
 		
 		if (indexEntry["sex"]==1){
-			sexed = "ชาย"
+			sexed = "ชาย";
 		}else if (indexEntry["sex"]==0){
-			sexed = "หญิง"
+			sexed = "หญิง";
 		}
+		if (indexEntry["manual_add_flag"]==1){
+			manualAdd = "<input disabled type='checkbox' name='manual_add' id='manual_add' checked value='1'>";
+		}else if (indexEntry["manual_add_flag"]==0){
+			manualAdd = "<input disabled type='checkbox' name='manual_add' id='manual_add'  value='0'>";
+		}
+		
+		
 			
 		htmlTable += "<tr>";
-		htmlTable += "<td>"+ indexEntry["pid"]+ "</td>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
+		htmlTable += "<td>"+ indexEntry["cif"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["npid"]+ "</td>";
 		htmlTable += "<td>"+ indexEntry["ntitle"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["nfname"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["nlname"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["ndob"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["fname"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["lname"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["dob"]+ "</td>";
 		htmlTable += "<td>"+sexed+"</td>";
-
-		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["_id"]+ " data-target=#ModalCitizen data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
+		htmlTable += "<td>"+manualAdd+"</td>";
+		
+		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["cif"]+ " data-target=#ModalCitizen data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["cif"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
@@ -465,9 +341,9 @@ $(document).ready(function(){
 		$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
 		//get 3 fuction in add citizen
-		dropdownDobYear();
-		dropdownDobMouth();
-		dropdownDobDay();
+		//dropdownDobYear();
+		//dropdownDobMouth();
+		//dropdownDobDay();
 		
 		
 		$("#tableCitizen_wrapper").click(function(){
@@ -485,19 +361,19 @@ $(document).ready(function(){
 				$(".text_add_edit").text("EDIT FILE");
 				
 				$("#cifno_citizen").attr("disabled","disabled"); 
-				$("#ntitle_citizen").attr("disabled","disabled"); 
-				$("#nfname_citizen").attr("disabled","disabled"); 
-				$("#nlname_citizen").attr("disabled","disabled"); 
-				$("#hno_citizen").attr("disabled","disabled"); 
-				$("#moo_citizen").attr("disabled","disabled"); 
-				$("#trok_citizen").attr("disabled","disabled"); 
-				$("#soi_citizen").attr("disabled","disabled"); 
-				$("#thanon_citizen").attr("disabled","disabled"); 
-				$("#thumbol_citizen").attr("disabled","disabled"); 
-				$("#amphur_citizen").attr("disabled","disabled");
-				$("#province_citizen").attr("disabled","disabled");
-				$("#flag1_citizen").attr("disabled","disabled");
-				$("#flag2_citizen").attr("disabled","disabled");
+				//$("#ntitle_citizen").attr("disabled","disabled"); 
+				//$("#nfname_citizen").attr("disabled","disabled"); 
+				//$("#nlname_citizen").attr("disabled","disabled"); 
+				//$("#hno_citizen").attr("disabled","disabled"); 
+				//$("#moo_citizen").attr("disabled","disabled"); 
+				//$("#trok_citizen").attr("disabled","disabled"); 
+				//$("#soi_citizen").attr("disabled","disabled"); 
+				//$("#thanon_citizen").attr("disabled","disabled"); 
+				//$("#thumbol_citizen").attr("disabled","disabled"); 
+				//$("#amphur_citizen").attr("disabled","disabled");
+				//$("#province_citizen").attr("disabled","disabled");
+				//$("#flag1_citizen").attr("disabled","disabled");
+				//$("#flag2_citizen").attr("disabled","disabled");
 				
 				findOneFn(this.id);
 				$("#id").val(this.id);
@@ -510,9 +386,10 @@ $(document).ready(function(){
 			$(".del").on("click",function(){
 			
 				$.ajax({
-					 url:restfulURL+"/api/dqs_citizen_import/"+ this.id,
+					 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ this.id,
 					 type : "delete",
 					 dataType:"json",
+					 headers:{Authorization:"Bearer "+tokenID.token},
 				     success:function(data){      
 				       
 				       getDataFn();
@@ -527,15 +404,29 @@ $(document).ready(function(){
 	};
 	
 	var getDataFn = function() {
+		/*
+		$('#tableCitizen').DataTable( {
+		    serverSide: true,
+		    ajax: {
+		        url: restfulURL + "/dqs_api/public/dqs_citizen_import",
+		        headers:{Authorization:"Bearer "+tokenID.token},
+		        type: 'get'
+		    }
+		} );
+		*/
+		
 		$.ajax({
-			url : restfulURL + "/api/dqs_citizen_import",
+			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
+			async:false,
 			success : function(data) {
-				listCitizenFn(data);
-				console.log(data);
+				listCitizenFn(data['data']);
+				//console.log(data);
 			}
 		});
+		
 	};
 	//Call Function start
 	  getDataFn();
@@ -546,14 +437,31 @@ $(document).ready(function(){
 	});
 	
 	$("#btnSearchAdvance").click(function(){
-		searchAdvanceFn($("#searchAdvanceRule").val());
-		   return false;
+		
+		//cif_no
+		//npid
+		//flag_2
+		//manual_add
+		/*
+		alert($("#cif_no").val());
+		alert($("#npid").val());
+		alert($("#flag_2").val());
+		alert($("#manual_add").val());
+		*/
+		searchAdvanceFn($("#cif_no").val(),$("#npid").val(),$("#flag_2").val());
+		
+		return false;
 	});
 	
 	$("#btnAddCitizen").click(function(){
 		clearFn();
 		$(".text_add_edit").text("ADD FILE");
-	})
+		//Binding Date Picker Start. 	
+		$("#dob_citizen").datepicker();
+	    $( "#dob_citizen" ).datepicker( "option", "dateFormat", "yymmdd" );
+	      
+		//Binding Date Picker End.
+	});
 
 	$("#btnSubmit").click(function(){
 		if ($("#action").val() == "add"|| $("#action").val() == "") {
@@ -584,5 +492,42 @@ $(document).ready(function(){
 	$(".btnCancle").click(function() {
 		clearFn();
 	});
+	
+	
+	
+	//Autocomplete Search Start
+	////http://192.168.1.58/dqs_api/public/dqs_citizen_import/npid
+	$("#npid").autocomplete({
+        source: function (request, response) {
+        	$.ajax({
+				 url:restfulURL+"/dqs_api/public/dqs_citizen_import/npid",
+				 type:"post",
+				 dataType:"json",
+				 headers:{Authorization:"Bearer "+tokenID.token},
+				 data:{"q":request.npid},
+				 async:false,
+                 error: function (xhr, textStatus, errorThrown) {
+                        alert('Error: ' + xhr.responseText);
+                    },
+				 success:function(data){
+					
+						response($.map(data, function (item) {
+                            return {
+                                llabel: item.npid,
+                                value: item.npid
+                            };
+                        }));
+					
+				}
+				});
+        	
+        }
+    });
+   
+	//Autocomplete Search End
+	
+	
+	
+
 		
 });

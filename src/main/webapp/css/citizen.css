@@ -6,7 +6,7 @@
 .form-label-citizen{
 	float:left;
 	padding-top: 1px;
-	width:110px;
+	width:120px;
 }
 .font-gear{
 	font-size: 25px;
@@ -36,3 +36,4 @@
 	float:left;
 	width: 200px;
 }
+#ui-datepicker-div ,.ui-datepicker { z-index: 99999 !important; }

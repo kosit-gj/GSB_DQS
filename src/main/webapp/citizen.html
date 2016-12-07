@@ -33,31 +33,49 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Advance Seach </h5>
+                                <h5>Advance Search </h5>
          					</div>
          					
          						<div class="ibox-content"> 
          							<div class="row">
-	                                    <div class="col-sm-3 m-b-xs">
-		                                    <select class="input form-control">
+         								<div class="col-sm-2 m-b-xs">
+		                                   <input class="form-control input-sm" placeholder="CIF No." type="text" id="cif_no" name="cif_no">
+										</div>
+										
+										<div class="col-sm-2 m-b-xs">            
+											<input class="form-control input-sm" placeholder="ID" type="text" id="npid" name="npid">		
+										</div>
+										
+	                                    <div class="col-sm-2 m-b-xs">
+		                                    <select class="input form-control input-sm"  id="flag_2" name="flag_2">
 		                                    	
+		                                    	<option value="0">ปกติ</option>
+												<option value="1">ตาย</option>
+												<option value="2">จำหน่ายด้วย ทร.97</option>
+												<option value="3">เปลี่ยนสถานะด้วย  ทร 98</option>
+												<option value="4">ย้ายไปต่างประเทศ</option>
+												<option value="5">บุคคลซ้ำซ้อน</option>
+												<option value="6">บุคคลตองสงสัย</option>
+												<option value="7">จำหน่ายด้วย ทร.44</option>
+												<option value="8">บุคคลในบ้านกลาง</option>
+												<option value="9">บุคคลอยู่ระหว่างการย้าย</option>
 											</select>
 										</div>
 										
-										<div class="col-sm-4 m-b-xs">            
-											<input class="form-control" placeholder="NPID" type="text" id="" name="">		
-										</div>
+										
                                   		
-	                                    <div class="col-sm-3 m-b-xs">
-		                                    <select class="input form-control">
-		                                    	
+	                                    <div class="col-sm-2 m-b-xs">
+		                                    <select class="input form-control input-sm" id="manual_add" name="manual_add">
+		                                    	<option value="All">All</option>
+		                                    	<option value="Yes">Yes</option>
+		                                    	<option value="No">No</option>
 											</select>
 										</div>
                                     
-                                     	 <div class="col-sm-2" align="right">
+                                     	 <div class="col-sm-4" align="right">
 	                                     	<div class="input-group" >
 		                                     	<div >
-	                                         		<button type="button" class="btn btn-info" id=""><i class="fa fa-search"></i>&nbsp;Search</button>
+	                                         		<button type="button" class="btn btn-info input-sm" name="btnSearchAdvance" id="btnSearchAdvance"><i class="fa fa-search"></i>&nbsp;Search</button>
 	                                         	</div>
                                          	</div>
                                      	</div>
@@ -99,6 +117,7 @@
                                             <th>Lastname</th>
                                             <th>Date of Birth</th>
                                             <th>Sex</th>	
+                                            <th>Manual Add</th>	
                                             <th>Manage</th>
                                         </tr>
                                         </thead>
@@ -142,7 +161,7 @@
 	                </div>
 	                
 	                <div class="form-input-citizen">
-	                	<input type="text" class="form-control" placeholder="" id="cifno_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="cifno_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -155,7 +174,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="No Database" id="id_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="id_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -169,7 +188,7 @@
 	                
 	                <div class="form-input-citizen-title">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="ntitle_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="ntitle_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -182,7 +201,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="nfname_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="nfname_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -195,69 +214,26 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="nlname_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="nlname_citizen">
+	                </div>
+	                <br style="clear:both">
+                </div>
+                
+                 <div class='form-file-mangement'>
+	                <div class="form-label-citizen">
+	                
+	                	Date of Birth
+	                </div>
+	                
+	                <div class="form-input-citizen">
+	                
+	                	<input type="text" class="form-control input-sm" placeholder="Date of Birth" id="dob_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
                 
                 
-                <div class="row">
-               
-                <div class="col-lg-12">
-	                <div class="form-label-citizen-manual">
-		               		Date of Birth
-		                </div>
-		                
-	                <div class="col-lg-2">
-		                <div class='form-file-mangement-radio'>
-		        
-			                <div class="input-inline-table-citizen" id="day_citizen_area">
-			                	
-				           		<!-- <select class="form-control input-inline-table-citizen input-contact-citizen" id="day_citizen">
-		                           <option value="01">01</option>
-		                        </select> -->
-		                        
-			                       
-			                </div>
-			                
-			                <br style="clear:both">
-		                </div>
-	                </div>
-	                
-	                <div class="col-lg-3">
-		                <div class='form-file-mangement-radio'>
-		        
-			                <div class="input-inline-table-citizen" id="month_citizen_area">
-			                	
-				           		<!-- <select class="form-control input-inline-table-citizen " id="mouth_citizen">
-		                           <option value="02">กุมภาพันธ์</option>
-		                           
-		                        </select> -->
-		                        
-			                </div>
-			                
-			                <br style="clear:both">
-		                </div>
-	                </div>
-	                
-	                <div class="col-lg-2">
-		                <div class='form-file-mangement-radio'>
-		        
-			                <div class="input-inline-table-citizen" id="year_citizen_area">
-			                	
-			                	
-				           		
-		                        
-			                       
-			                </div>
-			                
-			                <br style="clear:both">
-		                </div>
-	                </div>
-              	</div>  
-          
                 
-                </div>
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen">
 	                	Sex
@@ -288,7 +264,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="hno_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="hno_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -301,7 +277,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="moo_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="moo_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -314,7 +290,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="trok_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="trok_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -327,7 +303,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="soi_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="soi_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -339,7 +315,7 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="thanon_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="thanon_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -352,7 +328,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="thumbol_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="thumbol_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -365,7 +341,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="amphur_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="amphur_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -378,7 +354,7 @@
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="province_citizen">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="province_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -391,7 +367,15 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="flag1_citizen">
+
+	                	<select class="input form-control input-sm"  id="flag1_citizen" name="flag1_citizen">
+	                		<option value="">เลือก Flag-1</option>
+                            <option value="0">ตรวจสอบไม่พบในฐานข้อมูล</option>
+							<option value="1">ตรวจสอบพบในฐานข้อมูล</option>
+							<option value="3">พบและมีมากกว่า 1 คน</option>
+						</select>
+											
+											
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -404,7 +388,22 @@
 	                
 	                <div class="form-input-citizen-address">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="flag2_citizen">
+	                	
+	                	<select class="input form-control input-sm"  id="flag2_citizen" name="flag2_citizen">
+	                	    <option value="">เลือก Flag-2</option>
+                            <option value="0">ปกติ</option>
+							<option value="1">ตาย</option>
+							<option value="2">จำหน่ายด้วย ทร.97</option>
+							<option value="3">เปลี่ยนสถานะด้วย  ทร 98</option>
+							<option value="4">ย้ายไปต่างประเทศ</option>
+							<option value="5">บุคคลซ้ำซ้อน</option>
+							<option value="6">บุคคลตองสงสัย</option>
+							<option value="7">จำหน่ายด้วย ทร.44</option>
+							<option value="8">บุคคลในบ้านกลาง</option>
+							<option value="9">บุคคลอยู่ระหว่างการย้าย</option>
+							
+						</select>
+	                	
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -416,9 +415,9 @@
 	                </div>
 	                
 	                <div class="input-inline-table-citizen">
-	                	<strong>nodatabase</strong>
+	                	
 		                	<div class="radio radio-info radio-inline">
-                               <input type="radio" name="nationRadioInline" value="1" id="nation_citizen_thai">
+                               <input type="radio" name="nationRadioInline" checked value="1" id="nation_citizen_thai">
                                <label for="inlineRadio1"> คนไทย </label>
                            </div>
                            
@@ -430,7 +429,70 @@
 	                </div>
 	                <br style="clear:both">
 	                   		
-                </div>           
+                </div>
+                
+                
+                <div class='form-file-mangement-radio'>
+	                <div class="form-label-citizen"> 
+	               	Manual Add
+	                </div>
+	                <div class="input-inline-table-citizen">
+	                	
+		             <input type="checkbox" checked disabled name="manual_add_flag" id="manual_add_flag" value="1">
+		              
+	                </div>
+	                <br style="clear:both">   		
+                </div>
+                
+                 <div class='form-file-mangement-radio'>
+	                <div class="form-label-citizen"> 
+	               Created by
+	                </div>
+	                <div class="input-inline-table-citizen">
+	                	
+		             Wanrudee
+		              
+	                </div>
+	                <br style="clear:both">   		
+                </div>
+                
+                 <div class='form-file-mangement-radio'>
+	                <div class="form-label-citizen"> 
+	              	Created DateTime
+	                </div>
+	                <div class="input-inline-table-citizen">
+	                	
+		              15:15
+		              
+	                </div>
+	                <br style="clear:both">   		
+                </div>
+                
+                <div class='form-file-mangement-radio'>
+	                <div class="form-label-citizen"> 
+	              	Update by
+	                </div>
+	                <div class="input-inline-table-citizen">
+	                	
+		             Worawut
+		              
+	                </div>
+	                <br style="clear:both">   		
+                </div>
+                
+                <div class='form-file-mangement-radio'>
+	                <div class="form-label-citizen"> 
+	              	Update Datetime
+	                </div>
+	                <div class="input-inline-table-citizen">
+	                	
+		              10:10
+		              
+	                </div>
+	                <br style="clear:both">   		
+                </div>
+                  
+                         
               
                 <!-- form start -->
                 <!-- content end -->
@@ -447,8 +509,7 @@
 </div>                      
 <!-- Modal End Edit -->
 
-	
-<!--     
+	    
 <script src="Controller/cCitizen.js"></script> 
- -->
+ 
 

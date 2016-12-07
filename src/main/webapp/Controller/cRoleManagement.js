@@ -219,7 +219,7 @@ $(document).ready(function(){
 	
 		$("#listRole").html(htmlTable);
 		
-		 $('#tableRole').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+		 $('#tableRole').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 		 
 		 $("#tableRole_wrapper").click(function(){
 			 $(".popover-edit-del").popover();

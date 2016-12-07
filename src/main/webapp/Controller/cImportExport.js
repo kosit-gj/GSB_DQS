@@ -1,107 +1,4 @@
-$(document).ready(function(){
-
-	var restfulURL = "http://192.168.1.60:3001";
-	//var restfulURL = "http://goingjesse.hopto.org:3001";
-	
-	/*var checkUniqueFn = function(text) {
-		 http://localhost:3000/api/products?name__regex=/^test/i 
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/api/dqs_branch?name_filde="+text+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
-	
-	var validationFn = function() {
-		var validateText = "";
-		if ($("#rule_name").val()=="") {
-			validateText += "name not empty\n";
-		}
-		if (validateText != "") {
-			alert(validateText);
-			return false;
-		} else {
-			return true;
-		}
-	
-	}*/
-	
-	/*var insertFn = function() {
-			
-		var checkboxInitial = "";
-		var checkboxUpdate = "";
-		var checkboxContact = "";
-		var InformBranchRadio = "";
-		var EditRuleRelease ="";
-		
-		if($("#checkboxInitial:checked").val()=="on"){
-			checkboxInitial="1";
-		}else{
-			checkboxInitial="0";
-		}
-		
-		if($("#checkboxUpdate:checked").val()=="on"){
-			checkboxUpdate="1";
-		}else{
-			checkboxUpdate="0";
-		}
-		
-		if($("#checkboxContact:checked").val()=="on"){
-			checkboxContact="1";
-		}else{
-			checkboxContact="0";
-		}
-		
-		if($("#InformBranchRadioTrue:checked").val()){
-			InformBranchRadio="1";
-		}else if($("#InformBranchRadioFalse:checked").val()){
-			InformBranchRadio="0";
-		}
-		
-		if($("#EditRuleReleaseTrue:checked").val()){
-			EditRuleRelease="1";
-		}else if($("#EditRuleReleaseFalse:checked").val()){
-			EditRuleRelease="0";
-		}
-			
-		$.ajax({
-			
-			url:restfulURL+"/api/dqs_branch",
-			type : "POST",
-			dataType : "json",
-			data : {"rule_name" : $("#rule_name").val(),
-					"rule_group" : $("#rule_group").val(),
-					"data_flow_id" : $("#data_flow_id").val(),
-					"initial_flag" : checkboxInitial,
-					"update_flag" : checkboxUpdate,
-					"last_contact_flag" : checkboxContact,
-					"inform_flag" : InformBranchRadio,
-					"edit_rule_release_flag" : EditRuleRelease
-			},
-			success : function(data) {
-				if (data = "success") {
-					alert("Insert Success");
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
-				}
-			}
-		});
-		return false;
-	};*/
-	
-	var updateFn = function() {
+var updateFn = function() {
 		
 		var closeflagCheckbox = "";
 		var embed_closeflag="";
@@ -124,6 +21,7 @@ $(document).ready(function(){
 				dataType : "json",
 				data : {"close_flag" :closeflagCheckbox},
 				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
 				success : function(data) {
 					if (data = "success") {
 						//console.log("Upate Success");
@@ -156,6 +54,7 @@ $(document).ready(function(){
 			url:restfulURL+"/api/dqs_branch/"+ id,
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
 				$("#branchOperationName").val(data['desc']);
@@ -180,127 +79,57 @@ $(document).ready(function(){
 			url : restfulURL + "/api/dqs_branch/?rule_name__regex=/^"+searchText+"/i",
 			type : "get",
 			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listBranchFn(data);
 			}
 		});
 	}
 	
-
-	/*var listDataImportExportFn = function(data) {
-		console.log(data);
-		var htmlTable = "";
-		//var close = $(indexEntry["close_flag"]);
-
-		$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		//htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["brcd"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["desc"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["ccdef"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["region"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["dist"]+ "</td>";
+var dropdownYear = function(){
 		
-		if(indexEntry["close_flag"]==1){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
-		}else if(indexEntry["close_flag"]==0){
-			htmlTable += "<td><input type=\"checkbox\" class=\"editCheckboxCloseFlag\" id=closeCheckbox-"+indexEntry["_id"]+" ></td>";
-		}	 
-		
-		//htmlTable += "<td><button class='btn btn-warning btn-xs editCheckboxCloseFlag' type='button' id="+indexEntry["_id"]+">Edit</button></td>";
-		htmlTable += "</tr>";
-		});
-		
-		$("#listBranch").html(htmlTable);
-		
-		//function popover
-		$(".popover-edit-del").popover();
-		
-		//ปุ่ม Edit ใน table
-		$(".editCheckboxCloseFlag").click(function(){
-			
-			var id = this.id.split("-"); 
-			
-			//alert(id[1]);
-			embedParam(id[1]);
-			//$("#embed_closeflag_id").remove();	
-			//$("body").append("<input type='hidden' class='embed_closeflag' id='embed_closeflag-"+id[1]+"' name='embed_closeflag-"+id[1]+"' value='"+id[1]+"'>");	
-		});
-		
-		//ปุ่ม Save
-		$("#btnSave").click(function(){
-	        updateFn(); 
-		});
-			
-	};*/
-	
-	
-	var dropdownYear = function(){
-		//alert("555");
+		var currentTime = new Date();
+		var year = currentTime.getFullYear();
+		year=year+543;
 		var selectYearHTML="";
-
-		$.ajax({
-			url:restfulURL+"/api/make_param_year/",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				//selectYearHTML+="<select class=\"form-control input-inline-table-citizen input-contact-citizen\" id=\"year_citizen\">";
-				$.each(data,function(index,indexEntry){
-					selectYearHTML+="<option>"+indexEntry['param_year']+"</option>";  
-					
-					/*if(param_year==indexEntry['param_year']){
-						selectYearHTML+="<option selected>"+indexEntry['param_year']+"</option>";  
-					}else{
-						selectYearHTML+="<option>"+indexEntry['param_year']+"</option>";  
-					}*/
-				});
-				//selectYearHTML+="</select>";
-			}
-		});
-		//alert(selectDobYearHTML);
+		//selectYearHTML+="<option>2559</option>";
+		selectYearHTML+="<option value=''>เลือกปี</option>";
+		selectYearHTML+="<option value='All'>ทุกปี</option>";
+		for(var i=year; i>(year-100);i--){
+			
+			selectYearHTML+="<option>"+i+"</option>";
+			
+		}
+		
+		//alert(selectYearHTML);
 		$("#yearImportExport").html(selectYearHTML);
 	}
-	
-	dropdownYear();
-	
-	
-	
-	var dropdownCustomerType = function(){
-		//alert("555");
-		var selectCustomerHTML="";
 
-		$.ajax({
-			url:restfulURL+"/api/make_param_customer_type/",
-			type : "get",
-			dataType : "json",
-			async:false,
-			success : function(data) {	
-				//selectYearHTML+="<select class=\"form-control input-inline-table-citizen input-contact-citizen\" id=\"year_citizen\">";
-				
-				//selectYearHTML+="<select disabled class='form-control-sm m-b customerImportExport' id='customerType'>";
-				 
-				$.each(data,function(index,indexEntry){
-					selectCustomerHTML+="<option>"+indexEntry['param_customer_type']+"</option>";  
-					
-					/*if(param_year==indexEntry['param_year']){
-						selectYearHTML+="<option selected>"+indexEntry['param_year']+"</option>";  
-					}else{
-						selectYearHTML+="<option>"+indexEntry['param_year']+"</option>";  
-					}*/
-				});
-				//selectYearHTML+="</select>";
-			}
-		});
-		//alert(selectDobYearHTML);
-		$(".customerImportExport").html(selectCustomerHTML);
-	}
+var dropdownCustomerType = function(){
+	var selectCustomerHTML="";
+
+	$.ajax({
+		url:restfulURL+"/dqs_api/public/dqs_import_export/cust_type",
+		type : "get",
+		dataType : "json",
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success : function(data) {	
+			console.log(data);
+			$.each(data,function(index,indexEntry){
+				selectCustomerHTML+="<option value="+indexEntry['gsbccode']+">"+indexEntry['desc_1']+"</option>";  
+			});
+		}
+	});
+	$(".customerImportExport").html(selectCustomerHTML);
+}
 	
+$(document).ready(function(){
+
+	dropdownYear();
 	dropdownCustomerType();
 	
-	
-	
-	
+
 	$("#radioCustomer").click(function() {
 		
 		$("#yearImportExport").removeAttr("disabled");
@@ -317,30 +146,116 @@ $(document).ready(function(){
 		
 	});
 	
-	/*$("#btnSubmit").click(function(){
-		if (validationFn() == true) {
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if (checkUniqueFn($("#rule_name").val()) == true) { 	
-						insertFn();
-					} else {
-						alert("name is not unique.");
-					}
-			}else{
-				if(checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}
-		}
-		return false;
-	});*/
 	
 	$(".btnCancle").click(function() {
 		clearFn();
 	});
-	
 	$("#btnEditBranchOperation").click(function() {
 		getDataBranchOperationFn();
 	});
+	
+	
+	
+	//Export File
+//	$("#exportFile").click(function(){
+//		
+//		$.ajax({
+//			url:restfulURL+"/dqs_api/public/dqs_import_export/export",
+//			type : "post",
+//			dataType : "json",
+//			async:false,
+//			headers:{Authorization:"Bearer "+tokenID.token},
+//			success : function(data) {	
+//				//console.log(data);
+//				 location.href = data.zip;
+//			 	
+//			}
+//		});
+//		
+//		return false;
+//	});
+	
+	$("#csrf-token").val("Bearer "+tokenID.token);
+	
+//Import File
+
+//$("form#uploadFile").submit( function( e ) {
+//	
+//	var data = new FormData( this );
+//	console.log(data);
+//	 e.preventDefault();
+//	/*
+//	    $.ajax( {
+//	      url:restfulURL+"/dqs_api/public/dqs_import_export/import",
+//	      type: 'POST',
+//	      data: new FormData( this ),
+//	      //data: new FormData($("#filename")),
+//	      processData: false,
+//	      contentType: false,
+//	      headers:{Authorization:"Bearer "+tokenID.token},
+//	      success:function(data){
+//	    	  console.log(data);
+//	      }
+//	      
+//	    } );
+//	    e.preventDefault();
+//	    
+//	    return false;
+//	  } );
+//	  */
+//});
+
+// Variable to store your files
+var files;
+// Add events
+$('input[type=filename]').on('change', prepareUpload);
+
+// Grab the files and set them to our variable
+function prepareUpload(event)
+{
+  files = event.target.files;
+}
+$('form#uploadFile').on('submit', uploadFiles);
+
+// Catch the form submit and upload the files
+function uploadFiles(event)
+{
+  event.stopPropagation(); // Stop stuff happening
+  event.preventDefault(); // Totally stop stuff happening
+
+	// START A LOADING SPINNER HERE
+
+	// Create a formdata object and add the files
+	var data = new FormData();
+	$.each(files, function(key, value)
+	{
+		data.append(key, value);
+	});
+
+	//console.log(data);
+	
+	$.ajax({
+		url:restfulURL+"/dqs_api/public/dqs_import_export/import",
+		type: 'POST',
+		data: data,
+		cache: false,
+		dataType: 'json',
+		processData: false, // Don't process the files
+		contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success: function(data, textStatus, jqXHR)
+		{
+			console.log(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown)
+		{
+			// Handle errors here
+			console.log('ERRORS: ' + textStatus);
+			// STOP LOADING SPINNER
+		}
+	});
+}	
+
+	
+	
 });

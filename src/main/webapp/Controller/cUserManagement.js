@@ -137,6 +137,7 @@ var getDataFn = function() {
 			type : "get",
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
+			//data:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				galbalDataUserObj=data['data'];
 				listDataFn(galbalDataUserObj);

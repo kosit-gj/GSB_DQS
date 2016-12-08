@@ -50,7 +50,7 @@ var logoutFn = function(){
 		//data:{token:tokenID.token},
 		success:function(data){
 			
-			console.log(data);
+			//console.log(data);
 			if(data['status']=="200"){
 			
 				window.location.href = "login.html"; 
@@ -87,7 +87,7 @@ var getMainMenu = function(role_id){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			console.log(data);
+			//console.log(data);
 			galbaMenuObj=data;
 		}
 	});
@@ -105,7 +105,7 @@ var listMenuFn = function(){
 		var URLNotExtension=indexEntry['app_url'].split(".");
 		URLNotExtension=URLNotExtension[0];
 		
-		console.log(indexEntry['menu_category']);
+		//console.log(indexEntry['menu_category']);
 		//console.log(indexEntry['role_active']);//menu_category
 		if(indexEntry['menu_category']=="MM"){
 			DQManagementMenuCate+="<li><a class=\"mainMenu\" id=\"menu-"+indexEntry['menu_id']+"\" href=\"#/pages/"+URLNotExtension+"\"><div class=\"menu_name\">"+indexEntry['menu_name']+"</div><div class=\"app_url app_url_hidden\">"+indexEntry['app_url']+"</div></a></li>";

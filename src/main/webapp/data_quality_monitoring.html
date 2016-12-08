@@ -37,155 +37,160 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>Advance Search </h5>
-                                
-                                <!-- 
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a href="#">Config option 1</a>
-                                        </li>
-                                        <li><a href="#">Config option 2</a>
-                                        </li>
-                                    </ul>
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
-                                 -->
+                               
                             </div>
                             <div class="ibox-content">
                             
                             <!-- input search start  -->
                              <div class='search-area'>
                              
-	                               <div class="search-box">
-		                               		<select class="form-control input-sm" name="account">
-		                                        <option>Process Type</option>
-		                                   
-		                                    </select>
+                             	   <div class="search-box" id="listBranchArea">	
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id="" placeholder="Last Contact Date Start"  value="">
+	                               			<input type="text" class="form-control input-sm" id="start_validate_date" placeholder="Start Validate Date"  value="">
+	                               </div>
+                             		
+                             	    <div class="search-box">
+	                               			<input type="text" class="form-control input-sm" id="end_validate_date" placeholder="End Validate Date"  value="">
 	                               </div>
 	                               
-	                               
-	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id="" placeholder="Last Contact Date End"  value="">
-	                               </div>
-	                               
-	                                <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>Role Group</option>
-		                    
-		                                    </select>
-	                               </div>
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>Rule</option>
-		                                       
-		                                    </select>
-	                               </div>
-	                               
-	                               
-	                                <div class="search-box">
-		                               		<select class="form-control input-sm" name="account">
-		                                        <option>Branch</option>
-		                                        
-		                                    </select>
-	                               </div>
-	                               
+                             
 	                               <div class="search-box">
 	                               			<input type="text" class="form-control input-sm" id="" placeholder="GIF"  value="">
 	                               </div>
-	                               
 	                               
 	                               <div class="search-box">
 	                               			<input type="text" class="form-control input-sm" id=""  placeholder="Customer Name" value="">
 	                               </div>
 	                               
+	                                <div class="search-box" id="listCusTypeArea"></div>
+	                               
+	                               <div class="search-box">
+		                               		<select class="form-control input-sm" id="processType" name="processType">
+		                                        <option>Process Type</option>
+		                                        <option selected>Last Contact</option>
+		                                        <option>Initial</option>
+		                                        <option>Update</option>
+		                                    </select>
+	                               </div>
+	                               
 	                                <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>Customer Type </option>
-		                                       
-		                                    </select>
-	                               </div>
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>Status</option>
-		                                        
-		                                    </select>
-	                               </div>
-	                               
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>10</option>
-		                                        <option>20</option>
-		                                        <option>30</option>
-		                                        <option>40</option>
+	                               			<select class="form-control input-sm" name="roleGroup">
+		                                        <option>Role Group</option>
+		                                         <option selected>All</option>
+												 <option>Cleansing</option>
+												 <option>Mapping</option>
+												 <option>Matching</option>
+												 <option>Edit</option>
+												 <option>KPI</option>
 		                                    </select>
 	                               </div>
 	                               
+	                                <div class="search-box" id="listRuleArea">
+	                               			
+	                               </div>
 	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Attashed</option>
-		                                        
-		                                    </select>
+	                               			<input type="text" id="risk" class="form-control input-sm" id="" placeholder="Risk"  value="">
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Approve</option>
-		                                       
+	                               			<select class="form-control input-sm" id="validate_status" name=validate_status">
+		                                         <option>Validate Status</option>
+		                                         <option>All</option>
+												 <option>incomplete</option> 
+												 <option>wrong</option>
+												 <option>complete</option>
+												 <option>correct</option>
+												 <option>transfer</option>
 		                                    </select>
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Affiliation</option>
-		                                        
+	                               			<select class="form-control input-sm" id="is_customer" name="is_customer">
+		                                         <option>Is Customer</option>
+		                                         <option>All</option>
+												 <option selected>Yes</option> 
+												 <option>No</option>
+												
 		                                    </select>
 	                               </div>
 	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Released</option>
-		                                       
+	                                <div class="search-box">
+	                               			<select class="form-control input-sm" id="is_death" name="is_death">
+		                                         <option>Is Death</option>
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
+												
 		                                    </select>
 	                               </div>
 	                               
-	                               
-	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id=""  placeholder="is Customer" value="">
-	                               </div>
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>Risk</option>
-		                                       
-		                                    </select>
-	                               </div>
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Personel</option>
+	                                <div class="search-box">
+	                               			<select class="form-control input-sm" name="is_personel" id="is_personel">
+		                      
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
 		                                        
 		                                    </select>
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="account">
-		                                        <option>is Employee</option>
+	                               			<select class="form-control input-sm" name="is_employee" id="is_employee">
+		                                       
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
 		                                       
 		                                    </select>
 	                               </div>
 	                               
+	                               <div class="search-box">
+	                               			<select class="form-control input-sm" name="explain_status" id="explain_status">
+		                                       
+		                                         <option>All</option>
+												<option selected>1-Waiting </option>
+												<option>2-Approved</option>
+												<option>3-Not Approved</option>
+												<option>4-Not Explain</option>
+		                                       
+		                                    </select>
+	                               </div>
+	                               
+	                               <div class="search-box">
+	                               			<select class="form-control input-sm" name="is_affiliation" id="is_affiliation">
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
+		                                        
+		                                    </select>
+	                               </div>
+	                               
+	                               <div class="search-box">
+	                               			<select class="form-control input-sm" name="inform_branch" id="inform_branch">
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
+		                                        
+		                                    </select>
+	                               </div>
+	                               
+	                               <div class="search-box">
+	                               			<select class="form-control input-sm" id="is_released" name="is_released">
+		                                         <option selected>All</option>
+												 <option>Yes</option> 
+												 <option>No</option>
+		                                    </select>
+	                               </div>
+	                               
+	                               
+	                               
+	                              
+	                               
+	                               <!-- Sequential  already-->
+	                               
+	                           
 	                              
 	                              <div class="search-box">
 	                              		<button class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
@@ -658,9 +663,9 @@
                             
 <!-- Modal End -->
 
-<!--   
+
     <script src="Controller/cDataQualityMonitoring.js"></script>
- -->  
+ 
 
 
    

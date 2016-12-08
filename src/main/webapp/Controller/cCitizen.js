@@ -301,7 +301,8 @@ $(document).ready(function(){
 		
 		if ($.fn.DataTable.isDataTable('#tableCitizen')) {
 		       $('#tableCitizen').DataTable().destroy(); 
-		}	
+		}
+		
 	
 		console.log(data);
 		var htmlTable = "";
@@ -340,10 +341,10 @@ $(document).ready(function(){
 		
 		$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
 		
-		//get 3 fuction in add citizen
-		//dropdownDobYear();
-		//dropdownDobMouth();
-		//dropdownDobDay();
+		
+		
+		
+		
 		
 		
 		$("#tableCitizen_wrapper").click(function(){
@@ -403,26 +404,31 @@ $(document).ready(function(){
 			
 	};
 	
-	var getDataFn = function() {
-		/*
-		$('#tableCitizen').DataTable( {
-		    serverSide: true,
-		    ajax: {
-		        url: restfulURL + "/dqs_api/public/dqs_citizen_import",
-		        headers:{Authorization:"Bearer "+tokenID.token},
-		        type: 'get'
-		    }
-		} );
-		*/
+	var getDataFn = function(page) {
+	
+		
+//		$('#example').DataTable( {
+//			//"processing": true,
+//	        "serverSide": true,
+//		    ajax: {
+//		        url:"./json/testJson.txt",
+//		        headers:{Authorization:"Bearer "+tokenID.token},
+//		        type: 'get'
+//		    }
+//		} );
+		
 		
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",
 			dataType : "json",
+			data:{"page":page},
 			headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 			success : function(data) {
 				listCitizenFn(data['data']);
+				//total
+				//$('.pagination_top,.pagination_bottom').bootpag({total: data['last_page'], maxVisible: 10});
 				//console.log(data);
 			}
 		});
@@ -525,6 +531,35 @@ $(document).ready(function(){
     });
    
 	//Autocomplete Search End
+	
+	
+	//set paginate start
+	var paginationFn = function(pag,rpp,countPage){
+		$('.pagination_top,.pagination_bottom').bootpag({
+		   // total: 2,
+		   // page: 1,
+		    maxVisible: 5,
+		    leaps: true,
+		    //firstLastUse: true,
+		    //first: '←',
+		    //last: '→',
+		    wrapClass: 'pagination',
+		    activeClass: 'active',
+		    disabledClass: 'disabled',
+		    //nextClass: 'next',
+		    //prevClass: 'prev',
+		    next: 'next',
+		    prev: 'prev',
+		    //lastClass: 'last',
+		    //firstClass: 'first'
+		}).on("page", function(event, num){
+		   // $(".content4").html("Page " + num); // or some ajax content loading...
+		    getDataFn(num);
+		   // alert("click"+num);
+		}); 
+	}
+	//paginationFn();
+	//set paginate end
 	
 	
 	

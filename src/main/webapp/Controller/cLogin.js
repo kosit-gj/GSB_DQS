@@ -12,7 +12,7 @@ $(document).ready(function(){
 		localStorage.getItem("lastname"); 
 		//localStorage.removeItem("lastname");
 		sessionStorage.full_name="kosit";
-		console.log(sessionStorage.username);
+		//console.log(sessionStorage.username);
 		
 		
 		$.ajax({

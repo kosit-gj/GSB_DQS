@@ -212,6 +212,7 @@ body {
 .modal-header .close {
     margin-top: 5px;
     color:white;
+    opacity: 1;
 }
 hr {
     margin-bottom: 10px;
@@ -260,11 +261,9 @@ hr {
 	padding-top: 7px;
 }
 /*page  end*/	
-<<<<<<< HEAD
 
-.alert {
-    margin-bottom: 0;
-}
+
+
 
 body {
     background-color: #cccccc;
@@ -479,7 +478,7 @@ body {
     color:white;
 }
 .modal-header .close {
-    margin-top: 5px;
+    margin-;top: 5px;
     color:white;
 }
 hr {
@@ -530,14 +529,8 @@ hr {
 }
 /*page  end*/	
 
-.alert {
-    margin-bottom: 0;
-}
-=======
 
-.alert {
-    margin-bottom: 0;
-}
+
 
 body {
     background-color: #cccccc;
@@ -800,9 +793,7 @@ hr {
 }
 /*page  end*/	
 
-.alert {
-    margin-bottom: 0;
-}
+
 
 .btn-primary:hover,
 .btn-primary:focus,
@@ -857,8 +848,6 @@ hr {
     display:none;
     font-weight:bold;
     color: #3c763d; 
-   
-   
 }
 .app_url_hidden{
 	
@@ -876,4 +865,14 @@ hr {
 .popover-content .btn {
     margin-bottom: 0px;
 }
-
+.btn-gear{
+	 padding: 3px 10px;
+}
+.alert{
+	padding: 5px;
+	margin-top: 10px;
+}
+#information{
+	display:none;
+	text-align:left;
+}

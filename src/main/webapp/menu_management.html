@@ -39,148 +39,25 @@
                                     <button type="button" id="btnAdd" class="btn btn-info " data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Menu</button>
         
                                     </div>
-                                    <!-- 
-                                     <div class="col-sm-4">
-	                                     <div class="input-group"><input type="text" placeholder="Search" name="searchText" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
-                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class=' fa fa-search'> </i></button> </span></div>
-                                     </div>
-                                     -- -->
+                                   
                              </div>
                              
-                               <!--  <div class="row">
-                                    <div class="col-sm-9 m-b-xs">
-
-										<div class="btn-group">
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-  
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control m-b">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-	                                    
-                                        
-                                    </div>
-                                </div> -->
+                              
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableMenu">
                                         <thead>
                                         <tr>
 
-                                            <th>No.</th>
+                                            <th style='width:50px;'>No.</th>
                                             <th>Menu</th>
-                                            <th>Authorize</th>
-                                            <th>Manage</th>
+                                            <th style='width:80px;'>Authorize</th>
+                                            <th style='width:80px;' align="center">Manage</th>
                                             
                                         </tr>
                                         </thead>
                                         <tbody id="listMenu">
                                         
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>1</div></td>
-	                                            <td><div class='text-inline-table'>User_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management" data-html="true" data-container="body" data-toggle="popover" data-placement="top" 
-                                    					data-content="<button class='btn btn-warning btn-xs edit-action' type='button'>Edit</button> <button class='btn btn-danger btn-xs' type='button'>Delete</button>"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>2</div></td>
-	                                            <td><div class='text-inline-table'>System_Configuration</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>3</div></td>
-	                                            <td><div class='text-inline-table'>Rule_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>4</div></td>
-	                                            <td><div class='text-inline-table'>Role_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorizen" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>5</div></td>
-	                                            <td><div class='text-inline-table'>Region_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>6</div></td>
-	                                            <td><div class='text-inline-table'>Menu_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>7</div></td>
-	                                            <td><div class='text-inline-table'>Kpi_Calculation</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>8</div></td>
-	                                            <td><div class='text-inline-table'>Import_Export</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>9</div></td>
-	                                            <td><div class='text-inline-table'>Grade_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>10</div></td>
-	                                            <td><div class='text-inline-table'>File_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>11</div></td>
-	                                            <td><div class='text-inline-table'>Data_Quality_Monitoring</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>12</div></td>
-	                                            <td><div class='text-inline-table'>Branch_Management</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-	                                        
-	                                        <tr>
-	                                            <td><div class='text-inline-table'>13</div></td>
-	                                            <td><div class='text-inline-table'>Merge CIF Report</div></td>
-	                                            <td><div class='text-inline-table'><i class="fa fa-paste font-management" data-target="#authorize" data-toggle="modal"></i></div></td>
-	                                            <td><div class='text-inline-table'> <i class="fa fa-gear font-management"></i></div></td>                
-	                                        </tr>
-                                        
-                                         
+	                                       
                                         
                                        
                                        
@@ -189,42 +66,6 @@
                                     </table>
                                 </div>
                                 
-                                
-                                <!-- footer paging start -->
-                                
-                             <!--     <div class="row">
-                                    <div class="col-sm-9 m-b-xs">
- 
-										<div class="btn-group">
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-                    
-                 
-                            
-			
-										
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control m-b">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-	                                    
-                                        
-                                    </div>
-                                </div> -->
-                                <!-- footer paging end -->
-
                             </div>
                         </div>
                     </div>
@@ -256,27 +97,27 @@
                 <!-- form start -->
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
-	                 <label>Menu Name  :</label>
+	                 <label>Menu Name</label>
 	                </div>
 	                
 	                <div class="form-menu-input">
-	                	<input type="text" class="form-control" placeholder="" name="menu_name" id="menu_name">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="menu_name" id="menu_name">
 	                </div>
 	                <br style="clear:both">
                 </div>
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
-	                 <label>URL :</label>
+	                 <label>URL</label>
 	                </div>
 	                
 	                <div class="form-menu-input">
-	                	<input type="text" class="form-control" placeholder="" name="" id="app_url">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="" id="app_url">
 	                </div>
 	                <br style="clear:both">
                 </div>
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
-	                 <label>Menu Category :</label>
+	                 <label>Menu Category</label>
 	                </div>
 	                
 	                <div class="form-menu-input">
@@ -302,9 +143,11 @@
             <div class="modal-footer">
             	 <input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add"> 
-                <button data-dismiss="modal" id="btnCancel" class="btn btn-white " type="button">Cancel</button>
-                <button class="btn btn-primary" type="button" name="" id="">Save & Add Another</button>
                 <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
+                <button class="btn btn-primary" type="button" name="btnSaveAndAnother" id="btnSaveAndAnother">Save & Add Another</button>
+                <button data-dismiss="modal" id="btnCancel" class="btn btn-white " type="button">Cancel</button>
+                <div id="information" class="alert alert-warning"></div>
+               
             </div>
         </div>
     </div>
@@ -368,6 +211,27 @@
     </div>
 </div>
 <!--authorize Modal End -->
+<!-- Small modal start-->
+<!-- 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+ -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+     
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Small modal end-->
+
 <script src="Controller/cMenuManagement.js"></script>
 
 

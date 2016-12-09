@@ -94,7 +94,7 @@ var embedParamRole = function(id){
 			
 			//DataTable
 			 // $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
-			  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+			  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false  } ); 
 			
 			
 			//start ปุ่ม Edit ใน table
@@ -180,8 +180,9 @@ var dropDownListRole = function(id,paramInline,paramParentID){
 	if(paramInline=="Y"){
 		html+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRole\" id=\"listRole-"+paramParentID+"\">";
 	}else{
-		html+="<select class=\"form-control input-sm editListRole\" id=\"listRole\">";
+		html+="<select class=\"form-control input-sm \" id=\"listRole\">";
 	}
+	//html+="<option  value=''>All</option>";	
 	$.each(galbalDqsRoleObj,function(index,indexEntry){
 		if(id==indexEntry["role_id"]){
 			html+="<option selected value="+indexEntry["role_id"]+">"+indexEntry["role_name"]+"</option>";			
@@ -198,7 +199,8 @@ var dropDownListRevisedCostCenter = function(id,paramParentID){
 	var html="";
 	html+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRevisedCostCenter\" id=\"listRevisedCostCenter-"+paramParentID+"\">";
 	$.each(galbalRevisedCostCenterObj,function(index,indexEntry){
-		if(id==indexEntry["revised_ccdef"]){
+		
+		if(id==indexEntry["ccdef"]){
 			html+="<option selected value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";			
 		}else{
 			html+="<option  value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";	
@@ -216,22 +218,12 @@ $(document).ready(function(){
 	getDataRole();
 	getDataRevisedCostCenter();
 	/*####Call Init Function  End######*/
-	$("#listRoleArea").html(dropDownListRole(),"N");
+	$("#listRoleArea").html(dropDownListRole());
+	
 	
 		//function update data
-		 var updateFn = function(){ 
-			 /*
-			 "users: [
-			  {
-			     personnel_id: """",
-			     revised_cost_center: """",
-			     role_id: """"
-			   },
-			   {
-			     .......
-			   }
-			]"
-			*/
+var updateFn = function(){ 
+		
 	 var users = [];
 	 $.each(galbalDataUserObj,function(index,indexEntry){
 		//console.log($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()); 
@@ -263,7 +255,7 @@ $(document).ready(function(){
 		}
 		
 	 });
-	 console.log(users);
+	
 
 	  $.ajax({
 		    url:restfulURL+"/dqs_api/public/dqs_user",
@@ -276,7 +268,9 @@ $(document).ready(function(){
 		     console.log(data);
 			     if(status=="success"){
 				callFlashSlide("Update Successfully.");
-				//$(".embed_Role").remove();
+				$(".editListRevisedCostCenter").attr("disabled","disabled");
+				$(".editListRole").attr("disabled","disabled");
+				
 
 			     }
 			  }
@@ -284,74 +278,7 @@ $(document).ready(function(){
 	 
 	 
 		 
-			 
-			 //update super_flag
-//			 $.each($(".embed_Super_Flagg").get(),function(index,indexEntry){
-//					var id=$(indexEntry).val();
-//					
-//				 $.ajax({
-//					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
-//					    type:"PUT",
-//					    dataType:"json",
-//					    data:{"super_flag":$("#operation-"+id).val()},
-//					    success:function(data,status){
-//					     //alert(data);
-//						     if(status=="success"){
-//							$(".embed_Super_Flagg").remove();
-//
-//						     }
-//						  }
-//					});
-//			 });
-			 
-			 //update role_id
-//			 $.each($(".embed_Role").get(),function(index,indexEntry){
-//					var id=$(indexEntry).val();
-//					
-//					//alert($("#listRole-"+id).val());
-//					
-//				 $.ajax({
-//					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
-//					    type:"PUT",
-//					    dataType:"json",
-//					    data:{"role_id":$("#listRole-"+id).val()},
-//					    success:function(data,status){
-//					     //alert(data);
-//						     if(status=="success"){
-//							
-//							//$(".embed_Role").remove();
-//
-//						     }
-//						  }
-//					});
-//			 });
-			 
-			 
-			 //update revised_cost_center
-			 /*$.each($(".embed_Revised").get(),function(index,indexEntry){
-					var id=$(indexEntry).val();
-					
-					//alert($("#listRole-"+id).val());
-					
-				 $.ajax({
-					    url:restfulURL+"/dqs_api/public/dqs_user/"+id,
-					    type:"PUT",
-					    dataType:"json",
-					    data:{"revised_cost_center":$("#Revised-"+id).val()},
-					    success:function(data,status){
-					     //alert(data);
-						     if(status=="success"){
-							
-							//$(".embed_Revised").remove();
 
-						     }
-						  }
-					});
-			 });*/
-			 
-			     // alert("Upate Success");
-			      //getDataFn();
-			      //clearFn();
 				  
 				return false;
 			 };
@@ -419,10 +346,10 @@ $(document).ready(function(){
 						"role_id":listRole,
 						"active_flag":isActive},
 				    success:function(data){
-					console.log(data['data']);
-						if(data['data']!=""){
+					//console.log(data['data']);
+						//if(data['data']!=""){
 							listDataFn(data['data']);
-						}
+						//}
 				     //
 				    }
 				   });
@@ -555,7 +482,7 @@ $(document).ready(function(){
     						data:{"q":request.term},
     						async:false,
                             error: function (xhr, textStatus, errorThrown) {
-                                alert('Error: ' + xhr.responseText);
+                            	alert('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
     						

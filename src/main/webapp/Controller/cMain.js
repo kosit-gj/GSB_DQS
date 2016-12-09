@@ -131,6 +131,21 @@ var callFlashSlide = function(text){
 			$("#slide_status").slideUp();
 		},3000);
 }
+var callFlashSlideInModal =function(text,id){
+	if(id!=undefined){
+		$(id).html(text).show();
+	}else{
+		$("#information").html(text).show();
+	}
+	
+	setTimeout(function(){
+		if(id!=undefined){
+			$(id).hide("slow");
+		}else{
+			$("#information").hide("slow");
+		}
+	},2000);
+}
 
 var includeFileFn = function(paramUrl){
 	

@@ -4,8 +4,8 @@
 	
 }
 .form-grade-mangement{
-	height:43px;
-	padding-top: 7px;
+	height:35px;
+	/*padding-top: 7px;*/
 }
 
 .form-grade-label{
@@ -45,4 +45,21 @@
 	float:left;
 	width:140px;
 }
-
+.font-gear {
+    cursor: pointer;
+    font-size: 25px;
+}
+#information2{
+	
+	/*height: 5px;*/
+	/*
+    position: absolute;
+    text-align: left;
+    top: -10px;
+    width: 840px;
+    display:none;
+    padding:5px;
+    */
+    text-align: left;
+    
+}

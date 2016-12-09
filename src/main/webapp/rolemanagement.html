@@ -38,23 +38,15 @@
 	         					
 	         					<div class="ibox-content"> 
 
-         							<div class="row">
+         							<div id="btnTopManageArea" class="row ">
          							
          								<div class="col-sm-9 m-b-xs">
 	                                   		<button type="button" class="btn btn-info" id="btnAddRole" data-target="#addModalRole" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Rule</button>	                                    	
 	                                    </div>
-                                    	<!-- 
-                                     	<div class="col-sm-3">
-	                                    	<div class="input-group"><input type="text" placeholder="Search" id="searchText" name="searchText" class="input-sm form-control"> 
-		                                    	<span class="input-group-btn">
-	                                        		<button type="button" id="btnSearch"  class="btn btn-sm btn-primary">&nbsp;<i class="fa fa-search"></i>&nbsp;</button> 
-	                                        	</span>
-                                        	</div>
-                                     	</div>
-                                     	 -->
+                                    	
          							</div>
          							
-                                    	<!-- start table ////////////////////////////////////////////////-->
+                                    	<!-- start table -->
                                     	<div class="table-responsive">
                                    		<table class="table table-striped" id="tableRole">
                                         <thead>
@@ -67,56 +59,7 @@
                                         </thead>
                                         <tbody id="listRole">
                                         
-                                        <!-- 
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Administrator</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deployed</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td> 
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Monitor</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Oparator</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>  
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Power User</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td>
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>User</td>
-                                            <td><i class="fa fa-paste font-setseeuser" data-target="#ModalRoleAuthorize" data-toggle="modal"></i></td> 
-                                            <td>
-												<i class="fa fa-cog font-gear" id="popover-edit-del"  data-html="true" data-toggle="popover" data-placement="top" data-content="<button class='btn btn-warning btn-xs' data-target=#editModalRole data-toggle='modal'>Edit</button>&nbsp;<button class='btn btn-danger btn-xs'>Delete</button>"></i>
-                                            </td>
-                                        </tr>
-                                         -->
+                                       
                                         
                                         </tbody>
                                         </table>
@@ -156,7 +99,7 @@
 	                </div>
 	                
 	                <div class="form-input-role">
-	                	<input type="text" class="form-control" placeholder="" id="role_name_edit" name="role_name_edit">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="role_name_edit" name="role_name_edit">
 	                </div>
 	                
 	                <br style="clear:both">
@@ -193,11 +136,11 @@
                 <!-- form start -->
                 <div class='form-file-mangement'>
 	                <div class="form-label-role">
-	                	Rule Name
+	                	Role Name
 	                </div>
 	                
 	                <div class="form-input-role">
-	                	<input type="text" class="form-control" placeholder="" id="role_name" name="role_name">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="role_name" name="role_name">
 	               		  
                 	    <div class="checkbox checkbox-inline">
                         	<input type="checkbox" name="CheckboxInline" id="authority_checkbox_role">
@@ -221,8 +164,9 @@
    				<input type="hidden" name="action" id="action" value="add">
    				
    				<button class="btn btn-primary" type="button" id="btnSubmit" name="btnSubmit">Save</button>
+   				<button class="btn btn-primary" type="button" id="btnSaveAndAnother" name="btnSaveAndAnother">Save & Add Another</button>
                 <button data-dismiss="modal" class="btn btn-white btnCancle"  type="button">Cancel</button>
-                
+                <div id="information" class="alert alert-warning"></div>
             </div>
         </div>
     </div>
@@ -241,7 +185,7 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-folder-open icon-title"></i>AUTHORIZE</h2>
+                <h2><i class="fa fa-pencil-square-o icon-title"></i>AUTHORIZE</h2>
                 <hr>
                 
                 <!-- form start -->
@@ -268,8 +212,9 @@
             </div>
             <div class="modal-footer">
             	<input type="hidden" id="role_id" class="" name="role_id" value="">
+            	 <button class="btn btn-primary" id="btnSaveAuthorize" type="button">Save</button>
                 <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-                <button class="btn btn-primary" id="btnSaveAuthorize" type="button">Save</button>
+               
             </div>
         </div>
     </div>

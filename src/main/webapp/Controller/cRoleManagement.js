@@ -39,7 +39,7 @@ $(document).ready(function(){
 	
 	}
 	
-	var insertFn = function() {
+	var insertFn = function(param) {
 		
 		//alert($("#authority_checkbox_role").val());
 		var authority_checkbox_role="";
@@ -68,16 +68,20 @@ $(document).ready(function(){
 			async:false,
 			success : function(data) {
 				console.log(data);
-				console.log(data['data']);
-				if (status = "200") {
+				//console.log(data['data']);
+				if (data['status'] == "200") {
 					
-					callFlashSlide("Insert Successfully.");
-					
+					callFlashSlide("Insert Successfully.");					
 					getDataFn();
-					//listRoleFn(data['data']);
-			
 					clearFn();
-					$('#addModalRole').modal('hide');
+					
+					if(param!="saveAndAnother"){
+						$('#addModalRole').modal('hide');
+					}else{
+						callFlashSlideInModal("Insert Data is Successfully.");
+					}
+				}else if (data['status'] == 400) {
+					callFlashSlideInModal(data['data']['role_name']);
 				}
 			}
 		});
@@ -196,9 +200,7 @@ $(document).ready(function(){
 		$("#listMenu").html(htmlTable);
 		
 	}
-	
 
-	
 	var listRoleFn = function(data) {
 		//console.log(data);
 		
@@ -212,14 +214,14 @@ $(document).ready(function(){
 		htmlTable += "<tr>";
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
 		htmlTable += "<td>"+ indexEntry["role_name"]+ "</td>";
-		htmlTable += "<td><i class=\"fa fa-paste font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["role_id"]+"></i></td> ";
-		htmlTable += "<td><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
+		htmlTable += "<td><i class=\"fa fa-group font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["role_id"]+"></i></td> ";
+		htmlTable += "<td><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs btn-gear del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
 		$("#listRole").html(htmlTable);
 		
-		 $('#tableRole').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+		//$('#tableRole').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 		 
 		 $("#tableRole_wrapper").click(function(){
 			 $(".popover-edit-del").popover();
@@ -295,25 +297,27 @@ $(document).ready(function(){
 			
 			$(".del").on("click",function(){
 			
-				$.ajax({
-					 url:restfulURL+"/dqs_api/public/dqs_role/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-					 async:false,
-				     success:function(data){      
-				       
-				    	if(data['status']==200){
-				    		
-				    		 callFlashSlide("Delete Successfully.");
-				    		 getDataFn();
-						     clearFn();
-						     $("#popover-edit-del-"+this.id).click();
-				    	}
-				      
-	
-					 }
-				});
+				if(confirm("Confirm to Delete Data?")){
+					$.ajax({
+						 url:restfulURL+"/dqs_api/public/dqs_role/"+ this.id,
+						 type : "delete",
+						 dataType:"json",
+						 headers:{Authorization:"Bearer "+tokenID.token},
+						 async:false,
+					     success:function(data){      
+					       
+					    	if(data['status']==200){
+					    		
+					    		 callFlashSlide("Delete Successfully.");
+					    		 getDataFn();
+							     clearFn();
+							     $("#popover-edit-del-"+this.id).click();
+					    	}
+					      
+		
+						 }
+					});
+				}
 				//$(".del").off("click");
 			});
 			
@@ -379,6 +383,12 @@ $(document).ready(function(){
 			}
 		}
 		return false;
+	});
+	
+	$("#btnSaveAndAnother").click(function(){
+		//alert("btnSaveAndAnother");
+		insertFn("saveAndAnother");
+		
 	});
 	
 	$(".btnCancle").click(function() {

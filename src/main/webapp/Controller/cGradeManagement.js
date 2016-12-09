@@ -46,7 +46,7 @@ $(document).ready(function(){
 					   }
 				  }
 
-		 var insertFn = function(){
+		 var insertFn = function(param){
 				
 				    $.ajax({
 					     url:restfulURL+"/dqs_api/public/dqs_grade",
@@ -56,14 +56,36 @@ $(document).ready(function(){
 						 headers:{Authorization:"Bearer "+tokenID.token},
 					     success:function(data,status){
 					      //console.log(data);
-						      if(status=="success"){
-						      //alert("Insert Success");
-						       getDataFn();
-						       clearFn();
-						      }
+						      if(data['status']=="200"){
+						      
+								   if(param !="saveAndAnother"){
+									   callFlashSlide("Insert Successfully.");
+								       getDataFn();
+								       clearFn();
+								 	   $('#managementModal').modal('hide');
+									}else{
+										getDataFn();
+										clearFn();
+										callFlashSlideInModal("Insert Data is Successfully.");
+									}
+
+							   }else if (data['status'] == "400") {
+							
+									var validate="";
+									if(data['data']['processing_seq']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['processing_seq']+"<br>";
+									}
+									if(data['data']['grade']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['grade']+"<br>";
+									}
+									if(data['data']['grade_name']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['grade_name']+"<br>";
+									}
+									callFlashSlideInModal(validate);
+							  }
 						   }
 				    });         
-					$(".ManagementModal").fadeTo(1000,2000).slideUp(500);
+					//$(".ManagementModal").fadeTo(1000,2000).slideUp(500);
 				    return false;
 		 		};
 				
@@ -77,14 +99,30 @@ $(document).ready(function(){
 					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"processing_seq":$("#processing_seq").val()},
 						headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data,status){
-						     if(status=="success"){
-						     //alert("Upate Success");
-						      getDataFn();
-						      //clearFn();
-						     }
+						     if(data['status']==200){
+							   clearFn();
+						 	   $('#managementModal').modal('hide');
+							   callFlashSlide("Update Successfully.");
+						       getDataFn();
+						     }else if (data['status'] == "400") {
+							
+									var validate="";
+									if(data['data']['processing_seq']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['processing_seq']+"<br>";
+									}
+									if(data['data']['grade']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['grade']+"<br>";
+									}
+									if(data['data']['grade_name']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['grade_name']+"<br>";
+									}
+									callFlashSlideInModal(validate);
+									
+							  }
+						
 						    }
 					   });
-				   $(".ManagementModal").fadeTo(1000,2000).slideUp(500);
+				  //$(".ManagementModal").fadeTo(1000,2000).slideUp(500);
 				   return false;
 			 };
 
@@ -105,6 +143,7 @@ $(document).ready(function(){
 					   $("#btnSubmit").val("Add");
 					   $("#btnAddAnother").val("Add");
 					   $("#action_condition").val("add");
+					   $("#btnAddAnother").show();
 					   
 			}
 		 var findOneFn = function(id){
@@ -150,7 +189,7 @@ $(document).ready(function(){
 						   	  htmlTable+="<td id=\"gradename-"+indexEntry["grade_id"]+"\">"+indexEntry["grade_name"]+"</td>";
 							 // htmlTable+="<td><input class=\"form-control input-inline-table input-seq\" type=\"text\" name=\"\" id=\"\" value="+indexEntry["processing_seq"]+"></td>";
 						      //htmlTable+="<td><i class=\"fa fa-search font-management showCondition\" data-target=\"#condition\" id="+indexEntry["_id"]+" data-toggle=\"modal\" ></i></td>";
-						      htmlTable+="<td><i <i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs  btnCondition' data-target=#conditionModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#managementModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["grade_id"]+">Delete</button>\"></i></td>"
+						      htmlTable+="<td><i <i class=\"fa fa-gear font-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs  btnCondition' data-target=#conditionModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Condition</button> <button class='btn btn-warning btn-xs edit' data-target=#managementModal data-toggle='modal' type='button' id="+indexEntry["grade_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["grade_id"]+">Delete</button>\"></i></td>"
 							  htmlTable+="</tr>";
 						   });
 						
@@ -158,7 +197,7 @@ $(document).ready(function(){
 						
 						
 						  //DataTable
-						$('#tableGrade').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } );
+						//$('#tableGrade').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } );
 						
 						//เมื่อ click แล้วให้มันไปผูกกับ popover
 						$("#tableGrade_wrapper").click(function(){
@@ -181,6 +220,7 @@ $(document).ready(function(){
 								    $("#action").val("edit");
 								    $("#btnSubmit").val("Edit");
 								    $("#btnAddAnother").val("Edit");
+								    $("#btnAddAnother").hide();
 								    
 								});
 							
@@ -232,27 +272,23 @@ $(document).ready(function(){
 				  getDataFn();
 				  
 				$("#btnSubmit").click(function(){
-					   if(validationFn()==true){
+					   //if(validationFn()==true){
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
 								insertFn();
-						        clostModal();
+						        //clostModal();
 						    }else{
 						     	updateFn();
-						        clostModal();
+						        //clostModal();
 						    }
-					   }
+					   //}
 					   		return false;
 					  });
 				
 				
 				$("#btnAddAnother").click(function(){
-					   if(validationFn()==true){
-						    if($("#action").val()=="add" || $("#action").val()=="" ){
-						      	insertFn();
-						    }else{
-						     	updateFn();
-						    }
-					   }
+					  
+					insertFn("saveAndAnother");
+						  
 					   	return false;
 					  });
 		
@@ -354,8 +390,6 @@ $(document).ready(function(){
 				        }else{ 
 				        	complate_flag = 0;
 				        }
-					
-					
 						$.ajax({
 							     url:restfulURL+"/dqs_api/public/dqs_grade/"+grade_id+"/condition/"+$("#embed_condition_id").val()+"",
 							     type:"PATCH",
@@ -402,7 +436,7 @@ $(document).ready(function(){
 							   });
 						}
 						
-					console.log(conditions);
+					//console.log(conditions);
 					
 						  $.ajax({
 							     url:restfulURL+"/dqs_api/public/dqs_grade/"+grade_id+"/condition",
@@ -414,13 +448,12 @@ $(document).ready(function(){
 							     console.log(data['data']['error'].length);
 								      if(data['data']['error'].length==0){
 									
-								       alert("Insert Success");
-									   getDataConditionFn();
+								       //alert("Insert Success");
+									    getDataConditionFn();
+									    callFlashSlideInModal("Insert Successfully.","#information2");
 								     
 								      }else{
-									
-										alert("Error");
-										getDataConditionFn();
+										callFlashSlideInModal("The rule id has already been taken.","#information2");
 										
 									  }
 								   }
@@ -469,13 +502,23 @@ $(document).ready(function(){
 							htmlTableInline+="<td>";
 							htmlTableInline+="<input id='new_complete-"+globalCount+"' type=\"checkbox\"";
 							htmlTableInline+="</td>";
-							htmlTableInline+="<td><i class=\"fa fa-gear font-management popover-del-editCondition new-condition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition new-condition'  type='button'>Edit</button> <button class='btn btn-danger btn-xs deleteCondition new-condition' type='button' >Delete</button>\"></i></td";
-							
+							htmlTableInline+="<td><i class=\"fa fa-gear font-management font-management2 popover-del-editCondition new-condition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition new-condition'  type='button'>Edit</button> <button class='btn btn-danger btn-xs deleteCondition deleteNewCondition new-condition' type='button' id='"+globalCount+"'>Delete</button>\"></i></td>";
+							//htmlTableInline+="<td><i data-content=\"&lt;button class='btn btn-warning btn-xs editCondition'  type='button' id=13&gt;Edit&lt;/button&gt; &lt;button class='btn btn-danger btn-xs deleteCondition' type='button' id=13&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-gear font-management popover-del-editCondition\" data-original-title=\"\" title=\"\" aria-describedby=\"popover753603\"></i><td>";
 							htmlTableInline+="</tr>";
 						
 						 $("#listCondition").append(htmlTableInline);
+						 
+						 $('[data-toggle="popover"]').popover(); 
+						
+						 
 						 globalCount++;
 				}
+				
+				 $(document).on("click",".deleteNewCondition",function(){
+					$(this).parent().parent().parent().parent().remove();
+				 });
+				 
+				 
 				
 				//DropDownList Rule 
 				var dropDownListRule = function(){

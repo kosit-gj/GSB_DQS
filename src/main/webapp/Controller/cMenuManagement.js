@@ -48,7 +48,7 @@ $(document).ready(function(){
 			  }
 			  
 			  
-			  var insertFn = function(){
+			  var insertFn = function(param){
 			
 				//alert($(".menuCategory:checked").val());
 				
@@ -63,12 +63,37 @@ $(document).ready(function(){
 				      //alert(data);
 				      //console.log(data);
 				      console.log(status);
-					      if(status=="success"){
+					      if(data['status']=="200"){
 					      // alert("Insert Success");
-						   callFlashSlide("Insert Successfully.");
-					       getDataFn();
-					       clearFn();
-					      }
+						   
+							if(param !="saveAndAnother"){
+							   callFlashSlide("Insert Successfully.");
+						       getDataFn();
+						       clearFn();
+						 	   $('#managementModal').modal('hide');
+							}else{
+								getDataFn();
+								clearFn();
+								callFlashSlideInModal("Insert Data is Successfully.");
+							}
+							
+							
+					      }else if (data['status'] == "400") {
+						// || data['data']['app_url']==!"" || data['data']['menu_category']==!""
+							var validate="";
+							if(data['data']['menu_name']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['menu_name']+"<br>";
+							}
+							if(data['data']['app_url']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['app_url']+"<br>";
+							}
+							if(data['data']['menu_category']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['menu_category']+"<br>";
+							}
+							
+							
+							callFlashSlideInModal(validate);
+						  }
 				     }
 				    });         
 			
@@ -103,7 +128,7 @@ $(document).ready(function(){
 					   $("#action").val("add");
 					   $("#menu_name").val("");
 					   $("#btnSubmit").val("Add");
-					   $('#managementModal').modal('hide');
+					  
 					   $("#app_url").val("");
 					   
 					   $("#DQManagement").prop('checked', false);
@@ -168,10 +193,11 @@ $(document).ready(function(){
 			  
 			  var listDataFn = function(data){
 			
-				
+				/*
 				if ( $.fn.DataTable.isDataTable('#tableMenu')) {
 				      $('#tableMenu').DataTable().destroy();
-				     }
+				}
+				*/
 				
 			   //console.log(data);
 			   var htmlTable="";
@@ -180,16 +206,16 @@ $(document).ready(function(){
 							        htmlTable+="<td>"+(index+1)+"</td>";
 							        htmlTable+="<td id=\"menuname-"+indexEntry["menu_id"]+"\"> "+indexEntry["menu_name"]+"</td>";
 							     
-							        htmlTable+="<td><i class=\"fa fa-paste font-management btnAuthorize\" id="+indexEntry["menu_id"]+" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
+							        htmlTable+="<td><i class=\"fa fa-group font-management btnAuthorize\" id="+indexEntry["menu_id"]+" data-target=\"#authorize\" data-toggle=\"modal\"></i></td>";
 							       	
-									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["menu_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["menu_id"]+">Delete</button>\"></i></td>";
+									htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit btn-gear' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["menu_id"]+">Edit</button> <button class='btn btn-danger btn-xs del btn-gear' type='button' id="+indexEntry["menu_id"]+">Delete</button>\"></i></td>";
 							   htmlTable+="</tr>";
 				     });
 				
 				     $("#listMenu").html(htmlTable);
 				
 				
-				 $('#tableMenu').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+				 //$('#tableMenu').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 				 
 				 $("#tableMenu_wrapper").click(function(){
 					 $(".popover-del-edit").popover();
@@ -257,7 +283,7 @@ $(document).ready(function(){
 						
 					    $(".del").click(function(){
 					    //alert(this.id);
-					   // if(confirm("Do you want to delete this file?")){
+					    if(confirm("Confirm to Delete Data?")){
 					     
 					     $.ajax({
 						      url:restfulURL+"/dqs_api/public/dqs_menu/"+this.id,
@@ -268,14 +294,14 @@ $(document).ready(function(){
 						      success:function(data){  
 							
 								if(data['status']==200){
-									callFlashSlide("Delete Successfully.");    
+								   callFlashSlide("Delete Successfully.");    
 							       getDataFn();
 							       clearFn();
 								}
 					
 			     			 }
 			     		});
-			   		 //}
+			   		 }
 			   });
 			
 					   //findOnd
@@ -366,7 +392,7 @@ $(document).ready(function(){
 			  getDataFn();
 			
 			  $("#btnSubmit").click(function(){
-				   if(validationFn()==true){
+				  // if(validationFn()==true){
 				
 					    if($("#action").val()=="add" || $("#action").val()=="" ){
 					     
@@ -382,16 +408,24 @@ $(document).ready(function(){
 					     updateFn();
 					
 					    }
-				   }
+				  // }
 			   return false;
 			
 			  });
 			
+			$("#btnSaveAndAnother").click(function(){
+				//alert("btnSaveAndAnother");
+				insertFn("saveAndAnother");
+				
+			});
+			
+			
+			
 			 
-			 $("#btnAdd").click(function(){
-				 clearFn();
-				 //return false;
-			 });
+//			 $("#btnAdd").click(function(){
+//				 clearFn();
+//				 //return false;
+//			 });
 			 
 			  $("#btnSearch").click(function(){
 				   

@@ -9,6 +9,7 @@
 .form-label-role{
 	float:left;
 	padding-top: 7px;
+	padding-right: 5px;
 	width:auto;
 }
 .form-input-role{
@@ -18,3 +19,13 @@
 .checkbox-inline{
 	padding-top: 7px;
 }
+
+#btnTopManageArea{
+color:red	
+}
+/*
+.table-responsive{
+	position: relative;
+	top: -39px;
+}
+*/

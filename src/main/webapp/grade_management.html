@@ -64,12 +64,10 @@
                                         <thead>
                                         <tr>
 
-                                            <th>No.</th>
-                                            <th>Grade</th>
-                                            <th>Decription</th>
-                                            <!-- <th>Seq</th> -->
-                                            <!-- <th>Show Condition</th> -->
-                                            <th>Manage</th>
+                                            <th style='width:10%;'>No.</th>
+                                            <th style='width:10%;'>Grade</th>
+                                            <th style='width:50%;'>Decription</th>
+                                            <th style='width:10%;'>Manage</th>
                                         </tr>
                                         </thead>
                                         <tbody id="listGrade">
@@ -119,12 +117,12 @@
                 <!-- form start -->
                 <div class='form-grade-mangement'>
 	                <div class="form-grade-labelsep">
-	                 <label>seq  :</label>
+	                 <label>seq </label>
 	                </div>
 	                
 	                <div class="form-input-sep">
 	                
-	                	<input type="text" class="form-control " placeholder="" id="process_seq">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="processing_seq">
 	                </div>
 	                
                 </div>
@@ -132,12 +130,12 @@
                 <div class='form-grade-mangement'>
 	                <div class="form-grade-labelsep">
 	                
-	                 <label>Grade  :</label>
+	                 <label>Grade</label>
 	                </div>
 	                
 	                <div class="form-grade-input">
 	                
-	                	<input type="text" class="form-control" placeholder="" id="grade">
+	                	<input type="text" class="form-control input-sm" placeholder="" id="grade">
 	                </div>
 	                
                 </div>
@@ -145,7 +143,7 @@
 				<div class='form-grade-mangement'>
 	                <div class="form-grade-label">
 	                
-	                <label>Grade Description :</label>
+	                <label>Grade Description</label>
 	                </div> 
 	            
 	                <div class="form-grade-labeltext">
@@ -163,11 +161,12 @@
             <div class="modal-footer">
             	<input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add"> 
-                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                
-                <button class="btn btn-primary" type="button" id="btnAddAnother">Save & Add Another</button>
-                
+               
                 <button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
+                <button class="btn btn-primary" type="button" id="btnAddAnother">Save & Add Another</button>
+                <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
+                <div class="alert alert-warning" id="information"></div>
+                
             </div>
         </div>
     </div>
@@ -179,6 +178,7 @@
 <div aria-hidden="true" role="dialog" tabindex="-1" id="conditionModal" class="modal inmodal" style="display: none;">
     <div class="modal-dialog modal-lg">
     <div class="modal-content animated bounceInRight">
+   
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
@@ -188,6 +188,7 @@
                  -->
             </div>
             <div class="modal-body">
+            
                 <!-- content start -->
                 <h2><i class="fa fa fa-pencil-square-o icon-title"></i>CONDITION</h2>
                 <hr>
@@ -245,8 +246,9 @@
             </div>
             <div class="modal-footer">
             	<input type="hidden" id="action_condition" value="add" name="action_condition">
+            	<button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button" id="btnCancle">Cancel</button>
-                <button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
+                <div id="information2" class="alert alert-warning information"></div>
             </div>
         </div>
     </div>

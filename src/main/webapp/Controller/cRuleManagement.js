@@ -141,7 +141,7 @@ $(document).ready(function(){
 	
 	}
 	
-	var insertFn = function() {
+	var insertFn = function(param) {
 			
 		var checkboxInitial = "";
 		var checkboxUpdate = "";
@@ -199,13 +199,37 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				if (data['status'] == 200) {
+
+			
 					
-					//alert("Insert Success");
-					callFlashSlide("Insert Successfully.");
+					if(param !="saveAndAnother"){
+						   callFlashSlide("Insert Successfully.");
+					       getDataFn();
+					       clearFn();
+					 	   $('#addModalRule').modal('hide');	
+						}else{
+							getDataFn();
+							clearFn();
+							callFlashSlideInModal("Insert Data is Successfully.");
+					}
 					
-					getDataFn();
-					clearFn();
-					$('#addModalRule').modal('hide');
+					
+					
+				}else if (data['status'] == 400) {
+					
+					var validate="";
+					if(data['data']['rule_name']!=undefined){
+						validate+="<font color='red'>*</font> "+data['data']['rule_name']+"<br>";
+					}
+					if(data['data']['inform_flag']!=undefined){
+						validate+="<font color='red'>*</font> "+data['data']['inform_flag']+"<br>";
+					}
+					if(data['data']['edit_rule_release_flag']!=undefined){
+						validate+="<font color='red'>*</font> "+data['data']['edit_rule_release_flag']+"<br>";
+					}
+					callFlashSlideInModal(validate);
+					
+					
 				}
 			}
 		});
@@ -421,13 +445,13 @@ $(document).ready(function(){
 			htmlTable += "<td><input id=\"edit_rule_release_flag_inline-"+indexEntry["rule_id"]+"\" class=\"edit_rule_release_flag_inline\" disabled type='checkbox' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
 		}
 
-		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' id="+ indexEntry["rule_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["rule_id"]+" class='btn btn-danger btn-xs del'>Delete</button>\"></i></td>";
+		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["rule_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["rule_id"]+" class='btn btn-danger btn-xs btn-gear del'>Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
 		$("#listRule").html(htmlTable);
 		
-		$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );  
+		$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false } );  
 		
 		//function popover
 		$(".popover-edit-del").popover();
@@ -647,19 +671,27 @@ $(document).ready(function(){
 	
 	$("#btnSubmit").click(function(){
 		
-		if (validationFn() == true) { 
+		//if (validationFn() == true) { 
 			if ($("#action").val() == "add"|| $("#action").val() == "") {	
 				//if (checkUniqueFn($("#rule_name").val()) == true) { 	
 					insertFn();
-//				}else{
-//					alert("name is not unique.");
-//				}
+	//				}else{
+	//					alert("name is not unique.");
+	//				}
 			}else{			
 				updateFn();
 			}
-		}
+		//}
 		return false;
 	});
+	
+	$("#btnSaveAndAnother").click(function(){
+		//alert("btnSaveAndAnother");
+		insertFn("saveAndAnother");
+		
+	});
+	
+	
 	
 	$(".btnCancle").click(function() {
 		clearFn();

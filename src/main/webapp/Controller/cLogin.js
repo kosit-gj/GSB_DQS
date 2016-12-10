@@ -14,9 +14,9 @@ $(document).ready(function(){
 		sessionStorage.full_name="kosit";
 		//console.log(sessionStorage.username);
 		
-		
+		//171.96.201.91
 		$.ajax({
-			url:"http://192.168.1.58/dqs_api/public/session",
+			url:"http://171.96.201.91/dqs_api/public/session",
 			type:"POST",
 			dataType:"text",
 			data:{"user_name":$("#userName").val(),"password":$("#password").val()},

@@ -1,5 +1,6 @@
 var tokenID= eval("("+localStorage.getItem("tokenID")+")");
-var restfulURL="http://192.168.1.58";
+//var restfulURL="http://192.168.1.58";
+var restfulURL="http://171.96.201.91";
 //Global Parameter Start
 var galbaMenuObj=[];
 //Global Parameter End

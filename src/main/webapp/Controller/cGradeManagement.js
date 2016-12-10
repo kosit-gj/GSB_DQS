@@ -198,6 +198,7 @@ $(document).ready(function(){
 						
 						  //DataTable
 						//$('#tableGrade').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">',"bSort" : false } );
+						$('#tableGrade').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">',"bSort" : false } );
 						
 						//เมื่อ click แล้วให้มันไปผูกกับ popover
 						$("#tableGrade_wrapper").click(function(){
@@ -332,7 +333,7 @@ $(document).ready(function(){
 												}
 											htmlTable+="</td>";
 											
-											htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-editCondition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition'  type='button' id="+indexEntry["condition_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteCondition' type='button' id="+indexEntry["condition_id"]+">Delete</button>\"></i></td";
+											htmlTable+="<td class='iconDisable'><i class=\"fa fa-gear font-management popover-del-editCondition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition'  type='button' id="+indexEntry["condition_id"]+">Edit</button> <button class='btn btn-danger btn-xs deleteCondition' type='button' id="+indexEntry["condition_id"]+">Delete</button>\"></i></td";
 									htmlTable+="</tr>";
 						     });
 						
@@ -402,6 +403,7 @@ $(document).ready(function(){
 							     success:function(data,status){
 							     
 								      getDataConditionFn();
+									  $("#action_condition").val("add");
 								   }
 						    });         
 					
@@ -502,7 +504,7 @@ $(document).ready(function(){
 							htmlTableInline+="<td>";
 							htmlTableInline+="<input id='new_complete-"+globalCount+"' type=\"checkbox\"";
 							htmlTableInline+="</td>";
-							htmlTableInline+="<td><i class=\"fa fa-gear font-management font-management2 popover-del-editCondition new-condition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs editCondition new-condition'  type='button'>Edit</button> <button class='btn btn-danger btn-xs deleteCondition deleteNewCondition new-condition' type='button' id='"+globalCount+"'>Delete</button>\"></i></td>";
+							htmlTableInline+="<td ><i class=\"fa fa-gear font-management font-management2  new-condition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-danger btn-xs deleteCondition deleteNewCondition new-condition' type='button' id='"+globalCount+"'>Delete</button>\"></i></td>";
 							//htmlTableInline+="<td><i data-content=\"&lt;button class='btn btn-warning btn-xs editCondition'  type='button' id=13&gt;Edit&lt;/button&gt; &lt;button class='btn btn-danger btn-xs deleteCondition' type='button' id=13&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-gear font-management popover-del-editCondition\" data-original-title=\"\" title=\"\" aria-describedby=\"popover753603\"></i><td>";
 							htmlTableInline+="</tr>";
 						
@@ -541,7 +543,20 @@ $(document).ready(function(){
 				};
  		
 			  $("#btnAddCondition").click(function(){
+				
+				  if($("#action_condition").val()=="add"){
 					insertConditionInlineFn($("#listRule").val());
+					$(".iconDisable").html("<i style='opacity:0.3;cursor:default;' class='fa fa-gear font-management'></i>");
+				  }else{
+					  alert("ไม่สามารถเพิ่มได้");
+				  }
+					
+					
+			  });
+			 
+			  $("#btnCancelAddCondition").click(function(){
+				  getDataConditionFn();
+				  $("#action_condition").val("add");
 			  });
 
 			  $("#btnAdd").click(function(){

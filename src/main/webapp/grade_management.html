@@ -50,11 +50,12 @@
                                     <div class="col-sm-8 m-b-xs">
                                     	<button type="button" class="btn btn-info " id="btnAdd" data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Grade</button>
                                     </div>
-                                    
+                                    <!-- 
                                      <div class="col-sm-4">
 	                                     <div class="input-group"><input type="text" placeholder="Search" name="searchText" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
                                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class=' fa fa-search'> </i></button> </span></div>
                                      </div>
+                                      -->
                              </div>
                              
                        
@@ -66,7 +67,7 @@
 
                                             <th style='width:10%;'>No.</th>
                                             <th style='width:10%;'>Grade</th>
-                                            <th style='width:50%;'>Decription</th>
+                                            <th style='width:70%;'>Decription</th>
                                             <th style='width:10%;'>Manage</th>
                                         </tr>
                                         </thead>
@@ -211,12 +212,15 @@
 		                     </select>
 	                     </div>
 	                </div>
-	                <div class="col-sm-2">	   
-	                	<div class="form-grade-input3">
+	                <div class="col-sm-8">	   
+	                	
 	                		                        
                          	<button type="button" class="btn btn-warning" id="btnAddCondition"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                    	</div>
+                         	
+                     	
+                         
                     </div>
+                   
 	
                     
                 </div>
@@ -247,7 +251,8 @@
             <div class="modal-footer">
             	<input type="hidden" id="action_condition" value="add" name="action_condition">
             	<button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
-                <button data-dismiss="modal" class="btn btn-white" type="button" id="btnCancle">Cancel</button>
+            	<button type="button" class="btn btn-warning" id="btnCancelAddCondition">Cancel</button>
+                <button data-dismiss="modal" class="btn btn-white" type="button" id="btnCancle">Close</button>
                 <div id="information2" class="alert alert-warning information"></div>
             </div>
         </div>

@@ -31,14 +31,15 @@
 .title-detail{
 	padding-top:5px;
 	padding-bottom:20px;
-	font-size:16px;
+	/*font-size:16px;*/
 }
 .label-detail{
 	
 	float:left;
 }
 .label-detail .box1{
-	width:117px;
+	/*width:117px;*/
+	width:210px;
 }
 .label-detail .box2{
 	width:174px;

@@ -1,6 +1,7 @@
 var dropDownListBranch = function(id){
 	$.ajax({
-		url:restfulURL+"/dqs_api/public/dqs_monitoring_cdmd/branch",
+						
+		url:restfulURL+"/dqs_api/public/dqs_monitoring/branch",
 		type:"get",
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
@@ -30,7 +31,7 @@ var dropDownListBranch = function(id){
 var dropDownListCusType = function(id){
 	
 	$.ajax({
-		url:restfulURL+"/dqs_api/public/dqs_monitoring_cdmd/cust_type",
+		url:restfulURL+"/dqs_api/public/dqs_monitoring/cust_type",
 		type:"get",
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
@@ -55,10 +56,10 @@ var dropDownListCusType = function(id){
 	});
 };
 
-//http://192.168.1.58/dqs_api/public/dqs_monitoring_cdmd/rule
+//http://192.168.1.58/dqs_api/public/dqs_monitoring/rule
 var dropDownListRule = function(id){
 	$.ajax({
-		url:restfulURL+"/dqs_api/public/dqs_monitoring_cdmd/rule",
+		url:restfulURL+"/dqs_api/public/dqs_monitoring/rule",
 		type:"get",
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
@@ -121,88 +122,153 @@ var validationFn = function() {
 
 var updateFn = function(){
 	
-	//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
-	var id = $("#validate_header_id_hidden").val();
+	  alert("update Successfully.");
+	  var file_list = [];
+	  $.each(golbalDataFile,function(index,indexEntry){
+	  //console.log($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()); 
+	  console.log(indexEntry);
+	  
+	  var processing_seq = "";
+	  var contact_type = "";
+	  var kpi_flag = "";
+	  var last_contact_flag = "";
+	  var source_file_delete_flag = "";
+	  var nof_date_delete = "";
+	 
+	  if($("#embed_seqFileManage-"+indexEntry['file_id']).val()!=undefined 
+		|| $("#embed_contactType-"+indexEntry['file_id']).val()!=undefined
+		|| $("#embed_kpiflag-"+indexEntry['file_id']).val()!=undefined
+		|| $("#embed_lastcontact-"+indexEntry['file_id']).val()!=undefined
+		|| $("#embed_closeflag-"+indexEntry['file_id']).val()!=undefined
+		|| $("#embed_dateFileManage-"+indexEntry['file_id']).val()!=undefined)
+	  {
+		  
+	  	   //send value Seq
+		   processing_seq=$("#seqFileManage-"+indexEntry['file_id']).val();
+		   //send value ContactType 
+		   contact_type=$("#contacttype-"+indexEntry['file_id']).val();
+	 
+		   //send value KPI 
+		   if($("#kpiCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+			   kpi_flag = 1;
+	        }else{ 
+	        	kpi_flag = 0;
+	        }
+		   
+		   //send value LastContact
+		   if($("#lastContactCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+			   last_contact_flag = 1;
+	        }else{ 
+	           last_contact_flag = 0;
+	        }
+		   
+		   //send value Delete
+		   if($("#sourceFileDeleteCheckbox-"+indexEntry['file_id']).prop('checked')){ 
+			   source_file_delete_flag = 1;
+	        }else{ 
+	        	source_file_delete_flag = 0;
+	        }
+		   
+		   //send value Days
+		   nof_date_delete=$("#dateFileManage-"+indexEntry['file_id']).val();
+		  
+		   file_list.push({
+			    processing_seq:""+processing_seq+"",
+			   	file_id: ""+indexEntry['file_id']+"",
+			   	contact_type: ""+contact_type+"",
+			   	kpi_flag: ""+kpi_flag+"",
+			   	last_contact_flag: ""+last_contact_flag+"",
+			   	source_file_delete_flag: ""+source_file_delete_flag+"",
+			   	nof_date_delete: ""+nof_date_delete+"",
+		   });
+	  }
+	  
+	  });
+	  
+	  
+	  //console.log(file_list);
+//	//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
+//	var id = $("#validate_header_id_hidden").val();
+//	
+//	////////////////////////-CheckBox KPI-//////////////////////////////	
+//	
+//	var kpiFlagCheckbox = "";
+//	
+//	$.each($(".embed_kpiflag").get(),function(index,indexEntry){
+//	
+//		var id=$(indexEntry).val();
+//		if($("#kpiFlagCheckbox-"+id).prop('checked')){ 
+//			kpiFlagCheckbox = 1;
+//        }else{ 
+//        	kpiFlagCheckbox = 0;
+//        }
+//	
+//		$.ajax({
+//			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
+//			type : "PUT",
+//			dataType : "json",
+//			data : {"kpi_flag" :kpiFlagCheckbox},
+//			async:false,
+//			success : function(data) {
+//				if (data = "success") {
+//					//console.log("Upate Success");
+//				}
+//			}
+//		});
+//		
+//	});
+//	
+//	////////////////////////-CheckBox No Doc-//////////////////////////////
+//	
+//	var noDocCheckbox = "";
+//	
+//	$.each($(".embed_nodoc").get(),function(index,indexEntry){
+//	
+//		var id=$(indexEntry).val();
+//		if($("#no_doc_checkbox-"+id).prop('checked')){ 
+//			noDocCheckbox = 1;
+//        }else{ 
+//        	noDocCheckbox = 0;
+//        }
+//		
+//		$.ajax({
+//			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
+//			type : "PUT",
+//			dataType : "json",
+//			data : {"no_doc" :noDocCheckbox},
+//			async:false,
+//			success : function(data) {
+//				if (data = "success") {
+//					//console.log("Upate Success");
+//				}
+//			}
+//		});
+//		
+//	});
+//	
+//	/////////////////////-Dropdown Validate Status-////////////////////////
+//	
+//	$.each($(".embed_validate_status").get(),function(index,indexEntry){
+//		
+//		var id = $(indexEntry).val();
+//		
+//		$.ajax({
+//			url:restfulURL+"/api//make_dqs_inital_validate/"+id,
+//			type : "PUT",
+//			dataType : "json",
+//			//data : {"contact_type" : valueContatType},
+//			data : {"validate_status" : $("#validate_status-"+id).val()},
+//			async:false,
+//			success : function(data) {
+//				if (data = "success") {
+//					//console.log(data)
+//				}
+//			}
+//		});
+//		
+//	});
+
 	
-	////////////////////////-CheckBox KPI-//////////////////////////////	
-	
-	var kpiFlagCheckbox = "";
-	
-	$.each($(".embed_kpiflag").get(),function(index,indexEntry){
-	
-		var id=$(indexEntry).val();
-		if($("#kpiFlagCheckbox-"+id).prop('checked')){ 
-			kpiFlagCheckbox = 1;
-        }else{ 
-        	kpiFlagCheckbox = 0;
-        }
-	
-		$.ajax({
-			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
-			type : "PUT",
-			dataType : "json",
-			data : {"kpi_flag" :kpiFlagCheckbox},
-			async:false,
-			success : function(data) {
-				if (data = "success") {
-					//console.log("Upate Success");
-				}
-			}
-		});
-		
-	});
-	
-	////////////////////////-CheckBox No Doc-//////////////////////////////
-	
-	var noDocCheckbox = "";
-	
-	$.each($(".embed_nodoc").get(),function(index,indexEntry){
-	
-		var id=$(indexEntry).val();
-		if($("#no_doc_checkbox-"+id).prop('checked')){ 
-			noDocCheckbox = 1;
-        }else{ 
-        	noDocCheckbox = 0;
-        }
-		
-		$.ajax({
-			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
-			type : "PUT",
-			dataType : "json",
-			data : {"no_doc" :noDocCheckbox},
-			async:false,
-			success : function(data) {
-				if (data = "success") {
-					//console.log("Upate Success");
-				}
-			}
-		});
-		
-	});
-	
-	/////////////////////-Dropdown Validate Status-////////////////////////
-	
-	$.each($(".embed_validate_status").get(),function(index,indexEntry){
-		
-		var id = $(indexEntry).val();
-		
-		$.ajax({
-			url:restfulURL+"/api//make_dqs_inital_validate/"+id,
-			type : "PUT",
-			dataType : "json",
-			//data : {"contact_type" : valueContatType},
-			data : {"validate_status" : $("#validate_status-"+id).val()},
-			async:false,
-			success : function(data) {
-				if (data = "success") {
-					//console.log(data)
-				}
-			}
-		});
-		
-	});
-	
-	getDataMakeRuleFn(id);
 	
 };
 
@@ -245,39 +311,89 @@ updateExplainFn = function(id){
 }*/
 
 var findOneFn = function(id) {
-	//console.log(data);
+
+	///dqs_api/public/dqs_monitoring/cdmd/1
+	/*
+	{"header":{"own_branch_name":"Nawamin","cif_no":"11","cust_full_name":"John Doe",
+	"cust_type_desc":"Personnal","validate_date":"2016-12-11 00:00:00.000",
+	"contact_branch_name":"Rama 9","contact_date":"2016-12-13 00:00:00.000",
+	"transaction_date":"2016-12-10 00:00:00.000","maxdays":"2","rules":"1"},
+	"rule_list":{"total":1,"per_page":10,"current_page":1,"last_page":1,
+	"next_page_url":null,"prev_page_url":null,"from":1,"to":1,"data":[{"validate_id":"1",
+	"rule_id":"1","rule_group":"Cleansing","rule_name":"rule no 1","kpi_flag":"0","days":"0",
+	"validate_status":"correct","no_doc_flag":"1"}]}}
+	*/
 	var htmlTable = "";
 	$.ajax({
-		url:restfulURL+"/api/make_data_quality_monitoring/"+id,
+		url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+id,
 		type : "get",
 		dataType : "json",
 		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {	
-			
+			var dataRuleList=data['rule_list'];
+			data=data['header'];
 			htmlTable += "<div class='label-detail'>";
-			htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif"]+"</div>";
+			htmlTable += "<div class='box1'><b>Branch</b> : "+data["own_branch_name"]+"</div>";
 			htmlTable += "</div>";
 			
-			htmlTable += "<input type='hidden' id='validate_header_id_hidden' value='"+data["_id"]+"'>";
+			htmlTable += "<div class='label-detail'>";
+			htmlTable += "<div class='box1'><b>CIF</b> : "+data["cif_no"]+"</div>";
+			htmlTable += "</div>";
+			
+			htmlTable += "<input type='hidden' id='validate_header_id_hidden' value='"+id+"'>";
 			
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box2'><b>Name</b> : "+data["customername"]+"</div>";
+			htmlTable +="<div class='box1'><b>Name</b> : "+data["cust_full_name"]+"</div>";
 			htmlTable +="</div>";
      	
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box3'><b>Customer Type</b> : "+data["customertype"]+"</div>";
+			htmlTable +="<div class='box1'><b>Customer Type</b> : "+data["cust_type_desc"]+"</div>";
 			htmlTable +="</div>";
      	
+			
+			var validate_date=data["validate_date"].split(" ");
+			validate_date=validate_date[0];
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box4'><b>Branch</b> : "+data["lastcontactbranch"]+"</div>";
+			htmlTable +="<div class='box1'><b>Validate Date</b> : "+validate_date+"</div>";
+			htmlTable +="</div>";
+			
+			
+			
+			htmlTable +="<div class='label-detail'>";
+			htmlTable +="<div class='box1'><b>Last Contact Branch</b> : "+data["contact_branch_name"]+"</div>";
 			htmlTable +="</div>";
      	
+			
+			var contact_date=data["contact_date"].split(" ");
+			contact_date=contact_date[0];
+			
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box5'><b>Last Contact Date</b> : "+data["lasttransbranch"]+"</div>";
+			htmlTable +="<div class='box1'><b>Last Contact Date</b> : "+contact_date+"</div>";
 			htmlTable +="</div>";
+			
+			var transaction_date=data["transaction_date"].split(" ");
+			transaction_date=transaction_date[0];
+			
+			htmlTable +="<div class='label-detail'>";
+			htmlTable +="<div class='box1'><b>Last Trans Date</b> : "+transaction_date+"</div>";
+			htmlTable +="</div>";
+			
+			htmlTable +="<div class='label-detail'>";
+			htmlTable +="<div class='box1'><b>#Rule</b> : "+data["rules"]+"</div>";
+			htmlTable +="</div>";
+			
+			htmlTable +="<div class='label-detail'>";
+			htmlTable +="<div class='box1'><b>#Maxdays</b> : "+data["maxdays"]+"</div>";
+			htmlTable +="</div>";
+			
+			
 			htmlTable +="<br style='clear:both'>";
 							
 			$("#detail_id").html(htmlTable);
+			
+			//console.log(dataRuleList['data']);
+			listDetailRuleFn(dataRuleList['data']);
 		}
 	});
 };
@@ -287,27 +403,30 @@ var listDataQualityFn = function(data) {
 	if ($.fn.DataTable.isDataTable('#tableDataQuality')) {
 		$('#tableDataQuality').DataTable().destroy(); 
 	}
-	
-	//console.log(data);
+	/*
+	{"validate_header_id":"1","cif_no":"11","cust_full_name":"John Doe","validate_date"
+		:"2016-12-11 00:00:00.000","explain_status":"1","contact_branch_name":"Rama 9","contact_date":"2016-12-13
+		 00:00:00.000","transaction_date":"2016-12-10 00:00:00.000","maxdays":"2","rules":"1"}
+	 */
 	var htmlTable = "";
 	
 	$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["cif"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["customername"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["customertype"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["lastcontactbranch"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["lastcontactdate"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["lasttransbranch"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rule"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["maxday"]+ "</td>";
-		htmlTable += "<td><div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["_id"]+"></i>&nbsp;&nbsp;<i class='fa fa-paperclip font-management modalPaperchip' data-target='#addModal' data-toggle='modal'></i></div></td>";  
+		htmlTable += "<td>"+ indexEntry["cif_no"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["cust_full_name"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["validate_date"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["contact_branch_name"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["contact_date"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["transaction_date"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["rules"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["maxdays"]+ "</td>";	
+		htmlTable += "<td><div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["validate_header_id"]+"></i>&nbsp;&nbsp;<i class='fa fa-paperclip font-management modalPaperchip' data-target='#addModal' data-toggle='modal'></i></div></td>";  
 		htmlTable += "</tr>";
 	});
 	$("#listDataQuality").html(htmlTable);	
 	
-	$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+	$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false} ); 
 	
 	//*******click แล้ว clear ข้อมูล ด้วย********
 	$(".modalDetail").click(function(){
@@ -315,18 +434,10 @@ var listDataQualityFn = function(data) {
 		findOneFn(this.id);
 		$("#id").val(this.id);
 		
-		/*var crf=$(this).parent().parent().parent().children().get()[1];
-		
-		var crfID=$(crf).text();*/
-		//console.log($(crf).text());
-		
-		//getDataMakeRuleFn(crfID);
-		getDataMakeRuleFn(this.id);
-		
 	});
 };
 
-var listMakeDetailRuleFn = function(data) {
+var listDetailRuleFn = function(data) {
 	
 	// Destroy DataTable
 	if ($.fn.DataTable.isDataTable('#tableMakeRuleQuality')) {
@@ -335,39 +446,43 @@ var listMakeDetailRuleFn = function(data) {
 	
 	//console.log(data);
 	var htmlTable = "";
-	
-	//$("#validate_header_id_hidden").val()
-	
+	/*
+		[{"validate_id":"1",
+		"rule_id":"1","rule_group":"Cleansing","rule_name":"rule no 1","kpi_flag":"0","days":"0",
+		"validate_status":"correct","no_doc_flag":"1"}]
+	*/
 	$.each(data,function(index,indexEntry) {
 		htmlTable += "<tr>";
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
 		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rule"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["day"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["rule_name"]+ "</td>";
+		htmlTable += "<td>"+ indexEntry["days"]+ "</td>";
+		//htmlTable += "<td>"+ indexEntry["kpi_flag"]+ "</td>";
 		
 		if(indexEntry["kpi_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["validate_id"]+" checked='checked' ></td>";
 		}else if(indexEntry["kpi_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["validate_id"]+" ></td>";
 		}
 		
-		htmlTable+="<td><select disabled class=\"form-control input-inline-table validate_status\" id=validate_status-"+indexEntry["_id"]+"></select></td>";	
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table validate_status\" id=validate_status-"+indexEntry["validate_id"]+"></select></td>";	
 		
-		if(indexEntry["no_doc"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["_id"]+" checked='checked' ></td>";
-		}else if(indexEntry["no_doc"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["_id"]+" ></td>";
+		if(indexEntry["no_doc_flag"]==1){
+			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["validate_id"]+" checked='checked' ></td>";
+		}else if(indexEntry["no_doc_flag"]==0){
+			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["validate_id"]+" ></td>";
 		}
+		
 		
 		htmlTable += "</tr>";
 		
 		$("#tableDataMakeRuleQuality").html(htmlTable);
 		 
 		//alert(indexEntry["validate_status"]);
-		dropDownListValidateStatus(indexEntry["validate_status"],indexEntry["_id"]);
+		dropDownListValidateStatus(indexEntry["validate_status"],indexEntry["validate_id"]);
 	});
 		 
-	$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+	$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 	
 	//click ที่ checkox KPI แล้ว แยกไอดี ส่งไปฝัง(embed) 
 	$(".kpi_checkbox").click(function(){	
@@ -470,52 +585,38 @@ var embedParamCheckboxNoDoc = function(id){
 
 //DropDownValidate
 var dropDownListValidateStatus = function(name,id){
-	//alert(name);
-	$.ajax ({
-		url:restfulURL+"/api/make_param_validate_status",
-		type:"get" ,
-		dataType:"json" ,
-			success:function(data){
-				var htmlTable="";
-				$.each(data,function(index,indexEntry){
-					if(name==indexEntry["validate_status_name"]){
-						htmlTable+="<option value="+indexEntry["validate_status_name"]+" selected>"+indexEntry["validate_status_name"]+"</option>";		
-					}else{
-						htmlTable+="<option value="+indexEntry["validate_status_name"]+">"+indexEntry["validate_status_name"]+"</option>";		
-					}
-				});	
-				$("#validate_status-"+id).html(htmlTable);
+
+	var validateStatus=["All","incomplete","wrong","complete","correct","transfer"];
+	
+		var htmlDropdownList="";
+		$.each(validateStatus,function(index,indexEntry){
+			
+			if(name==indexEntry){
+				htmlDropdownList+="<option value="+indexEntry+" selected>"+indexEntry+"</option>";		
+			}else{
+				htmlDropdownList+="<option value="+indexEntry+">"+indexEntry+"</option>";		
 			}
-	});
+		});	
+		$("#validate_status-"+id).html(htmlDropdownList);
+	
 };
 
 
 
 var getDataFn = function() {
+	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd
 	$.ajax({
-		url : restfulURL + "/api/make_data_quality_monitoring",
+		url : restfulURL + "/dqs_api/public/dqs_monitoring/cdmd",
 		type : "get",
 		dataType : "json",
+		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			listDataQualityFn(data);
+			listDataQualityFn(data['data']);
 			//console.log(data);
 		}
 	});
 };
 
-
-var getDataMakeRuleFn = function(id) {
-	$.ajax({
-		url : restfulURL + "/api/make_dqs_inital_validate/?validate_header_id__regex=/^"+id+"/i",
-		type : "get",
-		dataType : "json",
-		async:false,
-		success : function(data) {
-			listMakeDetailRuleFn(data);
-			//console.log(data);
-		}
-	});
-};
 
 
 var getDataMakeExplainFn = function(id) {
@@ -578,8 +679,7 @@ $(document).ready(function(){
 	
 	dropDownListRule();
 	
-	
-	
+
 	$("#start_validate_date").datepicker();
     $("#start_validate_date" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#start_validate_date").val(firstDayInMonthFn());
@@ -590,13 +690,26 @@ $(document).ready(function(){
     $("#end_validate_date").val(currentDateFn());
     
     
-	
+//	$("#start_validate_date").click(function(){
+//		
+//		$("#start_validate_date").datepicker();
+//	    $("#start_validate_date" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
+//	    $("#start_validate_date").val(firstDayInMonthFn());
+//	    
+//	});
+//	$("#end_validate_date").click(function(){
+//		
+//		$("#end_validate_date").datepicker();
+//	    $("#end_validate_date" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
+//	    $("#end_validate_date").val(currentDateFn());
+//	    
+//	});
 	
 	//parameter end
 	
 	
 	//Call Function start
-	 //getDataFn();
+	 getDataFn();
 	
 	
 	$("#btnSearch").click(function(){
@@ -622,7 +735,7 @@ $(document).ready(function(){
 	
 	$("#btnCancle").click(function() {
 		var id = $("#validate_header_id_hidden").val();
-		getDataMakeRuleFn(id);
+	
 	});
 	
 	$(".btn-explain").click(function() {

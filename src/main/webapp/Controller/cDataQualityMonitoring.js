@@ -1,3 +1,4 @@
+var golbalDataRule=[];
 var dropDownListBranch = function(id){
 	$.ajax({
 						
@@ -122,71 +123,71 @@ var validationFn = function() {
 
 var updateFn = function(){
 	
-	  alert("update Successfully.");
-	  var file_list = [];
-	  $.each(golbalDataFile,function(index,indexEntry){
-	  //console.log($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()); 
-	  console.log(indexEntry);
+
+	
+	/*
+	"process_type,
+	rules: [
+	  {
+	     kpi_flag: """",
+	     validate_status: """"
+	  },....
+	]"
+	 */
+	  var rules = [];
+	  $.each(golbalDataRule,function(index,indexEntry){
+	 // console.log(indexEntry);
 	  
-	  var processing_seq = "";
-	  var contact_type = "";
 	  var kpi_flag = "";
-	  var last_contact_flag = "";
-	  var source_file_delete_flag = "";
-	  var nof_date_delete = "";
+	  var validate_status = "";
 	 
-	  if($("#embed_seqFileManage-"+indexEntry['file_id']).val()!=undefined 
-		|| $("#embed_contactType-"+indexEntry['file_id']).val()!=undefined
-		|| $("#embed_kpiflag-"+indexEntry['file_id']).val()!=undefined
-		|| $("#embed_lastcontact-"+indexEntry['file_id']).val()!=undefined
-		|| $("#embed_closeflag-"+indexEntry['file_id']).val()!=undefined
-		|| $("#embed_dateFileManage-"+indexEntry['file_id']).val()!=undefined)
+	 
+	  if($("#embed_kpiflag-"+indexEntry['validate_id']).val()!=undefined 
+		|| $("#embed_validate_status-"+indexEntry['validate_id']).val()!=undefined
+	  )
 	  {
 		  
 	  	   //send value Seq
-		   processing_seq=$("#seqFileManage-"+indexEntry['file_id']).val();
-		   //send value ContactType 
-		   contact_type=$("#contacttype-"+indexEntry['file_id']).val();
-	 
+		  validate_status=$("#validate_status-"+indexEntry['validate_id']).val();
+		  
 		   //send value KPI 
-		   if($("#kpiCheckbox-"+indexEntry['file_id']).prop('checked')){ 
-			   kpi_flag = 1;
+		   if($("#kpiFlagCheckbox-"+indexEntry['validate_id']).prop('checked')){ 
+			    kpi_flag = 1;
 	        }else{ 
 	        	kpi_flag = 0;
 	        }
-		   
-		   //send value LastContact
-		   if($("#lastContactCheckbox-"+indexEntry['file_id']).prop('checked')){ 
-			   last_contact_flag = 1;
-	        }else{ 
-	           last_contact_flag = 0;
-	        }
-		   
-		   //send value Delete
-		   if($("#sourceFileDeleteCheckbox-"+indexEntry['file_id']).prop('checked')){ 
-			   source_file_delete_flag = 1;
-	        }else{ 
-	        	source_file_delete_flag = 0;
-	        }
-		   
-		   //send value Days
-		   nof_date_delete=$("#dateFileManage-"+indexEntry['file_id']).val();
-		  
-		   file_list.push({
-			    processing_seq:""+processing_seq+"",
-			   	file_id: ""+indexEntry['file_id']+"",
-			   	contact_type: ""+contact_type+"",
-			   	kpi_flag: ""+kpi_flag+"",
-			   	last_contact_flag: ""+last_contact_flag+"",
-			   	source_file_delete_flag: ""+source_file_delete_flag+"",
-			   	nof_date_delete: ""+nof_date_delete+"",
+		   rules.push({
+			   validate_status:""+validate_status+"",
+			   kpi_flag: ""+kpi_flag+""
 		   });
 	  }
 	  
 	  });
 	  
 	  
-	  //console.log(file_list);
+//console.log(rules);
+
+//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}
+$.ajax({
+    url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+$("#id").val(),
+    type:"PATCH",
+    dataType:"json",
+    data:{"rules":rules,"process_type":"abc"},
+    headers:{Authorization:"Bearer "+tokenID.token},
+    async:false,
+    success:function(data,status){
+     console.log(data);
+      if(status=="success"){
+      	callFlashSlide("Update Successfully.");
+      	listDetailRuleFn(golbalDataRule);
+  	
+      }
+   }
+});
+
+
+
+
 //	//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
 //	var id = $("#validate_header_id_hidden").val();
 //	
@@ -394,6 +395,7 @@ var findOneFn = function(id) {
 			
 			//console.log(dataRuleList['data']);
 			listDetailRuleFn(dataRuleList['data']);
+			golbalDataRule=dataRuleList['data'];
 		}
 	});
 };

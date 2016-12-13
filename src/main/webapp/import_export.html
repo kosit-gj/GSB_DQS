@@ -1,8 +1,5 @@
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-   	<link href="css/import_export.css" rel="stylesheet">
-   	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/import_export.css" rel="stylesheet">
  <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
@@ -46,19 +43,26 @@
 					                      
 						                    <div class="tabs-container" id="import-export-tabs">
 						                        <ul class="nav nav-tabs">
+						                          	<!--
 						                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="false"><FONT COLOR=gray>ข้อมูลทะเบียนราษฎร์</FONT></a></li>
 						                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="true"><FONT COLOR=gray>เบอร์โทรศัพท์ที่ส่ง SMS</FONT></a></li>
+						                            -->
+						                            <li id='tab1' class="active"><a data-toggle="tab"  aria-expanded="false"><FONT COLOR=gray>ข้อมูลทะเบียนราษฎร์</FONT></a></li>
+						                            <li id='tab2' class=""><a data-toggle="tab"  aria-expanded="true"><FONT COLOR=gray>เบอร์โทรศัพท์ที่ส่ง SMS</FONT></a></li>
+						                            
+						                            	
 						                        </ul>
 						                        <div class="tab-content">
-						                            <div id="tab-1" class="tab-pane fade in active">
+						                            <div id="tab-1" class="tab-pane  active">
 						                            
 						                                <div class="panel-body">
 						                               
-						                                    <h3>FILE EXPORT</h3><br>
+						                                    <h3>FILE EXPORT</h3>
+						                                    <hr>
 						                                    <p>เลือกข้อมูลลูกค้าที่ท่านต้องการ Export เพื่อนำข้อมูลไปครวจสอบกับทะเบียนราษฏร์</p>
 						                                   
 						                                   
-						                                  <form method="post" action="http://192.168.1.58/dqs_api/public/dqs_import_export/export"> 
+						                                  <form method="post" id='fileExport' action=""> 
 									                          	<div class="row">
 									                          	<div class="col-sm-12 m-b-xs"> 
 									                          	<div class="radio"> 
@@ -67,7 +71,7 @@
 									                          	</div>
 									                          	
 										                          	<div class="label-import-export">
-										                          	<label for="selectboxyear">ระบุปี&nbsp;</label>
+										                          	<label for="selectboxyear">ปี&nbsp;</label>
 										                          	
 									                                    <select  class="form-control-sm m-b" id="yearImportExport">
 									                                    	
@@ -97,35 +101,36 @@
 																	</div>
 																</div>
 															 </div>
-														  <input type="hidden"  name="token" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2huIiwiaXNzIjoiaHR0cDpcL1wvMTkyLjE2OC4xLjU4
-XC9kcXNfYXBpXC9wdWJsaWNcL3Nlc3Npb24iLCJpYXQiOjE0ODA2NTAwNjksImV4cCI6MTQ4MDY4NjA2OSwibmJmIjoxNDgwNjUwMDY5LCJqdGkiOiJkZThmOTNkNDc1MWZjZGUxMjgwODQ2OTFmYzFiYzZmOSJ9
-.eBsOf3GneY6s-qzYFjmYUla_DCKyLqE11H1_AVhg7j4" />
+														
 														  <input type="submit" name="exportFile" class="btn btn-primary" id="exportFile" value="Export"> 
 														<!-- <button class="btn btn-primary" id="exportFile">Export</button>-->
 														 </form> 
 														 <!-- END EXPORT -->
 														 <br>
 														 <br>
-														 <hr> 
+													 
 														 
 						                                <h3>FILE IMPORT</h3>
+						                                <hr>
 						                                <h6>Browse Files from you computer (Maximum size: 10 MB)</h6>
 						                                
-						                                	 <form method="post" id="uploadFile" > 
+						                                	 <form id="fileImport"> 
 																<div class="fileUpload ">
 																    <span>Browse File</span>
-																    
-																    <input id="btn-upload" type="file" name="filename[]" id="filename" class="filename" multiple/>
+																    <input type="file" name="file" id="file1" multiple>
+																   
 																</div>
+																<!-- 
 																<h6>
 																	Filename-1<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
 																	Filename-2<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
 																	Filename-3<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
 																</h6>
 																<br>
+																-->
 																<h6 class="label-content-import-export">
-															    <button class="btn btn-primary" id="importFile">Import</button> &nbsp;
-																<!-- <input type="submit" name="importFile" id="importFile" value="Import"> -->
+															    
+																 <input class="btn btn-primary" type="submit" name="importFile" id="importFile" value="Import"> 
 																<strong>Note</strong> : Data size should de less 10MB
 																</h6>
 															 </form> 
@@ -135,40 +140,44 @@ XC9kcXNfYXBpXC9wdWJsaWNcL3Nlc3Npb24iLCJpYXQiOjE0ODA2NTAwNjksImV4cCI6MTQ4MDY4NjA2
 						                                </div>
 						                                <!-- end body -->
 						                            </div>
-						                            <div id="tab-2" class="tab-pane fade">
+						                            <div id="tab-2" class="tab-pane ">
 						                                <div class="panel-body">
-						                                	<div class="row">
-						                                		<div class="col-sm-6 m-b-xs"> 
+						                                <div class="row">
+						                                 	<form method="post" id='fileExportMobile' action=""> 
+						                                		<div class="col-sm-4 m-b-xs"> 
 								                                    <h3>FILE EXPORT</h3>
 								                                    <p>ทำการ Export ข้อมูลเบอร์โทรศัพท์ที่มีข้อมูลถูกต้องทั้งหมด</p>
 								                                    <br>
-								                                    <button class="btn btn-primary">Export</button>
+								                                 
+								                                    <input type="submit" name="exportFileMobile" class="btn btn-primary" id="exportFileMobile" value="Export"> 
 							                                    </div>
-							                                    <div class="col-sm-6 m-b-xs"> 
+							                                    <div class="col-sm-8 m-b-xs"> 
 							                                    	<label>เงื่อนไขในการ Export ข้อมูล (Query)</label><br>
-								                                    <textarea name="" id="export-inputdata" class="form-control"></textarea>
+								                                    <textarea name="conditions" id="conditions" rows='5' class="form-control"></textarea>
 							                                    </div>
-						                                 	</div>
+							                                </form>
+						                                 </div>
 						                                 
-														 <br>
-														 <hr>
-						                                 	<h3>FILE IMPORT</h3>
-						                                	<h6>Browse Files from you computer (Maximum size: 10 MB)</h6>
-						                                	<input id="uploadFile" placeholder="Choose File" disabled="disabled"/>
-															<div class="fileUpload btn btn-primary">
-															    <span>Browse File</span>
-															    
-															    <input id="btn-upload" type="file" class="upload"/>
-															</div>
-															<h6>
-																Filename-1<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
-																Filename-2<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
-																Filename-3<font color=red>.txt</font>&nbsp;&nbsp;&nbsp;
-															</h6>
-															<br>
-															<h6 class="label-content-import-export"><button class="btn btn-primary">Import</button> &nbsp;
-																<strong>Note</strong> : Data size should de less 10MB
-															</h6>
+						                                 
+														 <div class="row">
+														 	<form id="fileImportMobile"> 
+																 <div class="col-sm-12">
+								                                 	<h3>FILE IMPORT</h3>
+								                                	<h6>Browse Files from you computer (Maximum size: 10 MB)</h6>
+																	<div class="fileUpload ">
+																	    <span>Browse File</span>
+																	    <input type="file" name="file2" id="file2" multiple>
+																	</div>
+																	<br>
+																	<h6 class="label-content-import-export">
+																		
+																		 <input class="btn btn-primary" type="submit" name="importFileMobile" id="importFileMobile" value="Import"> 
+																		<strong>Note</strong> : Data size should de less 10MB
+																		
+																	</h6>
+																</div>
+															</form>
+														</div> 
 						                                </div>
 						                                <!-- end body -->
 						                            </div>

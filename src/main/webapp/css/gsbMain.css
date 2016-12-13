@@ -847,7 +847,7 @@ hr {
     text-align:center;
     display:none;
     font-weight:bold;
-    color: #3c763d; 
+    color: #ec068d; 
 }
 .app_url_hidden{
 	
@@ -875,4 +875,8 @@ hr {
 #information{
 	display:none;
 	text-align:left;
+}
+#wrapper{
+
+	/*height: 100%;*/
 }

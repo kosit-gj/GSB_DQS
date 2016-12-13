@@ -88,38 +88,6 @@ var dropDownListRule = function(id){
 	});
 };
 
-var checkUniqueFn = function(text) {
-	/* http://localhost:3000/api/products?name__regex=/^test/i */
-	var unique = false;
-	$.ajax({
-		url : restfulURL +"/api/dqs_rule?rule_name="+text+"",
-		type : "get",
-		dataType : "json",
-		async : false,
-		success : function(data) {
-			//console.log(data);
-			if(data == ""){
-				unique = true;
-			}else{
-				unique = false;
-			}
-		}
-	});
-	return unique;
-}
-
-var validationFn = function() {
-	var validateText = "";
-	if ($("#rule_name").val()=="") {
-		validateText += "name not empty\n";
-	}
-	if (validateText != "") {
-		alert(validateText);
-		return false;
-	} else {
-		return true;
-	}
-}
 
 var updateFn = function(){
 	
@@ -165,109 +133,24 @@ var updateFn = function(){
 	  });
 	  
 	  
-//console.log(rules);
-
-//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}
-$.ajax({
-    url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+$("#id").val(),
-    type:"PATCH",
-    dataType:"json",
-    data:{"rules":rules,"process_type":"Last Contact"},
-    headers:{Authorization:"Bearer "+tokenID.token},
-    async:false,
-    success:function(data,status){
-     console.log(data);
-      if(status=="success"){
-      	callFlashSlide("Update Successfully.");
-      	listDetailRuleFn(golbalDataRule);
-  	
-      }
-   }
-});
-
-
-
-
-//	//ID ของ CIF ที่ฝังอยู่ เอามาใส่ตัวแปร id
-//	var id = $("#validate_header_id_hidden").val();
-//	
-//	////////////////////////-CheckBox KPI-//////////////////////////////	
-//	
-//	var kpiFlagCheckbox = "";
-//	
-//	$.each($(".embed_kpiflag").get(),function(index,indexEntry){
-//	
-//		var id=$(indexEntry).val();
-//		if($("#kpiFlagCheckbox-"+id).prop('checked')){ 
-//			kpiFlagCheckbox = 1;
-//        }else{ 
-//        	kpiFlagCheckbox = 0;
-//        }
-//	
-//		$.ajax({
-//			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
-//			type : "PUT",
-//			dataType : "json",
-//			data : {"kpi_flag" :kpiFlagCheckbox},
-//			async:false,
-//			success : function(data) {
-//				if (data = "success") {
-//					//console.log("Upate Success");
-//				}
-//			}
-//		});
-//		
-//	});
-//	
-//	////////////////////////-CheckBox No Doc-//////////////////////////////
-//	
-//	var noDocCheckbox = "";
-//	
-//	$.each($(".embed_nodoc").get(),function(index,indexEntry){
-//	
-//		var id=$(indexEntry).val();
-//		if($("#no_doc_checkbox-"+id).prop('checked')){ 
-//			noDocCheckbox = 1;
-//        }else{ 
-//        	noDocCheckbox = 0;
-//        }
-//		
-//		$.ajax({
-//			url:restfulURL+"/api/make_dqs_inital_validate/"+id,
-//			type : "PUT",
-//			dataType : "json",
-//			data : {"no_doc" :noDocCheckbox},
-//			async:false,
-//			success : function(data) {
-//				if (data = "success") {
-//					//console.log("Upate Success");
-//				}
-//			}
-//		});
-//		
-//	});
-//	
-//	/////////////////////-Dropdown Validate Status-////////////////////////
-//	
-//	$.each($(".embed_validate_status").get(),function(index,indexEntry){
-//		
-//		var id = $(indexEntry).val();
-//		
-//		$.ajax({
-//			url:restfulURL+"/api//make_dqs_inital_validate/"+id,
-//			type : "PUT",
-//			dataType : "json",
-//			//data : {"contact_type" : valueContatType},
-//			data : {"validate_status" : $("#validate_status-"+id).val()},
-//			async:false,
-//			success : function(data) {
-//				if (data = "success") {
-//					//console.log(data)
-//				}
-//			}
-//		});
-//		
-//	});
+	//console.log(rules);
+	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}
+	$.ajax({
+	    url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+$("#id").val(),
+	    type:"PATCH",
+	    dataType:"json",
+	    data:{"rules":rules,"process_type":"Last Contact"},
+	    headers:{Authorization:"Bearer "+tokenID.token},
+	    async:false,
+	    success:function(data,status){
+	     console.log(data);
+	      if(status=="success"){
+	      	callFlashSlide("Update Successfully.");
+	      	listDetailRuleFn(golbalDataRule);
+	  	
+	      }
+	   }
+	});
 
 	
 	
@@ -618,7 +501,7 @@ var dropDownListValidateStatus = function(name,id){
 var getDataFn = function() {
 	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd
 	$.ajax({
-		url : restfulURL + "/dqs_api/public/dqs_monitoring/cdmd",
+		url : restfulURL + "/dqs_api/public/dqs_monitoring/branch",
 		type : "get",
 		dataType : "json",
 		headers:{Authorization:"Bearer "+tokenID.token},

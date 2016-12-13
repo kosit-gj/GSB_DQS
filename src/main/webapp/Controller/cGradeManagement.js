@@ -54,6 +54,7 @@ $(document).ready(function(){
 					     dataType:"json",
 					     data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"processing_seq":$("#processing_seq").val()},
 						 headers:{Authorization:"Bearer "+tokenID.token},
+						 
 					     success:function(data,status){
 					      //console.log(data);
 						      if(data['status']=="200"){
@@ -151,6 +152,7 @@ $(document).ready(function(){
 					    url:restfulURL+"/dqs_api/public/dqs_grade/"+id,
 					    type:"get",
 					    dataType:"json",
+						//data:{token:tokenID.token},
 						headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data){
 					      $("#grade").val(data['grade']);

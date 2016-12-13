@@ -34,6 +34,7 @@
     filter: alpha(opacity=0);
 } 
 
+
 .import-export-content #uploadFile{
 	padding-bottom: 3px;
 	height:33px;
@@ -50,4 +51,7 @@
     margin: 0 0 0 220px;
     min-height: auto;
     position: inherit;
+}
+.top-navigation .nav > li > a:hover{
+	color:white;
 }

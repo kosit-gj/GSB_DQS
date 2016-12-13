@@ -6,13 +6,13 @@ var makeData={
 		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611095.TXT":[["1","","0095-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]]
 		};
 //DropDownList Role
-var dropDownListContactType = function(id){
+var dropDownListContactType = function(){
 	
 	$.ajax({
-		url:"http://localhost:3001/api/make_param_contact_type",
+		url:restfulURL+"/dqs_api/public/dqs_maintenance/contact_type",
 		type:"get",
 		dataType:"json",
-		//headers:{Authorization:"Bearer "+tokenID.token},
+		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
 			
 		//	console.log(data);
@@ -20,11 +20,9 @@ var dropDownListContactType = function(id){
 		html+="<select class=\"form-control input-sm listContactType\" id=\"listContactType\">";
 	
 		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["_id"]){
-				html+="<option selected value="+indexEntry["_id"]+">"+indexEntry["contact_type"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["_id"]+">"+indexEntry["contact_type"]+"</option>";	
-			}		
+			
+				html+="<option  value="+indexEntry["contact_type"]+">"+indexEntry["contact_type"]+"</option>";	
+					
 		});	
 		html+="</select>";
 		$("#contactTypeArea").html(html);
@@ -98,18 +96,18 @@ var listDataFn = function(data){
 	
 };
 var getDataFn = function() {
-//	$.ajax({
-//		url : "http://localhost:3001/api/make_import_log_report",
-//		type : "get",
-//		dataType : "json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success : function(data) {
-//			//console.log(data);
-//			listDataFn(data);
-//			
-//		}
-//	});
-	listDataFn(makeData)
+	$.ajax({
+		url:restfulURL+"/dqs_api/public/dqs_maintenance/reject_log",
+		type : "get",
+		dataType : "json",
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success : function(data) {
+			console.log(data);
+			//listDataFn(data);
+			
+		}
+	});
+	//listDataFn(makeData)
 	
 };
 

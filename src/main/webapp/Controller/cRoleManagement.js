@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(function(){
 
 	
@@ -129,7 +126,8 @@ $(document).ready(function(){
 		$("#action").val("add");
 		$("#role_name").val("");
 		$("#btnSubmit").val("Add");
-		$(".modal-title").html("Add New Role");
+		$("#modalTitleRole").html("Add New Role");
+		$("#modalDescription").html("ADD NEW ROLE");
 		//$(".popover-edit-del").click();
 		
 	}
@@ -161,7 +159,8 @@ $(document).ready(function(){
 					$("#all_brach_checkbox_role").prop("checked",false);
 				}
 				
-				$(".modal-title").html("Edit Role");
+				$("#modalTitleRole").html("Edit Role");
+				$("#modalDescription").html("EDIT ROLE");
 				
 				
 				
@@ -282,7 +281,7 @@ $(document).ready(function(){
 			//$("#tableRole").on("click",".edit",function(){
 			
 			$(".edit").on("click",function() {
-				
+				$("#btnSaveAndAnother").hide();
 				findOneFn(this.id);
 				$("#id").val(this.id);
 				$("#action").val("edit");
@@ -367,7 +366,7 @@ $(document).ready(function(){
 	
 	
 	$("#btnSubmit").click(function(){
-		if (validationFn() == true) {
+		//if (validationFn() == true) {
 			if ($("#action").val() == "add"|| $("#action").val() == "") {
 				//if (checkUniqueFn($("#role_name").val()) == true) {
 					insertFn();
@@ -381,7 +380,7 @@ $(document).ready(function(){
 					//alert("name is not unique.");
 				//}
 			}
-		}
+		//}
 		return false;
 	});
 	
@@ -394,5 +393,9 @@ $(document).ready(function(){
 	$(".btnCancle").click(function() {
 		clearFn();
 	});
+	$("#btnAddRole").click(function() {
+		$("#btnSaveAndAnother").show();
+	});
+	
 		
 });

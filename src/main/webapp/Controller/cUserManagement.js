@@ -213,7 +213,10 @@ var dropDownListRevisedCostCenter = function(id,paramParentID){
 
 
 $(document).ready(function(){
-		
+	//binding tooltip.
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
 	/*####Call Init Function  Start######*/
 	getDataRole();
 	getDataRevisedCostCenter();
@@ -318,6 +321,21 @@ var updateFn = function(){
 				
 				var listRole=$("#listRole").val();
 				var isActive=$("#isActive").val();
+				
+				//personnelID,ownCostCenter,ownCostCenterCode,revisedCostCenter,revisedCostCenterCode,listRole,isActive
+			
+				var htmlParam="";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedPersonnelID' name='paramEmbedPersonnelID' value='"+personnelID+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenter' name='paramEmbedOwnCostCenter' value='"+ownCostCenter+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenterCode' name='paramEmbedOwnCostCenterCode' value='"+ownCostCenterCode+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRevisedCostCenter' name='paramEmbedRevisedCostCenter' value='"+revisedCostCenter+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRevisedCostCenterCode' name='paramEmbedRevisedCostCenterCode' value='"+revisedCostCenterCode+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListRole' name='paramEmbedListRole' value='"+listRole+"'>";
+				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedIsActive' name='paramEmbedIsActive' value='"+isActive+"'>";
+				$(".paramEmbed").remove();
+				$("body").append(htmlParam);
+				
+				
 				/*
 				"page,
 				rpp,
@@ -561,16 +579,25 @@ var updateFn = function(){
 			
 			
 			$("#btnAdvanceSearch").click(function(){
-				
-				
 				advanceSearchFn();
-				
-				
 			});
-		    
-		    
-	  
 	  //#### Call Function End ####
+	
+	  //#### Call Export User Function Start ####
+		$("#exportToExcel").click(function(){
+			$("form#formExportToExcel").attr("action",restfulURL+"/dqs_api/public/dqs_user/export?token="+tokenID.token);
+			
+			
+			$("#export_personnel_id").val($("#paramEmbedPersonnelID").val());
+			$("#export_own_cost_center").val($("#paramEmbedOwnCostCenterCode").val());
+			$("#export_revised_cost_center").val($("#paramEmbedRevisedCostCenterCode").val());
+			$("#export_role_id").val($("#paramEmbedListRole").val());
+			$("#export_active_flag").val($("#paramEmbedIsActive").val());
+			
+			$("form#formExportToExcel").submit();
+		});
+	  //#### Call Export User Function End ####
+	
 });
 
 

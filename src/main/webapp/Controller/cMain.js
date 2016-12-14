@@ -6,6 +6,7 @@ var galbaMenuObj=[];
 //Global Parameter End
 
 
+
 if(tokenID==null){
 	window.location.href = "login.html"; 
 };
@@ -170,32 +171,15 @@ var includeFileFn = function(paramUrl){
 	});
 }
 
+
+
 //$(".mainMenu").click(function(){
-//
-//	$("#naviTitle").hide();
-//	$("#includePage").empty();
-//	var page=$(".app_url",this).text();
-//	var menuName=$(".menu_name",this).text();
-//	//alert(page.trim());
-//	if(page.trim()=="#"){
-//		//return false;
-//	}else{
-//		includeFileFn(page);
-//	}
-//	$("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+menuName+"");
-//	$("#naviTitle").show();
+//	var url=$(".menu_name",this).text();
+//	var link=$(".app_url",this).text();
 //	
-//	
-//	
-//	
+////routeTest(url,link);
 //});
 
-$(".mainMenu").click(function(){
-	var url=$(".menu_name",this).text();
-	var link=$(".app_url",this).text();
-	
-//routeTest(url,link);
-});
 var app = angular.module("myApp", ["ngRoute"]);
 
 
@@ -218,7 +202,7 @@ app.config(function($routeProvider) {
 
 app.controller("pageController",function($scope, $route, $routeParams){
 
-	$route.current.templateUrl = './' + $routeParams.url + ".html";
+	$route.current.templateUrl = './Views/' + $routeParams.url + ".html";
 	//$route.current.controller = $routeParams.url;
 	  $.get($route.current.templateUrl, function (data){
 	      // console.log(data);
@@ -234,6 +218,7 @@ app.controller('myCtrl2', function($scope) {
     console.log($scope.lastname);
 });
 */
+
 
 
 

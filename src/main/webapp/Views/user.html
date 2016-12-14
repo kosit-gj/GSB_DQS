@@ -40,19 +40,19 @@
                             	 
                                     <div class="col-sm-2">
  												
-										<input class="form-control input-sm" id="personnelID" placeholder="Personnel ID">
+										<input data-toggle="tooltip" title="Personnel ID" class="form-control input-sm" id="personnelID" placeholder="Personnel ID">
 									</div>
 									<div class="col-sm-2">
-										<input class="form-control input-sm" id="ownCostCenter" placeholder="Own CostCenter">
+										<input data-toggle="tooltip" title="Own CostCenter" class="form-control input-sm" id="ownCostCenter" placeholder="Own CostCenter">
 									</div>
 									<div class="col-sm-2">
-										<input class="form-control input-sm" id="revisedCostCenter" placeholder="Revised CostCenter">
+										<input data-toggle="tooltip" title="Revised CostCenter" class="form-control input-sm" id="revisedCostCenter" placeholder="Revised CostCenter">
 									</div>
-									<div class="col-sm-2" id="listRoleArea">
+									<div data-toggle="tooltip" title="Role" class="col-sm-2" id="listRoleArea">
 										
 	                                </div>
 	                                <div class="col-sm-2">
-				                        <select class="form-control input-sm" id="isActive">
+				                        <select data-toggle="tooltip" title="Is Active" class="form-control input-sm" id="isActive">
 				                              <option value="">All</option>
 				                              <option value="1">Yes</option>
 				                              <option value="0">No</option>
@@ -75,6 +75,7 @@
                             
                             <div class="ibox-title">
                                 <h5><i class="fa fa-user"></i> User List </h5>
+                                <!-- 
                                 <div class="ibox-tools">
 		                            <a class="collapse-link">
 		                                <i class="fa fa-chevron-up"></i>
@@ -86,6 +87,7 @@
 		                                <i class="fa fa-times"></i>
 		                            </a>
 		                        </div>
+		                         -->
                             </div>
                             
                             
@@ -102,7 +104,22 @@
 		                                    </div>
 	                                    </div>
 	                                    <div class="col-sm-4 " align="right">
-	                             			<button type="button" class="btn btn-info btn-sm"><i class="fa fa-download"></i>&nbsp;&nbsp;Export to Excel</button>
+	                                     	<form id="formExportToExcel" method="post"action="">
+	                                     		<!-- 
+	                                     		personnel_id,
+												own_cost_center,
+												revised_cost_center,
+												role_id,
+												active_flag
+	                                     		-->
+	                                     		<input type="hidden" name="personnel_id" id="export_personnel_id" value="">
+	                                     		<input type="hidden" name="own_cost_center" id="export_own_cost_center" value="">
+	                                     		<input type="hidden" name="revised_cost_center" id="export_revised_cost_center" value="">
+	                                     		<input type="hidden" name="role_id" id="export_role_id" value="">
+	                                     		<input type="hidden" name="active_flag" id="export_active_flag" value="">
+	                                     		
+	                             				<button type="submit" id="exportToExcel" class="btn btn-info btn-sm"><i class="fa fa-download"></i>&nbsp;&nbsp;Export to Excel</button>
+	                             			</form>
 	                             		</div>
 	                                    <!--  <div class="col-sm-4">
 		                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">

@@ -140,6 +140,7 @@ var updateFn = function(){
 	  
 	  var kpi_flag = "";
 	  var validate_status = "";
+	  var validate_id="";
 	 
 	 
 	  if($("#embed_kpiflag-"+indexEntry['validate_id']).val()!=undefined 
@@ -156,15 +157,17 @@ var updateFn = function(){
 	        }else{ 
 	        	kpi_flag = 0;
 	        }
+		   
+		   
 		   rules.push({
 			   validate_status:""+validate_status+"",
-			   kpi_flag: ""+kpi_flag+""
+			   kpi_flag: ""+kpi_flag+"",
+			   validate_id:"1"
 		   });
 	  }
 	  
 	  });
-	  
-	  
+
 //console.log(rules);
 
 //http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}
@@ -176,10 +179,13 @@ $.ajax({
     headers:{Authorization:"Bearer "+tokenID.token},
     async:false,
     success:function(data,status){
-     console.log(data);
-      if(status=="success"){
-      	callFlashSlide("Update Successfully.");
-      	listDetailRuleFn(golbalDataRule);
+    // console.log(data);
+      if(data['status']=="200"){
+      
+      	callFlashSlideInModal("Update Successfully.");
+      	//listDetailRuleFn(golbalDataRule);
+      	findOneFn($("#id").val());
+      	
   	
       }
    }
@@ -680,6 +686,10 @@ var currentDateFn = function(){
 
 
 $(document).ready(function(){
+	
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
 	//alert("hello jquery");
 	$(".btn-explain").click(function(){
 		$("#modalDetail").modal('hide');
@@ -745,6 +755,8 @@ $(document).ready(function(){
 		$("#cifListArea").show();
 		return false;
 	});
+	
+	$("#btnSearchAdvance").click();
 
 	$("#btnSubmit").click(function(){
 		//alert("save");

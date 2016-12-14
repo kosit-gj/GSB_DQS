@@ -39,15 +39,15 @@
          						<div class="ibox-content"> 
          							<div class="row">
          								<div class="col-sm-2 m-b-xs">
-		                                   <input class="form-control input-sm" placeholder="CIF No." type="text" id="cif_no" name="cif_no">
+		                                   <input data-toggle="tooltip" title="CIF NO"  class="form-control input-sm" placeholder="CIF No." type="text" id="cif_no" name="cif_no">
 										</div>
 										
 										<div class="col-sm-2 m-b-xs">            
-											<input class="form-control input-sm" placeholder="ID" type="text" id="npid" name="npid">		
+											<input data-toggle="tooltip" title="NPID" class="form-control input-sm" placeholder="ID" type="text" id="npid" name="npid">		
 										</div>
 										
 	                                    <div class="col-sm-2 m-b-xs">
-		                                    <select class="input form-control input-sm"  id="flag_2" name="flag_2">
+		                                    <select data-toggle="tooltip" title="Flag 2" class="input form-control input-sm"  id="flag_2" name="flag_2">
 		                                    	
 		                                    	<option value="0">ปกติ</option>
 												<option value="1">ตาย</option>
@@ -65,7 +65,7 @@
 										
                                   		
 	                                    <div class="col-sm-2 m-b-xs">
-		                                    <select class="input form-control input-sm" id="manual_add" name="manual_add">
+		                                    <select data-toggle="tooltip" title="Manual Add" class="input form-control input-sm" id="manual_add" name="manual_add">
 		                                    	<option value="All">All</option>
 		                                    	<option value="Yes">Yes</option>
 		                                    	<option value="No">No</option>
@@ -178,14 +178,14 @@
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
-                <h4 class="modal-title"><strong class="text_add_edit"></strong></h4>
+                <h4 class="modal-title" id="modalTitleRole">ADD New Citizen</h4>
                 <!-- 
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-folder-open icon-title"></i> <big class="text_add_edit"> </big> </h2>
+                <h2><i class="fa fa fa-folder-open icon-title"></i> <span id="modalDescription"> ADD NEW CITIZEN</span> </h2>
                 <hr>
                 
                 <!-- form start -->
@@ -535,8 +535,10 @@
            	 	<input type="hidden" name="id" id="id" value="">
    				<input type="hidden" name="action" id="action" value="add">
    				
+   				<button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
+   				<button class="btn btn-primary" type="button" id="btnAddAnother">Save & Add Another</button>
                 <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
+                <div class="alert alert-warning" id="information" style="display: none;"></div>
             </div>
         </div>
     </div>

@@ -1,44 +1,50 @@
+//binding tooltip.
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 $(document).ready(function(){
 
-	//var restfulURL = "http://192.168.1.57:3001"; 
-	//var restfulURL = "http://goingjesse.hopto.org:3001";
-	
-	//CIF ID
-	
-	/*var checkUniqueFn = function(text) {
-		 http://localhost:3000/api/products?name__regex=/^test/i 
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/api/dqs_rule?rule_name="+text+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
-	
-	var validationFn = function() {
-		var validateText = "";
-		if ($("#rule_name").val()=="") {
-			validateText += "name not empty\n";
+	var validateionFn = function(data){
+		var validate="";
+		if(data['data']['ref_no']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['ref_no']+"<br>";
 		}
-		if (validateText != "") {
-			alert(validateText);
-			return false;
-		} else {
-			return true;
+		if(data['data']['pid']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['pid']+"<br>";
 		}
-	
-	}*/
-	var insertFn = function() {
+		if(data['data']['fname']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['fname']+"<br>";
+		}if(data['data']['lname']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['lname']+"<br>";
+		}if(data['data']['dob']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['dob']+"<br>";
+		}
+		if(data['data']['ntitle']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['ntitle']+"<br>";
+		}
+		if(data['data']['hno']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['hno']+"<br>";
+		}
+		
+		if(data['data']['thumbol']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['thumbol']+"<br>";
+		}
+		if(data['data']['amphur']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['amphur']+"<br>";
+		}
+		if(data['data']['province']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['province']+"<br>";
+		}
+		if(data['data']['flag']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['flag']+"<br>";
+		}
+		if(data['data']['flag_1']!=undefined){
+			validate+="<font color='red'>*</font> "+data['data']['flag_1']+"<br>";
+		}
+		
+		callFlashSlideInModal(validate);
+	};
+	var insertFn = function(param) {
 		
 		var sex = "";
 			if($("#sex_citizen_men:checked").val()){
@@ -53,31 +59,7 @@ $(document).ready(function(){
 			}else{
 				nation_citizen="0";
 			}
-			/*
-			ref_no,
-			pid,
-			ntitle,
-			fname,
-			lname,
-			dob,
-			sex,
-			hno,
-			moo,
-			trok,
-			soi,
-			thanon,
-			thumbol,
-			amphur,
-			province,
-			flag,
-			flag_1,
-			manual_add_flag,
-			thai_flag
 			
-			
-			
-			
-			*/
 		$.ajax({
 			url:restfulURL+"/dqs_api/public/dqs_citizen_import",
 			type : "POST",
@@ -108,13 +90,22 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				if (data['status'] == "200") {
-					alert("Insert Success");
-					getDataFn();
-					clearFn();
-					$('#ModalCitizen').modal('hide');
-				}
-				else{
-					return false;
+				
+					   if(param !="saveAndAnother"){
+						   callFlashSlide("Insert Successfully.");
+					       getDataFn();
+					       clearFn();
+					 	   $('#ModalCitizen').modal('hide');
+						}else{
+							getDataFn();
+							clearFn();
+							callFlashSlideInModal("Insert Data is Successfully.");
+						}
+					   
+					   
+				}else if (data['status'] == "400") {
+					
+					validateionFn(data);
 				}
 			}
 		});
@@ -166,11 +157,14 @@ $(document).ready(function(){
 				
 			},	
 			success : function(data) {
-				if (data = "success") {
-					alert("Upate Success");
+				if (data['status'] == "200") {
 					getDataFn();
 					clearFn();
 					$('#ModalCitizen').modal('hide');
+					callFlashSlide("Update Successfully.");
+				}else if (data['status'] == "400") {
+					
+					validateionFn(data);
 				}
 			}
 		});
@@ -178,6 +172,8 @@ $(document).ready(function(){
 	};
 	
 	var clearFn = function() {
+		$("#modalTitleRole").html("Add New Citizen");
+		$("#modalDescription").html("ADD NEW CITIZEN");
 		$("#id_citizen").val("");
 		$("#action").val("add");
 		//$("#rule_name").val("");
@@ -280,6 +276,17 @@ $(document).ready(function(){
 
 
 	var searchAdvanceFn = function(cif_no,npid,flag_2,manual_add) {
+		//embed parameter start
+		var htmlParam="";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedCifNo' name='paramEmbedCifNo' value='"+cif_no+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedNpid' name='paramEmbedNpid' value='"+npid+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedFlag2' name='paramEmbedFlag2' value='"+flag_2+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedManualAdd' name='paramEmbedManualAdd' value='"+manual_add+"'>";
+		$(".paramEmbed").remove();
+		$("body").append(htmlParam);
+		//embed parameter end
+		
+		
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",
@@ -339,7 +346,7 @@ $(document).ready(function(){
 	
 		$("#listCitizen").html(htmlTable);
 		
-		$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
+		$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">','bSort':false } ); 
 		
 		
 		
@@ -359,8 +366,13 @@ $(document).ready(function(){
 		$("#tableCitizen").on("click",".popover-edit-del",function(){
 			
 			$(".edit").on("click",function() {
-				$(".text_add_edit").text("EDIT FILE");
 				
+				$("#modalTitleRole").html("Edit Citizen");
+				$("#modalDescription").html("EDIT CITIZEN");
+				
+				$(this).parent().parent().parent().children().click();
+				$(".text_add_edit").text("EDIT FILE");
+				$("#btnAddAnother").hide();
 				$("#cifno_citizen").attr("disabled","disabled"); 
 				//$("#ntitle_citizen").attr("disabled","disabled"); 
 				//$("#nfname_citizen").attr("disabled","disabled"); 
@@ -385,19 +397,21 @@ $(document).ready(function(){
 			});
 			
 			$(".del").on("click",function(){
-			
-				$.ajax({
-					 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-				     success:function(data){      
-				       
-				       getDataFn();
-				       clearFn();
-	
-					 }
-				});
+				$(this).parent().parent().parent().children().click();
+				 if(confirm("Do you want to delete this file?")){
+					$.ajax({
+						 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ this.id,
+						 type : "delete",
+						 dataType:"json",
+						 headers:{Authorization:"Bearer "+tokenID.token},
+					     success:function(data){      
+					       
+					       getDataFn();
+					       clearFn();
+		
+						 }
+					});
+				 }
 			});	
 		
 		});
@@ -464,8 +478,8 @@ $(document).ready(function(){
 		$(".text_add_edit").text("ADD FILE");
 		//Binding Date Picker Start. 	
 		$("#dob_citizen").datepicker();
-	    $( "#dob_citizen" ).datepicker( "option", "dateFormat", "yymmdd" );
-	      
+	    $("#dob_citizen").datepicker( "option", "dateFormat", "yymmdd" );
+	    $("#btnAddAnother").show();
 		//Binding Date Picker End.
 	});
 
@@ -475,24 +489,11 @@ $(document).ready(function(){
 		}else{
 			updateFn();
 		}
-		//updateFn();
-		/*if (validationFn() == true) { 
-			
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				if(checkUniqueFn($("#rule_name").val()) == true) { 	
-					insertFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}else{
-				if(checkUniqueFn($("#rule_name").val()) == true) {
-					updateFn();
-				}else{
-					alert("name is not unique.");
-				}
-			}
-		}*/
 		return false;
+	});
+	
+	$("#btnAddAnother").click(function(){
+		insertFn("saveAndAnother");
 	});
 	
 	$(".btnCancle").click(function() {

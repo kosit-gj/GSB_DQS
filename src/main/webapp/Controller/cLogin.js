@@ -1,18 +1,7 @@
 $(document).ready(function(){
-	//alert("hello jquery");
-	//administrator,gj255902!
-	//sessionStorage.token="";
 	
 	$("#btnSubmit").click(function(){
 		
-		//alert($("#userName").val());
-		//alert($("#password").val());
-		
-		localStorage.setItem("lastname", "Smith");
-		localStorage.getItem("lastname"); 
-		//localStorage.removeItem("lastname");
-		sessionStorage.full_name="kosit";
-		//console.log(sessionStorage.username);
 		
 		//171.96.201.91
 		$.ajax({
@@ -22,17 +11,16 @@ $(document).ready(function(){
 			data:{"user_name":$("#userName").val(),"password":$("#password").val()},
 			error: function(jqXHR, textStatus, errorThrown) {
 				
-				console.log(jqXHR.statusText);
+				//console.log(jqXHR.statusText);
+				$("#information").html("<font color='red'>***</font> invalid credentials.").show();
 
 			},
 			success:function(data){
 				
-				//tokenID=data;
-				console.log(data);
 				localStorage.setItem("tokenID",data);
-				
-				//console.log(eval("("+localStorage.getItem("tokenID")+")"));
 				window.location.href = "./"; 
+
+				
 			}
 		})
 		

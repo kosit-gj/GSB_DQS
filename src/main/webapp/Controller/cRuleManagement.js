@@ -105,7 +105,10 @@ var golbalDataRole=[];
 $(document).ready(function(){
 
 
-	
+	//binding tooltip.
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
 	var checkUniqueFn = function(text) {
 		/* http://localhost:3000/api/products?name__regex=/^test/i */
 		var unique = false;
@@ -304,6 +307,9 @@ $(document).ready(function(){
 	};
 	
 	var clearFn = function() {
+		$("#modalTitleRole").html("Add New File");
+		$("#modalDescription").html("ADD NEW FILE");
+		   
 		$("#id").val("");
 		$("#action").val("add");
 		$("#rule_name").val("");
@@ -363,17 +369,20 @@ $(document).ready(function(){
 
 
 	var searchAdvanceFn = function(paramRuleGroup,paramRuleName,paramInitial,paramUpdate,paramLastContact) {
-		//http://192.168.1.58/dqs_api/public/dqs_rule
-		/*
-		 "page,
-			rpp,
-			rule_group,
-			rule_name,
-			initial_flag,
-			update_flag,
-			last_contact_flag
-			"
-		 */
+		
+		//embed parameter start
+		var htmlParam="";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRuleGroup' name='paramEmbedRuleGroup' value='"+paramRuleGroup+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRuleName' name='paramEmbedRuleName' value='"+paramRuleName+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedInitial' name='paramEmbedInitial' value='"+paramInitial+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedUpdate' name='paramEmbedUpdate' value='"+paramUpdate+"'>";
+		htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedContact' name='paramEmbedContact' value='"+paramLastContact+"'>";
+
+		$(".paramEmbed").remove();
+		$("body").append(htmlParam);
+		
+		//embed parameter end
+		
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_rule",
 			type : "get",
@@ -387,8 +396,9 @@ $(document).ready(function(){
 				"last_contact_flag":paramLastContact
 			},
 			success : function(data) {
-				if(data['data']!=""){
-				listRuleFn(data);
+				if(data['data']!="" || data['data'] !=null){
+				//console.log(data['data']);
+				listRuleFn(data['data']);
 				}
 			}
 		});
@@ -460,15 +470,18 @@ $(document).ready(function(){
 		$("#tableRule").off("click",".popover-edit-del");
 		$("#tableRule").on("click",".popover-edit-del",function(){
 			$(".edit").on("click",function() {
-				
+				$("#modalTitleRole").html("Edit File");
+				$("#modalDescription").html("EDIT FILE");
 				findOneFn(this.id);
 				$("#id").val(this.id);
 				$("#action").val("edit");
 				$("#btnSubmit").val("Edit");
+				$("#btnSaveAndAnother").hide();
+				$(this).parent().parent().parent().children().click();
 			});
 			
 			$(".del").on("click",function() {
-				
+				$(this).parent().parent().parent().children().click();
 				$.ajax({
 					 url:restfulURL+"/dqs_api/public/dqs_rule/"+ this.id,
 					 type : "delete",
@@ -810,6 +823,10 @@ $(document).ready(function(){
 	});
 	$("#btnCancleFlag").click(function(){
 		 getDataFn();
+	});
+	$("#btnAddRule").click(function(){
+		$("#btnSaveAndAnother").show();
+		clearFn();
 	});
 		
 });

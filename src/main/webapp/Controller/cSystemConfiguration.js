@@ -207,6 +207,37 @@ $(document).ready(
 							   });
 						   return false;
 					 };
+					 //function insert  default role start
+					 var insertDefaultRole = function(){
+						 
+						 //alert($("#position_branch_role_default").val());
+						 //alert($("#cc_poweruser_role_default").val());
+						 //alert($("#position_poweruser_role_default").val());
+						 
+						  $.ajax({
+								    url:restfulURL+"/dqs_api/public/dqs_system_config/default_role",
+								    type:"POST",
+								    dataType:"json",
+								    headers:{Authorization:"Bearer "+tokenID.token},
+								    data:{"position_branch_role":$("#position_branch_role_default").val(),
+									"cc_poweruser_role":$("#cc_poweruser_role_default").val(),
+									"position_poweruser_role":$("#position_poweruser_role_default").val(),
+									
+								},
+								   
+									success:function(data,status){
+										
+									     if(status=="success"){
+									      callFlashSlide("insert Successfully.");
+									      getDataFn();
+									     }
+									    }
+								   });
+							   return false;
+						 
+						 
+					 }
+					 //function insert default role end
 		
 		 
 		// get data System Configuration
@@ -285,6 +316,13 @@ $(document).ready(
 							newFormatCifDate=newFormatCifDate[0];
 							$("#merge_cif_date").val(newFormatCifDate);
 							
+							
+							//Default Role Start
+							$("#position_branch_role_default").val(data['position_branch_role']);
+							$("#cc_poweruser_role_default").val(data['cc_poweruser_role']);
+							$("#position_poweruser_role_default").val(data['position_poweruser_role']);
+							//Default Role End
+							
 						}
 
 				  });
@@ -349,6 +387,14 @@ $(document).ready(
 				 insertGradeCalDateFn();
 			});
 			//End Button
+			
+			//Defalult Role Start
+			$("#btnSaveDefaultRole").click(function(){
+				//alert("hello jquery ");
+				insertDefaultRole();
+				
+			});
+			//Default Role End
 			
 			//Call Function End
 			

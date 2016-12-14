@@ -1,6 +1,12 @@
 var globalCount=0;
 
 $(document).ready(function(){
+	
+	// manage popover start
+	 
+	
+	// manage popover end
+	    
 		
 		 var checkUniqueFn = function(text,textseq){
 				   var unique=false; 
@@ -136,6 +142,9 @@ $(document).ready(function(){
 			 
 			 var clearFn =function(){
 					
+				        $("#modalTitleRole").html("Add New Grade");
+					    $("#modalDescription").html("ADD NEW GRADE");
+					
 					   $("#id").val("");
 					   $("#action").val("add");
 					   $("#grade").val("");
@@ -145,6 +154,7 @@ $(document).ready(function(){
 					   $("#btnAddAnother").val("Add");
 					   $("#action_condition").val("add");
 					   $("#btnAddAnother").show();
+					   
 					   
 			}
 		 var findOneFn = function(id){
@@ -216,6 +226,10 @@ $(document).ready(function(){
 							
 							//findOnd
 							$(".edit").on("click",function(){
+								
+								    $("#modalTitleRole").html("Edit Grade");
+								    $("#modalDescription").html("EDIT GRADE");
+									$(this).parent().parent().parent().children().click();
 									$(".textadd_edit").text("EDIT GRADE");
 								
 								    findOneFn(this.id);
@@ -229,6 +243,7 @@ $(document).ready(function(){
 							
 							//delete
 						   $(".del").on("click",function(){
+							$(this).parent().parent().parent().children().click();
 						    if(confirm("Do you want to delete this file?")){
 						     $.ajax({
 							      url:restfulURL+"/dqs_api/public/dqs_grade/"+this.id,
@@ -253,8 +268,8 @@ $(document).ready(function(){
 							 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
 							 
 							getDataConditionFn();
-							
 							dropDownListRule();
+							$(this).parent().parent().parent().children().click();
 						 });
 				});
 			}
@@ -376,6 +391,10 @@ $(document).ready(function(){
 								$("#action_condition").val("edit");
 								$("#embed_condition_id").remove();
 								$("body").append("<input type='hidden' id='embed_condition_id' name='embed_condition_id' value='"+this.id+"'>");
+								
+								//console.log($(this).parent().parent().parent().children().get());
+								$(this).parent().parent().parent().children().click();
+								
 						});
 					});
 				}
@@ -403,9 +422,11 @@ $(document).ready(function(){
 									   "complete_flag":complate_flag},
 							     headers:{Authorization:"Bearer "+tokenID.token},
 							     success:function(data,status){
-							     
+							     	  if(data['status']==200){
 								      getDataConditionFn();
 									  $("#action_condition").val("add");
+									  callFlashSlideInModal("Update Successfully.","#information2");
+									  }
 								   }
 						    });         
 					
@@ -449,16 +470,20 @@ $(document).ready(function(){
 							     data:{"conditions": conditions },
 								 headers:{Authorization:"Bearer "+tokenID.token},
 							     success:function(data,status){
-							     console.log(data['data']['error'].length);
-								      if(data['data']['error'].length==0){
-									
-								       //alert("Insert Success");
-									    getDataConditionFn();
-									    callFlashSlideInModal("Insert Successfully.","#information2");
-								     
-								      }else{
-										callFlashSlideInModal("The rule id has already been taken.","#information2");
+							    
+									if(data['data']['error']==undefined){
+										callFlashSlideInModal(data['data'],"#information2");
+									  }else{
+							
+									      if(data['data']['error'].length==0){
 										
+									       //alert("Insert Success");
+										    getDataConditionFn();
+										    callFlashSlideInModal("Insert Successfully.","#information2");
+									     
+									      }else{
+											callFlashSlideInModal("The rule id has already been taken.","#information2");
+										  }
 									  }
 								   }
 						    });         
@@ -550,7 +575,7 @@ $(document).ready(function(){
 					insertConditionInlineFn($("#listRule").val());
 					$(".iconDisable").html("<i style='opacity:0.3;cursor:default;' class='fa fa-gear font-management'></i>");
 				  }else{
-					  alert("ไม่สามารถเพิ่มได้");
+					  callFlashSlideInModal("Can't add Condition. Because your doing Update Data!.","#information2");
 				  }
 					
 					

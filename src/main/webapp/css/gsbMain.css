@@ -857,7 +857,7 @@ hr {
 	display: block;
 }
 .form-control, .single-line{
-	padding: 1px 3px;
+	padding: 1px 5px;
 }
 .popover-content {
     padding: 5px;

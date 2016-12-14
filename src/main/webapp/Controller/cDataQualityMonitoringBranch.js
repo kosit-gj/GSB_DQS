@@ -108,6 +108,7 @@ var updateFn = function(){
 	  
 	  var kpi_flag = "";
 	  var validate_status = "";
+	  var validate_id="";
 	 
 	 
 	  if($("#embed_kpiflag-"+indexEntry['validate_id']).val()!=undefined 
@@ -126,7 +127,8 @@ var updateFn = function(){
 	        }
 		   rules.push({
 			   validate_status:""+validate_status+"",
-			   kpi_flag: ""+kpi_flag+""
+			   kpi_flag: ""+kpi_flag+"",
+			   validate_id:"1"
 		   });
 	  }
 	  
@@ -144,9 +146,9 @@ var updateFn = function(){
 	    async:false,
 	    success:function(data,status){
 	     console.log(data);
-	      if(status=="success"){
-	      	callFlashSlide("Update Successfully.");
-	      	listDetailRuleFn(golbalDataRule);
+	     if(data['status']=="200"){
+	    	 callFlashSlideInModal("Update Successfully.");
+	      	 findOneFn($("#id").val());
 	  	
 	      }
 	   }
@@ -563,7 +565,11 @@ var currentDateFn = function(){
 
 
 $(document).ready(function(){
-	//alert("hello jquery");
+	
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
+	
 	$(".btn-explain").click(function(){
 		$("#modalDetail").modal('hide');
 		$("#exPlainModal").modal();
@@ -628,7 +634,8 @@ $(document).ready(function(){
 		$("#cifListArea").show();
 		return false;
 	});
-
+	$("#btnSearchAdvance").click();
+	
 	$("#btnSubmit").click(function(){
 		//alert("save");
 		updateFn(); 

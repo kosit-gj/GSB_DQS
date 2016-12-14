@@ -1,10 +1,7 @@
-//สาย
-//ภาค
-//เขต
-
-//line
-//sector
-//area
+//binding tooltip.
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
 var dropDownContactType= function(id){
 //	$.ajax({

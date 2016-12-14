@@ -110,12 +110,26 @@ $(document).ready(function(){
 					headers:{Authorization:"Bearer "+tokenID.token},
 				    success:function(data,status){
 				     //alert(data);
-					     if(status=="success"){
-					     // alert("Upate Success");
-						  callFlashSlide("Update Successfully.");
-					      getDataFn();
-					      clearFn();
-			     		}
+					     if(data['status']=="200"){
+					    
+						    callFlashSlide("Update Successfully.");
+						    $('#managementModal').modal('hide');
+					        getDataFn();
+					        clearFn();
+			     		}else if (data['status'] == "400") {
+							var validate="";
+							if(data['data']['menu_name']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['menu_name']+"<br>";
+							}
+							if(data['data']['app_url']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['app_url']+"<br>";
+							}
+							if(data['data']['menu_category']!=undefined){
+								validate+="<font color='red'>*</font> "+data['data']['menu_category']+"<br>";
+							}
+							callFlashSlideInModal(validate);
+					  }
+				
 			    	}
 			   });
 			
@@ -134,6 +148,8 @@ $(document).ready(function(){
 					   $("#DQManagement").prop('checked', false);
 					   $("#DQMornitoring").prop('checked', false);
 					   $("#report").prop('checked', false);
+					   $("#modalTitleRole").html("Add New Menu");
+					   $("#modalDescription").html("ADD NEW MENU");
 						  
 			
 			  }
@@ -282,7 +298,8 @@ $(document).ready(function(){
 					$("#tableMenu").on("click",".popover-del-edit",function(){
 						
 					    $(".del").click(function(){
-					    //alert(this.id);
+					  
+						$(this).parent().parent().parent().children().click();
 					    if(confirm("Confirm to Delete Data?")){
 					     
 					     $.ajax({
@@ -306,11 +323,14 @@ $(document).ready(function(){
 			
 					   //findOnd
 					   $(".edit").click(function(){	
-					
+						   $("#modalTitleRole").html("Edit New Menu");
+						   $("#modalDescription").html("EDIT NEW MENU");
 						    findOneFn(this.id);
 						    $("#id").val(this.id);
 						    $("#action").val("edit");
 						    $("#btnSubmit").val("Edit");
+							$("#btnSaveAndAnother").hide();
+							$(this).parent().parent().parent().children().click();
 			   			});
 				});
 			 
@@ -422,10 +442,11 @@ $(document).ready(function(){
 			
 			
 			 
-//			 $("#btnAdd").click(function(){
-//				 clearFn();
-//				 //return false;
-//			 });
+			 $("#btnAdd").click(function(){
+				 clearFn();
+				 $("#btnSaveAndAnother").show();
+				 //return false;
+			 });
 			 
 			  $("#btnSearch").click(function(){
 				   

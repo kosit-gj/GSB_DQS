@@ -38,7 +38,7 @@ $(document).ready(
 		 
 		 
 		 //function insert data Region
-		 var insertFn = function(){
+		 var insertFn = function(param){
 			    $.ajax({
 				     url:restfulURL+"/dqs_api/public/dqs_region",
 				     type:"POST",
@@ -47,12 +47,32 @@ $(document).ready(
 				     data:{ "region_code":$("#region_code").val(),
 							"operation_id":$("#list_Branch_Oper").val()},
 				     success:function(data,status){
-					      if(status=="success"){
-						   callFlashSlide("insert Successfully.");
-					       getDataFn();
-					       clearFn();
-					      }
+
+						  //console.log(data);
+					      if(data['status']=="200"){
+						
+							if(param !="saveAndAnother"){
+							   callFlashSlide("Insert Successfully.");
+						       getDataFn();
+						       clearFn();
+						 	   $('#managementModal').modal('hide');
+							}else{
+								getDataFn();
+								clearFn();
+								callFlashSlideInModal("Insert Data is Successfully.");
+							}
+					
+					
+					      }else if(data['status']=="400"){
+						
+								var validate="";
+								if(data['data']['region_code']!=undefined){
+									validate+="<font color='red'>*</font> "+data['data']['region_code']+"<br>";
+								}
+								callFlashSlideInModal(validate);
+						  }
 					   }
+							
 			    });         
 			    return false;
 	 		};
@@ -68,10 +88,11 @@ $(document).ready(
 					    data:{ "region_code":$("#region_code").val(),
 							   "operation_id":$("#list_Branch_Oper").val()},
 					    success:function(data,status){
-						     if(status=="success"){
-						     callFlashSlide("Update Successfully.");
-							 getDataFn();
-						      //clearFn();
+						     if(data['status']=="200"){
+								 $('#ManagementModal').modal('hide');
+							     callFlashSlide("Update Successfully.");
+								 getDataFn();
+						      	//clearFn();
 						     }
 						   }
 					   });
@@ -80,13 +101,16 @@ $(document).ready(
 			
 			 
 			 
-			var clostModalFn =function(){
+			var closeModalFn =function(){
 				$('#ManagementModal').modal('hide');
 			} 
 			
 			
 			 //function clear data
 		    var clearFn =function(){
+		    	
+		       $("#modalTitleRole").html("Add New Region");
+			   $("#modalDescription").html("ADD NEW REGION");    
 			   $("#region_id").val("");
 			   $("#action").val("add");
 			   $("#region_code").val("");
@@ -160,13 +184,15 @@ $(document).ready(
 							
 						//findOnd
 						$(".edit").on("click",function(){
-							$(".textadd_edit").text("EDIT REGIONAL OFFICE");
+							   $("#modalTitleRole").html("Edit Region");
+							   $("#modalDescription").html("EDIT REGION");
 							    findOneFn(this.id);
 							    $("#region_id").val(this.id);
 							    $("#action").val("edit");
 							    $("#btnSubmit").val("Edit");
 							    $("#btnSaveAnother").val("Edit");
-							
+							    $("#btnSaveAnother").hide();
+							    $(this).parent().parent().parent().children().click();
 							});
 							
 						//delete
@@ -183,11 +209,13 @@ $(document).ready(
 				     			 }
 				   			  });
 				   		   }
+						$(this).parent().parent().parent().children().click();
 				  	 });
 					
 					$(".showBranchOper").on("click",function(){
 						getDataBranchOperFn();
 						dropDownListCostCenter();
+						$(this).parent().parent().parent().children().click();
 					});
 				});
 			}
@@ -232,10 +260,12 @@ $(document).ready(
 							    $("#operation_id").val(this.id);
 							    $("#action").val("edit");
 							    $("#btnSaveOper").val("Edit");
+								$(this).parent().parent().parent().children().click();
 							});
 					
 					//delete
 				   	$(".deleteOper").click(function(){
+					$(this).parent().parent().parent().children().click();
 					
 				    if(confirm("Do you want to delete this file?")){
 					     $.ajax({
@@ -263,13 +293,23 @@ $(document).ready(
 					     data:{ "operation_name":$("#operation_name").val(),
 								"cost_center":$("#list_cost_center").val(),},
 					     success:function(data,status){
-					      console.log(status);
-						      if(status=="success"){
-						       alert("Insert Success");
-						       getDataBranchOperFn();
-						       clearOperFn();
-						      }
-						   }
+						      if(data['status']=="200"){
+							
+							  callFlashSlideInModal("Insert Successfully.","#information2");
+						      getDataBranchOperFn();
+						      clearOperFn();
+						
+					     	  }else if (data['status'] == "400") {
+						
+									var validate="";
+									if(data['data']['operation_name']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['operation_name']+"<br>";
+									}
+									
+									callFlashSlideInModal(validate,"#information2");
+							   }
+					
+						 }
 				    });         
 				
 				    return false;
@@ -285,10 +325,20 @@ $(document).ready(
 								   "cost_center":$("#list_cost_center").val(),},
 						    success:function(data,status){
 							     if(status=="success"){
-								      alert("Upate Success");
+								
+									  callFlashSlideInModal("Upate Successfully.","#information2");
 								      getDataBranchOperFn();
 								      clearOperFn();
-							     	}
+								
+							     	}else if (data['status'] == "400") {
+								
+											var validate="";
+											if(data['data']['operation_name']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['operation_name']+"<br>";
+											}
+											
+											callFlashSlideInModal(validate,"#information2");
+									  }
 							    }
 						   });
 					   return false;
@@ -384,27 +434,22 @@ $(document).ready(
 			
 				// ปุ่ม save 
 	  		$("#btnSubmit").click(function(){
-			   if(validationFn()==true){
+	  			
+			   //if(validationFn()==true){
 				    if($("#action").val()=="add" || $("#action").val()=="" ){
-					      	insertFn();
-							clostModalFn();
+				      	insertFn();
+						//closeModalFn();
 				    }else{
 				     	updateFn();
-				        clostModalFn();
+				        //closeModalFn();
 				    }
-			   }
+			   //}
 		   		return false;
 		  });
 		
 		 // ปุ่ม SaveAnother 
 		 	  $("#btnSaveAnother").click(function(){
-			   		if(validationFn()==true){
-					    if($("#action").val()=="add" || $("#action").val()=="" ){
-						     insertFn();
-					    }else{
-					     	updateFn();
-					    }
-			   }
+			   		insertFn("saveAndAnother");
 			   		return false;
 			  });
 				
@@ -412,16 +457,17 @@ $(document).ready(
 			   $("#btnAdd").click(function(){
 					 clearFn();
 					 $(".textadd_edit").text("ADD REGIONAL OFFICE");
+					 $("#btnSaveAnother").show();
 			  });
 				
 			   $("#btnSaveOper").click(function(){
-				   if(validationOperFn()==true){
+				   //if(validationOperFn()==true){
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
 							    insertBranchOperFn();
 						    }else{
 						     	updateBranchOperFn();
 						    }
-					   }
+					   //}
 					   	return false;
 			  }); 
 			   

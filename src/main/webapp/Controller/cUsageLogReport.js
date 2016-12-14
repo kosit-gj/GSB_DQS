@@ -1,3 +1,7 @@
+//binding tooltip.
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 var makeData={
 		"Branch: สาขาแฟชั่นไอส์แลนด์":[["1","01/09/2016","4340264","พนักงาน 1","Branch Management"],["2","01/09/2016","4340264","พนักงาน 1","Branch Management"]],
 		"Branch: สาขาพระราม3":[["1","01/09/2016","4340264","พนักงาน 1","Branch Management"],["2","01/09/2016","4340264","พนักงาน 1","Branch Management"]],

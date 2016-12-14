@@ -21,7 +21,7 @@
             </li>
             <li class="active">
             <!-- <div id="naviLabelMenu"></div> -->
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Data Quality Monitoring for CDMD </strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Data Quality Monitoring for Branch </strong>
             </li>
         </ol>
     </div>
@@ -44,30 +44,28 @@
                             <!-- input search start  -->
                              <div class='search-area'>
                              
-                             	   <div class="search-box" id="listBranchArea">	
+                             	   <div class="search-box" id="listBranchArea" 	data-toggle="tooltip" title="Branch" >	
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id="start_validate_date" placeholder="Start Validate Date"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="Start Validate Date" class="form-control input-sm" id="start_validate_date" placeholder="Start Validate Date"  value="">
 	                               </div>
                              		
                              	    <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id="end_validate_date" placeholder="End Validate Date"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="End Validate Date" class="form-control input-sm" id="end_validate_date" placeholder="End Validate Date"  value="">
 	                               </div>
 	                               
                              
 	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id="" placeholder="GIF"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="GIF" class="form-control input-sm" id="" placeholder="GIF"  value="">
 	                               </div>
 	                               
-	                               <div class="search-box">
-	                               			<input type="text" class="form-control input-sm" id=""  placeholder="Customer Name" value="">
-	                               </div>
+	                       
 	                               
-	                                <div class="search-box" id="listCusTypeArea"></div>
+	                                <div class="search-box" data-toggle="tooltip" title="List Customer Type" id="listCusTypeArea"></div>
 	                               
-	                               <div class="search-box">
-		                               		<select class="form-control input-sm" id="processType" name="processType">
+	                               <div class="search-box" data-toggle="tooltip" title="Process Type">
+		                               		<select  class="form-control input-sm" id="processType" name="processType">
 		                                        <option>Process Type</option>
 		                                        <option selected>Last Contact</option>
 		                                        <option>Initial</option>
@@ -75,7 +73,8 @@
 		                                    </select>
 	                               </div>
 	                               
-	                                <div class="search-box">
+	                               
+	                                <div class="search-box" data-toggle="tooltip" title="Role Group">
 	                               			<select class="form-control input-sm" name="roleGroup">
 		                                        <option>Role Group</option>
 		                                         <option selected>All</option>
@@ -87,14 +86,14 @@
 		                                    </select>
 	                               </div>
 	                               
-	                                <div class="search-box" id="listRuleArea">
+	                                <div class="search-box" id="listRuleArea" data-toggle="tooltip" title="Rule">
 	                               			
 	                               </div>
-	                               <div class="search-box">
-	                               			<input type="text" id="risk" class="form-control input-sm" id="" placeholder="Risk"  value="">
+	                               <div class="search-box" >
+	                               			<input data-toggle="tooltip" title="Risk" type="text" id="risk" class="form-control input-sm"  placeholder="Risk"  value="">
 	                               </div>
 	                               
-	                               <div class="search-box">
+	                               <div class="search-box" data-toggle="tooltip" title="Validate Status">
 	                               			<select class="form-control input-sm" id="validate_status" name=validate_status">
 		                                         <option>Validate Status</option>
 		                                         <option>All</option>
@@ -106,7 +105,7 @@
 		                                    </select>
 	                               </div>
 	                               
-	                               <div class="search-box">
+	                               <div class="search-box" data-toggle="tooltip" title="Is Customer">
 	                               			<select class="form-control input-sm" id="is_customer" name="is_customer">
 		                                         <option>Is Customer</option>
 		                                         <option>All</option>
@@ -116,37 +115,8 @@
 		                                    </select>
 	                               </div>
 	                               
-	                                <div class="search-box">
-	                               			<select class="form-control input-sm" id="is_death" name="is_death">
-		                                         <option>Is Death</option>
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-												
-		                                    </select>
-	                               </div>
 	                               
-	                                <div class="search-box">
-	                               			<select class="form-control input-sm" name="is_personel" id="is_personel">
-		                      
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                        
-		                                    </select>
-	                               </div>
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="is_employee" id="is_employee">
-		                                       
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                       
-		                                    </select>
-	                               </div>
-	                               
-	                               <div class="search-box">
+	                               <div class="search-box" data-toggle="tooltip" title="Explain Status">
 	                               			<select class="form-control input-sm" name="explain_status" id="explain_status">
 		                                       
 		                                         <option>All</option>
@@ -158,7 +128,7 @@
 		                                    </select>
 	                               </div>
 	                               
-	                               <div class="search-box">
+	                               <div class="search-box" data-toggle="tooltip" title="Is Affiliation">
 	                               			<select class="form-control input-sm" name="is_affiliation" id="is_affiliation">
 		                                         <option selected>All</option>
 												 <option>Yes</option> 
@@ -166,26 +136,6 @@
 		                                        
 		                                    </select>
 	                               </div>
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" name="inform_branch" id="inform_branch">
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                        
-		                                    </select>
-	                               </div>
-	                               
-	                               <div class="search-box">
-	                               			<select class="form-control input-sm" id="is_released" name="is_released">
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                    </select>
-	                               </div>
-	                               
-	                               
-	                               
 	                              
 	                               
 	                               <!-- Sequential  already-->
@@ -512,6 +462,7 @@
             	<input type="hidden" id="id">
             	<button class="btn btn-primary btn-explain" type="button">Explain</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button">Back</button>
+                <div id="information" class="alert alert-warning"></div>
                 
             </div>
         </div>
@@ -664,7 +615,7 @@
 <!-- Modal End -->
 <div id="embedParamArea"></div>
 
-    <script src="Controller/cDataQualityMonitoring.js"></script>
+    <script src="Controller/cDataQualityMonitoringBranch.js"></script>
  
 </body>
 

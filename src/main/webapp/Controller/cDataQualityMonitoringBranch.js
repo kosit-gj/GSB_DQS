@@ -719,14 +719,14 @@ $(document).ready(function(){
 	
 
 	$("#start_validate_date").datepicker();
-    //$("#start_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#start_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#start_validate_date").val(firstDayInMonthFn());
     
    
     $("#end_validate_date").datepicker();
-    //$("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#end_validate_date").val(currentDateFn());
-    
+    $(".ui-datepicker").hide();
     
 //	$("#start_validate_date").click(function(){
 //		

@@ -149,6 +149,7 @@ $(document).ready(function(){
     $("#usage_end_date").datepicker();
     $("#usage_end_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#usage_end_date").val(firstDayInMonthFn());
+    $(".ui-datepicker").hide();
 	//parameter date end
     
     

@@ -756,6 +756,8 @@ $(document).ready(function(){
     $("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#end_validate_date").val(currentDateFn());
     
+    $(".ui-datepicker").hide();
+    
     
 //	$("#start_validate_date").click(function(){
 //		

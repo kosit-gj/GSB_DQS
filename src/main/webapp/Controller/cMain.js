@@ -173,12 +173,13 @@ var includeFileFn = function(paramUrl){
 
 
 
-//$(".mainMenu").click(function(){
-//	var url=$(".menu_name",this).text();
-//	var link=$(".app_url",this).text();
-//	
-////routeTest(url,link);
-//});
+$(".mainMenu").click(function(){
+	$("ul.dropdown-menu li").removeClass("active");
+	$(this).parent().addClass("active");
+});
+$("#btnHome").click(function(){
+	location.reload();
+});
 
 var app = angular.module("myApp", ["ngRoute"]);
 

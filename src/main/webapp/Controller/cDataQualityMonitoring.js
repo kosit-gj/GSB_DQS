@@ -175,7 +175,7 @@ $.ajax({
     url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+$("#id").val(),
     type:"PATCH",
     dataType:"json",
-    data:{"rules":rules,"process_type":"Last Contact"},
+    data:{"rules":rules,"process_type":$("#embedParamSearchProcessType").val()},
     headers:{Authorization:"Bearer "+tokenID.token},
     async:false,
     success:function(data,status){
@@ -282,25 +282,44 @@ $.ajax({
 
 updateExplainFn = function(id){
 	
-	var approve = ""	
+	var explain_status = ""	
 		if($("#cdmd_explain_no_explanation:checked").val()){
-			approve = 1;
+			explain_status = 1;
 		}else if($("#cdmd_explain_pending:checked").val()){
-			approve = 2;
+			explain_status = 2;
 		}else if($("#cdmd_explain_approve:checked").val()){
-			approve = 3;
+			explain_status = 3;
 		}else if($("#cdmd_explain_not_allowed:checked").val()){
-			approve = 4;
+			explain_status = 4;
 		}
-	//alert(approve);
-	
+
+	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}/explain
+	/*
+	process_type,
+	explain_remark,
+	explain_status
+	*/
 	$.ajax({
-		url : restfulURL + "/api/make_data_quality_monitoring/"+id,							
-		type : "PUT",
+		url : restfulURL + "/dqs_api/public/dqs_monitoring/cdmd/"+id+"/explain",							
+		type : "PATCH",
 		dataType : "json",
-		data : {"cdmd":approve},	
+		data :{"process_type":$("#process_type").val(),
+			"explain_remark":$("#explain_remark").val(),
+			"explain_status":explain_status
+			},
+		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			alert("สำเร็จ");
+			if(data['status']==200){
+				
+				callFlashSlideInModal("Update Successfully.","#information2");
+				
+			}else if(data['status']==400){
+				
+				callFlashSlideInModal(data['data']['explain_remark'],"#information2");
+				getDataExplainFn($("#validate_header_id_hidden").val());
+				
+			}
+			
 		}
 	});
 	return false;
@@ -336,6 +355,7 @@ var findOneFn = function(id) {
 		type : "get",
 		dataType : "json",
 		async:false,
+		data:{"process_type":$("#embedParamSearchProcessType").val()},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {	
 			var dataRuleList=data['rule_list'];
@@ -526,19 +546,67 @@ var listDetailRuleFn = function(data) {
 
 
 var fineOneExplainFn = function(data){
-	//console.log(data[0]['cdmd']);
-	if(data[0]['cdmd']==1){
+	/* 
+	approve_dttm
+	approve_user
+	explain_dttm
+	explain_remark
+	explain_status
+	explain_user
+	explain_files->explain_file_id,file_path,validate_header_id
+	 */
+	
+	/* explain_status  start*/
+	var explain_status = data['explain_status'].split("-");
+	explain_status=explain_status[0];
+	if(explain_status==1){
 		$('#cdmd_explain_no_explanation').prop('checked', true);
 	}
-	if(data[0]['cdmd']==2){
+	if(explain_status==2){
 		$('#cdmd_explain_pending').prop('checked', true);
 	}
-	if(data[0]['cdmd']==3){
+	if(explain_status==3){
 		$('#cdmd_explain_approve').prop('checked', true);
 	}
-	if(data[0]['cdmd']==4){
+	if(explain_status==4){
 		$('#cdmd_explain_not_allowed').prop('checked', true);
 	}
+	/* explain_status  end*/
+	
+	/* Attachment Start*/
+	var html_explain_files="";
+	$.each(data['explain_files'],function(index,indexEntry){
+		if(index==0){
+			//http://171.96.201.91/dqs_api/public/dqs_monitoring/cdmd
+			html_explain_files+="<a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+		}else{
+			html_explain_files+=" , <a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+		}
+		
+		$("#explain_files").html(html_explain_files);
+	});
+	/* Attachment End*/
+	
+	/*approve_user start*/
+	$("#approve_user").html(data['approve_user']);
+	/*approve_user end*/
+	
+	/*explain_dttm start*/
+	$("#explain_dttm").html(data['explain_dttm']);
+	/*explain_dttm end*/
+	
+	/*explain_remark start*/
+	$("#explain_remark").val(data['explain_remark']);
+	/*explain_remark end*/
+	
+	
+	
+	/*explain_user start*/
+	$("#explain_user").html(data['explain_user']);
+	/*explain_user end*/
+	
+	
+	
 }
 
 // Click แล้ว ฝังข้อมูล
@@ -639,14 +707,17 @@ var getDataFn = function() {
 
 
 
-var getDataMakeExplainFn = function(id) {
+var getDataExplainFn = function(id) {
 	//alert(id);
+	http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}/explain
 	$.ajax({
-		url : restfulURL + "/api/make_data_quality_monitoring/",
+		url : restfulURL + "/dqs_api/public/dqs_monitoring/cdmd/"+id+"/explain",
 		type : "get",
 		dataType : "json",
+		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success : function(data) {
+			
 			fineOneExplainFn(data);
 			//console.log(data);
 		}
@@ -771,16 +842,17 @@ $(document).ready(function(){
 	
 	$("#btnCancle").click(function() {
 		var id = $("#validate_header_id_hidden").val();
-	
+		findOneFn(id);
 	});
 	
-	$(".btn-explain").click(function() {
-		getDataMakeExplainFn($("#validate_header_id_hidden").val());
+	$("#btn-explain").click(function() {
+		
+		getDataExplainFn($("#validate_header_id_hidden").val());
 		$("#explain_id").val($("#validate_header_id_hidden").val());
 	});
 	
 	$("#btnSaveExplain").click(function() {
-		updateExplainFn($("#explain_id").val());
+		updateExplainFn($("#validate_header_id_hidden").val());
 	});
 
 });

@@ -511,7 +511,7 @@
             </div>
             <div class="modal-footer">
             	<input type="hidden" id="id">
-            	<button class="btn btn-primary btn-explain" type="button">Explain</button>
+            	<button class="btn btn-primary btn-explain" id="btn-explain" type="button">Explain</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button">Back</button>
                 <div id="information" class="alert alert-warning"></div>
             </div>
@@ -539,44 +539,20 @@
             
             <div class="modal-body">
             
-                <!-- content start -->
-                <!-- <div class="alert alert-warning">
-		               	<div class="explain-label-title">
-		               		<b>Branch</b>: สาขาแฟชั่นไอส์แลนด์
-		               	</div>
-		               	<div class="explain-label-title">
-							<b>CIF</b> : 33890712
-						</div >
-						<div class="explain-label-title">
-							<b>Name</b> : วิฑูรย์ ศรีสวัสดิ์
-						</div>
-						<div class="explain-label-title">
-							<b>Customer Type</b> : บุคคลธรรดา
-		               	</div>
-		               	<br style="clear:both">
                	
-               	</div> -->
-               	
-               	<div class="label-explain">
+               	<div class="label-explain" >
                	Remark
                	</div>
                	
-               	<textarea class="form-control">
-               	</textarea>
+               	<textarea id="explain_remark" class="form-control"></textarea>
                	
 				<div>
 					<div class="label-explain">
 						Attachment :	
 					</div>
 					<div class="input-explain">
-						<!-- <div>
-							<input type="checkbox"> ไม่มีเอกสารเพียงพอในการปรับปรุง
-						</div>
-						<div>
-							<button data-toggle="modal" data-target="#addModal" class="btn btn-white " type="button">&nbsp;Choose File</button>
-							<button data-toggle="modal" data-target="#addModal" class="btn btn-info " type="button"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
-						</div> -->
-						<div>
+						
+						<div id="explain_files">
 						Upload File Name, Upload File Name2,<br> 
 						Upload File Name, Upload File Name4,<br>
 						Upload File Name5
@@ -591,7 +567,7 @@
 					<div class="label-explain">
 						Explained By :	
 					</div>
-					<div class="input-explain">
+					<div class="input-explain" id="explain_user">
 						 [Sir Apiwat]
 					</div>
 				 
@@ -601,7 +577,7 @@
 					<div class="label-explain">
 						Explained Datetime :	
 					</div>
-					<div class="input-explain">
+					<div class="input-explain" id="explain_dttm">
 						18/11/2016 14:50:33
 					</div>
 				 
@@ -622,7 +598,7 @@
 					</div>
 					
 					<div class="input-explain ">
-	  					 <input type="radio" name="radioAppove" id="cdmd_explain_no_explanation"> ไม่ชี้แจง  
+	  					 <input checked='checked' type="radio" name="radioAppove" id="cdmd_explain_no_explanation"> ไม่ชี้แจง  
 	  					 <input type="radio" name="radioAppove" id="cdmd_explain_pending"> รออนุมัติ  
 	  					 <input type="radio" name="radioAppove" id="cdmd_explain_approve"> อนุมัติ  
 	  					 <input type="radio" name="radioAppove" id="cdmd_explain_not_allowed"> ไม่อนุมัติ 
@@ -633,7 +609,7 @@
 					<div class="label-explain">
 						Approved By :	
 					</div>
-					<div class="input-explain">
+					<div class="input-explain" id="approve_user">
 						 [Sir Apiwat]
 					</div>
 				 
@@ -643,7 +619,7 @@
 					<div class="label-explain">
 						Approved Datetime :	
 					</div>
-					<div class="input-explain">
+					<div class="input-explain" id="approve_dttm">
 						18/11/2016 15:00:01
 					</div>
 				 
@@ -655,8 +631,11 @@
                 <!-- content end -->
             </div>
             <div class="modal-footer">
+           		<button class="btn btn-primary" type="button" id="btnSaveExplain">Save</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button" id="btnSaveExplain">Save</button>
+                <div id="information2" class="alert alert-warning"></div>
+                
+                
             </div>
         </div>
     </div>

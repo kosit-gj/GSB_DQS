@@ -46,5 +46,15 @@
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 }
-
+.top-navigation .navbar-nav .dropdown-menu > .active > a{
+	background: #ec228c none repeat scroll 0 0;
+    color: white;
+    font-weight: bold;
+}
+/*
+ul#DQManagementMenuCate li.active{
+  background: #ec228c;
+  color: white;
+}
+*/
 /*main css*/

@@ -6,8 +6,15 @@
     width: 150px;
     margin-bottom:5px;
 }
+.search-box-submit{
+	float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-align: right;
+    width: 495px;
+}
 .btn-search{
-	width: 100%;
+	/*width: 100%;*/
 }
 .font-management{
 	font-size:20px;

@@ -208,14 +208,14 @@ function uploadFiles(event)
 	// Create a formdata object and add the files
 	var data = new FormData();
 	console.log(data);
-	$.each(files, function(key, value)
+	jQuery_1_1_3.each(files, function(key, value)
 	{
 		data.append(key, value);
 	});
 
 	//console.log(data);
 	
-	$.ajax({
+	jQuery_1_1_3.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_import_export/import",
 		type: 'POST',
 		data: data,
@@ -271,6 +271,8 @@ function uploadFiles(event)
 	
 	//FILE EXPORT MOBILE END
 	
+	
+	
 	//FILE IMPORT MOBILE START
 	// Variable to store your files
 	var files2;
@@ -295,13 +297,13 @@ function uploadFiles(event)
 		// Create a formdata object and add the files
 		var data = new FormData();
 		console.log(data);
-		$.each(files, function(key, value)
+		jQuery_1_1_3.each(files, function(key, value)
 		{
 			data.append(key, value);
 		});
 
 		//console.log(data);
-		$.ajax({
+		jQuery_1_1_3.ajax({
 			url:restfulURL+"/dqs_api/public/dqs_import_export/import_sms",
 			type: 'POST',
 			data: data,
@@ -323,9 +325,8 @@ function uploadFiles(event)
 			error: function(jqXHR, textStatus, errorThrown)
 			{
 				// Handle errors here
-				console.log('ERRORS: ' + textStatus);
+				//console.log('ERRORS: ' + textStatus);
 				callFlashSlide('ERRORS: ' + textStatus);
-				//if()
 				// STOP LOADING SPINNER
 			}
 		});

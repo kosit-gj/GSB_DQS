@@ -1,3 +1,7 @@
+//binding tooltip.
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
 //DropDownList Role
 var dropDownListContactType = function(){
 	

@@ -880,3 +880,9 @@ hr {
 
 	/*height: 100%;*/
 }
+.pagination{
+	margin: 5px 0;
+}
+.countPagination{
+	width:50px;
+}

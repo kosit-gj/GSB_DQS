@@ -15,7 +15,7 @@
   background: #E9E9E8;
   font: normal 12px/22px "Microsoft Yahei", "微软雅黑", "宋体";
   display: none;
-  z-index: 1600;
+  z-index: 99999;
   background: rgba(233, 233, 232, 0);
 }
 .mloading.active {

@@ -2,8 +2,53 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
-$(document).ready(function(){
 
+
+
+$(document).ready(function(){
+	//set paginate start
+	var paginationFn = function(page,rpp,countPage){
+		//alert("hello");
+		$('.pagination_top,.pagination_bottom').bootpag({
+		    total: 3,
+		    page: page,
+		    maxVisible: rpp,
+		    leaps: true,
+		    //firstLastUse: true,
+		    //first: '←',
+		    //last: '→',
+		    wrapClass: 'pagination',
+		    activeClass: 'active',
+		    disabledClass: 'disabled',
+		    //nextClass: 'next',
+		    //prevClass: 'prev',
+		    next: 'next',
+		    prev: 'prev',
+		    //lastClass: 'last',
+		    //firstClass: 'first'
+		}).on("page", function(event, num){
+		    getDataFn(num);
+		    $(".pagingNumber").remove();
+		    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
+		    $("body").append(htmlPageNumber);
+		   // alert("click"+num);
+		}); 
+		
+		$(".countPagination").change(function(){
+			//alert($(this).val());
+			$("#countPaginationTop").val($(this).val());
+			$("#countPaginationBottom").val($(this).val());
+			
+			getDataFn($("pageNumber").val(),$(this).val());
+			
+			$(".countPage").remove();
+		    var htmlCountPage= "<input type='hidden' id='countPage' name='countPage' class='countPage' value='"+$(this).val()+"'>";
+		    $("body").append(htmlCountPage);
+		    
+		});
+	}
+	paginationFn();
+	//set paginate end
 	var validateionFn = function(data){
 		var validate="";
 		if(data['data']['ref_no']!=undefined){
@@ -346,7 +391,8 @@ $(document).ready(function(){
 	
 		$("#listCitizen").html(htmlTable);
 		
-		$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">','bSort':false } ); 
+		//$('#tableCitizen').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">','bSort':false } ); 
+		//$('#tableCitizen').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">','bSort':false } ); 
 		
 		
 		
@@ -418,9 +464,8 @@ $(document).ready(function(){
 			
 	};
 	
-	var getDataFn = function(page) {
-	
-		
+	var getDataFn = function(page,rpp){
+
 //		$('#example').DataTable( {
 //			//"processing": true,
 //	        "serverSide": true,
@@ -436,13 +481,13 @@ $(document).ready(function(){
 			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",
 			dataType : "json",
-			data:{"page":page},
+			data:{"page":page,"rpp":rpp},
 			headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 			success : function(data) {
 				listCitizenFn(data['data']);
 				//total
-				//$('.pagination_top,.pagination_bottom').bootpag({total: data['last_page'], maxVisible: 10});
+				$('.pagination_top,.pagination_bottom').bootpag({total: data['last_page'], maxVisible: 10});
 				//console.log(data);
 			}
 		});
@@ -534,33 +579,7 @@ $(document).ready(function(){
 	//Autocomplete Search End
 	
 	
-	//set paginate start
-	var paginationFn = function(pag,rpp,countPage){
-		$('.pagination_top,.pagination_bottom').bootpag({
-		   // total: 2,
-		   // page: 1,
-		    maxVisible: 5,
-		    leaps: true,
-		    //firstLastUse: true,
-		    //first: '←',
-		    //last: '→',
-		    wrapClass: 'pagination',
-		    activeClass: 'active',
-		    disabledClass: 'disabled',
-		    //nextClass: 'next',
-		    //prevClass: 'prev',
-		    next: 'next',
-		    prev: 'prev',
-		    //lastClass: 'last',
-		    //firstClass: 'first'
-		}).on("page", function(event, num){
-		   // $(".content4").html("Page " + num); // or some ajax content loading...
-		    getDataFn(num);
-		   // alert("click"+num);
-		}); 
-	}
-	//paginationFn();
-	//set paginate end
+	
 	
 	
 	

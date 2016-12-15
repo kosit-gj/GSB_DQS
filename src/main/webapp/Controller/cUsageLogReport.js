@@ -43,7 +43,7 @@ var listDataFn = function(data){
 	
 			 var htmlTable="";
 			 $("#listMainUsageLog").empty();
-			   $.each(data,function(index,indexEntry){
+			   $.each(data['group'],function(index,indexEntry){
 				
 				    htmlTable+="<tr>";
 						htmlTable+="<td>";
@@ -67,13 +67,20 @@ var listDataFn = function(data){
 								htmlTable+="</thead>";
 									htmlTable+="<tbody>";
 									//LOOP START
-									 $.each(indexEntry,function(index2,indexEntry2){
+									/*
+									usage_dttm
+									personnel_id
+									thai_full_name
+									menu_name
+									branch_name
+									*/
+									 $.each(indexEntry['items'],function(index2,indexEntry2){
 										htmlTable+="<tr>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[0]+"</div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[1]+"</div></td>";
-											htmlTable+=" <td><div class='text-inline-table'>"+indexEntry2[2]+"</div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[3]+"</div></td>";  
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[4]+"  </div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+(index+1)+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['usage_dttm']+"</div></td>";
+											htmlTable+=" <td><div class='text-inline-table'>"+indexEntry2['personnel_id']+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['thai_full_name']+"</div></td>";  
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['menu_name']+"  </div></td>";
 											
 										htmlTable+="</tr>";
 									});
@@ -97,26 +104,55 @@ var listDataFn = function(data){
 			
 	
 };
-var getDataFn = function() {
-//	$.ajax({
-//		url : "http://localhost:3001/api/make_import_log_report",
-//		type : "get",
-//		dataType : "json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success : function(data) {
-//			//console.log(data);
-//			listDataFn(data);
-//			
-//		}
-//	});
-	listDataFn(makeData)
+var getDataFn = function(branch,personnel_name,usage_start_date,usage_end_date){
+	
+//	branch_code,
+//	personnel_name,
+//	usage_start_date,
+//	usage_end_date
+	
+	$.ajax({
+		url : restfulURL+"/dqs_api/public/dqs_maintenance/usage_log",
+		type : "get",
+		dataType : "json",
+		//data:{"branch_code":branch,"personnel_name":personnel_name,"usage_start_date":usage_start_date,"usage_end_date":usage_end_date},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success : function(data) {
+			console.log(data);
+			listDataFn(data);
+			
+		}
+	});
+//listDataFn(makeData)
 	
 };
+var searchAdvance = function(){
 
+	var htmlParameter="";
+	htmlParameter+="<input type='hidden' id='embedParamlistBranch' name='embedParamlistBranch' class='embedParam' value='"+$("#listBranch").val()+"' >";
+	htmlParameter+="<input type='hidden' id='embedParamPersonnelName' name='embedParamPersonnelName' class='embedParam' value='"+$("#personnel_name").val()+"' >";
+	htmlParameter+="<input type='hidden' id='embedParamUsageStartDate' name='embedParamUsageStartDate' class='embedParam' value='"+$("#usage_start_date").val()+"' >";
+	htmlParameter+="<input type='hidden' id='embedParamUsageEndDate' name='embedParamUsageEndDate' class='embedParam' value='"+$("#usage_end_date").val()+"' >";
+	$(".embedParam").remove();
+	$("body").append(htmlParameter);
+	getDataFn($("#listBranch").val(),$("#personnel_name").val(),$("#usage_start_date").val(),$("#usage_end_date").val());
+}
 $(document).ready(function(){
 	
 	dropDownListBranch();
-	getDataFn();
+	
+	//parameter date start
+	$("#usage_start_date").datepicker();
+    $("#usage_start_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#usage_start_date").val(firstDayInMonthFn());
+    
+    $("#usage_end_date").datepicker();
+    $("#usage_end_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#usage_end_date").val(firstDayInMonthFn());
+	//parameter date end
+    
+    
+	//getDataFn();
 	if ( $.fn.DataTable.isDataTable('#mainTableUsageLog')) {
 	      $('#mainTableUsageLog').DataTable().destroy();
 	     }
@@ -124,5 +160,13 @@ $(document).ready(function(){
 	//DataTable
 	$('#mainTableUsageLog').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
 	
+	
+	
+	//Search Data Here..
+	$("#btnSearch").click(function(){
+		searchAdvance();
+	});
+	$("#btnSearch").click();
+	//Search Data Here..
 	
 });

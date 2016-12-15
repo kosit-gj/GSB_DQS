@@ -44,17 +44,17 @@
                             </div>
                             
                             <div class="search-box">	
-                                  <input type="text" name="" id="" class="form-control input-sm" placeholder="Peronnel Name" data-toggle="tooltip" title="Peronnel Name">
+                                  <input type="text" name="personnel_name" id="personnel_name" class="form-control input-sm" placeholder="Peronnel Name" data-toggle="tooltip" title="Peronnel Name">
                             </div>
                             <div class="search-box">	
-                                  <input type="text" name="" id="" class="form-control input-sm" placeholder="Usage Start Date" data-toggle="tooltip" title="Usage Start Date">
+                                  <input type="text" name="usage_start_date" id="usage_start_date" class="form-control input-sm" placeholder="Usage Start Date" data-toggle="tooltip" title="Usage Start Date">
                             </div>
                             <div class="search-box">	
-                                  <input type="text" name="" id="" class="form-control input-sm" placeholder="Usage End Date" data-toggle="tooltip" title="Usage End Date">
+                                  <input type="text" name="usage_end_date" id="usage_end_date" class="form-control input-sm" placeholder="Usage End Date" data-toggle="tooltip" title="Usage End Date">
                             </div>
                             
                            <div class="search-box-submit">
-                           		<button class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+                           		<button id='btnSearch' class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
                            </div>
                             <br style="clear:both">
                            
@@ -74,23 +74,7 @@
             <div class="ibox-title">
                 <h5>System Usage Log Result</h5>
                 
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#">Config option 1</a>
-                        </li>
-                        <li><a href="#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
+                
                 
                   </div>
                   <div class="ibox-content">
@@ -115,162 +99,9 @@
 							
                         </tr>
                         </thead>
-               		  	<tbody id="listMainUsageLog">
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               			<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-							                             
-															<th>No.</th>
-															<th>Usage Date</th>
-															<th>Personnel Id</th>
-															<th>Personnel Name</th>
-															<th>Menu</th>
-															
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               	<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-															<th>No.</th>
-															<th>CIF</th>
-															<th>Own Branch</th>
-															<th>Last Contact Branch</th>
-															<th>Citizen ID</th>
-															<th>Birth Date</th>
-															<th>Reject Detail</th>
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               	<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-															<th>No.</th>
-															<th>CIF</th>
-															<th>Own Branch</th>
-															<th>Last Contact Branch</th>
-															<th>Citizen ID</th>
-															<th>Birth Date</th>
-															<th>Reject Detail</th>
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tbody>
-               		  </table>
+	               		  	<tbody id="listMainUsageLog">	
+		               		<tbody>
+               		  	</table>
                		<!--  main table end -->
                 </div>
                 

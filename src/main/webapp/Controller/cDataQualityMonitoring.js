@@ -724,34 +724,6 @@ var getDataExplainFn = function(id) {
 	});
 };
 
-var firstDayInMonthFn = function(){
-	var d = new Date();
-	var month = d.getMonth()+1;
-	var day = d.getDate();
-	
-	var output = d.getFullYear() + '/' +
-	    ((''+	month).length<2 ? '0' : '') + month + '/01';
-	   
-	console.log(output);
-	return output;
-}
-var currentDateFn = function(){
-	var d = new Date();
-	var month = d.getMonth()+1;
-	var day = d.getDate();
-	
-	var output = d.getFullYear() + '/' +
-	    ((''+month).length<2 ? '0' : '') + month + '/';
-	    if(day==1){
-	    	output+= ((''+day).length<2 ? '0' : '') + day;
-	    }else{
-	    	 output+= ((''+day).length<2 ? '0' : '') + (day-1);	
-	    }
-	
-	console.log(output);
-	return output;
-}
-
 
 
 
@@ -776,12 +748,12 @@ $(document).ready(function(){
 	
 
 	$("#start_validate_date").datepicker();
-    //$("#start_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#start_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#start_validate_date").val(firstDayInMonthFn());
     
    
     $("#end_validate_date").datepicker();
-    //$("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
     $("#end_validate_date").val(currentDateFn());
     
     

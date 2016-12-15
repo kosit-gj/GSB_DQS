@@ -7,6 +7,38 @@ var galbaMenuObj=[];
 
 
 
+var firstDayInMonthFn = function(){
+	var d = new Date();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	
+	var output = d.getFullYear() + '/' +
+	    ((''+	month).length<2 ? '0' : '') + month + '/01';
+	   
+	console.log(output);
+	return output;
+}
+var currentDateFn = function(){
+	var d = new Date();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	
+	var output = d.getFullYear() + '/' +
+	    ((''+month).length<2 ? '0' : '') + month + '/';
+	    if(day==1){
+	    	output+= ((''+day).length<2 ? '0' : '') + day;
+	    }else{
+	    	 output+= ((''+day).length<2 ? '0' : '') + (day-1);	
+	    }
+	
+	console.log(output);
+	return output;
+}
+
+
+
+
+
 if(tokenID==null){
 	window.location.href = "login.html"; 
 };

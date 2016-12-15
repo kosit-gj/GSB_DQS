@@ -35,15 +35,15 @@ var dropDownListContactType = function(){
 	});
 	
 };
+
 var listDataFn = function(data){
 	//console.log(data);
-	if ( $.fn.DataTable.isDataTable('#mainTableReject')) {
+	if ( $.fn.DataTable.isDataTable('#mainTableReject')){
 	      $('#mainTableReject').DataTable().destroy();
 	     }
-	
 			 var htmlTable="";
 			 $("#listMainReject").empty();
-			   $.each(data,function(index,indexEntry){
+			   $.each(data['group'],function(index,indexEntry){
 				
 				    htmlTable+="<tr>";
 						htmlTable+="<td>";
@@ -68,15 +68,16 @@ var listDataFn = function(data){
 								htmlTable+="</thead>";
 									htmlTable+="<tbody>";
 									//LOOP START
-									 $.each(indexEntry,function(index2,indexEntry2){
+									//birth_date,cif_no,citizen_id,contact_branch,contact_branch_code,file_name,own_branch,own_branch_code,reject_date,reject_desc
+									 $.each(indexEntry['items'],function(index2,indexEntry2){
 										htmlTable+="<tr>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[0]+"</div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[1]+"</div></td>";
-											htmlTable+=" <td><div class='text-inline-table'>"+indexEntry2[2]+"</div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[3]+"</div></td>";  
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[4]+"  </div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[5]+"</div></td>";
-											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2[6]+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+(index+1)+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['cif_no']+"</div></td>";
+											htmlTable+=" <td><div class='text-inline-table'>"+indexEntry2['own_branch']+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['contact_branch_code']+"</div></td>";  
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['citizen_id']+"  </div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['birth_date']+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['reject_desc']+"</div></td>";
 										htmlTable+="</tr>";
 									});
 									//LOOP END
@@ -99,15 +100,18 @@ var listDataFn = function(data){
 			
 	
 };
-var getDataFn = function() {
+var getDataFn = function(contactType,rejectStartDate,rejectEndDate) {
+	
+
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_maintenance/reject_log",
 		type : "get",
 		dataType : "json",
+		//data:{"contact_type":contactType,"reject_start_date":rejectStartDate ,"reject_end_date":rejectEndDate},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			console.log(data);
-			//listDataFn(data);
+			//console.log(data);
+			listDataFn(data);
 			
 		}
 	});
@@ -115,9 +119,37 @@ var getDataFn = function() {
 	
 };
 
+var searchAdvance = function(){
+
+	var htmlParameter="";
+	htmlParameter+="<input type='hidden' id='embedParamListContactType' name='embedParamListContactType' class='embedParam' value='"+$("#listContactType").val()+"' >";
+	htmlParameter+="<input type='hidden' id='embedParamRejectStartDate' name='embedParamRejectStartDate' class='embedParam' value='"+$("#rejectStartDate").val()+"' >";
+	htmlParameter+="<input type='hidden' id='embedParamRejectEndDate' name='embedParamRejectEndDate' class='embedParam' value='"+$("#rejectEndDate").val()+"' >";
+	$(".embedParam").remove();
+	$("body").append(htmlParameter);
+	getDataFn($("#listContactType").val(),$("#rejectStartDate").val(),$("#rejectEndDate").val());
+}
+
 $(document).ready(function(){
 	
+	
+
+	
 	dropDownListContactType();
+	
+	
+	
+	//parameter date start
+	$("#rejectStartDate").datepicker();
+    $("#rejectStartDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#rejectStartDate").val(firstDayInMonthFn());
+    
+    $("#rejectEndDate").datepicker();
+    $("#rejectEndDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#rejectEndDate").val(firstDayInMonthFn());
+    
+    
+	//parameter date end
 	getDataFn();
 	if ( $.fn.DataTable.isDataTable('#mainTableReject')) {
 	      $('#mainTableReject').DataTable().destroy();
@@ -126,5 +158,10 @@ $(document).ready(function(){
 	//DataTable
 	$('#mainTableReject').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
 	
+	//Search Data Here..
+	$("#btnSearch").click(function(){
+		searchAdvance();
+	});
+	//Search Data Here..
 	
 });

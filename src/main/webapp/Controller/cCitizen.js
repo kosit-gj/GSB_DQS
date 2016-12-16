@@ -475,8 +475,8 @@ $(document).ready(function(){
 //		        type: 'get'
 //		    }
 //		} );
-		
-		
+	
+
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_citizen_import",
 			type : "get",

@@ -106,39 +106,34 @@ var updateFn = function(){
 	  $.each(golbalDataRule,function(index,indexEntry){
 	 // console.log(indexEntry);
 	  
-	  var kpi_flag = "";
-	  var validate_status = "";
-	  var validate_id="";
+
+	  var no_doc_flag = "";
+	  var initial_validate_id="";
+	  
 	 
-	 
-	  if($("#embed_kpiflag-"+indexEntry['validate_id']).val()!=undefined 
-		|| $("#embed_validate_status-"+indexEntry['validate_id']).val()!=undefined
-	  )
+	  if($("#embed_nodoc-"+indexEntry['validate_id']).val()!=undefined )
 	  {
 		  
-	  	   //send value Seq
-		  validate_status=$("#validate_status-"+indexEntry['validate_id']).val();
-		  
-		   //send value KPI 
-		   if($("#kpiFlagCheckbox-"+indexEntry['validate_id']).prop('checked')){ 
-			    kpi_flag = 1;
+	  	 
+		  if($("#no_doc_checkbox-"+indexEntry['validate_id']).prop('checked')){ 
+			  	no_doc_flag = 1;
 	        }else{ 
-	        	kpi_flag = 0;
+	        	no_doc_flag = 0;
 	        }
+		   
+		  
+		  
 		   rules.push({
-			   validate_status:""+validate_status+"",
-			   kpi_flag: ""+kpi_flag+"",
+			   no_doc_flag: no_doc_flag,
 			   validate_id:"1"
 		   });
 	  }
 	  
 	  });
 	  
-	  
-	//console.log(rules);
-	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}
+	//http://192.168.1.58/dqs_api/public/dqs_monitoring/branch/{validate_header_id}
 	$.ajax({
-	    url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+$("#id").val(),
+	    url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+$("#id").val(),
 	    type:"PATCH",
 	    dataType:"json",
 	    data:{"rules":rules,"process_type":$("#embedParamSearchProcessType").val()},
@@ -233,7 +228,7 @@ var findOneFn = function(id) {
 	*/
 	var htmlTable = "";
 	$.ajax({
-		url:restfulURL+"/dqs_api/public/dqs_monitoring/cdmd/"+id,
+		url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+id,
 		type : "get",
 		dataType : "json",
 		async:false,
@@ -777,9 +772,9 @@ $(document).ready(function(){
 	});
 	
 	$("#btnEdit").click(function() {
-		$(".kpi_checkbox").removeAttr("disabled");
+		//$(".kpi_checkbox").removeAttr("disabled");
 		$(".no_doc_checkbox").removeAttr("disabled");
-		$(".validate_status").removeAttr("disabled");	
+		//$(".validate_status").removeAttr("disabled");	
 	});
 	
 	$("#btnCancle").click(function() {

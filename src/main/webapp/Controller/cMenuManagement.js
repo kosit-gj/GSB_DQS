@@ -297,13 +297,15 @@ $(document).ready(function(){
 					$("#tableMenu").off("click",".popover-del-edit");
 					$("#tableMenu").on("click",".popover-del-edit",function(){
 						
-					    $(".del").click(function(){
-					  
-						$(this).parent().parent().parent().children().click();
-					    if(confirm("Confirm to Delete Data?")){
-					     
+				$(".del").click(function(){
+					var id = this.id;
+					$(this).parent().parent().parent().children().click();
+					    
+					$("#confrimModal").modal();
+					$(document).off("click","#btnConfirmOK");
+					$(document).on("click","#btnConfirmOK",function(){
 					     $.ajax({
-						      url:restfulURL+"/dqs_api/public/dqs_menu/"+this.id,
+						      url:restfulURL+"/dqs_api/public/dqs_menu/"+id,
 						      type:"delete",
 						      dataType:"json",
 							  headers:{Authorization:"Bearer "+tokenID.token},
@@ -314,11 +316,13 @@ $(document).ready(function(){
 								   callFlashSlide("Delete Successfully.");    
 							       getDataFn();
 							       clearFn();
+							 	   $("#confrimModal").modal('hide');
 								}
 					
 			     			 }
 			     		});
-			   		 }
+					});	
+			   		 
 			   });
 			
 					   //findOnd

@@ -481,21 +481,30 @@ $(document).ready(function(){
 			});
 			
 			$(".del").on("click",function() {
+				var id = this.id;
 				$(this).parent().parent().parent().children().click();
-				$.ajax({
-					 url:restfulURL+"/dqs_api/public/dqs_rule/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-				     success:function(data){   
-				    	if(data['status']==200){
-				    		getDataFn();
-				    		clearFn();
-				    		callFlashSlide("Delete Successfully.");
-				    	}
-				       //return false;
-					 }
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+				
+					$.ajax({
+						 url:restfulURL+"/dqs_api/public/dqs_rule/"+id,
+						 type : "delete",
+						 dataType:"json",
+						 headers:{Authorization:"Bearer "+tokenID.token},
+					     success:function(data){   
+					    	if(data['status']==200){
+					    		getDataFn();
+					    		clearFn();
+					    		callFlashSlide("Delete Successfully.");
+					    		$("#confrimModal").modal('hide');
+					    	}
+					       //return false;
+						 }
+					});
+				
 				});
+				
 				
 			});	
 			

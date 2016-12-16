@@ -443,21 +443,33 @@ $(document).ready(function(){
 			});
 			
 			$(".del").on("click",function(){
+				var id = this.id;
 				$(this).parent().parent().parent().children().click();
-				 if(confirm("Do you want to delete this file?")){
+				 
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+				
 					$.ajax({
-						 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ this.id,
+						 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+id,
 						 type : "delete",
 						 dataType:"json",
 						 headers:{Authorization:"Bearer "+tokenID.token},
-					     success:function(data){      
-					       
-					       getDataFn();
-					       clearFn();
-		
+					     success:function(data){    
+					    	 
+						     if(data['status']==200){
+						    	 
+						       callFlashSlide("Delete Successfully.");  
+						       getDataFn();
+						       clearFn();
+						       $("#confrimModal").modal('hide');
+						       
+						     }
 						 }
 					});
-				 }
+					
+				});
+				
 			});	
 		
 		});

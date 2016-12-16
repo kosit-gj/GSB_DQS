@@ -77,7 +77,7 @@ checkSession();
 
 var logoutFn = function(){
 	$.ajax({
-		url:"http://192.168.1.58/dqs_api/public/session",
+		url:restfulURL+"/dqs_api/public/session",
 		type:"DELETE",
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
@@ -113,7 +113,6 @@ $("#logOut").click(function(){
 
 var getMainMenu = function(role_id){
 	//galbaMenuObj
-	http://192.168.1.58/dqs_api/public/dqs_role/{role_id}/authorize
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_role/"+role_id+"/authorize",
 		type:"GET",
@@ -244,6 +243,7 @@ app.controller("pageController",function($scope, $route, $routeParams){
 	   	   $("#naviTitle").show();
 	    });
 });
+
 /*
 app.controller('myCtrl2', function($scope) {
     $scope.firstname = "John11";

@@ -184,6 +184,7 @@ $(document).ready(
 							
 						//findOnd
 						$(".edit").on("click",function(){
+							 $(this).parent().parent().parent().children().click();
 							   $("#modalTitleRole").html("Edit Region");
 							   $("#modalDescription").html("EDIT REGION");
 							    findOneFn(this.id);
@@ -192,24 +193,30 @@ $(document).ready(
 							    $("#btnSubmit").val("Edit");
 							    $("#btnSaveAnother").val("Edit");
 							    $("#btnSaveAnother").hide();
-							    $(this).parent().parent().parent().children().click();
+							   
 							});
 							
 						//delete
 					   	$(".del").on("click",function(){
-					    	if(confirm("Do you want to delete this file?")){
+						var id = this.id;
+					    $(this).parent().parent().parent().children().click();
+							$("#confrimModal").modal();
+							$(document).off("click","#btnConfirmOK");
+							$(document).on("click","#btnConfirmOK",function(){
 						    	 $.ajax({
-							      url:restfulURL+"/dqs_api/public/dqs_region/"+this.id,
+							      url:restfulURL+"/dqs_api/public/dqs_region/"+id,
 							      type:"DELETE",
 							      dataType:"json",
 								  headers:{Authorization:"Bearer "+tokenID.token},
-								      success:function(data){       
+								  success:function(data){ 
+										   callFlashSlide("Delete Successfully.");       
 									       getDataFn();
 									       clearFn();
+										   $("#confrimModal").modal('hide');
 				     			 }
 				   			  });
-				   		   }
-						$(this).parent().parent().parent().children().click();
+				   		   
+							});
 				  	 });
 					
 					$(".showBranchOper").on("click",function(){

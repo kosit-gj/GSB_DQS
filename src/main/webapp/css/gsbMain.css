@@ -886,3 +886,6 @@ hr {
 .countPagination{
 	width:50px;
 }
+#confrimModal>.modal-dialog{
+	width: 400px;
+}

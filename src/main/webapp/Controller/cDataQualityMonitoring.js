@@ -810,7 +810,7 @@ $(document).ready(function(){
 	
 	$("#btnEdit").click(function() {
 		$(".kpi_checkbox").removeAttr("disabled");
-		$(".no_doc_checkbox").removeAttr("disabled");
+		//$(".no_doc_checkbox").removeAttr("disabled");
 		$(".validate_status").removeAttr("disabled");	
 	});
 	

@@ -7,10 +7,10 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	//set paginate start
-	var paginationFn = function(page,rpp,countPage){
+	var paginationFn = function(page,rpp,total){
 		//alert("hello");
 		$('.pagination_top,.pagination_bottom').bootpag({
-		    total: 3,
+		    total: total,
 		    page: page,
 		    maxVisible: rpp,
 		    leaps: true,
@@ -41,13 +41,13 @@ $(document).ready(function(){
 			
 			getDataFn($("pageNumber").val(),$(this).val());
 			
-			$(".countPage").remove();
-		    var htmlCountPage= "<input type='hidden' id='countPage' name='countPage' class='countPage' value='"+$(this).val()+"'>";
+			$(".rpp").remove();
+		    var htmlCountPage= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
 		    $("body").append(htmlCountPage);
 		    
 		});
 	}
-	paginationFn();
+	paginationFn(1,1,1);
 	//set paginate end
 	var validateionFn = function(data){
 		var validate="";
@@ -138,11 +138,11 @@ $(document).ready(function(){
 				
 					   if(param !="saveAndAnother"){
 						   callFlashSlide("Insert Successfully.");
-					       getDataFn();
+					       getDataFn($("#pageNumber").val(),$("#rpp").val());
 					       clearFn();
 					 	   $('#ModalCitizen').modal('hide');
 						}else{
-							getDataFn();
+							getDataFn($("#pageNumber").val(),$("#rpp").val());
 							clearFn();
 							callFlashSlideInModal("Insert Data is Successfully.");
 						}
@@ -203,7 +203,9 @@ $(document).ready(function(){
 			},	
 			success : function(data) {
 				if (data['status'] == "200") {
-					getDataFn();
+					alert($("#pageNumber").val());
+					alert($("#rpp").val());
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
 					clearFn();
 					$('#ModalCitizen').modal('hide');
 					callFlashSlide("Update Successfully.");
@@ -443,21 +445,33 @@ $(document).ready(function(){
 			});
 			
 			$(".del").on("click",function(){
+				var id = this.id;
 				$(this).parent().parent().parent().children().click();
-				 if(confirm("Do you want to delete this file?")){
+				 
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+				
 					$.ajax({
-						 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+ this.id,
+						 url:restfulURL+"/dqs_api/public/dqs_citizen_import/"+id,
 						 type : "delete",
 						 dataType:"json",
 						 headers:{Authorization:"Bearer "+tokenID.token},
-					     success:function(data){      
-					       
-					       getDataFn();
-					       clearFn();
-		
+					     success:function(data){    
+					    	 
+						     if(data['status']==200){
+						    	 
+						       callFlashSlide("Delete Successfully.");  
+						       getDataFn($("#pageNumber").val(),$("#rpp").val());
+						       clearFn();
+						       $("#confrimModal").modal('hide');
+						       
+						     }
 						 }
 					});
-				 }
+					
+				});
+				
 			});	
 		
 		});

@@ -1,11 +1,49 @@
 var tokenID= eval("("+localStorage.getItem("tokenID")+")");
 //var restfulURL="http://192.168.1.58";
-var restfulURL="http://171.96.201.91";
+var restfulURL="http://58.9.74.60";
 //Global Parameter Start
 var galbaMenuObj=[];
 //Global Parameter End
 
+var searchFn = function(searchID,tableID){
+	
+	// Declare variables
+	  var input, filter, table, tr, td,id2,id3, i;
+	  input = document.getElementById(searchID);
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById(tableID);
+	  tr = table.getElementsByTagName("tr");
 
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[0];
+	    td2 = tr[i].getElementsByTagName("td")[1];
+	    td3 = tr[i].getElementsByTagName("td")[2];
+	    if (td) {
+		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+	    }
+	  }
+	  
+	 
+	
+};
+var searchMultiFn=function(){
+	 var search = $(this).val();
+     if(!search || search.length < 2){
+         $(".row").show();
+         return;
+     }
+     $(".column").each(function(){
+         
+         if($(this).text().indexOf(search)>=0){
+             $(this).parent().hide();
+         }
+     });
+}
 
 var firstDayInMonthFn = function(){
 	var d = new Date();
@@ -77,7 +115,7 @@ checkSession();
 
 var logoutFn = function(){
 	$.ajax({
-		url:"http://192.168.1.58/dqs_api/public/session",
+		url:restfulURL+"/dqs_api/public/session",
 		type:"DELETE",
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
@@ -113,7 +151,6 @@ $("#logOut").click(function(){
 
 var getMainMenu = function(role_id){
 	//galbaMenuObj
-	http://192.168.1.58/dqs_api/public/dqs_role/{role_id}/authorize
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_role/"+role_id+"/authorize",
 		type:"GET",
@@ -244,6 +281,7 @@ app.controller("pageController",function($scope, $route, $routeParams){
 	   	   $("#naviTitle").show();
 	    });
 });
+
 /*
 app.controller('myCtrl2', function($scope) {
     $scope.firstname = "John11";

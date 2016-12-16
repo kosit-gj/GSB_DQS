@@ -243,21 +243,31 @@ $(document).ready(function(){
 							
 							//delete
 						   $(".del").on("click",function(){
+							var id = this.id;
 							$(this).parent().parent().parent().children().click();
-						    if(confirm("Do you want to delete this file?")){
-						     $.ajax({
-							      url:restfulURL+"/dqs_api/public/dqs_grade/"+this.id,
-							      type:"delete",
-							      dataType:"json",
-								  headers:{Authorization:"Bearer "+tokenID.token},
-								  success:function(data){       
-								       
-								       getDataFn();
-								       clearFn();
+							
+						   	$("#confrimModal").modal();
+							$(document).off("click","#btnConfirmOK");
+							$(document).on("click","#btnConfirmOK",function(){
+							     $.ajax({
+								      url:restfulURL+"/dqs_api/public/dqs_grade/"+id,
+								      type:"delete",
+								      dataType:"json",
+									  headers:{Authorization:"Bearer "+tokenID.token},
+									  success:function(data){       
+									       if(data['status']=="200"){
+										
+										 		callFlashSlide("Delete Successfully.");  
+									       		getDataFn();
+									       		clearFn();
+												$("#confrimModal").modal('hide');
+												
+											}
+					     			 	}
+					   			  	});
 						
-				     			 	}
-				   			  	});
-				   		   	}
+							});
+				   		   	
 						
 				  	 		});
 						

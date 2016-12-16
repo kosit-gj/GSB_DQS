@@ -1,26 +1,7 @@
 $(document).ready(function(){
 
 	
-	var checkUniqueFn = function(text) {
-		/* http://localhost:3000/dqs_api/public/products?name__regex=/^test/i */
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/dqs_api/public/dqs_role?role_name="+text.trim()+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
-	
+
 	
 	var validationFn = function() {
 		var validateText = "";
@@ -214,7 +195,7 @@ $(document).ready(function(){
 		htmlTable += "<td>"+ (index + 1)+ "</td>";
 		htmlTable += "<td>"+ indexEntry["role_name"]+ "</td>";
 		htmlTable += "<td><i class=\"fa fa-group font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["role_id"]+"></i></td> ";
-		htmlTable += "<td><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs btn-gear del'>Delete</button>\"></i></td>";
+		htmlTable += "<td><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs btn-gear del' >Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
@@ -281,6 +262,7 @@ $(document).ready(function(){
 			//$("#tableRole").on("click",".edit",function(){
 			
 			$(".edit").on("click",function() {
+				//$(this).parent().parent().parent().children().click();
 				$("#btnSaveAndAnother").hide();
 				findOneFn(this.id);
 				$("#id").val(this.id);
@@ -295,29 +277,43 @@ $(document).ready(function(){
 			//$("#tableRole").on("click",".del",function(){
 			
 			$(".del").on("click",function(){
-			
-				if(confirm("Confirm to Delete Data?")){
-					$.ajax({
-						 url:restfulURL+"/dqs_api/public/dqs_role/"+ this.id,
-						 type : "delete",
-						 dataType:"json",
-						 headers:{Authorization:"Bearer "+tokenID.token},
-						 async:false,
-					     success:function(data){      
-					       
-					    	if(data['status']==200){
-					    		
-					    		 callFlashSlide("Delete Successfully.");
-					    		 getDataFn();
-							     clearFn();
-							     $("#popover-edit-del-"+this.id).click();
-					    	}
-					      
-		
-						 }
-					});
-				}
-				//$(".del").off("click");
+				$(this).parent().parent().parent().children().click();
+				var id = this.id;
+				
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+					
+					// content start
+						$.ajax({
+							 url:restfulURL+"/dqs_api/public/dqs_role/"+ id,
+							 type : "delete",
+							 dataType:"json",
+							 headers:{Authorization:"Bearer "+tokenID.token},
+							 async:false,
+						     success:function(data){      
+
+						    	if(data['status']==200){
+						    		 callFlashSlide("Delete Successfully.");
+						    		 getDataFn();
+								     clearFn();
+								     $("#confrimModal").modal('hide');
+								    // $("#popover-edit-del-"+id).click();
+						    	}else if(data['status']=="400"){
+						    		 callFlashSlide(data['data']);
+						    		 $("#confrimModal").modal('hide');
+						    		// $("#popover-edit-del-"+id).click();
+						    	}
+						    	
+							 }
+						});
+					// content end
+				});
+				
+					
+
+				
+				
 			});
 			
 		});

@@ -51,19 +51,18 @@
 					</div>
                         		
                            <div class="col-sm-3" align="right">
-                           
-	<div class="checkbox" id="checkbox-head">
-		<input id="checkboxInitialSearch"  type="checkbox">
-		<label for="checkboxInitialSearch">Initial</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
-		<input id="checkboxUpdateSearch"  type="checkbox">
-		<label for="checkboxUpdateSearch">Update</label>
-		
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input id="checkboxContactSearch" type="checkbox">
-		<label for="checkboxContactSearch">Last Contact</label>
-	</div>
+								<div class="checkbox" id="checkbox-head">
+									<input id="checkboxInitialSearch"  type="checkbox">
+									<label for="checkboxInitialSearch">Initial</label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+									<input id="checkboxUpdateSearch"  type="checkbox">
+									<label for="checkboxUpdateSearch">Update</label>
+									
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="checkboxContactSearch" type="checkbox">
+									<label for="checkboxContactSearch">Last Contact</label>
+								</div>
                           	</div>
                           
                            	 <div class="col-sm-2" align="right">
@@ -96,10 +95,29 @@
                         		<button id="btnEditFlag" class="btn btn-info edit_flag" type="button"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit Flag</button>       
                         		<button id="btnSubmitFlag" class="btn btn-warning " type="button"><i class="fa fa-save"></i>&nbsp;Save</button>
                         		<button id="btnCancleFlag" class="btn btn-danger " type="button"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>                            	
-                    </div>   
+                    </div> 
+                    <div class="col-sm-3">
+                       <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+                    </div> 
 				</div>
 				
-			
+								<!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_top"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>30</option>
+		                                     <option>40</option>
+		                                 </select> 
+	                                	</div>
+	                               	</div> 
+                               	 <!-- pagination end -->
                         	<!-- start table -->
                         	<div class="table-responsive">
                        		<table class="table table-striped" id="tableRule">
@@ -124,6 +142,22 @@
                             </div>
                             
                         	<!-- end table -->
+                        	<!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_bottom"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>30</option>
+		                                     <option>40</option>
+		                                 </select> 
+	                                	</div>
+	                               	</div> 
+                               	 <!-- pagination end -->
                         	
                     	
                     	
@@ -138,7 +172,7 @@
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close input-sm" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button data-dismiss="modal" class="close input-sm" type="button"><span aria-hidden="true">ร—</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title" id="modalTitleRole">Add New File</h4>
                 <!-- 
@@ -276,6 +310,39 @@
     </div>
 </div>                      
 <!-- Modal End -->
-
+<!-- Modal Confirm Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style="display: none;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">Confirm Dialog</h5>
+            </div>
+            <div class="modal-body">
+                <!-- content start -->
+                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
+                <hr>
+                 -->
+                <!-- form start -->
+                <div class="form-kpi-mangement">
+	                <div class="form-kpi-label" align="center">
+	                
+	                 		<label>Confirm to Delete Data?</label>
+	                </div>
+                </div>
+                               
+                <!-- form start -->
+                <!-- content end -->
+            </div>
+            <div class="modal-footer">
+            	<div align="center">
+	                <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
+	                <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Confirm End -->
 <script src="Controller/cRuleManagement.js"></script> 
 

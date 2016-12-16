@@ -1,6 +1,7 @@
 var golbalDataRole=[];	
 
 
+
 	
 // Click แล้ว ฝังข้อมูล
 	var embedParamInitialFlagInline = function(id){
@@ -104,7 +105,67 @@ var golbalDataRole=[];
 	
 $(document).ready(function(){
 
+	//set paginate start
+	var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
+		
+		
+		$('.pagination_top,.pagination_bottom').off("page");
+		$('.pagination_top,.pagination_bottom').bootpag({
+		    total: pageTotal,//page Total
+		    page: pageIndex,//page index
+		    maxVisible: pageButton,//จำนวนปุ่ม
+		    leaps: true,
+		    //firstLastUse: true,
+		    //first: '←',
+		    //last: '→',
+		    wrapClass: 'pagination',
+		    activeClass: 'active',
+		    disabledClass: 'disabled',
+		    //nextClass: 'next',
+		    //prevClass: 'prev',
+		    next: 'next',
+		    prev: 'prev',
+		    //lastClass: 'last',
+		    //firstClass: 'first'
+		}).on("page", function(event, num){
+			var rpp=10;
+			if($("#rpp").val()==undefined){
+				rpp=10;
+			}else{
+				rpp=$("#rpp").val();
+			}
+			
+			getDataFn(num,rpp);
+			
+		    $(".pagingNumber").remove();
+		    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
+		    $("body").append(htmlPageNumber);
+		   
+		}); 
+		
+		
+		$(".countPagination").off("change");
+		$(".countPagination").on("change",function(){
 
+			$("#countPaginationTop").val($(this).val());
+			$("#countPaginationBottom").val($(this).val());
+			
+			getDataFn(1,$(this).val());
+			
+			$(".rpp").remove();
+		    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
+		    $("body").append(htmlRrp);
+		   
+		});
+		
+	}
+
+	//set paginate end
+	
+	//call pagination 
+	//paginationSetUpFn(1,2,2);
+	
+	
 	//binding tooltip.
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip();
@@ -207,11 +268,11 @@ $(document).ready(function(){
 					
 					if(param !="saveAndAnother"){
 						   callFlashSlide("Insert Successfully.");
-					       getDataFn();
+					       getDataFn($("#pageNumber").val(),$("#rpp").val());
 					       clearFn();
 					 	   $('#addModalRule').modal('hide');	
 						}else{
-							getDataFn();
+							getDataFn($("#pageNumber").val(),$("#rpp").val());
 							clearFn();
 							callFlashSlideInModal("Insert Data is Successfully.");
 					}
@@ -297,7 +358,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data['status'] == 200) {
 					callFlashSlide("Update Successfully.");
-					getDataFn();
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
 					clearFn();
 					$('#addModalRule').modal('hide');
 				}
@@ -417,8 +478,9 @@ $(document).ready(function(){
 :"0"}
 	 */
 		var htmlTable = "";
-		
+
 		$.each(data,function(index,indexEntry) {
+		
 		htmlTable += "<tr>";
 //
 		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>"; 
@@ -461,8 +523,8 @@ $(document).ready(function(){
 	
 		$("#listRule").html(htmlTable);
 		
-		$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false } );  
-		
+		//$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false } );  
+		//$('#tableRule').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">' ,"bSort" : false } );  
 		//function popover
 		$(".popover-edit-del").popover();
 	
@@ -481,21 +543,30 @@ $(document).ready(function(){
 			});
 			
 			$(".del").on("click",function() {
+				var id = this.id;
 				$(this).parent().parent().parent().children().click();
-				$.ajax({
-					 url:restfulURL+"/dqs_api/public/dqs_rule/"+ this.id,
-					 type : "delete",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-				     success:function(data){   
-				    	if(data['status']==200){
-				    		getDataFn();
-				    		clearFn();
-				    		callFlashSlide("Delete Successfully.");
-				    	}
-				       //return false;
-					 }
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+				
+					$.ajax({
+						 url:restfulURL+"/dqs_api/public/dqs_rule/"+id,
+						 type : "delete",
+						 dataType:"json",
+						 headers:{Authorization:"Bearer "+tokenID.token},
+					     success:function(data){   
+					    	if(data['status']==200){
+					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
+					    		clearFn();
+					    		callFlashSlide("Delete Successfully.");
+					    		$("#confrimModal").modal('hide');
+					    	}
+					       //return false;
+						 }
+					});
+				
 				});
+				
 				
 			});	
 			
@@ -593,29 +664,37 @@ $(document).ready(function(){
 	}
 	dropdownDataFlow();
 	
-	var getDataFn = function() {
+	var getDataFn = function(page,rpp) {
+		
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_rule",
 			type : "get",
 			dataType : "json",
+			data:{"page":page,"rpp":rpp},
+			async:false,
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
+				
+				
+				
+			
 				listRuleFn(data['data']);
-				golbalDataRole=data['data'];
+				golbalDataRole=data;
+				paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
+				
 				//console.log(data['data']);
+				
+				
 			}
 		});
 	};
 	//Call Function start
 	  getDataFn();
-	 	
-	/*	
-    $("#btnSearch").click(function(){
-		searchFn($("#searchRule").val());
-		   return false;
-	});*/
-	  
+	//call pagination 
+	 paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
+
+	
 	  
 	//Auto Complete Rule Name start
 		$("#ruleName").autocomplete({
@@ -649,14 +728,17 @@ $(document).ready(function(){
           }
       });
 		//Auto Complete Rule Name end
-		
+	$("#btnSearch")	.click(function(){
+		searchFn("searchText","tableRule");
+		//alert("hello");
+	});
 	
 	$("#btnSearchAdvance").click(function(){
 		var paramInitial="";
 		var paramUpdate="";
 		var paramLastContact="";
 		
-		console.log($("#checkboxInitialSearch").is(":checked"));
+		//console.log($("#checkboxInitialSearch").is(":checked"));
 		if($("#checkboxInitialSearch").is(":checked")){
 			paramInitial=1;
 		}else{
@@ -679,6 +761,7 @@ $(document).ready(function(){
 		   return false;
 	});
 	
+
 	
 	
 	
@@ -727,7 +810,7 @@ $(document).ready(function(){
 	
 			
 			var rules = [];
-			  $.each(golbalDataRole,function(index,indexEntry){
+			  $.each(golbalDataRole['data'],function(index,indexEntry){
 			  
 			  
 			  var initial_flag_inline = "";
@@ -808,7 +891,7 @@ $(document).ready(function(){
 			     
 			        if(status=="success"){
 			        	callFlashSlide("Update Successfully.");
-			        	getDataFn();
+			        	getDataFn($("#pageNumber").val(),$("#rpp").val());
 			    		clearFn();
 			        }
 			     }
@@ -822,7 +905,7 @@ $(document).ready(function(){
 		updateFlagFn();
 	});
 	$("#btnCancleFlag").click(function(){
-		 getDataFn();
+		getDataFn($("#pageNumber").val(),$("#rpp").val());
 	});
 	$("#btnAddRule").click(function(){
 		$("#btnSaveAndAnother").show();

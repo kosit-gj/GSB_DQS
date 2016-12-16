@@ -299,7 +299,7 @@ body {
     color: #ffffff;
 }
 .btn{
-	padding: 4px 10px;
+	padding: 5px 10px;
 }
 .top-navigation .nav > li.active > a {
     color: #EC068D;
@@ -885,4 +885,7 @@ hr {
 }
 .countPagination{
 	width:50px;
+}
+#confrimModal>.modal-dialog{
+	width: 400px;
 }

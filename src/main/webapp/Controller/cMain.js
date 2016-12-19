@@ -17,8 +17,6 @@ var searchFn = function(searchID,tableID){
 	  // Loop through all table rows, and hide those who don't match the search query
 	  for (i = 0; i < tr.length; i++) {
 	    td = tr[i].getElementsByTagName("td")[0];
-	    td2 = tr[i].getElementsByTagName("td")[1];
-	    td3 = tr[i].getElementsByTagName("td")[2];
 	    if (td) {
 		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 		        tr[i].style.display = "";
@@ -31,20 +29,20 @@ var searchFn = function(searchID,tableID){
 	 
 	
 };
-var searchMultiFn=function(search){
-	
+
+var searchMultiFn=function(){
+	 var search = $(this).val();
      if(!search || search.length < 2){
-         $("tr.rowSearch").show();
+         $(".row").show();
          return;
      }
-     $("td.columnSearch").each(function(){
-    	 alert("hello");
-         console.log($(this).text());
+     $(".column").each(function(){
+         
          if($(this).text().indexOf(search)>=0){
              $(this).parent().hide();
          }
      });
-     alert("searchMultiFn");
+
 }
 
 var firstDayInMonthFn = function(){

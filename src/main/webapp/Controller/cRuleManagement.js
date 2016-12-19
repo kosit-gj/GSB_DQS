@@ -481,7 +481,11 @@ $(document).ready(function(){
 
 		$.each(data,function(index,indexEntry) {
 		
+<<<<<<< HEAD
 		htmlTable += "<tr class='rowSearch'>";
+=======
+		htmlTable += "<tr>";
+>>>>>>> refs/remotes/origin/master
 //
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_group"]+ "</td>"; 
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_name"]+ "</td>";
@@ -556,8 +560,12 @@ $(document).ready(function(){
 						 headers:{Authorization:"Bearer "+tokenID.token},
 					     success:function(data){   
 					    	if(data['status']==200){
+<<<<<<< HEAD
 
 					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
+=======
+					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
+>>>>>>> refs/remotes/origin/master
 					    		clearFn();
 					    		callFlashSlide("Delete Successfully.");
 					    		$("#confrimModal").modal('hide');
@@ -568,7 +576,10 @@ $(document).ready(function(){
 				
 				});
 				
+<<<<<<< HEAD
 				
+=======
+>>>>>>> refs/remotes/origin/master
 				
 			});	
 			
@@ -731,11 +742,16 @@ $(document).ready(function(){
       });
 		//Auto Complete Rule Name end
 	$("#btnSearch")	.click(function(){
+<<<<<<< HEAD
 		
 		searchFn("searchText","tableRule");
 		//alert($("#searchText").val());
 		//searchMultiFn($("#searchText").val());
 		;
+=======
+		searchFn("searchText","tableRule");
+		//alert("hello");
+>>>>>>> refs/remotes/origin/master
 	});
 	
 	$("#btnSearchAdvance").click(function(){

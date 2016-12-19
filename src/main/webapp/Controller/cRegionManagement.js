@@ -271,7 +271,11 @@ $(document).ready(
 								  headers:{Authorization:"Bearer "+tokenID.token},
 								  success:function(data){ 
 										   callFlashSlide("Delete Successfully.");       
+<<<<<<< HEAD
 									       getDataFn($("#pageNumber").val(),$("#rpp").val());
+=======
+									       getDataFn();
+>>>>>>> refs/remotes/origin/master
 									       clearFn();
 										   $("#confrimModal").modal('hide');
 				     			 }

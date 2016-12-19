@@ -462,7 +462,6 @@ $(document).ready(function(){
 						     if(data['status']==200){
 						    	 
 						       callFlashSlide("Delete Successfully.");  
-
 						       getDataFn($("#pageNumber").val(),$("#rpp").val());
 						       clearFn();
 						       $("#confrimModal").modal('hide');

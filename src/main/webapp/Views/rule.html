@@ -51,19 +51,18 @@
 					</div>
                         		
                            <div class="col-sm-3" align="right">
-                           
-	<div class="checkbox" id="checkbox-head">
-		<input id="checkboxInitialSearch"  type="checkbox">
-		<label for="checkboxInitialSearch">Initial</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
-		<input id="checkboxUpdateSearch"  type="checkbox">
-		<label for="checkboxUpdateSearch">Update</label>
-		
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input id="checkboxContactSearch" type="checkbox">
-		<label for="checkboxContactSearch">Last Contact</label>
-	</div>
+								<div class="checkbox" id="checkbox-head">
+									<input id="checkboxInitialSearch"  type="checkbox">
+									<label for="checkboxInitialSearch">Initial</label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										
+									<input id="checkboxUpdateSearch"  type="checkbox">
+									<label for="checkboxUpdateSearch">Update</label>
+									
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input id="checkboxContactSearch" type="checkbox">
+									<label for="checkboxContactSearch">Last Contact</label>
+								</div>
                           	</div>
                           
                            	 <div class="col-sm-2" align="right">
@@ -96,10 +95,29 @@
                         		<button id="btnEditFlag" class="btn btn-info edit_flag" type="button"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit Flag</button>       
                         		<button id="btnSubmitFlag" class="btn btn-warning " type="button"><i class="fa fa-save"></i>&nbsp;Save</button>
                         		<button id="btnCancleFlag" class="btn btn-danger " type="button"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>                            	
-                    </div>   
+                    </div> 
+                    <div class="col-sm-3">
+                       <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+                    </div> 
 				</div>
 				
-			
+								<!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_top"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>30</option>
+		                                     <option>40</option>
+		                                 </select> 
+	                                	</div>
+	                               	</div> 
+                               	 <!-- pagination end -->
                         	<!-- start table -->
                         	<div class="table-responsive">
                        		<table class="table table-striped" id="tableRule">
@@ -124,6 +142,22 @@
                             </div>
                             
                         	<!-- end table -->
+                        	<!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_bottom"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>30</option>
+		                                     <option>40</option>
+		                                 </select> 
+	                                	</div>
+	                               	</div> 
+                               	 <!-- pagination end -->
                         	
                     	
                     	

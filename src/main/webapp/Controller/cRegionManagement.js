@@ -1,5 +1,66 @@
+var golbalData=[];
+
 $(document).ready(
 	function(){
+		
+		
+		//set paginate start
+		var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
+			
+			
+			$('.pagination_top,.pagination_bottom').off("page");
+			$('.pagination_top,.pagination_bottom').bootpag({
+			    total: pageTotal,//page Total
+			    page: pageIndex,//page index
+			    maxVisible: pageButton,//จำนวนปุ่ม
+			    leaps: true,
+			    //firstLastUse: true,
+			    //first: '←',
+			    //last: '→',
+			    wrapClass: 'pagination',
+			    activeClass: 'active',
+			    disabledClass: 'disabled',
+			    //nextClass: 'next',
+			    //prevClass: 'prev',
+			    next: 'next',
+			    prev: 'prev',
+			    //lastClass: 'last',
+			    //firstClass: 'first'
+			}).on("page", function(event, num){
+				var rpp=10;
+				if($("#rpp").val()==undefined){
+					rpp=10;
+				}else{
+					rpp=$("#rpp").val();
+				}
+				
+				getDataFn(num,rpp);
+				
+			    $(".pagingNumber").remove();
+			    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
+			    $("body").append(htmlPageNumber);
+			   
+			}); 
+			
+			
+			$(".countPagination").off("change");
+			$(".countPagination").on("change",function(){
+
+				$("#countPaginationTop").val($(this).val());
+				$("#countPaginationBottom").val($(this).val());
+				
+				getDataFn(1,$(this).val());
+				
+				$(".rpp").remove();
+			    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
+			    $("body").append(htmlRrp);
+			   
+			});
+			
+		}
+
+		//set paginate end
+		
 		 
 		 
 		 //function เชคค่าว่าง
@@ -53,11 +114,11 @@ $(document).ready(
 						
 							if(param !="saveAndAnother"){
 							   callFlashSlide("Insert Successfully.");
-						       getDataFn();
+						       getDataFn($("#pageNumber").val(),$("#rpp").val());
 						       clearFn();
 						 	   $('#managementModal').modal('hide');
 							}else{
-								getDataFn();
+								getDataFn($("#pageNumber").val(),$("#rpp").val());
 								clearFn();
 								callFlashSlideInModal("Insert Data is Successfully.");
 							}
@@ -91,7 +152,7 @@ $(document).ready(
 						     if(data['status']=="200"){
 								 $('#ManagementModal').modal('hide');
 							     callFlashSlide("Update Successfully.");
-								 getDataFn();
+								 getDataFn($("#pageNumber").val(),$("#rpp").val());
 						      	//clearFn();
 						     }
 						   }
@@ -137,7 +198,7 @@ $(document).ready(
 			  };
 		
 			// function search
-			  var searchFn = function(searchText){
+			  var searchFn_bk = function(searchText){
 				   $.ajax({
 				    url:restfulURL+"/dqs_api/public/dqs_region/?region_name__regex=/^"+searchText+"/i",
 				    type:"get",
@@ -151,10 +212,10 @@ $(document).ready(
 			
 			 // list data Region
 			  var listDataFn = function(data){
-					if ( $.fn.DataTable.isDataTable('#tableRegion')) {
-				      $('#tableRegion').DataTable().destroy();
-				     }
-						
+//					if ( $.fn.DataTable.isDataTable('#tableRegion')) {
+//				      $('#tableRegion').DataTable().destroy();
+//				     }
+//						
 					var htmlTable="";
 					   $.each(data,function(index,indexEntry){
 						     htmlTable+="<tr >";
@@ -168,7 +229,7 @@ $(document).ready(
 					   $("#listRegion").html(htmlTable);
 						
 					   //DataTable
-					   $('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
+					   //$('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 					
 						//เมื่อ click แล้วให้มันไปผูกกับ popover
 						$("#tableRegion_wrapper").click(function(){
@@ -210,7 +271,7 @@ $(document).ready(
 								  headers:{Authorization:"Bearer "+tokenID.token},
 								  success:function(data){ 
 										   callFlashSlide("Delete Successfully.");       
-									       getDataFn();
+									       getDataFn($("#pageNumber").val(),$("#rpp").val());
 									       clearFn();
 										   $("#confrimModal").modal('hide');
 				     			 }
@@ -233,14 +294,20 @@ $(document).ready(
 					    url:restfulURL+"/dqs_api/public/dqs_region",
 					    type:"get",
 					    dataType:"json",
+						async:false,
 					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 						     	listDataFn(data['data']);
+								
+								golbalData=data;
+								paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
 						 }
 				  });
 			};
 			//Call Function start
 			getDataFn();
+			//call pagination 
+			paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
 			
 			
 			/*//////////////////////// Start BranchOperation /////////////// */
@@ -484,9 +551,13 @@ $(document).ready(
 				  });
 			   
 			   //ปุ่ม search
+			  
 			  $("#btnSearch").click(function(){
-				   searchFn($("#searchText").val());
-				   return false;
+				  // searchFn($("#searchText").val());
+				//alert($("#searchText").val());
+				searchFn("searchText","tableRegion");
+				
+				  // return false;
 			  });
 				
 			  //ปุ่ม cancel

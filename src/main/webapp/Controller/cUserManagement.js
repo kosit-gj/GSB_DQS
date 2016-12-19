@@ -94,7 +94,7 @@ var embedParamRole = function(id){
 			
 			//DataTable
 			 // $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
-			  $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false  } ); 
+			  $('#tableUser').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">',"bSort" : false  } ); 
 			
 			
 			//start ปุ่ม Edit ใน table
@@ -131,11 +131,12 @@ var embedParamRole = function(id){
 	
 };
 //Get data User
-var getDataFn = function() {
+var getDataFn = function(page,rpp) {
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_user",
 			type : "get",
 			dataType : "json",
+			data:{"page":page,"rpp":rpp},
 			headers:{Authorization:"Bearer "+tokenID.token},
 			//data:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
@@ -211,8 +212,55 @@ var dropDownListRevisedCostCenter = function(id,paramParentID){
 };
 /*####Init Function  End######*/
 
+//set paginate start
+var paginationFn = function(page,rpp,total){
+	//alert("hello");
+	$('.pagination_top,.pagination_bottom').bootpag({
+	    total: total,
+	    page: page,
+	    maxVisible: rpp,
+	    leaps: true,
+	    //firstLastUse: true,
+	    //first: '←',
+	    //last: '→',
+	    wrapClass: 'pagination',
+	    activeClass: 'active',
+	    disabledClass: 'disabled',
+	    //nextClass: 'next',
+	    //prevClass: 'prev',
+	    next: 'next',
+	    prev: 'prev',
+	    //lastClass: 'last',
+	    //firstClass: 'first'
+	}).on("page", function(event, num){
+	    getDataFn(num);
+	    $(".pagingNumber").remove();
+	    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
+	    $("body").append(htmlPageNumber);
+	   // alert("click"+num);
+	}); 
+	
+	$(".countPagination").change(function(){
+		//alert($(this).val());
+		$("#countPaginationTop").val($(this).val());
+		$("#countPaginationBottom").val($(this).val());
+		
+		getDataFn($("pageNumber").val(),$(this).val());
+		
+		$(".rpp").remove();
+	    var htmlRrp= "<input type='hidden' id='rrp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
+	    $("body").append(htmlRrp);
+	    
+	});
+}
+
+//set paginate end
 
 $(document).ready(function(){
+	
+	//call pagination 
+	paginationFn(1,1,1);
+	
 	//binding tooltip.
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip();
@@ -479,7 +527,7 @@ var updateFn = function(){
 			
 			// ปุ่ม Cancel
 			  $("#btnCancel").click(function(){
-				  getDataFn();
+				   getDataFn($("#pageNumber").val(),$("#rpp").val());
 				});
 			
 			  //ปุ่ม click Edit 

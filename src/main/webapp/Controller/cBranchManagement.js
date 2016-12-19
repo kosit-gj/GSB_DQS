@@ -1,6 +1,62 @@
+var golbalDataBranch=[];
 $(document).ready(function(){
 
-	
+	//set paginate start
+	var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
+		
+		
+		$('.pagination_top,.pagination_bottom').off("page");
+		$('.pagination_top,.pagination_bottom').bootpag({
+		    total: pageTotal,//page Total
+		    page: pageIndex,//page index
+		    maxVisible: pageButton,//จำนวนปุ่ม
+		    leaps: true,
+		    //firstLastUse: true,
+		    //first: '←',
+		    //last: '→',
+		    wrapClass: 'pagination',
+		    activeClass: 'active',
+		    disabledClass: 'disabled',
+		    //nextClass: 'next',
+		    //prevClass: 'prev',
+		    next: 'next',
+		    prev: 'prev',
+		    //lastClass: 'last',
+		    //firstClass: 'first'
+		}).on("page", function(event, num){
+			var rpp=10;
+			if($("#rpp").val()==undefined){
+				rpp=10;
+			}else{
+				rpp=$("#rpp").val();
+			}
+			
+			getDataFn(num,rpp);
+			
+		    $(".pagingNumber").remove();
+		    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
+		    $("body").append(htmlPageNumber);
+		   
+		}); 
+		
+		
+		$(".countPagination").off("change");
+		$(".countPagination").on("change",function(){
+
+			$("#countPaginationTop").val($(this).val());
+			$("#countPaginationBottom").val($(this).val());
+			
+			getDataFn(1,$(this).val());
+			
+			$(".rpp").remove();
+		    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
+		    $("body").append(htmlRrp);
+		   
+		});
+		
+	}
+
+	//set paginate end
 	var updateFn = function() {
 		
 		var closeflagCheckbox = "";
@@ -45,7 +101,7 @@ $(document).ready(function(){
 			success : function(data) {
 				if (data = "success") {
 					callFlashSlide("Update Successfully.");
-					getDataFn();
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
 				}
 			}
 		});
@@ -70,9 +126,9 @@ $(document).ready(function(){
 	
 	var listBranchFn = function(data) {
 		
-		if ($.fn.DataTable.isDataTable('#tableBranch')) {
-			$('#tableBranch').DataTable().destroy(); 
-		}
+//		if ($.fn.DataTable.isDataTable('#tableBranch')) {
+//			$('#tableBranch').DataTable().destroy(); 
+//		}
 		
 		//console.log(data);
 		var htmlTable = "";
@@ -97,7 +153,7 @@ $(document).ready(function(){
 		
 		$("#listBranch").html(htmlTable);
 		
-		$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } );
+		//$('#tableBranch').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } );
 		
 		//function popover
 		$(".popover-edit-del").popover();
@@ -138,16 +194,21 @@ $(document).ready(function(){
 			url : restfulURL + "/dqs_api/public/dqs_branch",
 			type : "get",
 			dataType : "json",
+			async:false,
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listBranchFn(data['data']);
+				golbalDataBranch=data;
+				paginationSetUpFn(golbalDataBranch['current_page'],golbalDataBranch['last_page'],golbalDataBranch['last_page']);
 				//console.log(data);
 			}
 		});
 	};
 
 	//Call Function start
-	  getDataFn();
+	  getDataFn($("#pageNumber").val(),$("#rpp").val());
+	  
+	  paginationSetUpFn(golbalDataBranch['current_page'],golbalDataBranch['last_page'],golbalDataBranch['last_page']);
 	
 	//ปุ่ม Save
 	$("#btnSubmit").click(function(){
@@ -158,13 +219,15 @@ $(document).ready(function(){
 		}
 	});
 	  
-	$("#btnSearch").click(function(){
-		searchFn($("#searchBranch").val());
-		return false;
+	
+	$("#btnSearch")	.click(function(){
+		searchFn("searchText","tableBranch");
+		//alert($("#searchText").val());
+		//searchMultiFn($("#searchText").val());
+		;
 	});
-
 	$("#btnCancle").click(function(){
-		getDataFn();
+		getDataFn($("#pageNumber").val(),$("#rpp").val());
 		clearFn();
 	});
 	

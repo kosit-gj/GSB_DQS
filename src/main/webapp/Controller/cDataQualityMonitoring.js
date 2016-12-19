@@ -428,9 +428,9 @@ var findOneFn = function(id) {
 var listDataQualityFn = function(data) {
 	
 	// Destroy DataTable
-	if ($.fn.DataTable.isDataTable('#tableDataQuality')) {
-		$('#tableDataQuality').DataTable().destroy(); 
-	}
+//	if ($.fn.DataTable.isDataTable('#tableDataQuality')) {
+//		$('#tableDataQuality').DataTable().destroy(); 
+//	}
 	/*
 	{"validate_header_id":"1","cif_no":"11","cust_full_name":"John Doe","validate_date"
 		:"2016-12-11 00:00:00.000","explain_status":"1","contact_branch_name":"Rama 9","contact_date":"2016-12-13
@@ -464,7 +464,7 @@ var listDataQualityFn = function(data) {
 	});
 	$("#listDataQuality").html(htmlTable);	
 	
-	$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false} ); 
+	//$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false} ); 
 	
 	//*******click แล้ว clear ข้อมูล ด้วย********
 	$(".modalDetail").click(function(){

@@ -1,4 +1,86 @@
+//Global Parameter Start
 var golbalDataRule=[];
+var golbalData=[];
+//Global Parameter End
+
+//set paginate local start
+var paginationSetUpFn2 = function(pageIndex,pageButton,pageTotal){
+	if(pageTotal==0){
+		pageTotal=1
+	}
+	$('.pagination_top2,.pagination_bottom2').off("page");
+	$('.pagination_top2,.pagination_bottom2').bootpag({
+	    total: pageTotal,//page Total
+	    page: pageIndex,//page index
+	    maxVisible: 5,//จำนวนปุ่ม
+	    leaps: true,
+	    firstLastUse: true,
+	    first: '←',
+	    last: '→',
+	    wrapClass: 'pagination',
+	    activeClass: 'active',
+	    disabledClass: 'disabled',
+	    nextClass: 'next',
+	    prevClass: 'prev',
+	    next: 'next',
+	    prev: 'prev',
+	    lastClass: 'last',
+	    firstClass: 'first'
+	}).on("page", function(event, num){
+		var rpp=10;
+		if($("#rpp2").val()==undefined){
+			rpp=10;
+		}else{
+			rpp=$("#rpp2").val();
+		}
+		
+		findOneFn($("#validate_header_id").val(),num,rpp);
+		
+	    $(".pagingNumber2").remove();
+	    var htmlPageNumber= "<input type='hidden' id='pageNumber2' name='pageNumber2' class='pagingNumber2' value='"+num+"'>";
+	    
+	    $("#paramPagingDetail").html(htmlPageNumber);
+	   
+	}); 
+
+	$(".countPagination2").off("change");
+	$(".countPagination2").on("change",function(){
+
+		$("#countPaginationTop2").val($(this).val());
+		$("#countPaginationBottom2").val($(this).val());
+		
+		//getDataFn(1,$(this).val());
+		findOneFn($("#validate_header_id").val(),1,$(this).val());
+		
+		$(".rpp2").remove();
+	    var htmlRrp= "<input type='hidden' id='rpp2' name='rpp2' class='rpp2' value='"+$(this).val()+"'>";
+	    $("#paramPagingDetail").html(htmlRrp);
+	});
+}
+//set paginate local end
+
+var statusIconFn = function(explain_status,validate_header_id){
+	var explain_status=explain_status.split("-");
+	var icon="";
+	explain_status=explain_status[0];
+	if(explain_status==1){
+		icon = "&nbsp;&nbsp;<i id="+validate_header_id+" class='fa fa-paperclip font-management modalExplain' data-target='#addModal' data-toggle='modal'></i>";
+		
+	}else if(explain_status==2){
+		icon = "&nbsp;&nbsp;<i id="+validate_header_id+" class='fa fa-check-circle font-management font-icon-green modalExplain' data-target='#addModal' data-toggle='modal'></i>";
+		
+	}else if(explain_status==3){
+		//icon = "&nbsp;&nbsp;<button type=\"button\" id="+validate_header_id+" class=\"btn btn-danger-red  btn-circle-status modalExplain\"><i class=\"fa fa-times\"></i></button>";
+		icon = "&nbsp;&nbsp;<i id="+validate_header_id+" class='fa fa-times-circle font-management font-icon-red modalExplain' data-target='#addModal' data-toggle='modal'></i>";
+		
+	}
+	else if(explain_status==4){
+		icon = "&nbsp;&nbsp;<i id="+validate_header_id+" class='fa fa fa-warning font-management modalExplain font-icon-orange' data-target='#addModal' data-toggle='modal'></i>";
+		
+	}
+	return icon;
+}
+// List Branch
 var dropDownListBranch = function(id){
 	$.ajax({
 						
@@ -11,24 +93,21 @@ var dropDownListBranch = function(id){
 
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
-		html+="<option value='all'> All Branch</option>";
+		html+="<option selected='selected' value=''> All Branch </option>";
 		
 		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["brcd"]+">"+indexEntry["desc_1"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["brcd"]+">"+indexEntry["desc_1"]+"</option>";	
-			}		
+			
+				html+="<option  value="+indexEntry["brcd"]+">"+indexEntry["desc"]+"</option>";	
+					
 		});	
 		html+="</select>";
 		$("#listBranchArea").html(html);
-		
 		}
 		
 	});
 };
-//listCustomerTypeArea
 
+//listCustomerTypeArea
 var dropDownListCusType = function(id){
 	
 	$.ajax({
@@ -41,14 +120,12 @@ var dropDownListCusType = function(id){
 
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listCusType\">";
-		html+="<option value='all'> All Customer Type</option>";
+		html+="<option selected='selected' value=''> All Customer Type</option>";
 		
 		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["brcd"]+">"+indexEntry["desc_1"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["brcd"]+">"+indexEntry["desc_1"]+"</option>";	
-			}		
+			
+				html+="<option  value="+indexEntry["gsbccode"]+">"+indexEntry["desc"]+"</option>";	
+					
 		});	
 		html+="</select>";
 		$("#listCusTypeArea").html(html);
@@ -71,14 +148,10 @@ var dropDownListRule = function(id){
 	   // var data=[{"id":"1","name":"สาขา1"},{"id":"2","name":"สาขา2"},{"id":"3","name":"สาขา3"}];
 		var html="";	
 		html+="<select class=\"form-control input-sm listRule\" id=\"listRule\">";
-		html+="<option value='all'> All Rule</option>";
+		html+="<option selected='selected' value=''> All Rule</option>";
 		
 		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["rule_id"]+">"+indexEntry["rule_name"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["rule_id"]+">"+indexEntry["rule_name"]+"</option>";	
-			}		
+			html+="<option  value="+indexEntry["rule_id"]+">"+indexEntry["rule_name"]+"</option>";		
 		});	
 		html+="</select>";
 		$("#listRuleArea").html(html);
@@ -91,59 +164,67 @@ var dropDownListRule = function(id){
 
 var updateFn = function(){
 	
-
-	
-	/*
-	"process_type,
-	rules: [
-	  {
-	     kpi_flag: """",
-	     validate_status: """"
-	  },....
-	]"
-	 */
+	  var validate_header_id="";
 	  var rules = [];
-	  $.each(golbalDataRule,function(index,indexEntry){
-	 // console.log(indexEntry);
+	  $.each(golbalDataRule['data'],function(index,indexEntry){
 	  
-
 	  var no_doc_flag = "";
-	  var initial_validate_id="";
+	  //var initial_validate_id="";
+	  var validate_id="";
 	  
-	 
-	  if($("#embed_nodoc-"+indexEntry['validate_id']).val()!=undefined )
+	  if($("#embedParamSearchProcessType").val()=='Initial'){
+		  validate_id=indexEntry['initial_validate_id'];
+	  }else{
+		  validate_id=indexEntry['validate_id'];
+	  }
+	  
+	  
+	  if($("#embed_nodoc-"+validate_id).val()!=undefined )
 	  {
-		  
-	  	 
-		  if($("#no_doc_checkbox-"+indexEntry['validate_id']).prop('checked')){ 
+		  if($("#no_doc_checkbox-"+validate_id).prop('checked')){ 
 			  	no_doc_flag = 1;
 	        }else{ 
 	        	no_doc_flag = 0;
 	        }
 		   
 		  
-		  
-		   rules.push({
-			   no_doc_flag: no_doc_flag,
-			   validate_id:"1"
-		   });
+		  if($("#embedParamSearchProcessType").val()=='Initial'){
+			   rules.push({
+				   initial_validate_id:validate_id,
+				   no_doc_flag: no_doc_flag
+				   
+			   });
+		  }else{
+			  rules.push({
+				   validate_id:validate_id,
+				   no_doc_flag: no_doc_flag
+				   
+			   });
+		  }
 	  }
 	  
 	  });
-	  
+	  //console.log(rules);
 	//http://192.168.1.58/dqs_api/public/dqs_monitoring/branch/{validate_header_id}
+	  
+	  if($("#validate_header_id").val()==""){
+			validate_header_id=$("#explain_id").val();
+		}else{
+			validate_header_id=$("#validate_header_id").val();
+		}
+	  
 	$.ajax({
-	    url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+$("#id").val(),
+	    url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+validate_header_id,
 	    type:"PATCH",
 	    dataType:"json",
-	    data:{"rules":rules,"process_type":$("#embedParamSearchProcessType").val()},
+	    data:{"process_type":$("#embedParamSearchProcessType").val(),"rules":rules},
 	    headers:{Authorization:"Bearer "+tokenID.token},
 	    async:false,
 	    success:function(data,status){
 	     console.log(data);
 	     if(data['status']=="200"){
-	    	 callFlashSlideInModal("Update Successfully.");
-	      	 findOneFn($("#id").val());
+	    	  callFlashSlideInModal("Update Successfully.","#information");
+	      	  findOneFn($("#validate_header_id").val());
 	  	
 	      }
 	   }
@@ -157,15 +238,15 @@ var updateFn = function(){
 
 
 updateExplainFn = function(id){
-	
+	var validate_header_id="";
 	var explain_status = ""	
 		if($("#cdmd_explain_no_explanation:checked").val()){
 			explain_status = 1;
-		}else if($("#cdmd_explain_pending:checked").val()){
+		}else if($("#cdmd_explain_waiting:checked").val()){
 			explain_status = 2;
 		}else if($("#cdmd_explain_approve:checked").val()){
 			explain_status = 3;
-		}else if($("#cdmd_explain_not_allowed:checked").val()){
+		}else if($("#cdmd_explain_not_approved:checked").val()){
 			explain_status = 4;
 		}
 
@@ -175,26 +256,41 @@ updateExplainFn = function(id){
 	explain_remark,
 	explain_status
 	*/
+	  if($("#validate_header_id").val()==""){
+			validate_header_id=$("#explain_id").val();
+		}else{
+			validate_header_id=$("#validate_header_id").val();
+		}
+	  
 	$.ajax({
 		url : restfulURL + "/dqs_api/public/dqs_monitoring/branch/"+id+"/explain",							
 		type : "PATCH",
 		dataType : "json",
 		data :{"process_type":$("#embedParamSearchProcessType").val(),
 			"explain_remark":$("#explain_remark").val(),
-			//"explain_status":explain_status
+			"explain_status":explain_status
 			},
+		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			if(data['status']==200){
 
 				callFlashSlideInModal("Update Successfully.","#information2");
-				getDataExplainFn($("#validate_header_id_hidden").val());
+				
+				getDataExplainFn(validate_header_id);
 				
 			}else if(data['status']==400){
 				
-				callFlashSlideInModal(data['data']['explain_remark'],"#information2");
-				getDataExplainFn($("#validate_header_id_hidden").val());
+				if(data['data']!=undefined){
+					callFlashSlideInModal(data['data'],"#information2","error");
+					
+					getDataExplainFn(validate_header_id);
+				}else{
+				callFlashSlideInModal(data['data']['explain_remark'],"#information2","error");
 				
+				getDataExplainFn(validate_header_id);
+				//getDataExplainFn($("#validate_header_id_hidden").val());
+				}
 			}
 			
 		}
@@ -213,7 +309,7 @@ updateExplainFn = function(id){
 	});
 }*/
 
-var findOneFn = function(id) {
+var findOneFn = function(id,page,rpp) {
 
 	///dqs_api/public/dqs_monitoring/cdmd/1
 	/*
@@ -231,6 +327,24 @@ var findOneFn = function(id) {
 		url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+id,
 		type : "get",
 		dataType : "json",
+		data:{
+			"page":page,"rpp":rpp,
+			"process_type":$("#embedParamSearchProcessType").val(),
+			
+			contact_branch_code:$("#embedParamSearchBranch").val(),
+			start_validate_date:$("#embedParamSearchStartValidateDate").val(),
+			end_validate_date:$("#embedParamSearchEndValidateDate").val(),
+			cif_no:$("#embedParamSearchCifNo").val(),
+			cust_type_code:$("#embedParamSearchListCusType").val(),
+			rule_group:$("#embedParamSearchRuleGroup").val(),
+			rule_id:$("#embedParamSearchListRule").val(),
+			validate_status:$("#embedParamSearchValidateStatus").val(),
+			customer_flag:$("#embedParamSearchIsCustomer").val(),
+			explain_status:$("#embedParamSearchExplainStatus").val(),
+			affiliation_flag:$("#embedParamSearchIsAffiliation").val(),
+			
+		
+		},
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {	
@@ -283,120 +397,167 @@ var findOneFn = function(id) {
 			htmlTable +="</div>";
 			
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box1'><b>#Rule</b> : "+data["rules"]+"</div>";
+			//htmlTable +="<div class='box1'><b>#Rule</b> : "+data["rules"]+"</div>";
+			htmlTable +="<div class='box1' id='countRuleArea'></div>";
 			htmlTable +="</div>";
 			
 			htmlTable +="<div class='label-detail'>";
-			htmlTable +="<div class='box1'><b>#Maxdays</b> : "+data["maxdays"]+"</div>";
+			//htmlTable +="<div class='box1'><b>#Maxdays</b> : "+data["maxdays"]+"</div>";
+			htmlTable +="<div class='box1' id='countMaxdaysArea'></div>";
 			htmlTable +="</div>";
 			
 			
 			htmlTable +="<br style='clear:both'>";
 							
 			$("#detail_id").html(htmlTable);
-			
-			//console.log(dataRuleList['data']);
 			listDetailRuleFn(dataRuleList['data']);
-			golbalDataRule=dataRuleList['data'];
+			golbalDataRule=dataRuleList;
+			
+			$("#countRuleArea").html("<b>#Rule</b>&nbsp;:&nbsp;" +$("#embed_param_count_rule").val());
+			$("#countMaxdaysArea").html("<b>#Maxdays</b>&nbsp;:&nbsp;" +$("#embed_param_count_maxdays").val());
+			
+			
+			paginationSetUpFn2(golbalDataRule['current_page'],golbalDataRule['last_page'],golbalDataRule['last_page']);
+			
 		}
 	});
 };
 var listDataQualityFn = function(data) {
-	
-	// Destroy DataTable
-	if ($.fn.DataTable.isDataTable('#tableDataQuality')) {
-		$('#tableDataQuality').DataTable().destroy(); 
-	}
-	/*
-	{"validate_header_id":"1","cif_no":"11","cust_full_name":"John Doe","validate_date"
-		:"2016-12-11 00:00:00.000","explain_status":"1","contact_branch_name":"Rama 9","contact_date":"2016-12-13
-		 00:00:00.000","transaction_date":"2016-12-10 00:00:00.000","maxdays":"2","rules":"1"}
-	 */
-	var htmlTable = "";
-	
+
+	var htmlTable = "";	
 	$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["cif_no"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["cust_full_name"]+ "</td>";
+		
+		if(indexEntry['kpi_flag']==1 && indexEntry['complete_flag']==0){
+			htmlTable += "<tr class='rowSearch danger'>";
+		}else{
+			htmlTable += "<tr class='rowSearch'>";
+		}
+		htmlTable += "<td class='columnSearch'>"+ indexEntry['seq']+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["cif_no"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["cust_full_name"]+ "</td>";
 		var validate_date = indexEntry["validate_date"].split(" ");
 		validate_date=validate_date[0];
-		htmlTable += "<td>"+validate_date+ "</td>";
-		htmlTable += "<td>"+ indexEntry["contact_branch_name"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+validate_date+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["contact_branch_name"]+ "</td>";
 		
 		var contact_date = indexEntry["contact_date"].split(" ");
 		contact_date=contact_date[0];
 		
-		htmlTable += "<td>"+contact_date+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+contact_date+ "</td>";
 		
 		var transaction_date = indexEntry["transaction_date"].split(" ");
 		transaction_date=transaction_date[0];
 		
-		htmlTable += "<td>"+transaction_date+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rules"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["maxdays"]+ "</td>";	
-		htmlTable += "<td><div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["validate_header_id"]+"></i>&nbsp;&nbsp;<i class='fa fa-paperclip font-management modalPaperchip' data-target='#addModal' data-toggle='modal'></i></div></td>";  
+		htmlTable += "<td class='columnSearch'>"+transaction_date+ "</td>";
+		
+		
+	
+		if($("#embedParamSearchProcessType").val()=='Initial'){
+			
+			htmlTable += "<td class=\"countRules-"+indexEntry["validate_initial_header_id"]+"\">"+ indexEntry["rules"]+ "</td>";
+			htmlTable += "<td class=\"countMaxDays-"+indexEntry["validate_initial_header_id"]+"\" >"+ indexEntry["maxdays"]+ "</td>";	
+			
+			htmlTable += "<td>"; 
+			htmlTable += "<input type='hidden' id='explain_status-"+indexEntry["validate_initial_header_id"]+"' name='explain_status' value='"+indexEntry["explain_status"]+"'>";
+			htmlTable += "<div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["validate_initial_header_id"]+"></i>";
+			htmlTable += statusIconFn(indexEntry["explain_status"],indexEntry["validate_initial_header_id"]);
+			
+			htmlTable += "</div></td>";
+		}else{
+			
+			
+			htmlTable += "<td class=\"countRules-"+indexEntry["validate_header_id"]+"\">"+ indexEntry["rules"]+ "</td>";
+			htmlTable += "<td class=\"countMaxDays-"+indexEntry["validate_header_id"]+"\" >"+ indexEntry["maxdays"]+ "</td>";	
+			
+			
+			
+			htmlTable += "<td>"; 
+			htmlTable += "<input type='hidden' id='explain_status-"+indexEntry["validate_header_id"]+"' name='explain_status' value='"+indexEntry["explain_status"]+"'>";
+			htmlTable += "<div class='text-inline-table'><i class='fa fa fa-search font-management modalDetail' data-target='#modalDetail' data-toggle='modal' id="+indexEntry["validate_header_id"]+"></i>";
+			htmlTable += statusIconFn(indexEntry["explain_status"],indexEntry["validate_header_id"]);
+			
+			htmlTable += "</div></td>";
+		}
+		
 		htmlTable += "</tr>";
 	});
 	$("#listDataQuality").html(htmlTable);	
-	
-	$('#tableDataQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false} ); 
-	
+
 	//*******click แล้ว clear ข้อมูล ด้วย********
 	$(".modalDetail").click(function(){
-
-		findOneFn(this.id);
-		$("#id").val(this.id);
+		golbalDataRule=[];
+		//clear param paging start
+		$("#paramPagingDetail").empty();
+		$("#countPaginationTop2").val("10");
+		$("#countPaginationBottom2").val("10");
+		//clear param paging end
+		$("#iconStatusDetailPage").html(statusIconFn($("#explain_status-"+this.id).val(),this.id));
 		
+		//Embed Param for Display on Detail page Start
+		$("#embed_param_count_rule").val($(".countRules-"+this.id).text());
+		$("#embed_param_count_maxdays").val($(".countMaxDays-"+this.id).text());
+		//Embed Param for Display on Detail page End
+		
+		findOneFn(this.id);
+		$("#validate_header_id").val(this.id);
+		
+
 	});
+	
+	//click to explain page start
+	$(".modalExplain").click(function(){
+		$("#explain_files").empty();
+		$("#exPlainModal").modal();
+		getDataExplainFn(this.id);
+		$("#explain_id").val(this.id);
+		//$("#validate_header_id").val(this.id);
+	});
+	//click to explain page end
+	
 };
 
 var listDetailRuleFn = function(data) {
 	
-	// Destroy DataTable
-	if ($.fn.DataTable.isDataTable('#tableMakeRuleQuality')) {
-		$('#tableMakeRuleQuality').DataTable().destroy(); 
-	}
-	
-	//console.log(data);
-	var htmlTable = "";
-	/*
-		[{"validate_id":"1",
-		"rule_id":"1","rule_group":"Cleansing","rule_name":"rule no 1","kpi_flag":"0","days":"0",
-		"validate_status":"correct","no_doc_flag":"1"}]
-	*/
+
+	$("#tableDataMakeRuleQuality").empty();
 	$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rule_group"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["rule_name"]+ "</td>";
-		htmlTable += "<td>"+ indexEntry["days"]+ "</td>";
-		//htmlTable += "<td>"+ indexEntry["kpi_flag"]+ "</td>";
+		var htmlTable = "";
+		htmlTable += "<tr class='rowSearchdetail'>";
+		htmlTable += "<td class='columnSearchdetail'>"+ indexEntry['seq']+ "</td>";
+		htmlTable += "<td class='columnSearchdetail'>"+ indexEntry["rule_group"]+ "</td>";
+		htmlTable += "<td class='columnSearchdetail'>"+ indexEntry["rule_name"]+ "</td>";
+		htmlTable += "<td class='columnSearchdetail'>"+ notNullFn(indexEntry["days"])+ "</td>";
 		
+
+		var validate_id="";
+		if($("#embedParamSearchProcessType").val()=="Initial"){
+			validate_id=indexEntry["initial_validate_id"];
+		}else{
+			validate_id=indexEntry["validate_id"];
+		}
+
 		if(indexEntry["kpi_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["validate_id"]+" checked='checked' ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+validate_id+" checked='checked' ></td>";
 		}else if(indexEntry["kpi_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+indexEntry["validate_id"]+" ></td>";
+			htmlTable += "<td><input disabled type=\"checkbox\" class='kpi_checkbox' id=kpiFlagCheckbox-"+validate_id+" ></td>";
 		}
 		
-		htmlTable+="<td><select disabled class=\"form-control input-inline-table validate_status\" id=validate_status-"+indexEntry["validate_id"]+"></select></td>";	
+		htmlTable+="<td><select disabled class=\"form-control input-inline-table validate_status\" id=validate_status-"+validate_id+"></select></td>";	
 		
 		if(indexEntry["no_doc_flag"]==1){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["validate_id"]+" checked='checked' ></td>";
+			htmlTable += "<td style='text-align:center'><input type='hidden' class='warning-"+validate_id+"' value='"+indexEntry["warning"]+"'><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+validate_id+" checked='checked' ></td>";
 		}else if(indexEntry["no_doc_flag"]==0){
-			htmlTable += "<td><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+indexEntry["validate_id"]+" ></td>";
+			htmlTable += "<td style='text-align:center'><input type='hidden' class='warning-"+validate_id+"' value='"+indexEntry["warning"]+"'><input disabled type=\"checkbox\" class='no_doc_checkbox' id=no_doc_checkbox-"+validate_id+" ></td>";
 		}
 		
 		
 		htmlTable += "</tr>";
 		
-		$("#tableDataMakeRuleQuality").html(htmlTable);
-		 
-		//alert(indexEntry["validate_status"]);
-		dropDownListValidateStatus(indexEntry["validate_status"],indexEntry["validate_id"]);
+		$("#tableDataMakeRuleQuality").append(htmlTable);
+	
+		dropDownListValidateStatus(indexEntry["validate_status"],validate_id);
 	});
 		 
-	$('#tableMakeRuleQuality').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 	
 	//click ที่ checkox KPI แล้ว แยกไอดี ส่งไปฝัง(embed) 
 	$(".kpi_checkbox").click(function(){	
@@ -417,46 +578,79 @@ var listDetailRuleFn = function(data) {
 		var id = this.id.split("-"); 
 		embedParamCheckboxNoDoc(id[1]);
 		//alert(id[1]);		
+		var warning = $(this).parent().children().val();
+		//alert(warning);
+		if(warning==1){
+			
+			if($(this).prop("checked")==true){
+				callFlashSlideInModal("ลูกค้าเพิ่งมาติดต่อควรมีเอกสาร","#information");
+			}
+		}
 	});
 };
-
+var delFileFn = function(validate_header_id,explain_file_id){
+	$.ajax({
+		url : restfulURL + "/dqs_api/public/dqs_monitoring/branch/"+validate_header_id+"/explain/"+explain_file_id+"",
+		type : "DELETE",
+		dataType : "json",
+		async:false,
+		data:{"process_type":$("#embedParamSearchProcessType").val()},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success : function(data) {
+			
+			
+			if(data['status']==200){
+				$("#explain_file-"+explain_file_id).remove();
+				$("#path_file-"+explain_file_id).remove();
+				
+				if($("#explain_files").text().trim()==""){
+					//set status is cdmd_explain_no_explanation.
+					$("#cdmd_explain_no_explanation").prop("checked",true);
+					$("#cdmd_explain_waiting").prop("checked",false);
+					$("#cdmd_explain_approve").prop("checked",false);
+					$("#cdmd_explain_not_approved").prop("checked",false);
+					$("#btnSaveExplain").click();
+				}
+			}
+			
+		}
+	});
+}
 
 var fineOneExplainFn = function(data){
-	/* 
-	approve_dttm
-	approve_user
-	explain_dttm
-	explain_remark
-	explain_status
-	explain_user
-	explain_files->explain_file_id,file_path,validate_header_id
-	 */
-	
+
 	/* explain_status  start*/
 	var explain_status = data['explain_status'].split("-");
 	explain_status=explain_status[0];
+
 	if(explain_status==1){
-		$('#cdmd_explain_no_explanation').prop('checked', true);
+		$('#cdmd_explain_waiting').prop('checked', true);
+		
 	}
+	
 	if(explain_status==2){
-		$('#cdmd_explain_pending').prop('checked', true);
-	}
-	if(explain_status==3){
 		$('#cdmd_explain_approve').prop('checked', true);
 	}
+	
+	if(explain_status==3){
+		$('#cdmd_explain_not_approved').prop('checked', true);
+	}
+	
 	if(explain_status==4){
-		$('#cdmd_explain_not_allowed').prop('checked', true);
+		$('#cdmd_explain_no_explanation').prop('checked', true);
 	}
 	/* explain_status  end*/
 	
 	/* Attachment Start*/
 	var html_explain_files="";
+	
 	$.each(data['explain_files'],function(index,indexEntry){
 		if(index==0){
-			//http://171.96.201.91/dqs_api/public/dqs_monitoring/cdmd
-			html_explain_files+="<a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+			html_explain_files+="<a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+			html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a>";
 		}else{
-			html_explain_files+=" , <a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+			html_explain_files+="  <a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+			html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a>";
 		}
 		
 		$("#explain_files").html(html_explain_files);
@@ -467,6 +661,11 @@ var fineOneExplainFn = function(data){
 	$("#approve_user").html(data['approve_user']);
 	/*approve_user end*/
 	
+	/*approve_user start*/
+	$("#approve_dttm").html(data['approve_dttm']);
+	/*approve_user end*/
+	
+	
 	/*explain_dttm start*/
 	$("#explain_dttm").html(data['explain_dttm']);
 	/*explain_dttm end*/
@@ -474,20 +673,34 @@ var fineOneExplainFn = function(data){
 	/*explain_remark start*/
 	$("#explain_remark").val(data['explain_remark']);
 	/*explain_remark end*/
-	
-	
-	
+
 	/*explain_user start*/
 	$("#explain_user").html(data['explain_user']);
 	/*explain_user end*/
-
+	
+	//Del File
+	$(".delFile").click(function(){
+		var validate_header_id="";
+		var explain_file_id = this.id;
+		explain_file_id= explain_file_id.split("-");
+		explain_file_id=explain_file_id[1];
+		if($('#cdmd_explain_waiting').prop('checked', true)){
+			if($("#validate_header_id").val()==""){
+				validate_header_id=$("#explain_id").val();
+			}else{
+				validate_header_id=$("#validate_header_id").val();
+			}
+			delFileFn(validate_header_id,explain_file_id);
+		}else{
+			callFlashSlideInModal("Can't delete.","#information3");
+		}
+		return false;
+	});
 }
-
 // Click แล้ว ฝังข้อมูล
 var embedParamValidateStatus = function(id){
 	//alert(id);
 	var count = 0;
-	
 	$.each($(".embed_validate_status").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
 		if($(indexEnry).val()==id){
@@ -506,7 +719,6 @@ var embedParamValidateStatus = function(id){
 
 // Click แล้ว ฝังข้อมูล
 var embedParamCheckboxKPI = function(id){
-
 	var count = 0;	
 	$.each($(".embed_kpiflag").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
@@ -522,10 +734,8 @@ var embedParamCheckboxKPI = function(id){
 	}
 	
 }
-
 // Click แล้ว ฝังข้อมูล
 var embedParamCheckboxNoDoc = function(id){
-
 	var count = 0;	
 	$.each($(".embed_nodoc").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
@@ -539,10 +749,7 @@ var embedParamCheckboxNoDoc = function(id){
 	}else{
 		$("body").append("<input type='hidden' class='embed_nodoc' id='embed_nodoc-"+id+"' name='embed_nodoc-"+id+"' value='"+id+"'>");
 	}
-	
 }
-
-
 //DropDownValidate
 var dropDownListValidateStatus = function(name,id){
 
@@ -558,28 +765,44 @@ var dropDownListValidateStatus = function(name,id){
 			}
 		});	
 		$("#validate_status-"+id).html(htmlDropdownList);
-	
 };
 
 
 
-var getDataFn = function() {
-	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd
+var getDataFn = function(page,rpp) {
+	
 	$.ajax({
 		url : restfulURL + "/dqs_api/public/dqs_monitoring/branch",
 		type : "get",
 		dataType : "json",
+		async:false,
+		data:{"page":page,"rpp":rpp,
+			
+			contact_branch_code:$("#embedParamSearchBranch").val(),
+			start_validate_date:$("#embedParamSearchStartValidateDate").val(),
+			end_validate_date:$("#embedParamSearchEndValidateDate").val(),
+			cif_no:$("#embedParamSearchCifNo").val(),
+			cust_type_code:$("#embedParamSearchListCusType").val(),
+			rule_group:$("#embedParamSearchRuleGroup").val(),
+			rule_id:$("#embedParamSearchListRule").val(),
+			//risk:$("#embedParamSearchRisk").val(),
+			validate_status:$("#embedParamSearchValidateStatus").val(),
+			customer_flag:$("#embedParamSearchIsCustomer").val(),
+			explain_status:$("#embedParamSearchExplainStatus").val(),
+			affiliation_flag:$("#embedParamSearchIsAffiliation").val(),
+			process_type:$("#embedParamSearchProcessType").val()
+		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			listDataQualityFn(data['data']);
 			$("#resultLabelArea").html(data['total']);
-			
+			golbalData= data;
+			paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
 			//console.log(data);
+		
 		}
 	});
 };
-
-
 
 var getDataExplainFn = function(id) {
 	//http://192.168.1.58/dqs_api/public/dqs_monitoring/cdmd/{validate_header_id}/explain
@@ -588,10 +811,11 @@ var getDataExplainFn = function(id) {
 		type : "get",
 		dataType : "json",
 		async:false,
+		data:{"process_type":$("#embedParamSearchProcessType").val()},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			fineOneExplainFn(data);
-			//console.log(data);
+			
 		}
 	});
 };
@@ -601,8 +825,8 @@ var firstDayInMonthFn = function(){
 	var month = d.getMonth()+1;
 	var day = d.getDate();
 	
-	var output = d.getFullYear() + '/' +
-	    ((''+	month).length<2 ? '0' : '') + month + '/01';
+	var output = d.getFullYear() + '-' +
+	    ((''+	month).length<2 ? '0' : '') + month + '-01';
 	   
 	console.log(output);
 	return output;
@@ -612,8 +836,8 @@ var currentDateFn = function(){
 	var month = d.getMonth()+1;
 	var day = d.getDate();
 	
-	var output = d.getFullYear() + '/' +
-	    ((''+month).length<2 ? '0' : '') + month + '/';
+	var output = d.getFullYear() + '-' +
+	    ((''+month).length<2 ? '0' : '') + month + '-';
 	    if(day==1){
 	    	output+= ((''+day).length<2 ? '0' : '') + day;
 	    }else{
@@ -623,10 +847,6 @@ var currentDateFn = function(){
 	console.log(output);
 	return output;
 }
-
-
-
-
 
 $(document).ready(function(){
 	
@@ -641,12 +861,25 @@ $(document).ready(function(){
 	function prepareUpload(event)
 	{
 	  files = event.target.files;
+	  //start upload file
+	  //uploadFiles(event);
+	  
+	  //set status is waiting.
+		$("#cdmd_explain_no_explanation").prop("checked",false);
+		$("#cdmd_explain_waiting").prop("checked",true);
+		$("#cdmd_explain_approve").prop("checked",false);
+		$("#cdmd_explain_not_approved").prop("checked",false);
+		
 	}
+	
 	$('form#explainForm').on('submit', uploadFiles);
-
-	// Catch the form submit and upload the files
 	function uploadFiles(event)
 	{
+		var validate_header_id="";
+		if(!$("#explain_files_attachment").val()){
+			return false;
+		
+		}
 	  event.stopPropagation(); // Stop stuff happening
 	  event.preventDefault(); // Totally stop stuff happening
 
@@ -660,8 +893,14 @@ $(document).ready(function(){
 		});
 
 		//http://192.168.1.58/dqs_api/public/dqs_monitoring/branch/{validate_header_id}/explain
+		if($("#validate_header_id").val()==""){
+			validate_header_id=$("#explain_id").val();
+		}else{
+			validate_header_id=$("#validate_header_id").val();
+		}
+	
 		jQuery_1_1_3.ajax({
-			url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+$("#validate_header_id_hidden").val()+"/explain",
+			url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+validate_header_id+"/explain",
 			type: 'POST',
 			data: data,
 			cache: false,
@@ -669,13 +908,15 @@ $(document).ready(function(){
 			processData: false, // Don't process the files
 			contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 			headers:{Authorization:"Bearer "+tokenID.token},
+			async:false,
 			success: function(data, textStatus, jqXHR)
 			{
 				console.log(data);
 				if(data['status']==200 && data['data'].length>0){
 					
-					callFlashSlideInModal("Upload Successfully.","#information3");
+					//callFlashSlideInModal("Upload Successfully.","#information3");
 					$('#explain_files_attachment').val("");
+
 				}else{
 					
 					callFlashSlideInModal("Can't Upload file .","#information3");
@@ -695,91 +936,83 @@ $(document).ready(function(){
 	}	
 	//### FILE IMPORT MOBILE END ###
 	
-	
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip();
 	});
 	
 	$(".btn-explain").click(function(){
-		$("#modalDetail").modal('hide');
 		$("#exPlainModal").modal();
 	});
 
 	//paramenter start
 	dropDownListBranch();
-	
 	dropDownListCusType();
-	
 	dropDownListRule();
-	
 
 	$("#start_validate_date").datepicker();
-    $("#start_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#start_validate_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
     $("#start_validate_date").val(firstDayInMonthFn());
     
-   
     $("#end_validate_date").datepicker();
-    $("#end_validate_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#end_validate_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
     $("#end_validate_date").val(currentDateFn());
     $(".ui-datepicker").hide();
     
-//	$("#start_validate_date").click(function(){
-//		
-//		$("#start_validate_date").datepicker();
-//	    $("#start_validate_date" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
-//	    $("#start_validate_date").val(firstDayInMonthFn());
-//	    
-//	});
-//	$("#end_validate_date").click(function(){
-//		
-//		$("#end_validate_date").datepicker();
-//	    $("#end_validate_date" ).datepicker( "option", "dateFormat", "yy/mm/dd" );
-//	    $("#end_validate_date").val(currentDateFn());
-//	    
-//	});
-	
 	//parameter end
 	
 	
 	//Call Function start
-	 //getDataFn();
-	
-	
 	$("#btnSearch").click(function(){
-		searchFn($("#searchCitizen").val());
-		return false;
+		//searchFn("searchText","tableDataQuality");
+		searchMultiFn($("#searchText").val());
+	});
+	$("#btnSearchDetail").click(function(){
+		searchMultiFn($("#searchTextDetail").val(),"detail");
+		//searchMultiFn($("#searchText").val());
 	});
 	
 	
 	$("#btnSearchAdvance").click(function(){
 		
 		
+		/*Embed Param Search Start*/
 		$(".embedParamSearch").remove();
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#listBranch").val()+"' id='embedParamSearchBranch' name='embedParamSearchBranch' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#listBranch option:selected").text()+"' id='embedParamSearchBranchName' name='embedParamSearchBranchName' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#start_validate_date").val()+"' id='embedParamSearchStartValidateDate' name='embedParamSearchStartValidateDate' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#end_validate_date").val()+"' id='embedParamSearchEndValidateDate' name='embedParamSearchEndValidateDate' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#cif_no").val()+"' id='embedParamSearchCifNo' name='embedParamSearchCifNo' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#listCusType").val()+"' id='embedParamSearchListCusType' name='embedParamSearchListCusType' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#processType").val()+"' id='embedParamSearchProcessType' name='embedParamSearchProcessType' class='embedParamSearch'>");
-		//searchAdvanceFn($("#searchAdvanceRule").val());
+		
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#rule_group").val()+"' id='embedParamSearchRuleGroup' name='embedParamSearchRuleGroup' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#listRule").val()+"' id='embedParamSearchListRule' name='embedParamSearchListRule' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#validate_status").val()+"' id='embedParamSearchValidateStatus' name='embedParamSearchValidateStatus' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#is_customer").val()+"' id='embedParamSearchIsCustomer' name='embedParamSearchIsCustomer' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#explain_status").val()+"' id='embedParamSearchExplainStatus' name='embedParamSearchExplainStatus' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#is_affiliation").val()+"' id='embedParamSearchIsAffiliation' name='embedParamSearchIsAffiliation' class='embedParamSearch'>");
+		/*Embed Param Search Start*/
+		
+		
 		$("#branchNameLabelArea").html($("#embedParamSearchBranchName").val());
-		getDataFn();
+		getDataFn(1,$("#rpp").val());
 		$("#cifListArea").show();
+		//$(".countPagination").val(10);
 		return false;
 	});
 	$("#btnSearchAdvance").click();
 	
 	$("#btnSubmit").click(function(){
-		//alert("save");
 		updateFn(); 
 	});
 	
 	$("#btnEdit").click(function() {
-		//$(".kpi_checkbox").removeAttr("disabled");
 		$(".no_doc_checkbox").removeAttr("disabled");
-		//$(".validate_status").removeAttr("disabled");	
 	});
 	
 	$("#btnCancle").click(function() {
 		var id = $("#validate_header_id_hidden").val();
-	
+		findOneFn(id);
 	});
 	
 	
@@ -791,7 +1024,51 @@ $(document).ready(function(){
 	});
 	
 	$("#btnSaveExplain").click(function() {
-		updateExplainFn($("#validate_header_id_hidden").val());
+
+		setTimeout(function(){
+			updateExplainFn($("#explain_id").val());
+		},1000);
+		
+		
 	});
+	
+	//Export
+	$("#exportToExcel").click(function(){
+		
+		var param="";
+		param+="&contact_branch_code="+$("#embedParamSearchBranch").val();
+		param+="&start_validate_date="+$("#embedParamSearchStartValidateDate").val();
+		param+="&end_validate_date="+$("#embedParamSearchEndValidateDate").val();
+		param+="&cif_no="+$("#embedParamSearchCifNo").val();
+		param+="&cust_type_code="+$("#embedParamSearchListCusType").val();
+		param+="&rule_group="+$("#embedParamSearchRuleGroup").val();
+		param+="&rule_id="+$("#embedParamSearchListRule").val();
+		param+="&validate_status="+$("#embedParamSearchValidateStatus").val();
+		param+="&customer_flag="+$("#embedParamSearchIsCustomer").val();
+		param+="&explain_status="+$("#embedParamSearchExplainStatus").val();
+		param+="&affiliation_flag="+$("#embedParamSearchIsAffiliation").val();
+		param+="&process_type="+$("#embedParamSearchProcessType").val();
+		
+		$("form#formExportToExcel").attr("action",restfulURL+"/dqs_api/public/dqs_monitoring/branch/export?token="+tokenID.token+""+param);
+		$("form#formExportToExcel").submit();
+	});
+	
+	//กำหนดค่า CIF ต้องเปนตัวเลข
+		$("#cif_no").keydown(function (e) {
+		        // Allow: backspace, delete, tab, escape, enter and .
+			
+		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+		             // Allow: Ctrl+A, Command+A
+		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+		             // Allow: home, end, left, right, down, up
+		            (e.keyCode >= 35 && e.keyCode <= 40)) {
+		                 // let it happen, don't do anything
+		                 return;
+		        }
+		        // Ensure that it is a number and stop the keypress
+		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+		            e.preventDefault();
+		        }
+		});
 
 });

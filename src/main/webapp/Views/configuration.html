@@ -1,23 +1,17 @@
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	 <link href="css/system_comfiguration.css" rel="stylesheet">
-
-		<!--  nav bar -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/system_comfiguration.css" rel="stylesheet">
+<!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
-     <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     <div id="slide_status"></div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Configuration </strong>
             </li>
         </ol>
@@ -25,8 +19,7 @@
    
 </div>
 <!-- nav bar -->	 
-				<!-- Default KPI Calculation Date -->
-				
+<!-- Default KPI Calculation Date -->				
 				<div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -41,7 +34,7 @@
 												<label>Note :กําหนดวันในแต่ละเดือน สําหรับการคิด KPI</label>
 											</div>
 											<div class="col-sm-2" align="right">
-												<input type="text"  class="form-control input-inline-table input-seq" id="default_kpi_date">
+												<input type="text"  class="form-control input-inline-table input-seq kpi_date_m" id="default_kpi_date">
 											&nbsp;&nbsp;
 											</div>
 											<div class="col-sm-1 btn-setall" >
@@ -51,7 +44,8 @@
 									</div>
 
 										<div class="table-responsive">
-											<table class="table table-striped">
+										<!-- table-striped -->
+											<table class="table ">
 												<thead>
 													<tr>
 														<th>Month</th>
@@ -154,9 +148,7 @@
 				     	</div>
 				     </div>
 				 </div>
-				                 
-				         
-				    <!-- Exporting File   -->         
+				<!-- Exporting File   -->         
 				      
 				  <div class="row">
                     <div class="col-lg-12">
@@ -171,7 +163,7 @@
 		                            	<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3" >
+												<div class="col-sm-3 exportConfigLabel" >
 													<label>Root directory &nbsp;:</label>
 												</div>
 												
@@ -185,12 +177,12 @@
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3 form-data" >
+												<div class="col-sm-3 form-data exportConfigLabel" >
 													<label>Maximum record for citizen file&nbsp; :</label>
 												</div>
 												
 												<div class="col-sm-2 form-data" >
-													<input class="form-control input-data" id="export_citizen_max_record" >
+													<input class="form-control input-data numberOnly" id="export_citizen_max_record" >
 												</div>
 												
 												<div class="col-sm-1 form-data">
@@ -202,7 +194,7 @@
 												</div>
 												
 												<div class="col-sm-2 form-data">
-													<input class="form-control input-data" id="export_mobile_max_record" >
+													<input class="form-control input-data numberOnly" id="export_mobile_max_record" >
 												</div>
 												
 												<div class="col-sm-1 form-data">
@@ -215,7 +207,7 @@
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3 form-data" >
+												<div class="col-sm-3 form-data exportConfigLabel" >
 													<label>Include date in filename &nbsp;:</label>
 												</div>
 												
@@ -235,7 +227,7 @@
 												</div>
 												
 												<div class="col-sm-2 form-data">
-													<input class="form-control input-data" id="export_nof_date_delete" >
+													<input class="form-control input-data numberOnly" id="export_nof_date_delete" >
 												</div>
 												
 												<div class="col-sm-1 form-data">
@@ -257,9 +249,6 @@
 		                         </div>
 		                      </div>
 		                   </div>   
-		                            
-		       
-		       
 		      		 <!-- Importing File -->
 		      		 
 		         <div class="row">
@@ -269,10 +258,11 @@
 	                                <h5>Importing File</h5>
 	                            </div>
 		                            <div class="ibox-content">
+
 		                            	<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3" >
+												<div class="col-sm-3 importConfigLabel" >
 													<label>Root directory &nbsp;:</label>
 												</div>
 												
@@ -286,24 +276,24 @@
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3 form-data" >
+												<div class="col-sm-3 form-data importConfigLabel" >
 													<label>Maximum file size &nbsp; :</label>
 												</div>
 												
 												<div class="col-sm-2 form-data" >
-													<input class="form-control input-data" id="import_max_file_size">
+													<input class="form-control input-data numberOnly" id="import_max_file_size">
 												</div>
 												
 												<div class="col-sm-1 form-data">
 													<label>MB.</label>
 												</div>
 												
-												<div class="col-sm-3 form-data" align="right">
+												<div class="col-sm-3 form-data importConfigLabel" align="right">
 													<label>Delete file older then &nbsp;:</label>
 												</div>
 												
 												<div class="col-sm-2 form-data" >
-													<input class="form-control input-data" id="import_nof_date_delete">
+													<input class="form-control input-data numberOnly" id="import_nof_date_delete">
 												</div>
 												
 												<div class="col-sm-1 form-data" >
@@ -316,7 +306,7 @@
 										<div class="row">
 	                            	 		<div class="col-lg-12">
 	                            	 		
-												<div class="col-sm-3 form-data" >
+												<div class="col-sm-3 form-data importConfigLabel" >
 													<label>Include date in filename &nbsp;:</label>
 												</div>
 												
@@ -336,41 +326,38 @@
 											</div>
 										</div><br>
 										
+										
+										
 			                             <div class="row">
 											<div class="form-save">
 												<button class="btn btn-primary" id="btnSaveImport">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
 											</div>
 		                                </div>
-		                                
+		                                 
 		                            </div>
+		                            
+		                            
 		                        </div>
 		                     </div>
 		                 </div>
-		                     		
-		      
-		      
-		      
 		      			<!-- Warning Branch -->
-		      			
-		       		
                    	<div class="row ibox float-e-margins">
-                   	
                    		<div class="col-lg-6">
                    			<div class="ibox-title">
                               	<h5>Warning Branch</h5>
                           	</div>
                           	
-                           <div class="ibox-content">
+                           <div class="ibox-content waringBranch">
                            
 							 <div class="row">
-	                             <div class="col-lg-12">
+	                             <div class="col-lg-12 ">
 	                             
-									<div class="col-lg-7 form-data" >
-										<label>#Last contact date to warning branch &nbsp;:</label>
+									<div class="col-lg-7 form-data warningConfigLabelL" >
+										<label>#Last contact date to warning branch when no document to update data:</label>
 									</div>
 									
 									<div class="col-lg-4 form-data" >
-										<input class="form-control input-data" id="nof_contact_date" >
+										<input class="form-control input-data numberOnly" id="nof_contact_date" >
 									</div>
 									
 									<div class="col-lg-1 form-data" align="right">
@@ -383,8 +370,8 @@
 							<div class="row">
 								<div class="col-lg-12">
 								
-									<div class="col-lg-7 form-data" >
-										<label>when no document to update data &nbsp;:</label>
+									<div class="col-lg-7 form-data warningConfigLabelL"  >
+										<label> &nbsp;</label>
 									</div>
 									
 									<div class="col-lg-2 form-data"id="gradeCalculateDate">
@@ -402,25 +389,22 @@
 							
                            </div>
                    		</div>
-                   		
-                   		
                    		<!-- Grade Calculation Date -->
-                   		
-                   		<div class="col-lg-6">
+                   		<div class="col-lg-6 ">
                    			<div class="ibox-title">
                               	<h5>Grade Calculation Date</h5>
                           	</div>
-                           <div class="ibox-content">
+                           <div class="ibox-content waringBranch">
                            
                              <div class="row">
 	                             <div class="col-lg-12">
 	                             
-									<div class="col-lg-6 form-data" >
+									<div class="col-lg-6 form-data warningConfigLabelR" >
 										<label>Grade Calculation Date &nbsp;:</label>
 									</div>
 									
 									<div class="col-lg-2 form-data" >
-										<input class="form-control input-data" type="date" id="all_cust_grade_calculate_date">
+										<input class="form-control input-data" type="date" id="grade_calculate_date">
 									</div>
 									
 								</div>
@@ -429,8 +413,8 @@
 							<div class="row">
 								<div class="col-lg-12">
 								
-									<div class="col-lg-6 form-data" >
-										<label>Grade Calulation Source Table &nbsp;:</label>
+									<div class="col-lg-6 form-data warningConfigLabelR" >
+										<label>Grade Calculation Source Table &nbsp;:</label>
 									</div>
 									
 									<div class="col-lg-2 form-data">
@@ -449,7 +433,7 @@
                              <div class="row">
 	                             <div class="col-lg-12">
 	                             
-									<div class="col-lg-6 form-data" >
+									<div class="col-lg-6 form-data warningConfigLabelR" >
 										<label>Merge CIF Date &nbsp;:</label>
 									</div>
 									
@@ -468,12 +452,7 @@
 							
                            </div>
                    		</div>
-                   		
-                   		
                    </div>
-                   
-                   
-                   
                    <!-- Default Rule Start -->
                    <div class="row">
                     <div class="col-lg-12">
@@ -482,24 +461,19 @@
 	                                <h5>Default Role</h5>
 	                            </div>
 		                            <div class="ibox-content">
-		                            
-		                            
-		                          
 										<div class='row'>
-											<div class="form-group"><label class="col-sm-3 control-label form-data">Position ID for Default Branch Role</label>
+											<div class="form-group"><label class="col-sm-3 control-label form-data defaultRoleConfigLabel">Position for Default Branch Role</label>
 			                                    <div class="col-sm-8 form-data"><input id="position_branch_role_default" type="text" class="form-control input-dataroot"></div>
 			                                </div>
 			                                
-			                                <div class="form-group"><label class="col-sm-3 control-label form-data">Cost Center for Default PowerUser Role</label>
+			                                <div class="form-group"><label class="col-sm-3 control-label form-data defaultRoleConfigLabel">Cost Center for Default PowerUser Role</label>
 			                                    <div class="col-sm-8 form-data"><input id="cc_poweruser_role_default" type="text" class="form-control input-dataroot"></div>
 			                                </div>
 			                                
-			                                <div class="form-group"><label class="col-sm-3 control-label form-data">Position ID for Default PoverUser Role</label>
+			                                <div class="form-group"><label class="col-sm-3 control-label form-data defaultRoleConfigLabel">Position for Default PowerUser Role</label>
 			                                    <div class="col-sm-8 form-data"><input id="position_poweruser_role_default" type="text" class="form-control input-dataroot"></div>
 			                                </div>
 		                                </div>
-										
-										
 			                             <div class="row">
 											<div class="form-save">
 												<button class="btn btn-primary" id="btnSaveDefaultRole">&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
@@ -511,8 +485,6 @@
 		                     </div>
 		                 </div>
                    <!-- Default Rule End -->
-                   
-
 <script src="Controller/cSystemConfiguration.js"></script>
 
 

@@ -1,8 +1,5 @@
 var golbalDataRole=[];	
 
-
-
-	
 // Click แล้ว ฝังข้อมูล
 	var embedParamInitialFlagInline = function(id){
 		//alert(id);
@@ -24,9 +21,7 @@ var golbalDataRole=[];
 		
 	}
 	var embedParamUpdateFlagInline = function(id){
-		//alert(id);
 		var count = 0;
-		
 		$.each($(".embed_update_flag_inline").get(),function(index,indexEnry){
 		//ถ้า id ที่วน == id ที่มี	
 			if($(indexEnry).val()==id){
@@ -44,7 +39,6 @@ var golbalDataRole=[];
 	}
 	
 	var embedParamLastContactFlagInline = function(id){
-		//alert(id);
 		var count = 0;
 		
 		$.each($(".embed_last_contact_flag_inline").get(),function(index,indexEnry){
@@ -83,7 +77,6 @@ var golbalDataRole=[];
 		
 	}
 	var embedParamEditRuleReleaseFlagInline = function(id){
-		//alert(id);
 		var count = 0;
 		
 		$.each($(".embed_edit_rule_release_flag_inline").get(),function(index,indexEnry){
@@ -101,95 +94,226 @@ var golbalDataRole=[];
 		}
 		
 	}
+var getDataFn = function(page,rpp) {
+		
+	var paramRuleGroup= $("#paramEmbedRuleGroup").val();
+	var paramRuleName= $("#paramEmbedRuleName").val();
+	var paramInitial= $("#paramEmbedInitial").val();
+	var paramUpdate= $("#paramEmbedUpdate").val();
+	var paramLastContact= $("#paramEmbedContact").val();
 	
-	
-$(document).ready(function(){
+		$.ajax({
+			url : restfulURL + "/dqs_api/public/dqs_rule",
+			type : "get",
+			dataType : "json",
+			data:{"page":page,"rpp":rpp,
+				"rule_group":paramRuleGroup,
+				"rule_name":paramRuleName,
+				"initial_flag":paramInitial,
+				"update_flag":paramUpdate,
+				"last_contact_flag":paramLastContact	
+			
+			},
+			async:false,
+			headers:{Authorization:"Bearer "+tokenID.token},
+			success : function(data) {
+				
+				listRuleFn(data['data']);
+				golbalDataRole=data;
+				paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
 
-	//set paginate start
-	var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
-		
-		
-		$('.pagination_top,.pagination_bottom').off("page");
-		$('.pagination_top,.pagination_bottom').bootpag({
-		    total: pageTotal,//page Total
-		    page: pageIndex,//page index
-		    maxVisible: pageButton,//จำนวนปุ่ม
-		    leaps: true,
-		    //firstLastUse: true,
-		    //first: '←',
-		    //last: '→',
-		    wrapClass: 'pagination',
-		    activeClass: 'active',
-		    disabledClass: 'disabled',
-		    //nextClass: 'next',
-		    //prevClass: 'prev',
-		    next: 'next',
-		    prev: 'prev',
-		    //lastClass: 'last',
-		    //firstClass: 'first'
-		}).on("page", function(event, num){
-			var rpp=10;
-			if($("#rpp").val()==undefined){
-				rpp=10;
-			}else{
-				rpp=$("#rpp").val();
 			}
-			
-			getDataFn(num,rpp);
-			
-		    $(".pagingNumber").remove();
-		    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
-		    $("body").append(htmlPageNumber);
-		   
-		}); 
+		});
+	};
+	var listRuleFn = function(data) {
 		
-		
-		$(".countPagination").off("change");
-		$(".countPagination").on("change",function(){
 
-			$("#countPaginationTop").val($(this).val());
-			$("#countPaginationBottom").val($(this).val());
+		var htmlTable = "";
+		$.each(data,function(index,indexEntry) {
+		
+		htmlTable += "<tr class='rowSearch'>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_group"]+ "</td>"; 
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_name"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["data_flow_name"]+ "</td>";
+		
+		if(indexEntry["initial_flag"]==1){
+			htmlTable += "<td class='objectCenter'><input id=\"initial_flag_inline-"+indexEntry["rule_id"]+"\" class=\"initial_flag_inline \" disabled type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
+		}else if(indexEntry["initial_flag"]==0){
+			htmlTable += "<td class='objectCenter'><input id=\"initial_flag_inline-"+indexEntry["rule_id"]+"\" class=\"initial_flag_inline\" disabled type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
+		}
+		
+		if(indexEntry["update_flag"]==1){
+			htmlTable += "<td class='objectCenter'><input id=\"update_flag_inline-"+indexEntry["rule_id"]+"\" class=\"update_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["update_flag"]+"></td>";
+		}else if(indexEntry["update_flag"]==0){
+			htmlTable += "<td class='objectCenter'><input id=\"update_flag_inline-"+indexEntry["rule_id"]+"\" class=\"update_flag_inline\" disabled type='checkbox' value="+ indexEntry["update_flag"]+"></td>";
+		}
+		
+		if(indexEntry["last_contact_flag"]==1){
+			htmlTable += "<td class='objectCenter'><input id=\"last_contact_flag_inline-"+indexEntry["rule_id"]+"\" class=\"last_contact_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["last_contact_flag"]+"></td>";
+		}else if(indexEntry["last_contact_flag"]==0){
+			htmlTable += "<td class='objectCenter'><input id=\"last_contact_flag_inline-"+indexEntry["rule_id"]+"\" class=\"last_contact_flag_inline\" disabled type='checkbox' value="+ indexEntry["last_contact_flag"]+"></td>";
+		}
+		
+		if(indexEntry["inform_flag"]==1){
+			htmlTable += "<td class='objectCenter'><input id=\"inform_flag_inline-"+indexEntry["rule_id"]+"\" class=\"inform_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["inform_flag"]+"></td>";
+		}else if(indexEntry["inform_flag"]==0){
+			htmlTable += "<td class='objectCenter'><input id=\"inform_flag_inline-"+indexEntry["rule_id"]+"\" class=\"inform_flag_inline\" disabled type='checkbox' value="+ indexEntry["inform_flag"]+"></td>";
+		}
+		
+		if(indexEntry["edit_rule_release_flag"]==1){
+			htmlTable += "<td class='objectCenter'><input id=\"edit_rule_release_flag_inline-"+indexEntry["rule_id"]+"\" class=\"edit_rule_release_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
+		}else if(indexEntry["edit_rule_release_flag"]==0){
+			htmlTable += "<td class='objectCenter'><input id=\"edit_rule_release_flag_inline-"+indexEntry["rule_id"]+"\" class=\"edit_rule_release_flag_inline\" disabled type='checkbox' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
+		}
+
+		htmlTable += "<td class='objectCenter'><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["rule_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["rule_id"]+" class='btn btn-danger btn-xs btn-gear del'>Delete</button>\"></i></td>";
+		htmlTable += "</tr>";
+		});
+	
+		$("#listRule").html(htmlTable);
+		
+		//function popover
+		$(".popover-edit-del").popover();
+	
+		//findOnd
+		$("#tableRule").off("click",".popover-edit-del");
+		$("#tableRule").on("click",".popover-edit-del",function(){
+			$(".edit").on("click",function() {
+				$("#modalTitleRole").html("Edit Rule");
+				$("#modalDescription").html("EDIT RULE");
+				findOneFn(this.id);
+				$("#id").val(this.id);
+				$("#action").val("edit");
+				$("#btnSubmit").val("Edit");
+				$("#btnSaveAndAnother").hide();
+				$(this).parent().parent().parent().children().click();
+			});
 			
-			getDataFn(1,$(this).val());
+			$(".del").on("click",function() {
+				var id = this.id;
+				$(this).parent().parent().parent().children().click();
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+				
+					$.ajax({
+						 url:restfulURL+"/dqs_api/public/dqs_rule/"+id,
+						 type : "delete",
+						 dataType:"json",
+						 headers:{Authorization:"Bearer "+tokenID.token},
+					     success:function(data){   
+					    	if(data['status']==200){
+
+					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
+
+					    		clearFn();
+					    		callFlashSlide("Delete Successfully.");
+					    		$("#confrimModal").modal('hide');
+					    	}
+					       //return false;
+						 }
+					});
+				
+				});
+				
+
+				
+			});	
 			
-			$(".rpp").remove();
-		    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
-		    $("body").append(htmlRrp);
-		   
 		});
 		
-	}
-
-	//set paginate end
+		//embedParam
+		$('#tableRule').on("click",".initial_flag_inline",function(){		
+			var id = this.id.split("-"); 
+			embedParamInitialFlagInline(id[1]);
+		});
+		$('#tableRule').on("click",".update_flag_inline",function(){		
+			var id = this.id.split("-"); 
+			embedParamUpdateFlagInline(id[1]);
+		});
+		
+		$('#tableRule').on("click",".last_contact_flag_inline",function(){		
+			var id = this.id.split("-"); 
+			embedParamLastContactFlagInline(id[1]);
+		});
+		$('#tableRule').on("click",".inform_flag_inline",function(){		
+			var id = this.id.split("-"); 
+			embedParamInformFlagInline(id[1]);
+		});
+		$('#tableRule').on("click",".edit_rule_release_flag_inline",function(){		
+			var id = this.id.split("-"); 
+			embedParamEditRuleReleaseFlagInline(id[1]);
+		});
+		
+		
+	};	
 	
-	//call pagination 
-	//paginationSetUpFn(1,2,2);
+	
+	var findOneFn = function(id) {
+		
+		$.ajax({
+			url:restfulURL+"/dqs_api/public/dqs_rule/"+ id,
+			type : "get",
+			dataType : "json",
+			headers:{Authorization:"Bearer "+tokenID.token},
+			success : function(data) {
+				
+				$("#rule_name").val(data['rule_name']);
+				
+				$("select#rule_group_id").val(data['rule_group'].trim());
+				$("select#data_flow_id").val(data['data_flow_id'].trim());
+				
+				//processType
+				$('.processType').prop('checked', false);
+
+				if(data['initial_flag']==1){
+					$('#checkboxInitial').prop('checked', true);
+				}
+				
+				if(data['update_flag']==1){
+					$('#checkboxUpdate').prop('checked', true);
+				}
+				
+				if(data['last_contact_flag']==1){
+					$('#checkboxContact').prop('checked', true);
+				}
+				//inform Branch 
+				if(data['inform_flag']==1){
+					$('#InformBranchRadioTrue').prop('checked', true);
+				}
+				if(data['inform_flag']==0){
+					$('#InformBranchRadioFalse').prop('checked', true);
+				}
+				//Edit Rule Release
+				if(data['edit_rule_release_flag']==1){
+					$('#EditRuleReleaseTrue').prop('checked', true);
+				}
+				if(data['edit_rule_release_flag']==0){
+					$('#EditRuleReleaseFalse').prop('checked', true);
+				}
+				
+			}
+		});
+		
+	};
+
+	var clearFn = function() {
+		$("#modalTitleRole").html("Add New Rule");
+		$("#modalDescription").html("ADD NEW RULE");
+		   
+		$("#id").val("");
+		$("#action").val("add");
+		$("#rule_name").val("");
+		$("#btnSubmit").val("Add");
+	}
+	
+$(document).ready(function(){
 	
 	
 	//binding tooltip.
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip();
 	});
-	var checkUniqueFn = function(text) {
-		/* http://localhost:3000/api/products?name__regex=/^test/i */
-		var unique = false;
-		$.ajax({
-			url : restfulURL +"/dqs_api/public/dqs_rule?rule_name="+text+"",
-			type : "get",
-			dataType : "json",
-			async : false,
-			headers:{Authorization:"Bearer "+tokenID.token},
-			success : function(data) {
-				console.log(data);
-				if(data == ""){
-					unique = true;
-				}else{
-					unique = false;
-				}
-			}
-		});
-		return unique;
-	}
 	
 	var validationFn = function() {
 		var validateText = "";
@@ -244,8 +368,6 @@ $(document).ready(function(){
 			EditRuleRelease="0";
 		}
 		
-		
-			
 		$.ajax({
 		
 			url:restfulURL+"/dqs_api/public/dqs_rule",
@@ -274,7 +396,7 @@ $(document).ready(function(){
 						}else{
 							getDataFn($("#pageNumber").val(),$("#rpp").val());
 							clearFn();
-							callFlashSlideInModal("Insert Data is Successfully.");
+							callFlashSlideInModal("Insert Data is Successfully.","#information");
 					}
 					
 					
@@ -291,7 +413,7 @@ $(document).ready(function(){
 					if(data['data']['edit_rule_release_flag']!=undefined){
 						validate+="<font color='red'>*</font> "+data['data']['edit_rule_release_flag']+"<br>";
 					}
-					callFlashSlideInModal(validate);
+					callFlashSlideInModal(validate,"#information","error");
 					
 					
 				}
@@ -361,74 +483,18 @@ $(document).ready(function(){
 					getDataFn($("#pageNumber").val(),$("#rpp").val());
 					clearFn();
 					$('#addModalRule').modal('hide');
+				}else if(data['status']==400){
+					var validate="";
+					if(data['data']['rule_name']!=undefined){
+						validate+="<font color='red'>*</font> "+data['data']['rule_name']+"<br>";
+					}
+					callFlashSlideInModal(validate,"#information","error");
 				}
 			}
 		});
 		return false;
 	};
 	
-	var clearFn = function() {
-		$("#modalTitleRole").html("Add New File");
-		$("#modalDescription").html("ADD NEW FILE");
-		   
-		$("#id").val("");
-		$("#action").val("add");
-		$("#rule_name").val("");
-		$("#btnSubmit").val("Add");
-	}
-	
-	var findOneFn = function(id) {
-		/*
-		 {"rule_id":"1","rule_name":"Rule Number 1.1","rule_group":"Mapping","data_flow_id":"1","initial_flag"
-:"0","update_flag":"0","last_contact_flag":"0","inform_flag":"0","edit_rule_release_flag":"0"}
-		 */
-		$.ajax({
-			url:restfulURL+"/dqs_api/public/dqs_rule/"+ id,
-			type : "get",
-			dataType : "json",
-			headers:{Authorization:"Bearer "+tokenID.token},
-			success : function(data) {
-				
-				$("#rule_name").val(data['rule_name']);
-				
-				$("select#rule_group_id").val(data['rule_group'].trim());
-				$("select#data_flow_id").val(data['data_flow_id'].trim());
-				
-				//processType
-				$('.processType').prop('checked', false);
-
-				if(data['initial_flag']==1){
-					$('#checkboxInitial').prop('checked', true);
-				}
-				
-				if(data['update_flag']==1){
-					$('#checkboxUpdate').prop('checked', true);
-				}
-				
-				if(data['last_contact_flag']==1){
-					$('#checkboxContact').prop('checked', true);
-				}
-				//inform Branch 
-				if(data['inform_flag']==1){
-					$('#InformBranchRadioTrue').prop('checked', true);
-				}
-				if(data['inform_flag']==0){
-					$('#InformBranchRadioFalse').prop('checked', true);
-				}
-				//Edit Rule Release
-				if(data['edit_rule_release_flag']==1){
-					$('#EditRuleReleaseTrue').prop('checked', true);
-				}
-				if(data['edit_rule_release_flag']==0){
-					$('#EditRuleReleaseFalse').prop('checked', true);
-				}
-				
-			}
-		});
-		
-	};
-
-
 	var searchAdvanceFn = function(paramRuleGroup,paramRuleName,paramInitial,paramUpdate,paramLastContact) {
 		
 		//embed parameter start
@@ -442,187 +508,14 @@ $(document).ready(function(){
 		$(".paramEmbed").remove();
 		$("body").append(htmlParam);
 		
-		//embed parameter end
+		getDataFn(1,$("#rpp").val());
 		
-		$.ajax({
-			url : restfulURL + "/dqs_api/public/dqs_rule",
-			type : "get",
-			dataType : "json",
-			headers:{Authorization:"Bearer "+tokenID.token},
-			data:{
-				"rule_group":paramRuleGroup,
-				"rule_name":paramRuleName,
-				"initial_flag":paramInitial,
-				"update_flag":paramUpdate,
-				"last_contact_flag":paramLastContact
-			},
-			success : function(data) {
-				if(data['data']!="" || data['data'] !=null){
-				//console.log(data['data']);
-				listRuleFn(data['data']);
-				}
-			}
-		});
+		//embed parameter end
+
 	}
 	
-	var listRuleFn = function(data) {
-		
-//		if ($.fn.DataTable.isDataTable('#tableRule')) {
-//		       $('#tableRule').DataTable().destroy(); 
-//		}
-		
-	/*
-{"rule_id":"1","rule_group":"Mapping","rule_name":"Rule Number 1.1","data_flow_name"
-:"Test Flow","initial_flag":"0","update_flag":"0","last_contact_flag":"0","inform_flag":"0",
-"edit_rule_release_flag"
-:"0"}
-	 */
-		var htmlTable = "";
-
-		$.each(data,function(index,indexEntry) {
-		
-<<<<<<< HEAD
-		htmlTable += "<tr class='rowSearch'>";
-=======
-		htmlTable += "<tr>";
->>>>>>> refs/remotes/origin/master
-//
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_group"]+ "</td>"; 
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["rule_name"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["data_flow_name"]+ "</td>";
-		
-		if(indexEntry["initial_flag"]==1){
-			htmlTable += "<td><input id=\"initial_flag_inline-"+indexEntry["rule_id"]+"\" class=\"initial_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["initial_flag"]+"></td>";
-		}else if(indexEntry["initial_flag"]==0){
-			htmlTable += "<td><input id=\"initial_flag_inline-"+indexEntry["rule_id"]+"\" class=\"initial_flag_inline\" disabled type='checkbox' value="+ indexEntry["initial_flag"]+"></td>";
-		}
-		
-		if(indexEntry["update_flag"]==1){
-			htmlTable += "<td><input id=\"update_flag_inline-"+indexEntry["rule_id"]+"\" class=\"update_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["update_flag"]+"></td>";
-		}else if(indexEntry["update_flag"]==0){
-			htmlTable += "<td><input id=\"update_flag_inline-"+indexEntry["rule_id"]+"\" class=\"update_flag_inline\" disabled type='checkbox' value="+ indexEntry["update_flag"]+"></td>";
-		}
-		
-		if(indexEntry["last_contact_flag"]==1){
-			htmlTable += "<td><input id=\"last_contact_flag_inline-"+indexEntry["rule_id"]+"\" class=\"last_contact_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["last_contact_flag"]+"></td>";
-		}else if(indexEntry["last_contact_flag"]==0){
-			htmlTable += "<td><input id=\"last_contact_flag_inline-"+indexEntry["rule_id"]+"\" class=\"last_contact_flag_inline\" disabled type='checkbox' value="+ indexEntry["last_contact_flag"]+"></td>";
-		}
-		
-		if(indexEntry["inform_flag"]==1){
-			htmlTable += "<td><input id=\"inform_flag_inline-"+indexEntry["rule_id"]+"\" class=\"inform_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["inform_flag"]+"></td>";
-		}else if(indexEntry["inform_flag"]==0){
-			htmlTable += "<td><input id=\"inform_flag_inline-"+indexEntry["rule_id"]+"\" class=\"inform_flag_inline\" disabled type='checkbox' value="+ indexEntry["inform_flag"]+"></td>";
-		}
-		
-		if(indexEntry["edit_rule_release_flag"]==1){
-			htmlTable += "<td><input id=\"edit_rule_release_flag_inline-"+indexEntry["rule_id"]+"\" class=\"edit_rule_release_flag_inline\" disabled type='checkbox' checked='checked' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
-		}else if(indexEntry["edit_rule_release_flag"]==0){
-			htmlTable += "<td><input id=\"edit_rule_release_flag_inline-"+indexEntry["rule_id"]+"\" class=\"edit_rule_release_flag_inline\" disabled type='checkbox' value="+ indexEntry["edit_rule_release_flag"]+"></td>";
-		}
-
-		htmlTable += "<td><i class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["rule_id"]+ " data-target=#addModalRule data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["rule_id"]+" class='btn btn-danger btn-xs btn-gear del'>Delete</button>\"></i></td>";
-		htmlTable += "</tr>";
-		});
-	
-		$("#listRule").html(htmlTable);
-		
-		//$('#tableRule').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' ,"bSort" : false } );  
-		//$('#tableRule').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">' ,"bSort" : false } );  
-		//function popover
-		$(".popover-edit-del").popover();
-	
-		//findOnd
-		$("#tableRule").off("click",".popover-edit-del");
-		$("#tableRule").on("click",".popover-edit-del",function(){
-			$(".edit").on("click",function() {
-				$("#modalTitleRole").html("Edit File");
-				$("#modalDescription").html("EDIT FILE");
-				findOneFn(this.id);
-				$("#id").val(this.id);
-				$("#action").val("edit");
-				$("#btnSubmit").val("Edit");
-				$("#btnSaveAndAnother").hide();
-				$(this).parent().parent().parent().children().click();
-			});
-			
-			$(".del").on("click",function() {
-				var id = this.id;
-				$(this).parent().parent().parent().children().click();
-				$("#confrimModal").modal();
-				$(document).off("click","#btnConfirmOK");
-				$(document).on("click","#btnConfirmOK",function(){
-				
-					$.ajax({
-						 url:restfulURL+"/dqs_api/public/dqs_rule/"+id,
-						 type : "delete",
-						 dataType:"json",
-						 headers:{Authorization:"Bearer "+tokenID.token},
-					     success:function(data){   
-					    	if(data['status']==200){
-<<<<<<< HEAD
-
-					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
-=======
-					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
->>>>>>> refs/remotes/origin/master
-					    		clearFn();
-					    		callFlashSlide("Delete Successfully.");
-					    		$("#confrimModal").modal('hide');
-					    	}
-					       //return false;
-						 }
-					});
-				
-				});
-				
-<<<<<<< HEAD
-				
-=======
->>>>>>> refs/remotes/origin/master
-				
-			});	
-			
-		});
-		
-		//embedParam
-		$('#tableRule').on("click",".initial_flag_inline",function(){		
-			var id = this.id.split("-"); 
-			embedParamInitialFlagInline(id[1]);
-		});
-		$('#tableRule').on("click",".update_flag_inline",function(){		
-			var id = this.id.split("-"); 
-			embedParamUpdateFlagInline(id[1]);
-		});
-		
-		$('#tableRule').on("click",".last_contact_flag_inline",function(){		
-			var id = this.id.split("-"); 
-			embedParamLastContactFlagInline(id[1]);
-		});
-		$('#tableRule').on("click",".inform_flag_inline",function(){		
-			var id = this.id.split("-"); 
-			embedParamInformFlagInline(id[1]);
-		});
-		$('#tableRule').on("click",".edit_rule_release_flag_inline",function(){		
-			var id = this.id.split("-"); 
-			embedParamEditRuleReleaseFlagInline(id[1]);
-		});
-		
-		
-	};
-	
-	
 	var dropdownRuleGroup = function(id) {
-		//alert("555");
 		var selectDataflowHTML=""
-		var makeRuleGroupID=""	
-			
-		if (id=="1"){
-			makeRuleGroupID = "Cleansing"
-		}else if (id=="2"){
-			makeRuleGroupID = "Matching"
-		}
-		
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_rule_group",
 			type : "get",
@@ -631,25 +524,18 @@ $(document).ready(function(){
 			success : function(data) {
 				
 				$.each(data,function(index,indexEntry){
-					
-					
 					if(makeRuleGroupID==indexEntry['rule_group_name']){
-						//alert(makeDataflowID+"="+indexEntry['data_flow_name']);
 						selectDataflowHTML+="<option selected>"+indexEntry['rule_group_name']+"</option>"; 
 					}else{
 						selectDataflowHTML+="<option>"+indexEntry['rule_group_name']+"</option>";  
 					}
-				
 				});
-				//alert(selectDataflowHTML);
 				$("#rule_group_id").html(selectDataflowHTML);
 			}
 		});
 	}
-	//dropdownRuleGroup();
 	
 	var dropdownDataFlow = function(id) {
-		//alert("data flow "+id);
 		var selectDataflowHTML=""
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_data_flow",
@@ -660,55 +546,24 @@ $(document).ready(function(){
 			success : function(data) {
 				
 				$.each(data,function(index,indexEntry){
-					
-					
 					if(id==indexEntry['data_flow_name']){
-						//alert(makeDataflowID+"="+indexEntry['data_flow_name']);
 						selectDataflowHTML+="<option value="+indexEntry['data_flow_id']+" selected>"+indexEntry['data_flow_name']+"</option>"; 
 					}else{
 						selectDataflowHTML+="<option value="+indexEntry['data_flow_id']+" >"+indexEntry['data_flow_name']+"</option>";  
 					}
 				
 				});
-				//alert(selectDataflowHTML);
 				$("#data_flow_id").html(selectDataflowHTML);
 			}
 		});
 	}
 	dropdownDataFlow();
 	
-	var getDataFn = function(page,rpp) {
-		
-		$.ajax({
-			url : restfulURL + "/dqs_api/public/dqs_rule",
-			type : "get",
-			dataType : "json",
-			data:{"page":page,"rpp":rpp},
-			async:false,
-			headers:{Authorization:"Bearer "+tokenID.token},
-			success : function(data) {
-				
-				
-				
-				
-			
-				listRuleFn(data['data']);
-				golbalDataRole=data;
-				paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
-				
-				//console.log(data['data']);
-				
-				
-			}
-		});
-	};
 	//Call Function start
 	  getDataFn();
 	//call pagination 
 	 paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
-
-	
-	  
+	 
 	//Auto Complete Rule Name start
 		$("#ruleName").autocomplete({
           source: function (request, response) {
@@ -719,7 +574,7 @@ $(document).ready(function(){
 					    dataType:"json",
 						headers:{Authorization:"Bearer "+tokenID.token},
 						data:{"q":request.term},
-						async:false,
+						//async:false,
                       error: function (xhr, textStatus, errorThrown) {
                           alert('Error: ' + xhr.responseText);
                       },
@@ -727,31 +582,26 @@ $(document).ready(function(){
 						
   						response($.map(data, function (item) {
                               return {
-//                                  label: item.rule_id+"-"+item.rule_name,
-//                                  value: item.rule_id+"-"+item.rule_name
                             	  
                             	  label: item.rule_name,
                                   value: item.rule_name
                               }
                           }));
 						
-					    }
+					    },
+						beforeSend:function(){
+							$("body").mLoading('hide');	
+						}
+					
 					   });
           	
           }
       });
 		//Auto Complete Rule Name end
 	$("#btnSearch")	.click(function(){
-<<<<<<< HEAD
-		
-		searchFn("searchText","tableRule");
-		//alert($("#searchText").val());
-		//searchMultiFn($("#searchText").val());
-		;
-=======
-		searchFn("searchText","tableRule");
-		//alert("hello");
->>>>>>> refs/remotes/origin/master
+
+		searchMultiFn($("#searchText").val());
+
 	});
 	
 	$("#btnSearchAdvance").click(function(){
@@ -782,33 +632,20 @@ $(document).ready(function(){
 		   return false;
 	});
 	
-
-	
-	
-	
 	$("#btnSubmit").click(function(){
 		
-		//if (validationFn() == true) { 
-			if ($("#action").val() == "add"|| $("#action").val() == "") {	
-				//if (checkUniqueFn($("#rule_name").val()) == true) { 	
-					insertFn();
-	//				}else{
-	//					alert("name is not unique.");
-	//				}
-			}else{			
-				updateFn();
-			}
-		//}
+		if($("#action").val() == "add"|| $("#action").val() == "") {	
+			insertFn();
+		}else{			
+			updateFn();
+		}
 		return false;
 	});
 	
 	$("#btnSaveAndAnother").click(function(){
-		//alert("btnSaveAndAnother");
 		insertFn("saveAndAnother");
 		
 	});
-	
-	
 	
 	$(".btnCancle").click(function() {
 		clearFn();
@@ -828,8 +665,6 @@ $(document).ready(function(){
 	
 	var updateFlagFn = function() {
 		
-	
-			
 			var rules = [];
 			  $.each(golbalDataRole['data'],function(index,indexEntry){
 			  
@@ -899,7 +734,6 @@ $(document).ready(function(){
 			  }
 			  
 			  });
-			 // console.log(rules);
 			
 			  $.ajax({
 			      url:restfulURL+"/dqs_api/public/dqs_rule",

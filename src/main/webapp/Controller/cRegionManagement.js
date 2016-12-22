@@ -1,65 +1,173 @@
 var golbalData=[];
-
-$(document).ready(
-	function(){
+//get data Region
+  var getDataFn = function(page,rpp){
+	   $.ajax({
+		    url:restfulURL+"/dqs_api/public/dqs_region",
+		    type:"get",
+		    dataType:"json",
+			data:{"page":page,"rpp":rpp},
+			async:false,
+		    headers:{Authorization:"Bearer "+tokenID.token},
+			    success:function(data){
+			     	listDataFn(data['data']);
+					
+					golbalData=data;
+					paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
+			 }
+	  });
+};
+// list data Region
+  var listDataFn = function(data){
+//		if ( $.fn.DataTable.isDataTable('#tableRegion')) {
+//	      $('#tableRegion').DataTable().destroy();
+//	     }
+//			
+		var htmlTable="";
+		   $.each(data,function(index,indexEntry){
+			     htmlTable+="<tr class='rowSearch'>";
+				      htmlTable+="<td class='columnSearch'>"+indexEntry['seq']+"</td>";
+				      htmlTable+="<td class='columnSearch'>"+indexEntry["region_code"]+"</td>";
+				   	  htmlTable+="<td class='columnSearch'>"+indexEntry["regdesc"]+"</td>";
+					  htmlTable+="<td class='columnSearch'>"+indexEntry["operation_name"]+"</td>";
+				      htmlTable+="<td class='objectCenter'><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["region_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["region_id"]+">Delete</button>\"></i></td>"
+				 htmlTable+="</tr>";
+		   });
+		   $("#listRegion").html(htmlTable);
+			
+		   //DataTable
+		   //$('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
 		
-		
-		//set paginate start
-		var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
-			
-			
-			$('.pagination_top,.pagination_bottom').off("page");
-			$('.pagination_top,.pagination_bottom').bootpag({
-			    total: pageTotal,//page Total
-			    page: pageIndex,//page index
-			    maxVisible: pageButton,//จำนวนปุ่ม
-			    leaps: true,
-			    //firstLastUse: true,
-			    //first: '←',
-			    //last: '→',
-			    wrapClass: 'pagination',
-			    activeClass: 'active',
-			    disabledClass: 'disabled',
-			    //nextClass: 'next',
-			    //prevClass: 'prev',
-			    next: 'next',
-			    prev: 'prev',
-			    //lastClass: 'last',
-			    //firstClass: 'first'
-			}).on("page", function(event, num){
-				var rpp=10;
-				if($("#rpp").val()==undefined){
-					rpp=10;
-				}else{
-					rpp=$("#rpp").val();
-				}
-				
-				getDataFn(num,rpp);
-				
-			    $(".pagingNumber").remove();
-			    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
-			    $("body").append(htmlPageNumber);
-			   
-			}); 
-			
-			
-			$(".countPagination").off("change");
-			$(".countPagination").on("change",function(){
-
-				$("#countPaginationTop").val($(this).val());
-				$("#countPaginationBottom").val($(this).val());
-				
-				getDataFn(1,$(this).val());
-				
-				$(".rpp").remove();
-			    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
-			    $("body").append(htmlRrp);
-			   
+			//เมื่อ click แล้วให้มันไปผูกกับ popover
+			$("#tableRegion_wrapper").click(function(){
+			    $(".popover-del-edit").popover();
 			});
 			
-		}
+			  //popover 
+			$(".popover-del-edit").popover();
+			
+			
+			$("#tableRegion").off("click",".popover-del-edit");
+			$("#tableRegion").on("click",".popover-del-edit",function(){
+				
+			//findOnd
+			$(".edit").on("click",function(){
+				 $(this).parent().parent().parent().children().click();
+				   $("#modalTitleRole").html("Edit Region");
+				   $("#modalDescription").html("EDIT REGION");
+				    findOneFn(this.id);
+				    $("#region_id").val(this.id);
+				    $("#action").val("edit");
+				    $("#btnSubmit").val("Edit");
+				    $("#btnSaveAnother").val("Edit");
+				    $("#btnSaveAnother").hide();
+				   
+				});
+				
+			//delete
+		   	$(".del").on("click",function(){
+			var id = this.id;
+		    $(this).parent().parent().parent().children().click();
+				$("#confrimModal").modal();
+				$(document).off("click","#btnConfirmOK");
+				$(document).on("click","#btnConfirmOK",function(){
+			    	 $.ajax({
+				      url:restfulURL+"/dqs_api/public/dqs_region/"+id,
+				      type:"DELETE",
+				      dataType:"json",
+					  headers:{Authorization:"Bearer "+tokenID.token},
+					  success:function(data){ 
+						if(data['status']==200){
+							
+							   callFlashSlide("Delete Successfully.");       
+						       getDataFn($("#pageNumber").val(),$("#rpp").val());
+						       getDataFn();
+						       clearFn();
+							   $("#confrimModal").modal('hide');
+							   
+						}else if(data['status']=="400"){
+							callFlashSlide(data['data'],"error");  
+						}
+	     			 }
+	   			  });
+	   		   
+				});
+	  	 });
+		
+	});
+}
+//function clear data
+var clearFn =function(){
+	
+   $("#modalTitleRole").html("Add New Region");
+   $("#modalDescription").html("ADD NEW REGION");    
+   $("#region_id").val("");
+   $("#action").val("add");
+   $("#region_code").val("");
+   $("#region_name").val("");
+   $("#btnSubmit").val("Add");
+   $("#btnSaveAnother").val("Add");
+   dropDownListBranchOper();
+		   
+}
 
-		//set paginate end
+//DropDownList	Branch Operation
+var dropDownListBranchOper = function(operation_id){
+	$.ajax ({
+		url:restfulURL+"/dqs_api/public/dqs_branch_operation" ,
+		type:"get" ,
+		dataType:"json" ,
+		headers:{Authorization:"Bearer "+tokenID.token},
+			success:function(data){
+				
+				var htmlTable="";
+				$.each(data,function(index,indexEntry){
+					if(indexEntry["operation_id"] == operation_id){
+						htmlTable+="<option selected=\"selected\" value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
+					}else{
+						htmlTable+="<option value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
+					}
+				});	
+				$("#list_Branch_Oper").html(htmlTable);
+			}
+	});
+};
+//get data to Edit
+var findOneFn = function(id){
+	   $.ajax({
+		    url:restfulURL+"/dqs_api/public/dqs_region/"+id,
+		    type:"get",
+		    dataType:"json",
+		    headers:{Authorization:"Bearer "+tokenID.token},
+		    success:function(data){
+			  $("#region_code").val(data['region_code']);
+		      $("#region_name").val(data['regdesc']);
+			  dropDownListBranchOper(data['operation_id']);
+	    	}
+	   });
+  };
+
+
+$(document).ready(function(){
+		
+		
+	//Number Only Text Fields.
+	$(".numberOnly").keydown(function (e) {
+		        // Allow: backspace, delete, tab, escape, enter and .
+			
+		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+		             // Allow: Ctrl+A, Command+A
+		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+		             // Allow: home, end, left, right, down, up
+		            (e.keyCode >= 35 && e.keyCode <= 40)) {
+		                 // let it happen, don't do anything
+		                 return;
+		        }
+		        // Ensure that it is a number and stop the keypress
+		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+		            e.preventDefault();
+		        }
+		});
+	
 		
 		 
 		 
@@ -73,7 +181,7 @@ $(document).ready(
 				   		 validateText+="operation not empty\n";
 				   }
 				   if(validateText!=""){
-					    callFlashSlide(validateText);
+					    callFlashSlide(validateText,"error");
 					    return false;
 				   }else{
 				   		return true;
@@ -90,7 +198,7 @@ $(document).ready(
 				    	validateText+="Cost Center not empty\n";
 				   }
 				   if(validateText!=""){
-					    callFlashSlide(validateText);
+					    callFlashSlide(validateText,"error");
 					    return false;
 				   }else{
 				   		return true;
@@ -116,11 +224,14 @@ $(document).ready(
 							   callFlashSlide("Insert Successfully.");
 						       getDataFn($("#pageNumber").val(),$("#rpp").val());
 						       clearFn();
-						 	   $('#managementModal').modal('hide');
+						
+						 	   $('#ManagementModal').modal('hide');
+						 	  
 							}else{
 								getDataFn($("#pageNumber").val(),$("#rpp").val());
 								clearFn();
-								callFlashSlideInModal("Insert Data is Successfully.");
+								callFlashSlideInModal("Insert Data is Successfully.","#information");
+								
 							}
 					
 					
@@ -130,7 +241,7 @@ $(document).ready(
 								if(data['data']['region_code']!=undefined){
 									validate+="<font color='red'>*</font> "+data['data']['region_code']+"<br>";
 								}
-								callFlashSlideInModal(validate);
+								callFlashSlideInModal(validate,"#information","error");
 						  }
 					   }
 							
@@ -167,36 +278,9 @@ $(document).ready(
 			} 
 			
 			
-			 //function clear data
-		    var clearFn =function(){
-		    	
-		       $("#modalTitleRole").html("Add New Region");
-			   $("#modalDescription").html("ADD NEW REGION");    
-			   $("#region_id").val("");
-			   $("#action").val("add");
-			   $("#region_code").val("");
-			   $("#region_name").val("");
-			   $("#btnSubmit").val("Add");
-			   $("#btnSaveAnother").val("Add");
-			   dropDownListBranchOper();
-					   
-			}
 			 
-			 //get data to Edit
-			 var findOneFn = function(id){
-				   $.ajax({
-					    url:restfulURL+"/dqs_api/public/dqs_region/"+id,
-					    type:"get",
-					    dataType:"json",
-					    headers:{Authorization:"Bearer "+tokenID.token},
-					    success:function(data){
-						  $("#region_code").val(data['region_code']);
-					      $("#region_name").val(data['regdesc']);
-						  dropDownListBranchOper(data['operation_id']);
-				    	}
-				   });
-			  };
-		
+			 
+			
 			// function search
 			  var searchFn_bk = function(searchText){
 				   $.ajax({
@@ -210,104 +294,8 @@ $(document).ready(
  			  }
 			
 			
-			 // list data Region
-			  var listDataFn = function(data){
-//					if ( $.fn.DataTable.isDataTable('#tableRegion')) {
-//				      $('#tableRegion').DataTable().destroy();
-//				     }
-//						
-					var htmlTable="";
-					   $.each(data,function(index,indexEntry){
-						     htmlTable+="<tr >";
-							      htmlTable+="<td>"+(index+1)+"</td>";
-							      htmlTable+="<td>"+indexEntry["region_code"]+"</td>";
-							   	  htmlTable+="<td>"+indexEntry["regdesc"]+"</td>";
-								  htmlTable+="<td>"+indexEntry["operation_name"]+"</td>";
-							      htmlTable+="<td><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-info btn-xs showBranchOper' data-target=#modalOperation data-toggle='modal' type='button' id="+indexEntry["region_id"]+">Operation</button> <button class='btn btn-warning btn-xs edit' data-target=#ManagementModal data-toggle='modal' type='button' id="+indexEntry["region_id"]+">Edit</button> <button class='btn btn-danger btn-xs del' type='button' id="+indexEntry["region_id"]+">Delete</button>\"></i></td>"
-							 htmlTable+="</tr>";
-					   });
-					   $("#listRegion").html(htmlTable);
-						
-					   //DataTable
-					   //$('#tableRegion').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
-					
-						//เมื่อ click แล้วให้มันไปผูกกับ popover
-						$("#tableRegion_wrapper").click(function(){
-						    $(".popover-del-edit").popover();
-						});
-						
-						  //popover 
-						$(".popover-del-edit").popover();
-						
-						
-						$("#tableRegion").off("click",".popover-del-edit");
-						$("#tableRegion").on("click",".popover-del-edit",function(){
-							
-						//findOnd
-						$(".edit").on("click",function(){
-							 $(this).parent().parent().parent().children().click();
-							   $("#modalTitleRole").html("Edit Region");
-							   $("#modalDescription").html("EDIT REGION");
-							    findOneFn(this.id);
-							    $("#region_id").val(this.id);
-							    $("#action").val("edit");
-							    $("#btnSubmit").val("Edit");
-							    $("#btnSaveAnother").val("Edit");
-							    $("#btnSaveAnother").hide();
-							   
-							});
-							
-						//delete
-					   	$(".del").on("click",function(){
-						var id = this.id;
-					    $(this).parent().parent().parent().children().click();
-							$("#confrimModal").modal();
-							$(document).off("click","#btnConfirmOK");
-							$(document).on("click","#btnConfirmOK",function(){
-						    	 $.ajax({
-							      url:restfulURL+"/dqs_api/public/dqs_region/"+id,
-							      type:"DELETE",
-							      dataType:"json",
-								  headers:{Authorization:"Bearer "+tokenID.token},
-								  success:function(data){ 
-										   callFlashSlide("Delete Successfully.");       
-<<<<<<< HEAD
-									       getDataFn($("#pageNumber").val(),$("#rpp").val());
-=======
-									       getDataFn();
->>>>>>> refs/remotes/origin/master
-									       clearFn();
-										   $("#confrimModal").modal('hide');
-				     			 }
-				   			  });
-				   		   
-							});
-				  	 });
-					
-					$(".showBranchOper").on("click",function(){
-						getDataBranchOperFn();
-						dropDownListCostCenter();
-						$(this).parent().parent().parent().children().click();
-					});
-				});
-			}
 			
-			//get data Region
-			  var getDataFn = function(){
-				   $.ajax({
-					    url:restfulURL+"/dqs_api/public/dqs_region",
-					    type:"get",
-					    dataType:"json",
-						async:false,
-					    headers:{Authorization:"Bearer "+tokenID.token},
-						    success:function(data){
-						     	listDataFn(data['data']);
-								
-								golbalData=data;
-								paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
-						 }
-				  });
-			};
+			
 			//Call Function start
 			getDataFn();
 			//call pagination 
@@ -343,21 +331,37 @@ $(document).ready(
 					
 					//delete
 				   	$(".deleteOper").click(function(){
+					var id = this.id;
 					$(this).parent().parent().parent().children().click();
 					
-				    if(confirm("Do you want to delete this file?")){
-					     $.ajax({
-						      url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+this.id,
-						      type:"delete",
-						      dataType:"json",
-						      headers:{Authorization:"Bearer "+tokenID.token},
-							      success:function(data){       
-								       getDataBranchOperFn();
-								       clearOperFn();
-					
-					     			 }
-					   			  });
-				   		   	  }
+						    $("#confrimModal").modal();
+							$(document).off("click","#btnConfirmOK");
+							$(document).on("click","#btnConfirmOK",function(){
+							
+							     $.ajax({
+								      url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+id,
+								      type:"delete",
+								      dataType:"json",
+								      headers:{Authorization:"Bearer "+tokenID.token},
+								      success:function(data){    
+											if(data['status']==200){  
+									       		getDataBranchOperFn();
+									       		clearOperFn();
+												$("#confrimModal").modal('hide');
+									
+											}else if(data['status']==400){
+												
+												callFlashSlideInModal(data['data'],"#information2","error");
+												$("#confrimModal").modal('hide');
+												   
+											}
+										  
+						     			 }
+						   			  });
+				   		   	  
+							});
+						
+						
 						});
 				   });
 			};
@@ -384,7 +388,7 @@ $(document).ready(
 										validate+="<font color='red'>*</font> "+data['data']['operation_name']+"<br>";
 									}
 									
-									callFlashSlideInModal(validate,"#information2");
+									callFlashSlideInModal(validate,"#information2","error");
 							   }
 					
 						 }
@@ -402,7 +406,7 @@ $(document).ready(
 						    data:{ "operation_name":$("#operation_name").val(),
 								   "cost_center":$("#list_cost_center").val(),},
 						    success:function(data,status){
-							     if(status=="success"){
+							     if(data['status']=="200"){
 								
 									  callFlashSlideInModal("Upate Successfully.","#information2");
 								      getDataBranchOperFn();
@@ -415,7 +419,7 @@ $(document).ready(
 												validate+="<font color='red'>*</font> "+data['data']['operation_name']+"<br>";
 											}
 											
-											callFlashSlideInModal(validate,"#information2");
+											callFlashSlideInModal(validate,"#information2","error");
 									  }
 							    }
 						   });
@@ -463,45 +467,27 @@ $(document).ready(
 			getDataBranchOperFn();
 			
 			
-			//DropDownList	Branch Operation
-			var dropDownListBranchOper = function(operation_id){
-				$.ajax ({
-					url:restfulURL+"/dqs_api/public/dqs_branch_operation" ,
-					type:"get" ,
-					dataType:"json" ,
-					headers:{Authorization:"Bearer "+tokenID.token},
-						success:function(data){
-							
-							var htmlTable="";
-							$.each(data,function(index,indexEntry){
-								if(indexEntry["operation_id"] == operation_id){
-									htmlTable+="<option selected=\"selected\" value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
-								}else{
-									htmlTable+="<option value="+indexEntry["operation_id"]+">"+indexEntry["operation_name"]+"</option>";		
-								}
-							});	
-							$("#list_Branch_Oper").html(htmlTable);
-						}
-				});
-			};
+			
 			
 			var dropDownListCostCenter = function(ccdef){
 				$.ajax ({
-					url:restfulURL+"/dqs_api/public/dqs_branch" ,
+					url:restfulURL+"/dqs_api/public/dqs_user/revised_cost_center" ,
 					type:"get" ,
 					dataType:"json" ,
 					headers:{Authorization:"Bearer "+tokenID.token},
 						success:function(data){
-							console.log(data)
+							//console.log(data)
+							if(data!=""){
 							var htmlTable="";
-							$.each(data['data'],function(index,indexEntry){
+							$.each(data,function(index,indexEntry){
 								if(indexEntry["ccdef"] == ccdef){
-									htmlTable+="<option selected=\"selected\" value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";		
+									htmlTable+="<option selected=\"selected\" value="+indexEntry["ccdef"]+">"+indexEntry["desc"]+"</option>";		
 								}else{
-									htmlTable+="<option value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";		
+									htmlTable+="<option value="+indexEntry["ccdef"]+">"+indexEntry["desc"]+"</option>";		
 								}
 							});	
 							$("#list_cost_center").html(htmlTable);
+							}
 						}
 				});
 			};
@@ -516,10 +502,8 @@ $(document).ready(
 			   //if(validationFn()==true){
 				    if($("#action").val()=="add" || $("#action").val()=="" ){
 				      	insertFn();
-						//closeModalFn();
 				    }else{
 				     	updateFn();
-				        //closeModalFn();
 				    }
 			   //}
 		   		return false;
@@ -539,13 +523,11 @@ $(document).ready(
 			  });
 				
 			   $("#btnSaveOper").click(function(){
-				   //if(validationOperFn()==true){
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
 							    insertBranchOperFn();
 						    }else{
 						     	updateBranchOperFn();
 						    }
-					   //}
 					   	return false;
 			  }); 
 			   
@@ -557,9 +539,8 @@ $(document).ready(
 			   //ปุ่ม search
 			  
 			  $("#btnSearch").click(function(){
-				  // searchFn($("#searchText").val());
-				//alert($("#searchText").val());
-				searchFn("searchText","tableRegion");
+				
+				 searchMultiFn($("#searchText").val());
 				
 				  // return false;
 			  });
@@ -569,22 +550,30 @@ $(document).ready(
 				   clearFn();
 				   return false;
 			  });
+
+			$(".showBranchOper").on("click",function(){
+				getDataBranchOperFn();
+				dropDownListCostCenter();
+				$(this).parent().parent().parent().children().click();
+			});
 			
 			$("#region_code").keyup(function(){
+				
 				$.ajax ({
 					url:restfulURL+"/dqs_api/public/dqs_branch/region/getRegionName",
 					type:"POST" ,
 					dataType:"json" ,
-					async:false,
+					//async:false,
 					headers:{Authorization:"Bearer "+tokenID.token},
 					data:{"region_code":$(this).val()},
-					
-						success:function(data){
-							
-							console.log(data['regdesc']);
+					success:function(data){
+						$("body").mLoading('hide');	
 							$("#region_name").val(data['regdesc']);
 							
-						}
+						},
+						beforeSend:function(){
+						$("body").mLoading('hide');	
+					}
 				});
 			});
 	  

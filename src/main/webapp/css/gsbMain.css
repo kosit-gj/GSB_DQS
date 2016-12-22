@@ -171,6 +171,7 @@ body {
 }
 .paging-text{
 	margin-top:5px;
+	
 }
 .top-navigation.fixed-nav #wrapper, .fixed-nav #wrapper.top-navigation {
     margin-top: 72px;
@@ -179,7 +180,7 @@ body {
 	border-color:#EC068D !important;
 }
 .input-inline-table{
-	height:23px;
+	height:25px;
 	padding: 0px;
 }
 
@@ -437,19 +438,14 @@ body {
 .object-right{
 	text-align:right;
 }
-.paging-text{
-	margin-top:5px;
-}
+
 .top-navigation.fixed-nav #wrapper, .fixed-nav #wrapper.top-navigation {
     margin-top: 72px;
 }
 .form-control:focus, .single-line:focus{
 	border-color:#EC068D !important;
 }
-.input-inline-table{
-	height:23px;
-	padding: 0px;
-}
+
 
 .input-file-older{
 	width:50px;
@@ -701,19 +697,14 @@ body {
 .object-right{
 	text-align:right;
 }
-.paging-text{
-	margin-top:5px;
-}
+
 .top-navigation.fixed-nav #wrapper, .fixed-nav #wrapper.top-navigation {
     margin-top: 72px;
 }
 .form-control:focus, .single-line:focus{
 	border-color:#EC068D !important;
 }
-.input-inline-table{
-	height:23px;
-	padding: 0px;
-}
+
 
 .input-file-older{
 	width:50px;
@@ -884,8 +875,68 @@ hr {
 	margin: 5px 0;
 }
 .countPagination{
-	width:50px;
+	/*width:87px;*/
 }
 #confrimModal>.modal-dialog{
 	width: 400px;
+}
+.redFont{
+	color: red;
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+.ui-corner-all{
+	padding: 0 5px;
+}
+.form-control, .single-line{
+	font-size: 13px;
+}
+.objectCenter{
+	text-align:center;
+}
+.navbar {
+    position: fixed;
+    width: auto;
+    min-height: 50px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid transparent;
+}
+#includePage{
+	margin-top:50px
+}
+#btnClose{
+	color: red;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 5px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+.btnModalClose{
+	color: red;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 5px;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+}
+.pagingText{
+	float:right;
+	padding-top:5px;
+	margin-right:5px;
+}
+.pagingDropdown{
+	float:right;
+}
+.number{
+	text-algin:right;
 }

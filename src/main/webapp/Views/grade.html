@@ -1,19 +1,19 @@
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/grade_management.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/grade_management.css" rel="stylesheet">
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+    	 <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     	
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
@@ -41,15 +41,13 @@
 								</div>
 								
                              <div class="row">
-                                    <div class="col-sm-8 m-b-xs">
+                                    <div class="col-sm-9">
                                     	<button type="button" class="btn btn-info " id="btnAdd" data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Grade</button>
                                     </div>
-                                    <!-- 
-                                     <div class="col-sm-4">
-	                                     <div class="input-group"><input type="text" placeholder="Search" name="searchText" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
-                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class=' fa fa-search'> </i></button> </span></div>
-                                     </div>
-                                      -->
+                                     <div class="col-sm-3">
+	                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+                                     </div> 
                              </div>
                              
                        
@@ -61,8 +59,8 @@
 
                                             <th style='width:10%;'>No.</th>
                                             <th style='width:10%;'>Grade</th>
-                                            <th style='width:70%;'>Decription</th>
-                                            <th style='width:10%;'>Manage</th>
+                                            <th style='width:60%;'>Decription</th>
+                                            <th style='width:15%; text-align:center;'>Manage</th>
                                         </tr>
                                         </thead>
                                         <tbody id="listGrade">
@@ -94,9 +92,7 @@
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h3 class="modal-title " id="modalTitleRole">Add New Grade</h3>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+              
             </div>
             
             <div class="alert alert-success ManagementModal" hidden="hidden">
@@ -178,9 +174,7 @@
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h3 class="modal-title">Condition</h3>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+               
             </div>
             <div class="modal-body" style='background:white;'>
             
@@ -199,7 +193,7 @@
 	            </div>
                 <div class="row">
 					<div class="col-sm-4">
-						<div class="form-grade-input2">
+						<div class="form-grade-input2" data-toggle="tooltip" title="Rule">
 							<select class="input form-control" id="listRule">
 					                <option value="0" >Rule Name</option>
 					                <option></option>
@@ -207,28 +201,26 @@
 	                     </div>
 	                </div>
 	                <div class="col-sm-8">	   
-	                	
-	                		                        
-                         	<button type="button" class="btn btn-warning" id="btnAddCondition"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
-                         	
-                     	
-                         
+                    
+                         	<button type="button" class="btn btn-info" id="btnAddCondition"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add</button>
+                         	<button  id="btnEdit" class="btn btn-warning" type="button"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+
                     </div>
                    
 	
                     
                 </div>
+              
                 <br style="clear:both">
-                <br style="clear:both">
-                <div class="table-responsive">
-                      <table class="table table-striped">
+                <div class="table-responsive" id="conditionTableArea">
+                      <table id="conditionTable" class="table table-striped">
                             <thead>
                                  <tr>
-                                      <th>Seq</th>
-                                      <th>Oparetors</th>
-                                      <th>Rule</th>
-                                      <th>Complete</th>
-                                      <th>Manage</th>
+                                      <th style='width:10%'>Seq</th>
+                                      <th style='width:15%'>Operators</th>
+                                      <th style='width:30%'>Rule</th>
+                                      <th style='width:20%'>Complete</th>
+                                      <th style='width:10%'>Manage</th>
                                   </tr>
                             </thead>
                             <tbody id="listCondition">                                       
@@ -244,6 +236,7 @@
             </div>
             <div class="modal-footer">
             	<input type="hidden" id="action_condition" value="add" name="action_condition">
+            	<input type="hidden" id="action_new_condition" value="" name="action_new_condition">
             	<button class="btn btn-primary" type="button" id="btnSaveListCondition">Save</button>
             	<button type="button" class="btn btn-warning" id="btnCancelAddCondition">Cancel</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button" id="btnCancle">Close</button>
@@ -263,9 +256,7 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
+               
                 <!-- form start -->
                 <div class="form-kpi-mangement">
 	                <div class="form-kpi-label" align="center">
@@ -287,9 +278,7 @@
     </div>
 </div>
 <!-- Modal Confirm End -->
-    
-    
-    <script src="Controller/cGradeManagement.js"></script>
+<script src="Controller/cGradeManagement.js"></script>
 
 
 

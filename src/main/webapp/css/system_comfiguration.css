@@ -32,7 +32,7 @@
 }
 
 .input-data{
-	width:150px;
+	/*width:150px;*/
 	text-align:left;
 	height:27px;
 	padding: 5px;
@@ -52,3 +52,49 @@
 .btn-setall{
 	padding-left: 25px;
 }
+#default_kpi_date{
+	margin-top: 5px;
+}
+
+/*
+.importFileLabel{
+	width:200px;
+	float:left;
+	font-weight:bold;
+}
+.importFileInput{
+	width:200px;
+	float:left;
+	font-weight:bold;
+}
+.importFileUom{
+	width:50px;
+	float:left;
+	font-weight:bold;
+}
+*/
+
+
+.importConfigLabel{
+	width:175px;
+}
+
+.exportConfigLabel{
+	width:220px;
+}
+.warningConfigLabelL{
+	width:255px;
+}
+.warningConfigLabelR{
+	width:220px;
+}
+
+.defaultRoleConfigLabel{
+	width:260px;
+}
+.waringBranch{
+	height:195px;
+	
+}
+
+

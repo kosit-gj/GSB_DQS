@@ -3,19 +3,19 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Menu </strong>
             </li>
         </ol>
@@ -23,58 +23,48 @@
    
 </div>
 <!-- nav bar -->
-				 
-                <div class="row">
-
-                    <div class="col-lg-12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Region List </h5>
-					         </div>
-                            <div class="ibox-content">
-                            
-                             <div class="row">
-                                    <div class="col-sm-8 m-b-xs">
-                                    
-                                    <button type="button" id="btnAdd" class="btn btn-info " data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Menu</button>
-        
-                                    </div>
-                                   
+             <div class="row">
+                 <div class="col-lg-12">
+                     <div class="ibox float-e-margins">
+                         <div class="ibox-title">
+                             <h5>Menu List </h5>
+		         </div>
+                         <div class="ibox-content">
+                         
+                          <div class="row">
+                                 <div class="col-sm-9 m-b-xs">
+                                 
+                                 	<button type="button" id="btnAdd" class="btn btn-info " data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Menu</button>
+     
+                                 </div>
+                                  <div class="col-sm-3">
+	                       <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+	                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+	                    </div>
+                          </div>
+                          
+                           
+                             <div class="table-responsive">
+                                 <table class="table table-striped" id="tableMenu">
+                                     <thead>
+                                     <tr>
+                                         <th style='width:50px;'>No.</th>
+                                         <th>Menu</th>
+                                         <th style='width:80px;'><div class='objectCenter'>Authorize</div></th>
+                                         <th style='width:80px;' align="center"><div class='objectCenter'>Manage</div></th>
+                                     </tr>
+                                     </thead>
+                                     <tbody id="listMenu">
+                                     </tbody>
+                                 </table>
                              </div>
                              
-                              
-                                <div class="table-responsive">
-                                    <table class="table table-striped" id="tableMenu">
-                                        <thead>
-                                        <tr>
+                             
+                         </div>
+                     </div>
+                 </div>
 
-                                            <th style='width:50px;'>No.</th>
-                                            <th>Menu</th>
-                                            <th style='width:80px;'>Authorize</th>
-                                            <th style='width:80px;' align="center">Manage</th>
-                                            
-                                        </tr>
-                                        </thead>
-                                        <tbody id="listMenu">
-                                        
-	                                       
-                                        
-                                       
-                                       
-                                       
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            
-
-
+             </div>
 
 <!--Add Modal Start -->
 
@@ -83,21 +73,21 @@
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title" id='modalTitleRole'>Add New Menu</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+                
             </div>
             <div class="modal-body">
                 <!-- content start -->
                 <h2><i class="fa fa fa-pencil-square-o icon-title"></i> <span id="modalDescription">ADD NEW MENU</span></h2>
+                <span>All field marked with an asterisk(<font color="red">*</font>) are required.</span>
                 <hr>
                 
                 <!-- form start -->
+                
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
 	                 <label>Menu Name</label>
+	                 <span class="redFont">*</span>
 	                </div>
 	                
 	                <div class="form-menu-input">
@@ -108,6 +98,7 @@
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
 	                 <label>URL</label>
+	                 <span class="redFont">*</span>
 	                </div>
 	                
 	                <div class="form-menu-input">
@@ -118,12 +109,13 @@
                 <div class='form-menu-mangement'>
 	                <div class="form-menu-label">
 	                 <label>Menu Category</label>
+	                 <span class="redFont">*</span>
 	                </div>
 	                
 	                <div class="form-menu-input">
 	                	<div class="radio radio-info radio-inline">
 	                               <input type="radio" name="menuCategory" class="menuCategory"  id="DQManagement" value="MM" >
-	                               <label for="inlineRadDQManagementio1">DQ Management</label>
+	                               <label for="DQManagement">DQ Management</label>
 	                    </div>
 	                    <div class="radio radio-info  radio-inline">
 	                              <input type="radio" name="menuCategory" class="menuCategory" id="DQMornitoring" value="MN">
@@ -140,7 +132,9 @@
                 <!-- form start -->
                 <!-- content end -->
             </div>
+            
             <div class="modal-footer">
+            
             	<input type="hidden" name="id" id="id" value="">
  				<input type="hidden" name="action" id="action" value="add"> 
                 <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
@@ -152,23 +146,16 @@
         </div>
     </div>
 </div>
-                            
 <!--Add Modal End -->
-
-
-
 
 <!--Authorize Modal Start -->
 <div aria-hidden="true" role="dialog" tabindex="-1" id="authorize" class="modal inmodal" style="display: none;">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">ร—</span><span class="sr-only">Close</span></button>
-                <!-- <i class="fa fa-laptop modal-icon"></i> -->
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Authorize</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+               
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -189,8 +176,8 @@
                       <table class="table table-striped">
                             <thead>
                                  <tr>
-                                      <th>Select</th>
-                                      <th>Role</th>
+                                      <th style='width:300px'>Select</th>
+                                      <th style='width:150px'>Role</th>
                                   </tr>
                             </thead>
                             <tbody id="listRole">                                       
@@ -213,9 +200,7 @@
 </div>
 <!--authorize Modal End -->
 <!-- Small modal start-->
-<!-- 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
- -->
+
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
@@ -241,10 +226,7 @@
                 <h5 class="modal-title">Confirm Dialog</h5>
             </div>
             <div class="modal-body">
-                <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
+               
                 <!-- form start -->
                 <div class="form-kpi-mangement">
 	                <div class="form-kpi-label" align="center">
@@ -268,12 +250,3 @@
 <!-- Modal Confirm End -->
 <script src="Controller/cMenuManagement.js"></script>
 
-
-
-
-   
-
-
-</body>
-
-</html>

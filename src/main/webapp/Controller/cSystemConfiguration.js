@@ -1,6 +1,15 @@
 $(document).ready(
 	function(){
 
+		
+		//date plugin start
+		$("#grade_calculate_date").datepicker();
+	    $("#grade_calculate_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
+	    
+	    $("#merge_cif_date").datepicker();
+	    $("#merge_cif_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
+	    $(".ui-datepicker").hide();
+		//date plugin end
 		var validationFn = function(){
 			
 			   var validateText="";
@@ -41,7 +50,7 @@ $(document).ready(
 						    	validateText+="Kpi in December is not empty"+" , ";
 					 }
 				   if(validateText!=""){
-					    callFlashSlide(validateText);
+					    callFlashSlide(validateText,"error");
 					    return false;
 				   }else{
 				   		return true;
@@ -52,11 +61,10 @@ $(document).ready(
 		
 		
 		//function insert Default KPI
-		var insertDefaultFn = function(){
-			//alert($("#embed_system_config_id").val());
+		var updateDefaultFn = function(){
 			
 			   $.ajax({
-				    url:restfulURL+"/dqs_api/public/dqs_system_config/kpi_date", //+$("#embed_system_config_id").val(),
+				    url:restfulURL+"/dqs_api/public/dqs_system_config/kpi_date",
 				    type:"POST",
 				    dataType:"json",
 				    headers:{Authorization:"Bearer "+tokenID.token},
@@ -76,8 +84,8 @@ $(document).ready(
 				   
 					success:function(data,status){
 						
-					     if(status=="success"){
-					      callFlashSlide("insert Successfully.");
+					     if(data['status']=="success"){
+					      callFlashSlide("Update Successfully.");
 					      getDataFn();
 					     }
 					    }
@@ -87,7 +95,7 @@ $(document).ready(
 		
 		 
 		//function insert Exporting File
-		var insertExportFn = function(){
+		var updateExportFn = function(){
 			
 			var exportInclude = ""
 				
@@ -97,8 +105,7 @@ $(document).ready(
 				else if($("#export_include_date_flag_n:checked").val()){
 					exportInclude = 0;
 				}
-			
-			    //alert(exportInclude);
+
 			
 			  $.ajax({
 				    url:restfulURL+"/dqs_api/public/dqs_system_config/export_file", //+$("#embed_system_config_id").val(),
@@ -113,10 +120,27 @@ $(document).ready(
 				   
 					success:function(data,status){
 						
-					     if(status=="success"){
-					      callFlashSlide("insert Successfully.");
-					      getDataFn();
-					     }
+						     if(data['status']=="200"){
+						      callFlashSlide("Update Successfully.");
+						      getDataFn();
+						     }else if(data['status']=="400"){
+							
+								//export_file_path,export_citizen_max_record,export_mobile_max_record,export_nof_date_delete
+									var validate="";
+									if(data['data']['export_file_path']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['export_file_path']+"<br>";
+									}
+									if(data['data']['export_citizen_max_record']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['export_citizen_max_record']+"<br>";
+									}
+									if(data['data']['export_mobile_max_record']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['export_mobile_max_record']+"<br>";
+									}if(data['data']['export_nof_date_delete']!=undefined){
+										validate+="<font color='red'>*</font> "+data['data']['export_nof_date_delete']+"<br>";
+									}
+									
+									callFlashSlide(validate,"error");
+								}
 					    }
 				   });
 			   return false;
@@ -124,7 +148,7 @@ $(document).ready(
 		 
 		 
 		 //function insert Importing File
-		 var insertImportFn = function(){
+		 var updateImportFn = function(){
 				
 				var importInclude = ""
 					
@@ -134,8 +158,6 @@ $(document).ready(
 					else if($("#import_include_date_flag_n:checked").val()){
 						importInclude = 0;
 					}
-				
-				//alert($("#import_nof_date_delete").val());
 				
 				   $.ajax({
 					    url:restfulURL+"/dqs_api/public/dqs_system_config/import_file",  //+$("#embed_system_config_id").val(),
@@ -149,10 +171,27 @@ $(document).ready(
 						     
 						success:function(data,status){
 							
-						     if(status=="success"){
-						      callFlashSlide("insert Successfully.");
+						     if(data['status']=="200"){
+						      callFlashSlide("Update Successfully.");
 						      getDataFn();
-						     }
+						     }else if(data['status']=="400"){
+							  console.log(data);
+							
+								var validate="";
+								if(data['data']['import_file_path']!=undefined){
+									validate+="<font color='red'>*</font> "+data['data']['import_file_path']+"<br>";
+								}
+								if(data['data']['import_max_file_size']!=undefined){
+									validate+="<font color='red'>*</font> "+data['data']['import_max_file_size']+"<br>";
+								}
+								
+								if(data['data']['import_nof_date_delete']!=undefined){
+									validate+="<font color='red'>*</font> "+data['data']['import_nof_date_delete']+"<br>";
+								}
+								
+								callFlashSlide(validate,"error");
+								
+							 }
 						    }
 					   });
 				   return false;
@@ -160,10 +199,7 @@ $(document).ready(
 		 
 			 
 			 //function insert Warning Branch
-			 var insertWarBranchFn = function(){
-
-					
-					//alert($("#embed_system_config_id").val());
+			 var updateWarBranchFn = function(){
 					
 					   $.ajax({
 						    url:restfulURL+"/dqs_api/public/dqs_system_config/warning_branch", //+$("#embed_system_config_id").val(),
@@ -174,10 +210,19 @@ $(document).ready(
 						   
 							success:function(data,status){
 								
-							     if(status=="success"){
-							      callFlashSlide("insert Successfully.");
-							      getDataFn();
-							     }
+								     if(data['status']=="200"){
+								      callFlashSlide("Update Successfully.");
+								      getDataFn();
+								     }else if(data['status']=="400"){
+									  
+											//nof_contact_date
+											var validate="";
+											if(data['data']['nof_contact_date']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['nof_contact_date']+"<br>";
+											}
+											callFlashSlide(validate,"error");
+											
+									}
 							    }
 						   });
 					   return false;
@@ -186,23 +231,32 @@ $(document).ready(
 				 
 				 // function insert grade calculate date
 				 var insertGradeCalDateFn = function(){
-						//alert($("#all_cust_grade_calculate_date").val());
+					
 						
 						   $.ajax({
 							    url:restfulURL+"/dqs_api/public/dqs_system_config/grade_date",  //+$("#embed_system_config_id").val(),
 							    type:"POST",
 							    dataType:"json",
 							    headers:{Authorization:"Bearer "+tokenID.token},
-							    data:{"all_cust_grade_calculate_date":$("#all_cust_grade_calculate_date").val(),
+							    data:{"grade_calculate_date":$("#grade_calculate_date").val(),
 									  "grade_data_source":$("#grade_data_source").val(),
 									  "merge_cif_date":$("#merge_cif_date").val()},
 							   
 								success:function(data,status){
 									
-								     if(status=="success"){
-								      callFlashSlide("insert Successfully.");
+								     if(data['status']=="200"){
+								      callFlashSlide("Update Successfully.");
 								      getDataFn();
-								     }
+								     }else if(data['status']=="400"){
+									  
+											//grade_calculate_date,
+											var validate="";
+											if(data['data']['grade_calculate_date']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['grade_calculate_date']+"<br>";
+											}
+											callFlashSlide(validate,"error");
+												
+										}
 								    }
 							   });
 						   return false;
@@ -210,9 +264,6 @@ $(document).ready(
 					 //function insert  default role start
 					 var insertDefaultRole = function(){
 						 
-						 //alert($("#position_branch_role_default").val());
-						 //alert($("#cc_poweruser_role_default").val());
-						 //alert($("#position_poweruser_role_default").val());
 						 
 						  $.ajax({
 								    url:restfulURL+"/dqs_api/public/dqs_system_config/default_role",
@@ -227,10 +278,23 @@ $(document).ready(
 								   
 									success:function(data,status){
 										
-									     if(status=="success"){
-									      callFlashSlide("insert Successfully.");
+									     if(data['status']=="200"){
+									      callFlashSlide("Update Successfully.");
 									      getDataFn();
-									     }
+									     }else if(data['status']=="400"){
+											  
+											var validate="";
+											if(data['data']['position_branch_role']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['position_branch_role']+"<br>";
+											}
+											if(data['data']['cc_poweruser_role']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['cc_poweruser_role']+"<br>";
+											}
+											if(data['data']['position_poweruser_role']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['position_poweruser_role']+"<br>";
+											}
+											callFlashSlide(validate,"error");
+										 }
 									    }
 								   });
 							   return false;
@@ -250,8 +314,7 @@ $(document).ready(
 					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 							
-							//console.log(data['default_kpi_date']);
-							//alert(data[0]["kpi_date_m1"]);
+							
 							$("#embed_system_config_id").remove();
 							$("body").append("<input type='hidden' id='embed_system_config_id' name='embed_SuperFlag' value='"+data["config_id"]+"'>");
 							
@@ -299,24 +362,34 @@ $(document).ready(
 								$('#import_include_date_flag_y').prop('checked', false);
 							}
 							
-							$("#import_nof_date_delete").val(data["import_nof_date_delete"]);
+							$("#import_nof_date_delete").val(data["import_nof_date_delete"]);	
 							
 							//Warning Branch
 							$("#nof_contact_date").val(data["nof_contact_date"]);
 							
 							//Grade Calculation Date
-							var newFormatDate = data["all_cust_grade_calculate_date"].split(" ");
-							newFormatDate=newFormatDate[0];
-							$("#all_cust_grade_calculate_date").val(newFormatDate);
+							var newFormatDate
+							if(data["grade_calculate_date"]!=undefined || data["grade_calculate_date"]!=null || data["grade_calculate_date"]!=""){
+								newFormatDate = data["grade_calculate_date"].split(" ");
+								newFormatDate=newFormatDate[0];
+							}else{
+								newFormatDate = "";
+							}
+							
+							
+							$("#grade_calculate_date").val(newFormatDate);
 							
 							//$("#grade_data_source").val(data["grade_data_source"]);
 							$('select[name="grade_data_source"]').val(data["grade_data_source"]);
 							
-							var newFormatCifDate = data["merge_cif_date"].split(" ");
-							newFormatCifDate=newFormatCifDate[0];
+							var newFormatCifDate
+							if(data["merge_cif_date"]!=undefined || data["merge_cif_date"]!=null || data["merge_cif_date"]!=""){
+							    newFormatCifDate = data["merge_cif_date"].split(" ");
+							    newFormatCifDate=newFormatCifDate[0];
+							}else{
+								newFormatCifDate = "";
+							}
 							$("#merge_cif_date").val(newFormatCifDate);
-							
-							
 							//Default Role Start
 							$("#position_branch_role_default").val(data['position_branch_role']);
 							$("#cc_poweruser_role_default").val(data['cc_poweruser_role']);
@@ -355,31 +428,35 @@ $(document).ready(
 			//ปุ่ม SetAll
 			$("#btnSetAll").click(function(){
 				
-				
-				   setAllFn($("#default_kpi_date").val());
+				 if($("#default_kpi_date").val()!=""){
+					 setAllFn($("#default_kpi_date").val());
+				 }else{
+					 callFlashSlide("Kpi in Set All is not empty");
+				 }
+				   
 				
 				  });
 			
 			//ปุ่ม SaveDefault
 			$("#btnSaveDefault").click(function(){
 				 if(validationFn()==true){
-				   insertDefaultFn();
+				   updateDefaultFn();
 				}
 				return false;
 			});
 			
 			//ปุ่ม SaveExport
 			$("#btnSaveExport").click(function(){
-				   insertExportFn();
+				   updateExportFn();
 			});
 			//ปุ่ม SaveImport
 			$("#btnSaveImport").click(function(){
-				   insertImportFn();
+				   updateImportFn();
 			});
 			
 			//ปุ่ม SaveWarBranch
 			$("#btnSaveWarBranch").click(function(){
-				   insertWarBranchFn();
+				   updateWarBranchFn();
 			});
 			
 			//ปุ่ม SaveGradeCalDate
@@ -429,4 +506,22 @@ $(document).ready(
 					
 				}
 			});
+			//Number Only Text Fields.
+			$(".numberOnly").keydown(function (e) {
+				        // Allow: backspace, delete, tab, escape, enter and .
+					
+				        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				             // Allow: Ctrl+A, Command+A
+				            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+				             // Allow: home, end, left, right, down, up
+				            (e.keyCode >= 35 && e.keyCode <= 40)) {
+				                 // let it happen, don't do anything
+				                 return;
+				        }
+				        // Ensure that it is a number and stop the keypress
+				        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				            e.preventDefault();
+				        }
+				});
+			
 });

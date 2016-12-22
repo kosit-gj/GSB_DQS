@@ -1,23 +1,21 @@
-
-   	<link href="css/rolemanagement.css" rel="stylesheet">
-	
+<link href="css/rolemanagement.css" rel="stylesheet">	
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Role </strong>
             </li>
         </ol>
@@ -41,11 +39,14 @@
          							<div id="btnTopManageArea" class="row ">
          							
          								<div class="col-sm-9 m-b-xs">
-	                                   		<button type="button" class="btn btn-info" id="btnAddRole" data-target="#addModalRole" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Rule</button>	                                    	
+	                                   		<button type="button" class="btn btn-info" id="btnAddRole" data-target="#addModalRole" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Role</button>	                                    	
 	                                    </div>
-                                    	
+	                                     <div class="col-sm-3">
+					                       <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+					                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+					                    </div> 
          							</div>
-         							
+         								
                                     	<!-- start table -->
                                     	<div class="table-responsive">
                                    		<table class="table table-striped" id="tableRole">
@@ -53,8 +54,8 @@
                                         <tr>
                                             <th style='width:50px;'>No.</th>
                                             <th>Role Name</th>
-                                            <th style='width:80px;'>Authorize</th>
-                                            <th style='width:80px;' align="center">Manage</th>
+                                            <th style='width:80px;'><div class='objectCenter'>Authorize</div></th>
+                                            <th style='width:80px;' align="center"><div class='objectCenter'>Manage</div></th>
                                         </tr>
                                         </thead>
                                         <tbody id="listRole">
@@ -65,7 +66,7 @@
                                         </table>
                                         </div>
                                         
-                                    	<!-- end table //////////////////////////////////////////////////-->
+                                    	<!-- end table -->
                                 	
          						</div><!-- content end -->
          					</div>
@@ -83,9 +84,7 @@
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">ร—</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title">Edit Role</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+               
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -121,16 +120,15 @@
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">ร—</span><span class="sr-only">Close</span></button>
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title" id="modalTitleRole">Add New Role</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+               
             </div>
             <div class="modal-body">
                 <!-- content start -->
                 <h2 class="modal-title"><i class="fa fa fa-folder-open icon-title"></i> <span id='modalDescription'>ADD NEW ROLE</span></h2>
+                <span>All field marked with an asterisk(<font color="red">*</font>) are required.</span>
                 <hr>
                 
                 <!-- form start -->
@@ -139,12 +137,13 @@
 	                	Role Name
 	                </div>
 	                
+	                
 	                <div class="form-input-role">
 	                	<input type="text" class="form-control input-sm" placeholder="" id="role_name" name="role_name">
 	               		  
                 	    <div class="checkbox checkbox-inline">
                         	<input type="checkbox" name="CheckboxInline" id="authority_checkbox_role">
-                        	<label for="CheckboxInline"> Have Authority on System Monitoring </label>
+                        	<label for="CheckboxInline"> Have Authority on Data Quality Monitoring</label>
                         </div> 
                         
                         <div class="checkbox checkbox-inline">
@@ -178,7 +177,7 @@
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">ร—</span><span class="sr-only">Close</span></button>
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title">Authorize</h4>
                
@@ -232,9 +231,7 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
+               
                 <!-- form start -->
                 <div class="form-kpi-mangement">
 	                <div class="form-kpi-label" align="center">

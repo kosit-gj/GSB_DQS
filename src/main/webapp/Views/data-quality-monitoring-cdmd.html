@@ -1,26 +1,17 @@
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-    <link href="css/data_quality_monitoring.css" rel="stylesheet">
-    
-  
-	<!--  nav bar -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/data_quality_monitoring.css" rel="stylesheet">
+<!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
-     <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     <div id="slide_status"></div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-dashboard"></i> DQ Monitoring 
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Data Quality Monitoring for CDMD </strong>
             </li>
         </ol>
@@ -60,18 +51,18 @@
 	                               
                              
 	                               <div class="search-box">
-	                               			<input data-toggle="tooltip" title="GIF" type="text" class="form-control input-sm" id="" placeholder="GIF"  value="">
+	                               			<input data-toggle="tooltip" title="CIF" type="text" class="form-control input-sm" id="cif_no" placeholder="CIF"  value="">
 	                               </div>
 	                               
 	                               <div class="search-box">
-	                               			<input data-toggle="tooltip" title="Customer Name" type="text" class="form-control input-sm" id=""  placeholder="Customer Name" value="">
+	                               			<input data-toggle="tooltip" title="Customer Name" type="text" class="form-control input-sm" id="cust_full_name"  placeholder="Customer Name" value="">
 	                               </div>
 	                               
 	                                <div class="search-box" id="listCusTypeArea" data-toggle="tooltip" title="List Customer Type"></div>
 	                               
 	                               <div class="search-box">
 		                               		<select class="form-control input-sm" id="processType" name="processType" data-toggle="tooltip" title="Process Type">
-		                                        <option>Process Type</option>
+		                                        
 		                                        <option selected>Last Contact</option>
 		                                        <option>Initial</option>
 		                                        <option>Update</option>
@@ -79,9 +70,9 @@
 	                               </div>
 	                               
 	                                <div class="search-box">
-	                               			<select class="form-control input-sm" name="roleGroup" data-toggle="tooltip" title="Role Group">
-		                                        <option>Role Group</option>
-		                                         <option selected>All</option>
+	                               			<select class="form-control input-sm" name="rule_group" id='rule_group' data-toggle="tooltip" title="Rule Group">
+		                                       
+		                                         <option value='' selected>All Rule Group</option>
 												 <option>Cleansing</option>
 												 <option>Mapping</option>
 												 <option>Matching</option>
@@ -99,8 +90,8 @@
 	                               
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Validate Status" class="form-control input-sm" id="validate_status" name=validate_status">
-		                                         <option>Validate Status</option>
-		                                         <option>All</option>
+		                                         
+		                                         <option value="">All Validate Status</option>
 												 <option>incomplete</option> 
 												 <option>wrong</option>
 												 <option>complete</option>
@@ -111,30 +102,30 @@
 	                               
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Is Customer" class="form-control input-sm" id="is_customer" name="is_customer">
-		                                         <option>Is Customer</option>
-		                                         <option>All</option>
-												 <option selected>Yes</option> 
-												 <option>No</option>
+		                                        
+		                                         <option value=''>All Is Customer</option>
+												 <option value='1' selected>Yes</option> 
+												 <option value='0'>No</option>
 												
 		                                    </select>
 	                               </div>
 	                               
 	                                <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Is Death" class="form-control input-sm" id="is_death" name="is_death">
-		                                         <option>Is Death</option>
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
+		                                        
+		                                         <option value='' selected>All Is Death</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 												
 		                                    </select>
 	                               </div>
 	                               
 	                                <div class="search-box">
-	                               			<select data-toggle="tooltip" title="Is Personel" class="form-control input-sm" name="is_personel" id="is_personel">
+	                               			<select data-toggle="tooltip" title="Is Personnel" class="form-control input-sm" name="is_personel" id="is_personel">
 		                      
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
+		                                         <option value='' selected>All Is Personnel</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 		                                        
 		                                    </select>
 	                               </div>
@@ -142,9 +133,9 @@
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Is Employee" class="form-control input-sm" name="is_employee" id="is_employee">
 		                                       
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
+		                                         <option value='' selected>All Is Employee</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 		                                       
 		                                    </select>
 	                               </div>
@@ -152,7 +143,7 @@
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Explain Status" class="form-control input-sm" name="explain_status" id="explain_status">
 		                                       
-		                                         <option>All</option>
+		                                        <option value=''>All Explain Status</option>
 												<option selected>1-Waiting </option>
 												<option>2-Approved</option>
 												<option>3-Not Approved</option>
@@ -163,38 +154,28 @@
 	                               
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Is Affiliation" class="form-control input-sm" name="is_affiliation" id="is_affiliation">
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                        
+		                                         <option value='' selected>All Is Affiliation</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 		                                    </select>
 	                               </div>
 	                               
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Inform Branch" class="form-control input-sm" name="inform_branch" id="inform_branch">
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
-		                                        
+		                                         <option value='' selected>All Inform Branch</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 		                                    </select>
 	                               </div>
 	                               
 	                               <div class="search-box">
 	                               			<select data-toggle="tooltip" title="Is Released" class="form-control input-sm" id="is_released" name="is_released">
-		                                         <option selected>All</option>
-												 <option>Yes</option> 
-												 <option>No</option>
+		                                         <option value='' selected>All Is Released</option>
+												 <option value='1'>Yes</option> 
+												 <option value='0'>No</option>
 		                                    </select>
 	                               </div>
-	                               
-	                               
-	                               
-	                              
-	                               
 	                               <!-- Sequential  already-->
-	                               
-	                           
-	                              
 	                              <div class="search-box">
 	                              		<button class="btn btn-info btn-search input-sm" id="btnSearchAdvance"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
 	                              </div>
@@ -206,10 +187,6 @@
                             <!-- input search end  -->  
                             </div> 
                            </div>
-                                
-                                
-                               
-
                             </div>
                         </div>
                     </div>
@@ -218,35 +195,11 @@
 				</div>
 				
                 <div class="row" id="cifListArea">
-                
-                
-                
-
                     <div class="col-lg-12">
                     
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>CIF List </h5>
-                                
-                                <!-- 
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a href="#">Config option 1</a>
-                                        </li>
-                                        <li><a href="#">Config option 2</a>
-                                        </li>
-                                    </ul>
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
-                                 -->
                             </div>
                             <div class="ibox-content">
                             
@@ -267,62 +220,64 @@
                                     
                                      <div class="col-sm-3">
                                      	<div class='object-right'>
-                                     		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" id="btnSave" data-toggle="modal"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
-                                    
+                                     	<form id='formExportToExcel' action="" method="post" target="_blank">
+                                     		  <button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+                                    	</form>
                                      	</div>
-                                     	<!-- <div class=''>
-		                                     <div class="input-group"><input type="text" placeholder="Search" class="input-smm form-control"> <span class="input-group-btn">
-	                                         <button type="button" class="btn btn-sm btn-primary">&nbsp;<i class=' fa fa-search'> </i> &nbsp;</button> </span></div>
-                                     	</div> -->
+                                     	
+                                   	 	<div>
+			                       			<div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+			                          		<button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+			                    		</div> 
                                      </div>
                              </div>
                              
-                               <!--  <div class="row">
-                                    <div class="col-sm-9 m-b-xs">
-		
-										<div class="btn-group">
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-                    										
-                                        <div data-toggle="buttons" class="btn-group">
-                                            <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
-                                            <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
-                                            <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-
-                                    </div>
-                                </div> -->
+                               <!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_top"></span>
+	                                </div>
+	                                 <div class="col-sm-3 object-right paging-text">
+	                                 
+	                                 	<div class='pagingDropdown'>
+	                                 	
+		                                 	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+			                                     <option>10</option>
+			                                     <option>20</option>
+			                                     <option>50</option>
+			                                     <option>100</option>
+			                                 </select> 
+			                                 
+	                                 	</div>
+										<div class='pagingText'>Results per page</div>
+	                                 
+	                                 </div>
+	                                 <!-- 
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+                                	</div>
+                                	 -->
+                               	</div> 
+                               	 <!-- pagination end -->
                                 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableDataQuality">
                                         <thead>
                                         <tr>
                                              <th>No. </th>
-                                             <th>CIF</th>
+                                             <th>CIF No.</th>
                                              <th>Customer Name</th>
                                              <th>Validate Date</th>
-											 <th>Last Contackt Branch</th> 
+											 <th>Last Contact Branch</th> 
 											 <th>Last Contact Date</th>
 											 <th>Last Trans Date</th> 
 											 <th>#Rules</th> 
-											 <th>#Maxday</th> 
+											 <th>#Maxdays</th> 
 											 <th>Show Detail</th>
                                         </tr>
                                         </thead>
@@ -333,41 +288,37 @@
                                 </div>
                                 
                                 
-                                <!-- footer paging start -->
-                                
-                                 <!-- <div class="row">
-                                    <div class="col-sm-9 m-b-xs">
- 
-										<div class="btn-group">
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-                    
-                 
-                            
-			
-										
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-1">
-                                    
-                                    	<select name="account" class="form-control">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-	                                    
-                                        
-                                    </div>
-                                </div> -->
-                                <!-- footer paging end -->
-
+                               <!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_bottom"></span>
+	                                </div>
+	                                 <div class="col-sm-3 object-right paging-text">
+	                                 
+	                               			<div class='pagingDropdown'>
+		                               			<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+				                                     <option>10</option>
+				                                     <option>20</option>
+				                                     <option>50</option>
+				                                     <option>100</option>
+			                                 	</select> 
+	                               			</div>
+											<div class='pagingText'>Results per page</div>
+	                                 
+	                                 </div>
+	                                 <!-- 
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+                                	</div>
+                                	 -->
+                               	</div> 
+                               	 <!-- pagination end -->
+								 <br style='clear:both'>
                             </div>
                         </div>
                     </div>
@@ -375,7 +326,7 @@
                 </div>
 
           
-
+<div id="paramPagingDetail"></div>
 
 
 <!-- Modal Start -->
@@ -387,9 +338,7 @@
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title">Show Detail</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+              
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -397,24 +346,7 @@
                              <div class="row">
                              	<div class="col-sm-12 title-detail">
 		                             	<div class="alert alert-warning" id="detail_id">
-			                             	 <div class="label-detail">
-			                             		<div class="box1"><b>CIF</b> : 33890712</div>
-			                             	</div>
-			                             	<div class="label-detail">
-			                             		<div class="box2"><b>Name</b> : วิฑูลย์ ศรีสวัสดิ์</div>
-			                             	</div>
-			                             	
-			                             	<div class="label-detail">
-			                             		<div class="box3"><b>Customer Type</b> : บุคคลธรรดา</div>
-			                             	</div>
-			                             	
-			                             	<div class="label-detail">
-			                             		<div class="box4"><b>Branch</b> : สาขาแฟชั่นไอส์แลนด์</div>
-			                             	</div>
-			                             	
-			                             	<div class="label-detail">
-			                             		<div class="box5"><b>Last Contact Date</b> : 28 AUG 2016</div>
-			                             	</div>
+		                             		
 			                             	<br style="clear:both">
 		                             	</div>
                              	</div>
@@ -428,49 +360,47 @@
                                     <button id="btnCancle" class="btn btn-danger " type="button"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
  
                                     </div>
+                                    <div class="col-sm-2"></div>
+                                     <div class="col-sm-3">
+                                    		 <div class="input-group">
+	                                    		 <input type="text" class="input-sm form-control" id="searchTextDetail" placeholder="Search"> 
+	                                    		 <span class="input-group-btn">
+				                          			<button id="btnSearchDetail" class="btn btn-sm btn-primary" type="button">&nbsp;<i class="fa fa-search"></i></button> 
+				                          		</span>
+			                          		</div>
+                                     </div>
                                     
                                 
                              </div>
                              
-                                <!-- <div class="row">
-                                    <div class="col-sm-8 m-b-xs">
-                                    
-										<div class="btn-group">
-					                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-2">
-                                    
-                                    	<select class="form-control" name="account">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select>
-	                                    
-                                        
-                                    </div>
-                                </div> -->
+                               <!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_top2"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="countPaginationTop2" id='countPaginationTop2'  class="form-control input-sm countPagination2">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+	                                	</div>
+	                               	</div> 
+                               	 <!-- pagination end -->
                                 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableMakeRuleQuality">
                                         <thead>
                                         <tr>
-                                             <th>No.</th>
-                                             <th>RuleGroup</th>
-                                             <th width="30%">Rule</th>
-                                             <th>#Day</th>
-                                             <th>KPI</th>
-                                             <th>Validate Status</th>
-                                             <th>No Doc.</th>   
+                                             <th style='width:30px;'>No.</th>
+                                             <th style='width:30px;'>RuleGroup</th>
+                                             <th style='width:280px;'>Rule</th>
+                                             <th style='width:50px;'>#Day</th>
+                                             <th style='width:50px;'>KPI</th>
+                                             <th style='width:100px;'>Validate Status</th>
+                                             <th style='width:50px; text-align:center'>No Doc.</th>   
                                         </tr>
                                         </thead>
                                         <tbody id="tableDataMakeRuleQuality">
@@ -480,40 +410,31 @@
                                 </div>
                                 
                                 
-                                <!-- footer paging start -->
-                                
-                                 <!-- <div class="row">
-                                    <div class="col-sm-8 m-b-xs">
- 
-										<div class="btn-group">
-					                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-					                        <button class="btn btn-white">1</button>
-					                        <button class="btn btn-white  active">2</button>
-					                        <button class="btn btn-white">3</button>
-					                        <button class="btn btn-white">4</button>
-					                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
-					                    </div>
-										
-                                    </div>
-                                    
-                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
-                                    <div class="col-sm-2">
-                                    
-                                    	<select class="form-control" name="account">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
-	                                    </select> 
-                                    </div>
-                                </div> -->
-                                <!-- footer paging end -->
-
+                                <!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_bottom2"></span>
+	                                </div>
+	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-1">
+	                                	<select name="countPaginationBottom2" id='countPaginationBottom2'  class="form-control input-sm countPagination2">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+	                                	</div>
+	                              </div> 
+                               	 <!-- pagination end -->
+								<br style='clear:both'>
                             </div>
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-            	<input type="hidden" id="id">
+            	<input type="hidden" id="validate_header_id">
+            	<input type="hidden" id="embed_param_count_rule">
+            	<input type="hidden" id="embed_param_count_maxdays">
+            	<span id='iconStatusDetailPage'></span>
             	<button class="btn btn-primary btn-explain" id="btn-explain" type="button">Explain</button>
                 <button data-dismiss="modal" class="btn btn-white" type="button">Back</button>
                 <div id="information" class="alert alert-warning"></div>
@@ -532,9 +453,7 @@
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title">Explain</h4>
-                <!-- 
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                 -->
+               
             </div>
             
             <!-- id ที่จะรับ value -->
@@ -556,14 +475,13 @@
 					<div class="input-explain">
 						
 						<div id="explain_files">
-						Upload File Name, Upload File Name2,<br> 
-						Upload File Name, Upload File Name4,<br>
-						Upload File Name5
+						
 						<!-- <font color="red">* หมายเหตุ ลูกค้าเข้ามาติดต่อล่าสุดไม่เกิน 3 เดือน เหตุใดถึงไม่พบเอกสาร</font> -->
 						</div>
 						
 						
 					</div>
+					<br style='clear:both'>
 				</div>
 				
 				<div>
@@ -571,9 +489,9 @@
 						Explained By :	
 					</div>
 					<div class="input-explain" id="explain_user">
-						 [Sir Apiwat]
+						
 					</div>
-				 
+				 <br style='clear:both'>
 				</div>
 				
 				<div >
@@ -581,19 +499,13 @@
 						Explained Datetime :	
 					</div>
 					<div class="input-explain" id="explain_dttm">
-						18/11/2016 14:50:33
+						
 					</div>
-				 
+				 <br style='clear:both'>
 				</div>
-				
+
 				<hr>
-				
-				<div>
-					<div class="label-hr">
-						<hr>
-					</div>		
-				</div>
-					
+
 				<div>
 					
 					<div class="label-explain">
@@ -601,21 +513,22 @@
 					</div>
 					
 					<div class="input-explain ">
-	  					 <input checked='checked' type="radio" name="radioAppove" id="cdmd_explain_no_explanation"> ไม่ชี้แจง  
-	  					 <input type="radio" name="radioAppove" id="cdmd_explain_pending"> รออนุมัติ  
-	  					 <input type="radio" name="radioAppove" id="cdmd_explain_approve"> อนุมัติ  
-	  					 <input type="radio" name="radioAppove" id="cdmd_explain_not_allowed"> ไม่อนุมัติ 
+					
+	  					 <input value='4' type="radio" disabled='disabled' name="cdmd_explain_status" id="cdmd_explain_no_explanation"> Not Explain 
+	  					 <input value='1' type="radio" disabled='disabled' name="cdmd_explain_status" id="cdmd_explain_waiting"> Waiting  
+	  					 <input value='2' type="radio"  name="cdmd_explain_status" id="cdmd_explain_approve"> Approved  
+	  					 <input value='3' type="radio"  name="cdmd_explain_status" id="cdmd_explain_not_approved"> Not Approved 
 					</div>
-				
+				<br style='clear:both'>
 				</div>
 				<div>
 					<div class="label-explain">
 						Approved By :	
 					</div>
 					<div class="input-explain" id="approve_user">
-						 [Sir Apiwat]
+						 
 					</div>
-				 
+				 <br style='clear:both'>
 				</div>
 				
 				<div >
@@ -623,10 +536,12 @@
 						Approved Datetime :	
 					</div>
 					<div class="input-explain" id="approve_dttm">
-						18/11/2016 15:00:01
+						
 					</div>
-				 
+				 <br style='clear:both'>
 				</div>
+				<input type='hidden' id='embed_explain_status' name='embed_explain_status' >
+				
 				 
 				<br style="clear:both">
 				
@@ -646,9 +561,6 @@
                             
 <!-- Modal End -->
 <div id="embedParamArea"></div>
-
-    <script src="Controller/cDataQualityMonitoring.js"></script>
+<script src="Controller/cDataQualityMonitoring.js"></script>
  
-</body>
 
-</html>

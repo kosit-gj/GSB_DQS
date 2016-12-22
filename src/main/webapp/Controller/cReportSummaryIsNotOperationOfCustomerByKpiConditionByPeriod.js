@@ -1,204 +1,252 @@
+var golbalData=[];
 //binding tooltip.
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
-var dropDownListLine = function(id){
-//	$.ajax({
-//		url:"http://localhost:3001/api/make_param_contact_type",
-//		type:"get",
-//		dataType:"json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success:function(data){
-	
-	    var data=[{"id":"1","line_name":"สาย1"},{"id":"2","line_name":"สาย2"},{"id":"3","line_name":"สาย"}];
-		var html="";	
-		html+="<select class=\"form-control input-sm listLine\" id=\"listLine\">";
-		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["id"]+">"+indexEntry["line_name"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["id"]+">"+indexEntry["line_name"]+"</option>";	
-			}		
-		});	
-		html+="</select>";
-		$("#listLineArea").html(html);
-		
-//		}
-//	});
-};
-var dropDownListSector = function(id){
-//	$.ajax({
-//		url:"http://localhost:3001/api/make_param_contact_type",
-//		type:"get",
-//		dataType:"json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success:function(data){
-	
-	    var data=[{"id":"1","sector_name":"ภาค1"},{"id":"2","sector_name":"ภาค2"},{"id":"3","sector_name":"ภาค3"}];
-		var html="";	
-		html+="<select class=\"form-control input-sm lisSector\" id=\"lisSector\">";
-		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["id"]+">"+indexEntry["sector_name"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["id"]+">"+indexEntry["sector_name"]+"</option>";	
-			}		
-		});	
-		html+="</select>";
-		$("#listSectorArea").html(html);
-		
-//		}
-//	});
-};
-var dropDownListArea = function(id){
-//	$.ajax({
-//		url:"http://localhost:3001/api/make_param_contact_type",
-//		type:"get",
-//		dataType:"json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success:function(data){
-	
-	    var data=[{"id":"1","sector_area":"เขต1"},{"id":"2","sector_area":"เขต2"},{"id":"3","sector_area":"เขต3"}];
-		var html="";	
-		html+="<select class=\"form-control input-sm lisSector\" id=\"listArea\">";
-		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["id"]+">"+indexEntry["sector_area"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["id"]+">"+indexEntry["sector_area"]+"</option>";	
-			}		
-		});	
-		html+="</select>";
-		$("#listAreaArea").html(html);
-		
-//		}
-//	});
-};
-
-var dropDownListBranch = function(id){
-//	$.ajax({
-//		url:"http://localhost:3001/api/make_param_contact_type",
-//		type:"get",
-//		dataType:"json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success:function(data){
-	
-	    var data=[{"id":"1","name":"สาขา1"},{"id":"2","name":"สาขา2"},{"id":"3","name":"สาขา3"}];
-		var html="";	
-		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
-		$.each(data,function(index,indexEntry){
-			if(id==indexEntry["id"]){
-				html+="<option selected value="+indexEntry["id"]+">"+indexEntry["name"]+"</option>";			
-			}else{
-				html+="<option  value="+indexEntry["id"]+">"+indexEntry["name"]+"</option>";	
-			}		
-		});	
-		html+="</select>";
-		$("#listBranchArea").html(html);
-		
-//		}
-//	});
-};
 
 var listDataFn = function(data){
 	
-	if ( $.fn.DataTable.isDataTable('#reportSumIsNotOperOfCusByKpiConByPeriodTable')) {
-	      $('#reportSumIsNotOperOfCusByKpiConByPeriodTable').DataTable().destroy();
-	     }
+	 var htmlTable="";
+	 $("#listDataSumCusNotImplement").empty();
+	   $.each(data,function(index,indexEntry){
+		
+			
+		     htmlTable+="<tr class='danger'>";
+			      htmlTable+="<td>"+indexEntry['operation_name']+"</td>";
+			      htmlTable+="<td>ผลรวม</td>";
+			      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
+			   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
+				  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
+				  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
+			      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
+			      htmlTable+="<td>"+indexEntry['total']+"</td>";
+			      
+		     htmlTable+="</tr>";
+		     
+			     $.each(indexEntry['regions'],function(index2,indexEntry2){
+			    	 htmlTable+="<tr class='warning'>";
+						      htmlTable+="<td>-- "+indexEntry2['region_name']+"</td>";
+						      htmlTable+="<td>ผลรวม</td>";
+						      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
+						   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
+							  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
+							  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
+						      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
+						      htmlTable+="<td>"+indexEntry['total']+"</td>";
+					     htmlTable+="</tr>";
+					     
+					     $.each(indexEntry2['districts'],function(index3,indexEntry3){
+					    	 htmlTable+="<tr class='danger'>";
+								      htmlTable+="<td>--- "+indexEntry3['district_name']+"</td>";
+								      htmlTable+="<td>ผลรวม</td>";
+								      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
+								   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
+									  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
+									  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
+								      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
+								      htmlTable+="<td>"+indexEntry['total']+"</td>";
+							     htmlTable+="</tr>";
+							     
+							     
+									     htmlTable+="<tr>";
+								     		htmlTable+="<td>---- รหัสสาขา</td>";
+								     		htmlTable+="<td>ชื่อสาขา</td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+								     		htmlTable+="<td></td>";
+							     		htmlTable+="/tr>";
+								     $.each(indexEntry3['branches'],function(index4,indexEntry4){
+								    	 htmlTable+="<tr class=''>";
+											      htmlTable+="<td>---- "+indexEntry4['contact_branch_code']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['contact_branch_name']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
+											   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
+												  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
+												  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
+											      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
+											      htmlTable+="<td>"+indexEntry['total']+"</td>";
+										     htmlTable+="</tr>";
+								     });
+						     
+					     });
+					     		
+			     });
 	
-			 var htmlTable="";
-			 $("#listDataSumIsNotOperOfCusByKpiConByPeriod").empty();
-			   $.each(data,function(index,indexEntry){
-				var trColor="";
-					if(indexEntry[16]=="level1"){
-						trColor="warning";
-					}else if(indexEntry[16]=="level2"){
-						trColor="danger";
-					}else if(indexEntry[16]=="level3"){
-						trColor="warning";
-					}else if(indexEntry[16]=="level4"){
-						trColor="";
-					}
-					
-				     htmlTable+="<tr class="+trColor+">";
-					      htmlTable+="<td>"+indexEntry[0]+"</td>";
-					      htmlTable+="<td>"+indexEntry[1]+"</td>";
-					      htmlTable+="<td>"+indexEntry[2]+"</td>";
-					   	  htmlTable+="<td>"+indexEntry[3]+"</td>";
-						  htmlTable+="<td>"+indexEntry[4]+"</td>";
-						  htmlTable+="<td>"+indexEntry[5]+"</td>";
-					      htmlTable+="<td>"+indexEntry[6]+"</td>";
-					      htmlTable+="<td>"+indexEntry[7]+"</td>";
-					      htmlTable+="<td>"+indexEntry[8]+"</td>";
-					      htmlTable+="<td>"+indexEntry[9]+"</td>";
-					      htmlTable+="<td>"+indexEntry[10]+"</td>";
-						  htmlTable+="<td>"+indexEntry[11]+"</td>";
-					      htmlTable+="<td>"+indexEntry[12]+"</td>";
-					      htmlTable+="<td>"+indexEntry[13]+"</td>";
-					      htmlTable+="<td>"+indexEntry[14]+"</td>";
-					      htmlTable+="<td>"+indexEntry[15]+"</td>";
-				     htmlTable+="</tr>";
-					
-			   });
+	   });
 				
-			  $("#listDataSumIsNotOperOfCusByKpiConByPeriod").html(htmlTable);
+$("#listData").html(htmlTable);
 			  
 			
-			  //DataTable
-			  $('#reportSumIsNotOperOfCusByKpiConByPeriodTable').DataTable( {
-				  "dom": '<"top"flp>rt<"bottom"lp><"clear">',
-				  "order": [],
-				    "columnDefs": [ {
-				      "targets"  : 'no-sort',
-				      "orderable": false,
-				    }
-				    ],
-				    "bSort" : false,     
-			  }); 
 			
 	
 };
 var getDataFn = function() {
-//	$.ajax({
-//		url : "http://localhost:3001/api/make_import_log_report",
-//		type : "get",
-//		dataType : "json",
-//		//headers:{Authorization:"Bearer "+tokenID.token},
-//		success : function(data) {
-//			listDataFn(data);
-//		}
-//	});
 	
-	var data = [["สายปฏิบัติการ1", "ผลรวม","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level1"],
-	            ["ธนาคารออมสินภาค1", "ผลรวม","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level2"],
-	            ["ธนาคารออมสินเขตห้วยขวาง", "ผลรวม","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level3"],
-	            ["รหัสสาขา", "ชื่อสาขา","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา1","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา2","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา3","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา4","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา5","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา6","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["ธนาคารออมสินเขตบางกะปิ", "ผลรวม","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level3"],
-	            ["รหัสสาขา", "ชื่อสาขา","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา1","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา2","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา3","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา4","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา5","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            ["00", "สาขา6","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","444", "200" ,"300000" ,"99.99" , "99.99","99.99","99.99","level4"],
-	            
-	];
-	listDataFn(data);
+	var paramOperation=$("#paramEmbedListOperation").val();
+	var paramRegion=$("#paramEmbedListRegion").val();
+	var paramDistrict=$("#paramEmbedListDistrict").val();
+	var paramBranch=$("#paramEmbedListBranch").val();
+	
+	$.ajax({
+		url:restfulURL+"/dqs_api/public/dqs_operation_report/overdue_kpi",
+		type : "get",
+		dataType : "json",
+		data:{
+			operation_code:paramOperation,
+			region_code:paramRegion,
+			district_code:paramDistrict,
+			contact_branch_code:paramBranch,
+			
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success : function(data) {
+			listDataFn(data);
+		}
+	});
+
+	
 };
 
+var searchAdvanceFn = function(){
+	//embed parameter start
+	var htmlParam="";
+	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListOperation' name='paramEmbedListOperation' value='"+$("#listOperation").val()+"'>";
+	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListRegion' name='paramEmbedListRegion' value='"+$("#listRegion").val()+"'>";
+	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListDistrict' name='paramEmbedListDistrict' value='"+$("#listDistrict").val()+"'>";
+	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListBranch' name='paramEmbedListBranch' value='"+$("#listBranch").val()+"'>";
+	
 
+	$(".paramEmbedArea").empty();
+	$(".paramEmbedArea").append(htmlParam);
+	getDataFn();
+	//getDataFn(1,$("#rpp").val());
+}
 
 $(document).ready(function(){
-	dropDownListLine();
-	dropDownListSector();
-	dropDownListArea();
-	dropDownListBranch();
+	dropDownListOperation();
+	$(document).off("change","#listOperation");
+	$(document).on("change","#listOperation",function(){
+		if($(this).val()==""){
+			var dropDownHtmlRegion="<select id=\"listRegion\" class=\"form-control input-sm listRegion\">";
+			dropDownHtmlRegion+="<option value=\"\">All Region</option>";
+			dropDownHtmlRegion+="</select>";
+			
+			var dropDownHtmlDistrict="<select id=\"listDistrict\" class=\"form-control input-sm listDistrict\">";
+			dropDownHtmlDistrict+="<option value=\"\">All District</option>";
+			dropDownHtmlDistrict+="</select>";
+			
+			var dropDownHtmlBranch="<select id=\"listBranch\" class=\"form-control input-sm listBranch\">";
+			dropDownHtmlBranch+="<option value=\"\">All Branch</option>";
+			dropDownHtmlBranch+="</select>";
+
+			$("#listRegionArea").html(dropDownHtmlRegion);
+			$("#listDistrictArea").html(dropDownHtmlDistrict);
+			$("#listBranchArea").html(dropDownHtmlBranch);
+		}else{
+			dropDownListRegion($(this).val());
+		}
+	});
+	$(document).off("change","#listRegion");
+	$(document).on("change","#listRegion",function(){
+		if($(this).val()==""){
+			var dropDownHtmlDistrict="<select id=\"listDistrict\" class=\"form-control input-sm listDistrict\">";
+			dropDownHtmlDistrict+="<option value=\"\">All District</option>";
+			dropDownHtmlDistrict+="</select>";
+			
+			var dropDownHtmlBranch="<select id=\"listBranch\" class=\"form-control input-sm listBranch\">";
+			dropDownHtmlBranch+="<option value=\"\">All Branch</option>";
+			dropDownHtmlBranch+="</select>";
+
+			$("#listDistrictArea").html(dropDownHtmlDistrict);
+			$("#listBranchArea").html(dropDownHtmlBranch);
+		}else{
+			dropDownListDistrict($(this).val());
+		}
+		
+	});
+	$(document).off("change","#listDistrict");
+	$(document).on("change","#listDistrict",function(){
+
+		if($(this).val()==""){
+			
+			var dropDownHtmlBranch="<select id=\"listBranch\" class=\"form-control input-sm listBranch\">";
+			dropDownHtmlBranch+="<option value=\"\">All Branch</option>";
+			dropDownHtmlBranch+="</select>";
+			$("#listBranchArea").html(dropDownHtmlBranch);
+		}else{
+			dropDownListBranch($(this).val());
+		}
+
+		
+	});
 	
-	getDataFn();
+	//getDataFn();
+	$("#btnAdvanceSearch").click(function(){
+		searchAdvanceFn();
+	});
+	$("#btnAdvanceSearch").click();
+	
+	//Export
+	$("#exportToExcel").click(function(){
+		
+		
+
+		var paramOperation=$("#paramEmbedListOperation").val();
+		var paramRegion=$("#paramEmbedListRegion").val();
+		var paramDistrict=$("#paramEmbedListDistrict").val();
+		var paramBranch=$("#paramEmbedListBranch").val();
+		
+		var param="";
+		param+="&operation_code="+paramOperation;
+		param+="&region_code="+paramRegion;
+		param+="&district_code="+paramDistrict;
+		param+="&contact_branch_code="+paramBranch;
+		
+		
+		$("form#formExportToExcel ").attr("action",restfulURL+"/dqs_api/public/dqs_operation_report/overdue_kpi/export?token="+tokenID.token+""+param);
+		$("form#formExportToExcel ").submit();
+	});
 });

@@ -1,20 +1,20 @@
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 <link href="css/import_log_report.css" rel="stylesheet">
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+          	 <div id="btnClose">×</div>
+     	     <div id="slide_status_area"></div>
+     
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-bar-chart-o"></i> Report
             </li>
             <li class="active">
@@ -32,27 +32,21 @@
             <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Advance Search </h5>
-                            
-                            
+                            <h5>Advance Search </h5> 
                         </div>
                         <div class="ibox-content">
 	                        <div class='row'>
 		                        <!-- input search start  -->
 		                         <div class='search-area'>
-		                         
 		                            <div data-toggle="tooltip" title="Contact Type" class="search-box" id="contactTypeArea">
-		
 		                            </div>
 		                            
 		                            <div class="search-box">
-		                            
 		                            	<input data-toggle="tooltip" title="Import Date" type="text" name="import_date" id="import_date" class="form-control input-sm" placeholder="Import Date">
-		                            	
 		                            </div>
 		
-		                           <div class="btn-search-box">
-		                           		<button class="btn btn-info  input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+		                           <div class="btn-search-box">		
+		                           		<button id='btnSearchAdvance' class="btn btn-info  input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
 		                           </div>
 		                            <br style="clear:both">
 		                           
@@ -66,30 +60,12 @@
             
             <!-- SEARCH ADVANCE END -->
 </div>			
- <div class="row">
+ <div class="row" id="importReportLogArea">
      <div class="col-lg-12"> 
          <div class="ibox float-e-margins">
              <div class="ibox-title">
                  <h5>Log List </h5>
-                 <!-- 
-                 <div class="ibox-tools">
-                     <a class="collapse-link">
-                         <i class="fa fa-chevron-up"></i>
-                     </a>
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                         <i class="fa fa-wrench"></i>
-                     </a>
-                     <ul class="dropdown-menu dropdown-user">
-                         <li><a href="#">Config option 1</a>
-                         </li>
-                         <li><a href="#">Config option 2</a>
-                         </li>
-                     </ul>
-                     <a class="close-link">
-                         <i class="fa fa-times"></i>
-                     </a>
-                 </div>
-                  -->
+                
              </div>
              <div class="ibox-content">
              
@@ -98,10 +74,46 @@
                      </div>
                       <div class="col-sm-3">
                       	<div class='object-right'>
-                      		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" data-toggle="modal"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+                      		  <form id='formExportToExcel' action="" method="post" target="_blank">
+                          			 <button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+                          	  </form>
                       	</div>
                       </div>
               </div>
+            
+              <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        
+                        <div class='pagingDropdown'>
+                        
+	                        <select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+	                             <option>10</option>
+	                             <option>20</option>
+	                             <option>50</option>
+	                             <option>100</option>
+	                         </select> 
+                        
+                        </div>
+						<div class='pagingText'>Results per page</div>
+
+
+                        </div>
+                        <!-- 
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>30</option>
+                             <option>40</option>
+                         </select> 
+                       	</div>
+                       	 -->
+                     </div> 
+              <!-- pagination end -->
               
                  
                  <div class="table-responsive">
@@ -124,11 +136,50 @@
                         </tr>
                         </thead>
                         <tbody id="listDataContactType">
-                         </tbody>
+                        </tbody>
                      </table>
                  </div>
+                 
+                 
+                 <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        
+                        	
+                        	<div class='pagingDropdown'>
+	                        	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+		                             <option>10</option>
+		                             <option>20</option>
+		                             <option>50</option>
+		                             <option>100</option>
+	                         	</select> 
+                        	
+                        	</div>
+							<div class='pagingText'>Results per page</div>
+						
+                        
+                        </div>
+                        <!-- 
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>30</option>
+                             <option>40</option>
+                         </select> 
+                       	</div>
+                       	 -->
+                     </div> 
+              <!-- pagination end -->
+              	<br style='clear:both'>
+              
              </div>
          </div>
      </div>
+ </div>
+ <div id='embedParamArea'>
  </div>
 <script src="Controller/cImportLogReport.js"></script>

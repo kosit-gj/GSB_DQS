@@ -6,6 +6,23 @@
     width: 223px;
     margin-bottom:5px;
 }
+.search-box-branch{
+	
+	/*border: 1px solid;*/
+    float: left;
+    margin-right: 5px;
+    width: 225px;
+    margin-bottom:5px;
+}
+.search-box-branch-btn{
+	
+	/*border: 1px solid;*/
+    float: left;
+    margin-right: 5px;
+    width: 685px;
+    margin-bottom:5px;
+    text-align:right;
+}
 .btn-search{
 	width: 100%;
 }
@@ -14,7 +31,7 @@
 	cursor:pointer;
 }
 .label-branch{
-	height:25px;
+	height:20px;
 	font-size:14px;
 }
 .label-count-fail{
@@ -39,7 +56,7 @@
 }
 .label-detail .box1{
 	/*width:117px;*/
-	width:210px;
+	width:288px;
 }
 .label-detail .box2{
 	width:174px;
@@ -67,7 +84,7 @@
 .input-explain{
 	padding-top:5px;
 	float:left;
-	width:300px;
+	width:390px;
 }
 .label-hr{
 	float:left;
@@ -85,7 +102,33 @@
  display:none;	
  text-align:left;
 }
-
+.font-icon-red{
+	color:red;
+}
+.font-icon-green{
+	color:green;
+}
+.font-icon-orange{
+	color:orange;
+}
+.btn-circle-status{
+	border-radius: 100%;
+    font-size: 12px;
+    height: 20px;
+    line-height: 0;
+    padding: 0;
+    text-align: center;
+    width: 20px;
+    margin-left: 5px;
+}
+.btn-danger-red {
+    background-color: red;
+    border-color: #ed5565;
+    color: #ffffff;
+}
+#iconStatusDetailPage{
+	margin-right:20px;
+}
 
 
 

@@ -4,9 +4,12 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
+       
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
@@ -16,7 +19,6 @@
             <i class="fa fa-bar-chart-o"></i> Report
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Reject Log </strong>
             </li>
         </ol>
@@ -32,8 +34,6 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Advance Search </h5>
-                            
-                            
                         </div>
                         <div class="ibox-content">
                          <div class='row'>
@@ -53,7 +53,7 @@
 	                            </div>
 	                            
 	                           <div class="search-box-submit">
-	                           		<button id="btnSearch" class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+	                           		<button id="btnSearchAdvance" class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
 	                           </div>
 	                            <br style="clear:both">
 	                           
@@ -81,180 +81,102 @@
                        </div>
                        <div class="col-sm-3">
                          	<div class='object-right'>
-                         		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" data-toggle="modal"><i class="fa fa-file-text-o "></i>&nbsp;Export to Excel</button>
+                         		  <form id='formExportToExcel' action="" method="post" target="_blank">
+	                           			 <button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+	                           	  </form>
                          	</div>
                        </div>
                    </div>
                    
-                      
-                <div class="table-responsive">
-        
-                    <!--  main table  start-->
-               		  <table class="table" id="mainTableReject">
-               		  <thead>
-                        <tr  class="active">
-							<th>Rejecct Log.</th>
-							
-                        </tr>
-                        </thead>
-               		  	<tbody id="listMainReject">
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               			<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-															<th>No.</th>
-															<th>CIF</th>
-															<th>Own Branch</th>
-															<th>Last Contact Branch</th>
-															<th>Citizen ID</th>
-															<th>Birth Date</th>
-															<th>Reject Detail</th>
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               	<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-															<th>No.</th>
-															<th>CIF</th>
-															<th>Own Branch</th>
-															<th>Last Contact Branch</th>
-															<th>Citizen ID</th>
-															<th>Birth Date</th>
-															<th>Reject Detail</th>
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tr>
-	               		  		<td>
-	               		  		<!-- sub main table  start-->
-				                   <div class="ibox float-e-margins">
-						               <div class="ibox-title">
-						                   <h5>ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP20161109.TXT </h5>
-						               </div>
-							               <div class="ibox-content" style='padding: 0 0px 0px;'>
-							               
-							              
-							               	<!-- table-striped -->
-							                         <table class="table ">
-							                             <thead>
-							                             <tr  class="active">
-															<th>No.</th>
-															<th>CIF</th>
-															<th>Own Branch</th>
-															<th>Last Contact Branch</th>
-															<th>Citizen ID</th>
-															<th>Birth Date</th>
-															<th>Reject Detail</th>
-							                             </tr>
-							                             </thead>
-							                             <tbody>
-							                             <tr>
-							                              	  <td><div class='text-inline-table'>1</div></td>
-							                              	  <td><div class='text-inline-table'></div></td>  
-							                              	  <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-							                              	  <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'>1939900156392  </div></td>
-							                                  <td><div class='text-inline-table'>20/06/1900</div></td>
-							                                  <td><div class='text-inline-table'>มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)</div></td>
-							                              </tr>
-							                              
-							                               <tr>
-								                              <td><div class='text-inline-table'>2</div></td>
-								                              <td><div class='text-inline-table'>4240264</div></td>  
-								                              <td><div class='text-inline-table'>009-สาขาลาดพร้าว</div></td>  
-								                              <td><div class='text-inline-table'>010-สาขาดินแดง</div></td>  
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'></div></td>
-							                                  <td><div class='text-inline-table'>ไม่พบ CIF ในฐานข้อมูลลูกค้ากลาง(สินเชื่อ) </div></td>
-							                              </tr>
-							                             </tbody>
-							                         </table>
-							                         <!-- table-striped end-->		              
-							               	</div>
-				           			</div>
-				           		<!-- sub main table  start-->
-	               		  		</td>
-	               		  	</tr>
-	               		  	<tbody>
-               		  </table>
-               		<!--  main table end -->
+                
+              
+                 
+                 
+               <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        
+                        <div class='pagingDropdown'>
+	                        <select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+	                             <option>10</option>
+	                             <option>20</option>
+	                             <option>50</option>
+	                             <option>100</option>
+	                         </select> 
+                        
+                        </div>
+						<div class='pagingText'>Results per page</div>
+                        
+                        </div>
+                        <!-- 
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>50</option>
+                             <option>100</option>
+                         </select> 
+                       	</div>
+                       	 -->
+                     </div> 
+              <!-- pagination end -->
+              <div class="row">
+                <div class="col-sm-12 ">
+	                <div class="table-responsive">
+	        
+	                    <!--  main table  start-->
+	               		  <table class="table" id="mainTableReject">
+	               		  <thead>
+	                        <tr  class="active">
+								<th>Rejecct Log.</th>
+								
+	                        </tr>
+	                        </thead>
+	               		  	<tbody id="listMainReject">
+		               		<tbody>
+	               		  </table>
+	               		<!--  main table end -->
+	                </div>
                 </div>
+               </div>
+                <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        	<div class='pagingDropdown'>
+                        	
+                        	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+	                             <option>10</option>
+	                             <option>20</option>
+	                             <option>50</option>
+	                             <option>100</option>
+	                         </select> 
+	                         
+                        	</div>
+							<div class='pagingText'>Results per page</div>
+                        
+                        </div>
+                        <!-- 
+                        
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>50</option>
+                             <option>100</option>
+                         </select> 
+                       	</div>
+                       	
+                       	-->
+                     </div> 
+              <!-- pagination end -->
+              <br style='clear:both'>
+              
                 
             </div>
         </div>
@@ -262,7 +184,7 @@
 
 </div>
 
-
+<div id='embedParamArea'></div>
 <script src="Controller/cRejectLogReport.js"></script>
  
 

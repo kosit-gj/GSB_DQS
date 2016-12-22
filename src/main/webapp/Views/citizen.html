@@ -1,33 +1,25 @@
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/citizen.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/citizen.css" rel="stylesheet">
     
-    <!--  nav bar -->
+<!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
-     <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     <div id="slide_status"></div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Citizen </strong>
             </li>
         </ol>
     </div>
-   
 </div>
 <!-- nav bar -->
 
-    
 				<div class="row"><!-- start--row -->
 
                     <div class="col-lg-12">
@@ -61,14 +53,12 @@
 												<option value="9">บุคคลอยู่ระหว่างการย้าย</option>
 											</select>
 										</div>
-										
-										
-                                  		
+
 	                                    <div class="col-sm-2 m-b-xs">
 		                                    <select data-toggle="tooltip" title="Manual Add" class="input form-control input-sm" id="manual_add" name="manual_add">
-		                                    	<option value="All">All</option>
-		                                    	<option value="Yes">Yes</option>
-		                                    	<option value="No">No</option>
+		                                    	<option value="">All Manual Add</option>
+		                                    	<option value="1">Yes</option>
+		                                    	<option value="0">No</option>
 											</select>
 										</div>
                                     
@@ -99,19 +89,15 @@
          								<div class="col-sm-9">
 	                    					<button type="button" class="btn btn-info" id="btnAddCitizen" data-target="#ModalCitizen" data-toggle="modal"><i class="fa fa-plus-square"></i>&nbsp;Add New Citizen</button>	 
                                      	</div>
+                                     	<div class="col-sm-3">
+				                       <div class="input-group"><input type="text" class="input-sm form-control" id="searchText" placeholder="Search"> <span class="input-group-btn">
+				                          <button id="btnSearch" class="btn btn-sm btn-primary" type="button">&nbsp;<i class="fa fa-search"></i></button> </span></div>
+				                    	</div>
                                     
                                      	
                                      	
          							</div>
-         							<!-- paginate start -->
-         							<!-- 
-         							<div class="bs-docs-example">
-									    <p class="demo demo4_top"></p>
-									    <p class="well demo content4">Page 1</p>
-									    <p class="demo demo4_bottom"></p>
-									</div>
-									 -->
-									<!-- paginate end -->
+         							
 									
                                     	<!-- start table -->
                                     	<!-- pagination start -->
@@ -122,17 +108,32 @@
 	                   
 	                                    	</div>
 	                                    
-		                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
+		                                    <div class="col-sm-3 object-right paging-text">
+		                                    		<div class='pagingDropdown'>
+		                                    			<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                       
+					                                        <option>10</option>
+					                                     	<option>20</option>
+					                                     	<option>50</option>
+					                                     	<option>100</option>
+					                                    </select> 
+		                                    		
+		                                    		</div>
+													<div class='pagingText'>Results per page</div>
+		                                    </div>
+		                                    <!-- -
 		                                    <div class="col-sm-1">
 	                                     
 	                                    	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                       
 		                                        <option>10</option>
-		                                        <option>20</option>
-		                                        <option>30</option>
-		                                        <option>40</option>
+		                                     	<option>20</option>
+		                                     	<option>50</option>
+		                                     	<option>100</option>
 		                                    </select> 
 	                                        
 	                                    	</div>
+	                                    	 -->
                                     	</div> 
                                     	 <!-- pagination end -->
                                     	 
@@ -144,11 +145,11 @@
 		                                            <th  style='width:10%'>ID </th>
 		                                            <th  style='width:10%'>Title</th>
 		                                            <th  style='width:15%'>Name</th>
-		                                            <th  style='width:15%'>Lastname</th>
+		                                            <th  style='width:15%'>Last name</th>
 		                                            <th  style='width:10%'>Date of Birth</th>
 		                                            <th  style='width:10%'>Sex</th>	
-		                                            <th  style='width:10%'>Manual Add</th>	
-		                                            <th style='width:5%'>Manage</th>
+		                                            <th  style='width:10%;text-align:center;'>Manual Add</th>	
+		                                            <th style='width:10%; text-align:center;'>Manage</th>
 		                                        </tr>
 	                                        </thead>
 	                                        <tbody id="listCitizen">
@@ -166,52 +167,39 @@
 	                   
 	                                    	</div>
 	                                    
-		                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
+		                                    <div class="col-sm-3 object-right paging-text">
+		                                    
+		                                    		<div class='pagingDropdown'>
+		                                    		
+		                                    				<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+						                                        <option>10</option>
+						                                     	<option>20</option>
+						                                     	<option>50</option>
+						                                     	<option>100</option>
+						                                    </select> 
+		                                    		</div>
+													<div class='pagingText'>Results per page</div>
+		                                    
+		                                    </div>
+		                                    <!-- 
 		                                    <div class="col-sm-1">
 	                                    
 	                                    	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
 		                                        <option>10</option>
-		                                        <option>20</option>
-		                                        <option>30</option>
-		                                        <option>40</option>
+		                                     	<option>20</option>
+		                                     	<option>50</option>
+		                                     	<option>100</option>
 		                                    </select> 
 	                                        
 	                                    	</div>
+	                                    	 -->
                                     	</div> 
+                                    	<br style='clear:both'>
                                     	 <!-- row end -->
-                                        
-                                        <!-- 
-                                        <table id="example" class="display" cellspacing="0" width="100%">
-										        <thead>
-										            <tr>
-										                <th>First name</th>
-										                <th>Last name</th>
-										                <th>Position</th>
-										                <th>Office</th>
-										                <th>Start date</th>
-										                <th>Salary</th>
-										            </tr>
-										        </thead>
-										        <tfoot>
-										            <tr>
-										                <th>First name</th>
-										                <th>Last name</th>
-										                <th>Position</th>
-										                <th>Office</th>
-										                <th>Start date</th>
-										                <th>Salary</th>
-										            </tr>
-										        </tfoot>
-										    </table>
-										     -->
                                     	<!-- end table -->
          						</div><!-- content end -->
          					</div>
          					</div>
-         		
-	
-	
-	
 <!-- Modal Start Edit -->
 
   <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalCitizen" class="modal inmodal" style="display: none;">
@@ -227,17 +215,18 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <h2><i class="fa fa fa-folder-open icon-title"></i> <span id="modalDescription"> ADD NEW CITIZEN</span> </h2>
+                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> <span id="modalDescription"> ADD NEW CITIZEN</span> </h2>
                 <hr>
                 
                 <!-- form start -->
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
-	                	CIF NO.  
+	                	CIF NO. <span class='redFont '>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
-	                	<input type="text" class="form-control input-sm" placeholder="" id="cifno_citizen">
+	                	<input type="text" class="form-control input-sm numberOnly" placeholder="" id="cifno_citizen">
+	                	
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -245,12 +234,12 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	ID
+	                	ID <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
 	                
-	                	<input type="text" class="form-control input-sm" placeholder="" id="id_citizen">
+	                	<input type="text" class="form-control input-sm numberOnly" placeholder="" id="id_citizen">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -259,7 +248,7 @@
                 
 	                <div class="form-label-citizen">
 	                
-	                	Title
+	                	Title <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen-title">
@@ -272,7 +261,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen" >
 	                
-	                	Name
+	                	Name <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -285,7 +274,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Lastname
+	                	Lastname <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -298,7 +287,7 @@
                  <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Date of Birth
+	                	Date of Birth <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -312,7 +301,7 @@
                 
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen">
-	                	Sex
+	                	Sex <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="input-inline-table-citizen">
@@ -335,7 +324,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	House No.
+	                	House No. <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -399,7 +388,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Thumbol
+	                	Thumbol <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -412,7 +401,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Amphur
+	                	Amphur <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -425,7 +414,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Province
+	                	Province <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen">
@@ -438,7 +427,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                	Flag-1
+	                	Flag-1 <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -459,7 +448,7 @@
                 <div class='form-file-mangement'>
 	                <div class="form-label-citizen">
 	                
-	                Flag-2
+	                Flag-2 <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="form-input-citizen-address">
@@ -487,7 +476,7 @@
                 
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen"> 
-	               	Nation
+	               	Nation <span class='redFont'>*</span>
 	                </div>
 	                
 	                <div class="input-inline-table-citizen">
@@ -524,22 +513,16 @@
 	                <div class="form-label-citizen"> 
 	               Created by
 	                </div>
-	                <div class="input-inline-table-citizen">
-	                	
-		             Wanrudee
-		              
+	                <div class="input-inline-table-citizen" id="createBy">
 	                </div>
 	                <br style="clear:both">   		
                 </div>
                 
                  <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen"> 
-	              	Created DateTime
+	              	Created Date time
 	                </div>
-	                <div class="input-inline-table-citizen">
-	                	
-		              15:15
-		              
+	                <div class="input-inline-table-citizen" id="createDateTime">
 	                </div>
 	                <br style="clear:both">   		
                 </div>
@@ -548,22 +531,16 @@
 	                <div class="form-label-citizen"> 
 	              	Update by
 	                </div>
-	                <div class="input-inline-table-citizen">
-	                	
-		             Worawut
-		              
+	                <div class="input-inline-table-citizen" id="updateBy">
 	                </div>
 	                <br style="clear:both">   		
                 </div>
                 
                 <div class='form-file-mangement-radio'>
 	                <div class="form-label-citizen"> 
-	              	Update Datetime
+	              	Update Date time
 	                </div>
-	                <div class="input-inline-table-citizen">
-	                	
-		              10:10
-		              
+	                <div class="input-inline-table-citizen" id="updateDateTime">
 	                </div>
 	                <br style="clear:both">   		
                 </div>
@@ -580,7 +557,12 @@
    				<button class="btn btn-primary" type="button" id="btnSubmit">Save</button>
    				<button class="btn btn-primary" type="button" id="btnAddAnother">Save & Add Another</button>
                 <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-                <div class="alert alert-warning" id="information" style="display: none;"></div>
+                <div class="alert alert-warning" id="information" style="display: none;">
+                	<!-- 
+                	<div class="btnModalClose">×</div>
+     				<div id="information_area"></div>
+     				 -->
+                </div>
             </div>
         </div>
     </div>

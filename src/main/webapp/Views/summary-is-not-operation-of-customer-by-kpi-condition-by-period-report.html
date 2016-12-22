@@ -1,12 +1,15 @@
 
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="css/report_summary_is_not_operation_of_customer_by_kpi_condition_by_period.css" rel="stylesheet">
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
+		 
+		 <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     	 
+     	 
 	</div>
         <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
         <ol class="breadcrumb">
@@ -19,7 +22,7 @@
             </li>
             <li class="active">
             <!-- <div id="naviLabelMenu"></div> -->
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i>  รายงานสรุปยอดคงเหลืือที่ยังไม่ดำเนินการของมูลลูกค้าตามเงื่อนไข KPI ตามงวดที่ค้าง </strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i>  รายงานสรุปยอดคงเหลือที่ยังไม่ดำเนินการของมูลลูกค้าตามเงื่อนไข KPI ตามงวดที่ค้าง </strong>
             </li>
         </ol>
     </div>
@@ -41,30 +44,39 @@
                         <div class="ibox-content">
                         
                         <!-- input search start  -->
-                         <div class='search-area'>
-                         
-                            <div data-toggle="tooltip" title="Line" class="search-box" id="listLineArea">
-                             		
-                            </div>
-                            
-                            <div data-toggle="tooltip" title="Sector" class="search-box" id="listSectorArea">
-                            			
-                            </div>
-                            
-                            
-                            <div data-toggle="tooltip" title="Area" class="search-box" id="listAreaArea">
-                            			
-                            </div>
-                            
-                             <div data-toggle="tooltip" title="Branch" class="search-box" id="listBranchArea">
-                            			
-                            </div>
-                           <div class="search-box-submit">
-                           		<button class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
-                           </div>
-                            <br style="clear:both">
-                           
-                        </div> 
+                        <div class='row'>
+                        	<div class='col-lg-12'>
+			                    <div class='search-area'>
+			                         
+			                            <div data-toggle="tooltip" title="Operation" class="search-box" id="listOperationArea">
+			                             		
+			                            </div>
+			                            
+			                            <div data-toggle="tooltip" title="Region" class="search-box" id="listRegionArea">
+			                            			 <select id="listRegion" class="form-control input-sm listRegion">
+						                            	<option value="">All Region</option>
+						                            </select>
+			                            </div>
+			                            
+			                            
+			                            <div data-toggle="tooltip" title="District" class="search-box" id="listDistrictArea">
+			                            			<select id="listDistrict" class="form-control input-sm listDistrict">
+						                            	<option value="">All District</option>
+						                            </select>	
+			                            </div>
+			                            
+			                             <div data-toggle="tooltip" title="Branch" class="search-box" id="listBranchArea">
+			                            			<select id="listBranch" class="form-control input-sm listBranch">
+						                            	<option value="">All Branch</option>
+						                            </select>	
+			                            </div>
+			                           <div class="search-box-submit">
+			                           		<button class="btn btn-info btn-search input-sm" id="btnAdvanceSearch"   type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+			                           </div>
+			                            <br style="clear:both">  
+			                     </div> 
+                        	</div>
+                        </div>
                         <!-- input search end  -->   
                         </div>
                     </div>
@@ -77,25 +89,9 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Result Search </h5>
+               <!--  <h5>Result Search </h5> -->
                 
-               <div class="ibox-tools">
-                   <a class="collapse-link">
-                       <i class="fa fa-chevron-up"></i>
-                   </a>
-                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                       <i class="fa fa-wrench"></i>
-                   </a>
-                   <ul class="dropdown-menu dropdown-user">
-                       <li><a href="#">Config option 1</a>
-                       </li>
-                       <li><a href="#">Config option 2</a>
-                       </li>
-                   </ul>
-                   <a class="close-link">
-                       <i class="fa fa-times"></i>
-                   </a>
-               </div>
+              
                 
                   </div>
                   <div class="ibox-content">
@@ -105,47 +101,95 @@
                           </div>
                            <div class="col-sm-3">
 	                           	<div class='object-right'>
-	                           		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" data-toggle="modal"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
-	                           	</div>
+	                           	
+	                          		<form id='formExportToExcel' action="" method="post" >
+	                           		  	<button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+	                           		</form>
+	                           		
+	                          	</div>
                            </div>
                    </div>
-                   
-                    
-               <div class="table-responsive">
-               <!-- table-striped -->
+                 
+                 
+                  <!-- pagination start -->
+                  <!-- 
+                      <div class="row">
+                         <div class="col-sm-9 ">
+						 <span class="pagination_top"></span>
+                         </div>
+                          <div class="col-sm-2 object-right paging-text">Results per page</div>
+                          <div class="col-sm-1">
+                         	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+                               <option>10</option>
+                               <option>20</option>
+                               <option>50</option>
+                               <option>100</option>
+                           </select> 
+                         	</div>
+                       </div> 
+                        -
+             <!-- pagination end -->
+             
                
-                        <table class="table" id="reportSumIsNotOperOfCusByKpiConByPeriodTable">
-                            <thead>
-                            <tr  class="active">
-                                 <th style="width:150px">งวดที่ค้างชำระ</th>
-                                 <th style="width:80px"></th>
-                                 <th> 1</th>
-                                 <th> 2</th>
-								 <th> 3</th> 
-								 <th> 4 </th>
-								 <th> 5 </th>
-								 <th> 6 </th> 
-								 <th> 7 </th> 
-								 <th> 8 </th> 
-								 <th> 9 </th> 
-								 <th> 10 </th> 
-								 <th> 11 </th> 
-								 <th> 12 </th>
-								 <th> >12 </th> 
-								 <th> รวม </th> 
-                            </tr>
-                            </thead>
-                            <tbody id="listDataSumIsNotOperOfCusByKpiConByPeriod">
-                            
-                            
-                      	 	</tbody>
-                   </table>
-               </div>
+                <div class='row'>
+                	<div class='col-sm-12'>
+			               <div class="table-responsive">
+			               <!-- table-striped -->
+			                        <table class="table" id="reportSumIsNotOperOfCusByKpiConByPeriodTable">
+			                            <thead>
+			                            <tr  class="active">
+			                                 <th style="width:200px">งวดที่ค้างชำระ</th>
+			                                 <th style="width:150px"></th>
+			                                 <th style="width:50px"> 1</th>
+			                                 <th style="width:50px"> 2</th>
+											 <th style="width:50px"> 3</th> 
+											 <th style="width:50px"> 4 </th>
+											 <th style="width:50px"> 5 </th>
+											 <th style="width:50px"> 6 </th> 
+											 <th style="width:50px"> 7 </th> 
+											 <th style="width:50px"> 8 </th> 
+											 <th style="width:50px"> 9 </th> 
+											 <th style="width:50px"> 10 </th> 
+											 <th style="width:50px"> 11 </th> 
+											 <th style="width:50px"> 12 </th>
+											 <th style="width:50px"> >12 </th> 
+											 <th style="width:50px"> รวม </th> 
+			                            </tr>
+			                            </thead>
+			                            <tbody id="listData">
+			                            
+			                            
+			                      	 	</tbody>
+			                   </table>
+			               </div>
+		               </div>
+		            </div>
+               
+                 <!-- pagination start -->
+                 <!-- 
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_bottom"></span>
+                       </div>
+                        <div class="col-sm-2 object-right paging-text">Results per page</div>
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>50</option>
+                             <option>100</option>
+                         </select> 
+                       	</div>
+                     </div> 
+                      -->
+              <!-- pagination end -->
+             
+               
             </div>
         </div>
     </div>
 
 </div>
-
+<div class='paramEmbedArea'></div>
 <script src="Controller/cReportSummaryIsNotOperationOfCustomerByKpiConditionByPeriod.js"></script>
 

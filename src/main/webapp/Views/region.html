@@ -1,25 +1,22 @@
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/region_management.css" rel="stylesheet">
-    
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/region_management.css" rel="stylesheet">
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Region </strong>
             </li>
         </ol>
@@ -33,7 +30,7 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Region List </h5>
+                                <h5>Regional Office List </h5>
                              
                             </div>
                             
@@ -48,8 +45,9 @@
                              <div class="row">
                                     <div class="col-sm-9 ">
                                     
-                                    	<button type="button" class="btn btn-info " id="btnAdd" data-target="#ManagementModal" data-toggle="modal"><i class="fa fa-save"></i>&nbsp;&nbsp;Add New Regional Office</button>
-                                    
+                                    	<button type="button" class="btn btn-info " id="btnAdd" data-target="#ManagementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Regional Office</button>
+                                    	<button type="button" class="btn btn-info showBranchOper" data-toggle="modal" data-target="#modalOperation"><i class="fa fa-plus"></i>&nbsp;&nbsp;Operation</button>
+                                    	
                                     </div>
                                     
                                     <div class="col-sm-3">
@@ -62,27 +60,40 @@
 	                                <div class="col-sm-9 ">
 										<span class="pagination_top"></span>
 	                                </div>
-	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                 <div class="col-sm-3 object-right paging-text">
+	                                 		<div class='pagingDropdown'>
+	                                 			<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+				                                     <option>10</option>
+				                                     <option>20</option>
+				                                     <option>50</option>
+				                                     <option>100</option>
+				                                 </select> 
+	                                 		
+	                                 		</div>
+											<div class='pagingText'>Results per page</div>
+	                                 </div>
+	                                 <!-- 
 	                                 <div class="col-sm-1">
 	                                	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
 		                                     <option>10</option>
 		                                     <option>20</option>
-		                                     <option>30</option>
-		                                     <option>40</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
 		                                 </select> 
-	                                	</div>
-	                               	</div> 
+                                	</div>
+                                	 -->
+                               	</div> 
                                	 <!-- pagination end -->
                                	 
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="tableRegion">
                                         <thead>
 	                                        <tr>
-	                                            <th>No.</th>
-	                                            <th>Regional Office Code</th>
-	                                            <th>Regional Office Name</th>
-	                                            <th>Branch Operation</th>
-	                                            <th>Manage</th>
+	                                            <th style='width:30px;'>No.</th>
+	                                            <th style='width:90px;'>Regional Office Code</th>
+	                                            <th style='width:200px;'>Regional Office Name</th>
+	                                            <th style='width:200px;'>Branch Operation</th>
+	                                            <th style='width:50px; text-align:center;'>Manage</th>
 	                                        </tr>
                                         </thead>
                                         <tbody id="listRegion">
@@ -97,18 +108,32 @@
 	                                <div class="col-sm-9 ">
 										<span class="pagination_top"></span>
 	                                </div>
-	                                 <div class="col-sm-2 object-right paging-text">Results per page</div>
-	                                 <div class="col-sm-1">
+	                                 <div class="col-sm-3 object-right paging-text">
+	                                 
+	                                 		<div class='pagingDropdown'>
+	                                 				<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+					                                     <option>10</option>
+					                                     <option>20</option>
+					                                     <option>50</option>
+					                                     <option>100</option>
+					                                 </select>
+	                                 		
+	                                 		</div>
+											<div class='pagingText'>Results per page</div>
+	                                 </div>
+	                                <!-- -
+									<div class="col-sm-1">
 	                                	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
 		                                     <option>10</option>
 		                                     <option>20</option>
-		                                     <option>30</option>
-		                                     <option>40</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
 		                                 </select> 
-	                                	</div>
-	                               	</div> 
+                                	</div>
+                                	-->
+                               	</div> 
                                	 <!-- pagination end -->
-
+								<br style='clear:both'>
                             </div>
                         </div>
                     </div>
@@ -146,7 +171,7 @@
 	                
 	                <div class="form-region-input">
 	                
-	                	<input type="text" class="form-control" placeholder="Regional Office Code" name="region_code" id="region_code">
+	                	<input type="text" class="form-control numberOnly" placeholder="Regional Office Code" name="region_code" id="region_code">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -159,7 +184,7 @@
 	                
 	                <div class="form-region-input">
 	                
-	                	<input type="text" class="form-control" placeholder="Regional Office Name" name="region_name" id="region_name">
+	                	<input disabled='disabled' type="text" class="form-control" placeholder="Regional Office Name" name="region_name" id="region_name">
 	                </div>
 	                <br style="clear:both">
                 </div>
@@ -265,7 +290,7 @@
 					            <!-- <th>Branch Operation<br>Code</th> -->
 					            <th>Branch Operation<br>Name</th>
 					            <th>Cost Center</th>
-					            <th>Manage</th>
+					            <th >Manage</th>
 					            
 			                </tr>
 		                </thead>
@@ -300,9 +325,7 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
+                
                 <!-- form start -->
                 <div class="form-kpi-mangement">
 	                <div class="form-kpi-label" align="center">

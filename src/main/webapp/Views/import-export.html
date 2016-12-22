@@ -4,20 +4,21 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+     	 <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     	 
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Import Export </strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Export/Import</strong>
             </li>
         </ol>
     </div>
@@ -32,7 +33,7 @@
                         <div class="ibox float-e-margins">
                        
 					         	<div class="ibox-title">
-	                                <h5>Import/Export</h5>
+	                                <h5>Export/Import</h5>
 	         					</div>
 	         					
 	         					<div class="ibox-content"> 
@@ -60,13 +61,11 @@
 						                                    <h3>FILE EXPORT</h3>
 						                                    <hr>
 						                                    <p>เลือกข้อมูลลูกค้าที่ท่านต้องการ Export เพื่อนำข้อมูลไปครวจสอบกับทะเบียนราษฏร์</p>
-						                                   
-						                                   
-						                                  <form method="post" id='fileExport' action=""> 
-									                          	<div class="row">
-									                          	<div class="col-sm-12 m-b-xs"> 
+						                       
+						                                  <form method="post" id='fileExport' action="" target="_blank"> 
+									                          <div class="col-sm-12 m-b-xs"> 
 									                          	<div class="radio"> 
-									                              <input type="radio" checked name="customer" value="" id="radioCustomer">
+									                              <input type="radio" checked name="record_type" class='record_type' value="1" id="radioCustomer">
 									                              <label for="inlineRadio2">ข้อมูลลูกค้าทั้งหมด</label>
 									                          	</div>
 									                          	
@@ -84,13 +83,11 @@
 																			</select>
 																		
 																	</div>
-																</div>
-																</div>
 									                          	
-									                          	<div class="row">
+									                          	</div>
 									                          	<div class="col-sm-12 m-b-xs"> 
 										                          	<div class="radio"> 
-										                              <input type="radio" name="customer" value="" id="radioNewCustomer">
+										                              <input type="radio" name="record_type" class='record_type' value="2" id="radioNewCustomer">
 										                              <label for="inlineRadio2">ข้อมูลลูกค้าใหม่ หรือลูกค้าที่มาติดต่อล่าสุด หรือข้อมูลลูกค้าที่แก้ไขบัตรประชาชน</label>
 										                          	</div>
 																	<div class="label-import-export">
@@ -100,8 +97,13 @@
 																		</select>
 																	</div>
 																</div>
-															 </div>
-														
+															 
+															 
+														  	<input type="hidden" name="token" id="export_token" class="" value="">
+														  	<input type="hidden" name="year" id="export_year" class="" value="">
+														   	<input type="hidden" name="record_type" id="export_record_type" class="" value="1">
+														    <input type="hidden" name="cust_type" id="export_cust_type" class="" value="">
+														    
 														  <input type="submit" name="exportFile" class="btn btn-primary" id="exportFile" value="Export"> 
 														<!-- <button class="btn btn-primary" id="exportFile">Export</button>-->
 														 </form> 
@@ -143,7 +145,7 @@
 						                            <div id="tab-2" class="tab-pane ">
 						                                <div class="panel-body">
 						                                <div class="row">
-						                                 	<form method="post" id='fileExportMobile' action=""> 
+						                                 	<form method="post" id='fileExportMobile' action="" target="_blank"> 
 						                                		<div class="col-sm-4 m-b-xs"> 
 								                                    <h3>FILE EXPORT</h3>
 								                                    <p>ทำการ Export ข้อมูลเบอร์โทรศัพท์ที่มีข้อมูลถูกต้องทั้งหมด</p>
@@ -167,6 +169,12 @@
 																	<div class="fileUpload ">
 																	    <span>Browse File</span>
 																	    <input type="file" name="file2" id="file2" multiple>
+																	    <span><a href="#" id='downloadTemplate' >Download Template</a></span>
+																	    
+																	    
+																	    
+																	   
+
 																	</div>
 																	<br>
 																	<h6 class="label-content-import-export">
@@ -177,6 +185,7 @@
 																	</h6>
 																</div>
 															</form>
+															
 														</div> 
 						                                </div>
 						                                <!-- end body -->
@@ -184,6 +193,7 @@
 						                        </div>	
 						                    </div>
 					               		</div>
+					               		
 					               		
 					               		
                     				</div>

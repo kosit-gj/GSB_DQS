@@ -24,7 +24,7 @@ $(document).ready(
 				   $("#listMergeCIFReport").html(htmlTable);
 				
 				//DataTable
-				  $('#tableMergeCIFReport').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
+				 // $('#tableMergeCIFReport').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
 		 }
 		 
 		 

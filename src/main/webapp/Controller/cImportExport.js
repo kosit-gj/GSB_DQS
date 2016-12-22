@@ -1,44 +1,38 @@
-var updateFn = function() {
-		
-		var closeflagCheckbox = "";
-		var embed_closeflag="";
-		var embed_closeflag_obj="";
-		embed_closeflag_obj=$(".embed_closeflag").get();
-		
-		$.each($(".embed_closeflag").get(),function(index,indexEntry){
-			//alert($(indexEntry).val());
-			var id=$(indexEntry).val();
-			//alert($(indexEntry).attr("id"));
-			if($("#closeCheckbox-"+id).prop('checked')){ 
-	        	closeflagCheckbox = 1;
-	        }else{ 
-	        	closeflagCheckbox = 0;
-	        }
-			alert(closeflagCheckbox);
-			$.ajax({
-				url:restfulURL+"/api/dqs_branch/"+id,
-				type : "PUT",
-				dataType : "json",
-				data : {"close_flag" :closeflagCheckbox},
-				async:false,
-				headers:{Authorization:"Bearer "+tokenID.token},
-				success : function(data) {
-					if (data = "success") {
-						//console.log("Upate Success");
-					}
-				}
-			});
-
-		});
-		alert("Upate Success");
-		getDataFn();
-		clearFn();
-		$('#addModalRule').modal('hide');
-		
-		console.log($(".embed_closeflag").get());
-	
-		return false;
-	};
+//var updateFn = function() {
+//		
+//		var closeflagCheckbox = "";
+//		var embed_closeflag="";
+//		var embed_closeflag_obj="";
+//		embed_closeflag_obj=$(".embed_closeflag").get();
+//		
+//		$.each($(".embed_closeflag").get(),function(index,indexEntry){
+//			var id=$(indexEntry).val();
+//			if($("#closeCheckbox-"+id).prop('checked')){ 
+//	        	closeflagCheckbox = 1;
+//	        }else{ 
+//	        	closeflagCheckbox = 0;
+//	        }
+//			alert(closeflagCheckbox);
+//			$.ajax({
+//				url:restfulURL+"/api/dqs_branch/"+id,
+//				type : "PUT",
+//				dataType : "json",
+//				data : {"close_flag" :closeflagCheckbox},
+//				async:false,
+//				headers:{Authorization:"Bearer "+tokenID.token},
+//				success : function(data) {
+//					if (data = "success") {
+//						//console.log("Upate Success");
+//					}
+//				}
+//			});
+//
+//		});
+//		getDataFn();
+//		clearFn();
+//		$('#addModalRule').modal('hide');
+//		return false;
+//	};
 	
 	var clearFn = function() {
 		$("#id").val("");
@@ -48,7 +42,6 @@ var updateFn = function() {
 	}
 	
 	var findOneFn = function(id) {
-		// http://localhost:3000/find-user/58035b7cb4566c158bcecacf
 		$.ajax({
 			url:restfulURL+"/api/dqs_branch/"+ id,
 			type : "get",
@@ -62,51 +55,48 @@ var updateFn = function() {
 		});
 	};
 	
-	var searchFn = function(searchText) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?desc__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-				listBranchFn(data);
-			}
-		});
-	}
+//	var searchFn = function(searchText) {
+//		$.ajax({
+//			url : restfulURL + "/api/dqs_branch/?desc__regex=/^"+searchText+"/i",
+//			type : "get",
+//			dataType : "json",
+//			success : function(data) {
+//				listBranchFn(data);
+//			}
+//		});
+//	}
 	
-	var dropdownCheckbox = function(id) {
-		$.ajax({
-			url : restfulURL + "/api/dqs_branch/?rule_name__regex=/^"+searchText+"/i",
-			type : "get",
-			dataType : "json",
-			headers:{Authorization:"Bearer "+tokenID.token},
-			success : function(data) {
-				listBranchFn(data);
-			}
-		});
-	}
-	
+//	var dropdownCheckbox = function(id) {
+//		$.ajax({
+//			url : restfulURL + "/api/dqs_branch/?rule_name__regex=/^"+searchText+"/i",
+//			type : "get",
+//			dataType : "json",
+//			headers:{Authorization:"Bearer "+tokenID.token},
+//			success : function(data) {
+//				listBranchFn(data);
+//			}
+//		});
+//	}
+//	
 var dropdownYear = function(){
 		
 		var currentTime = new Date();
 		var year = currentTime.getFullYear();
-		year=year+543;
+		year=year;
 		var selectYearHTML="";
 		//selectYearHTML+="<option>2559</option>";
-		selectYearHTML+="<option value=''>ระบุปี</option>";
-		selectYearHTML+="<option value='All'>ทุกปี</option>";
-		for(var i=year; i>(year-100);i--){
+		selectYearHTML+="<option value='0'>Choose year</option>";
+		selectYearHTML+="<option value=''>All year</option>";
+		for(var i=year; i>=1913;i--){
 			
 			selectYearHTML+="<option>"+i+"</option>";
 			
 		}
-		
-		//alert(selectYearHTML);
 		$("#yearImportExport").html(selectYearHTML);
 	}
 
 var dropdownCustomerType = function(){
 	var selectCustomerHTML="";
-
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_import_export/cust_type",
 		type : "get",
@@ -116,18 +106,31 @@ var dropdownCustomerType = function(){
 		success : function(data) {	
 			console.log(data);
 			$.each(data,function(index,indexEntry){
-				selectCustomerHTML+="<option value="+indexEntry['gsbccode']+">"+indexEntry['desc_1']+"</option>";  
+				selectCustomerHTML+="<option value="+indexEntry['gsbccode']+">"+indexEntry['desc']+"</option>";  
 			});
 		}
 	});
 	$(".customerImportExport").html(selectCustomerHTML);
+}
+var listErrorFn =function(data){
+	var errorData="";
+	
+	$.each(data,function(index,indexEntry){
+		if(index==0){
+			errorData+=indexEntry['errorMessage']+"|"+indexEntry['filename']+"|"+indexEntry['size'];
+		}else{
+			errorData+="<br>"+indexEntry['errorMessage']+"|"+indexEntry['filename']+"|"+indexEntry['size'];
+		}
+
+	});
+	
+	return errorData;
 }
 	
 $(document).ready(function(){
 
 	dropdownYear();
 	dropdownCustomerType();
-	
 
 	$("#radioCustomer").click(function() {
 		
@@ -138,13 +141,10 @@ $(document).ready(function(){
 	});
 	
 	$("#radioNewCustomer").click(function() {
-		
 		$("#customerTypeNew").removeAttr("disabled");
 		$('#customerType').prop('disabled', true);
 		$('#yearImportExport').prop('disabled', true);
-		
 	});
-	
 	
 	$(".btnCancle").click(function() {
 		clearFn();
@@ -153,33 +153,32 @@ $(document).ready(function(){
 		getDataBranchOperationFn();
 	});
 	
-	
-	
-	//Export File
-//	$("#exportFile").click(function(){
-//		
-//		$.ajax({
-//			url:restfulURL+"/dqs_api/public/dqs_import_export/export",
-//			type : "post",
-//			dataType : "json",
-//			async:false,
-//			headers:{Authorization:"Bearer "+tokenID.token},
-//			success : function(data) {	
-//				//console.log(data);
-//				 location.href = data.zip;
-//			 	
-//			}
-//		});
-//		
-//		return false;
-//	});
 	$("#exportFile").click(function(){
-		
-		if($("#yearImportExport").val()==''){
+		var year="";
+		var record_type="";
+		var cust_type="";
+		if($("#yearImportExport").val()=='0'){
 			callFlashSlide("Please choose year.");
 		}else{
+			
+			year=$("#yearImportExport").val();
+			record_type=$('input[name=record_type]:checked').val();
+			
+			if($('input[name=record_type]:checked').val()==2){
+				cust_type=$('#customerTypeNew').val();
+			}else{
+				cust_type=$('#customerType').val();
+			}
+			
 			$("form#fileExport ").attr("action",restfulURL+"/dqs_api/public/dqs_import_export/export?token="+tokenID.token);
+			
+			$("#export_token").val(tokenID.token);
+			$("#export_year").val(year);
+			$("#export_record_type").val(record_type);
+			$("#export_cust_type").val(cust_type);
+			
 			$("form#fileExport ").submit();
+			
 		}
 		return false;
 	});
@@ -213,8 +212,7 @@ function uploadFiles(event)
 		data.append(key, value);
 	});
 
-	//console.log(data);
-	
+	$("body").mLoading();
 	jQuery_1_1_3.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_import_export/import",
 		type: 'POST',
@@ -226,25 +224,26 @@ function uploadFiles(event)
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success: function(data, textStatus, jqXHR)
 		{
-			console.log(data);
-			if(data['status']==200 && data['success'].length>0){
-				callFlashSlide("Upload file is Successfully.");
+			if(data['status']==200 && data['error'].length==0){
+				callFlashSlide("เช็คผลการ Import ที่ Import Log");
+				$("#file1").val("");
+				$("body").mLoading('hide');
 			}else{
-				callFlashSlide("Can't Upload file .");
+				
+				callFlashSlide(listErrorFn(data['error']),"error");
+				$("body").mLoading('hide');
+				$("#file1").val("");
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown)
 		{
 			// Handle errors here
-			console.log('ERRORS: ' + textStatus);
-			callFlashSlide('ERRORS: ' + textStatus);
-			//if()
-			// STOP LOADING SPINNER
+			callFlashSlide('Format Error :' + textStatus,"error");
+			$("#file1").val("");
+			$("body").mLoading('hide');
 		}
+		
 	});
-	
-
-	
 }	
 
 	//click tab start
@@ -296,13 +295,11 @@ function uploadFiles(event)
 
 		// Create a formdata object and add the files
 		var data = new FormData();
-		console.log(data);
 		jQuery_1_1_3.each(files, function(key, value)
 		{
 			data.append(key, value);
 		});
-
-		//console.log(data);
+		$("body").mLoading();
 		jQuery_1_1_3.ajax({
 			url:restfulURL+"/dqs_api/public/dqs_import_export/import_sms",
 			type: 'POST',
@@ -315,27 +312,26 @@ function uploadFiles(event)
 			success: function(data, textStatus, jqXHR)
 			{
 				console.log(data);
-				if(data['status']==200 && data['success'].length>0){
-					callFlashSlide("Upload file is Successfully.");
+				if(data['status']==200 && data['error'].length==0){
+
+					callFlashSlide("เช็คผลการ Import ที่ Import Log");
 					$('#file2').val("");
+					$("body").mLoading('hide');
+					
 				}else{
-					callFlashSlide("Can't Upload file .");
+					
+					callFlashSlide(listErrorFn(data['error']),"error");
+					$("body").mLoading('hide');
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown)
 			{
 				// Handle errors here
-				//console.log('ERRORS: ' + textStatus);
-				callFlashSlide('ERRORS: ' + textStatus);
+				callFlashSlide('Format Error : ' + textStatus);
 				// STOP LOADING SPINNER
 			}
 		});
-		
-
 		return false;
 	}	
-	//FILE IMPORT MOBILE END
-
-	
-	
+	$("#downloadTemplate").attr({"href":""+restfulURL+"/dqs_api/public/sms_template.txt","download":"download"});
 });

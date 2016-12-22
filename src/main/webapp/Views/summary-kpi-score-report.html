@@ -1,14 +1,14 @@
-
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/summary_report_kpi_score.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/summary_report_kpi_score.css" rel="stylesheet">
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
@@ -18,16 +18,13 @@
             <i class="fa fa-bar-chart-o"></i> Report
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Summary Report KPI Score  </strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> รายงานสรุปคะแนน KPI  </strong>
             </li>
         </ol>
     </div>
    
 </div>
-<!-- nav bar -->
-
-				
+<!-- nav bar -->				
 <div class="row">
 	<!--  SEARCH ADVANCE START -->
             
@@ -35,48 +32,52 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Advance Search </h5>
-                            
-                            
                         </div>
                         <div class="ibox-content">
-                        
                         <!-- input search start  -->
-                         <div class='search-area'>
-                         
-                            <div data-toggle="tooltip" title="Line" class="search-box" id="listLineArea">
-                             		
-                            </div>
-                            
-                            <div data-toggle="tooltip" title="Sector" class="search-box" id="listSectorArea">
-                            			
-                            </div>
-                            
-                            
-                            <div data-toggle="tooltip" title="Area" class="search-box" id="listAreaArea">
-                            			
-                            </div>
-                            
-                             <div data-toggle="tooltip" title="List" class="search-box" id="listBranchArea">
-                            			
-                            </div>
-                            <div data-toggle="tooltip" title="Year" class="search-box" id="listYearArea">
-                            			
-                            </div>
-                            
-                            
-                             <div data-toggle="tooltip" title="Month" class="search-box" id="listMonthArea">
-                             		
-                            </div>
-                            
-                           <div class="search-box-submit">
-                           		<button class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
-                           </div>
-                            <br style="clear:both">
-                           
-                        </div> 
+                        <div class='row'>
+                        	<div class='col-lg-12'>
+
+		                         <div class='search-area'>
+		                            <div data-toggle="tooltip" title="Operation" class="search-box" id="listOperationArea">
+		                            </div>
+		                            <div data-toggle="tooltip" title="Region" class="search-box" id="listRegionArea">
+                            			<select id="listRegion" class="form-control input-sm listRegion">
+			                            	<option value="">All Region</option>
+			                            </select>
+		                            </div>
+		                            
+		                            
+		                            <div data-toggle="tooltip" title="District" class="search-box" id="listDistrictArea">
+                            			<select id="listDistrict" class="form-control input-sm listDistrict">
+			                            	<option value="">All District</option>
+			                            </select>	
+		                            </div>
+		                            
+		                             <div data-toggle="tooltip" title="Branch" class="search-box" id="listBranchArea">
+                            			<select id="listBranch" class="form-control input-sm listBranch">
+			                            	<option value="">All Branch</option>
+			                            </select>
+		                            </div>
+		                            <div data-toggle="tooltip" title="Year" class="search-box" id="listYearArea">
+		                            			
+		                            </div>
+		                             <div data-toggle="tooltip" title="Month" class="search-box" id="listMonthArea">
+		                             		
+		                            </div>
+		                            
+		                           <div class="search-box-submit">
+		                           		<button class="btn btn-info btn-search input-sm"  id="btnAdvanceSearch"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+		                           </div>
+		                            <br style="clear:both">
+		                           
+		                        </div> 
+                       		 </div>
+                        </div>
                         <!-- input search end  -->   
                         </div>
                     </div>
+                    
                 </div>
             
             <!-- SEARCH ADVANCE END -->
@@ -86,27 +87,7 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Result Search </h5>
-                
-               <div class="ibox-tools">
-                   <a class="collapse-link">
-                       <i class="fa fa-chevron-up"></i>
-                   </a>
-                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                       <i class="fa fa-wrench"></i>
-                   </a>
-                   <ul class="dropdown-menu dropdown-user">
-                       <li><a href="#">Config option 1</a>
-                       </li>
-                       <li><a href="#">Config option 2</a>
-                       </li>
-                   </ul>
-                   <a class="close-link">
-                       <i class="fa fa-times"></i>
-                   </a>
-               </div>
-                
-                  </div>
+            </div>
                   <div class="ibox-content">
                   
                    <div class="row">
@@ -114,38 +95,45 @@
                           </div>
                            <div class="col-sm-3">
 	                           	<div class='object-right'>
-	                           		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" data-toggle="modal"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+	                           	
+	                           		  <form id='formExportToExcel' action="" method="post" >
+	                           		   		<button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+	                           		  </form>
+	                           	
 	                           	</div>
                            </div>
                    </div>
-                   
-                    
-               <div class="table-responsive">
-               <!-- table-striped -->
+             
+             
+                   <div class='row'>
+                   		<div class='col-sm-12'>
+			               <div class="table-responsive">
+			               <!-- table-striped -->
+			               
+			                        <table class="table" id="reportSumKpiScoreTable">
+			                            <thead>
+			                            <tr  class="active">
+			                                 <th style="width:200px"></th>
+			                                 <th style="width:120px"></th>
+			                                 <th style="width:100px"> ไม่สมบูรณ์(บุคคล)</th>
+			                                 <th style="width:100px"> ไม่ส่งเอกสาร(นิติบุคคล)</th>
+											 <th style="width:80px"> ทั้งหมด</th> 
+											 <th style="width:80px"> %ความถูกต้อง</th>
+											 <th style="width:80px"> KPI เฉลี่ย </th>
+			                            </tr>
+			                            </thead>
+			                            <tbody id="listDataSumKpiScore">
+			                       </tbody>
+			                   </table>
+			               </div>
+		          	</div>
+                 </div>
                
-                        <table class="table" id="reportSumKpiScoreTable">
-                            <thead>
-                            <tr  class="active">
-                                 <th style="width:100px"></th>
-                                 <th style="width:100px"></th>
-                                 <th> ไม่สมบรูณ์(บุคคล)</th>
-                                 <th> ไม่ส่งเอกสาร(นิติบุคคล)</th>
-								 <th> ทั้งหมด</th> 
-								 <th> %ความถูกต้อง</th>
-								 <th> KPI เฉลี่ย </th>
-                            </tr>
-                            </thead>
-                            <tbody id="listDataSumKpiScore">
-                            
-                            
-                       </tbody>
-                   </table>
-               </div>
             </div>
         </div>
     </div>
 
 </div>
-
+<div class='paramEmbedArea'></div>
 <script src="Controller/cSummaryReportKpiScore.js"></script>
 

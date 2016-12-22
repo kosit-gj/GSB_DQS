@@ -1,13 +1,10 @@
 .font-management{
 	font-size:20px;
 	cursor:pointer;
-	
 }
 .form-menu-mangement{
-	/*height:43px;*/
 	padding-top: 5px;
 }
-
 .form-menu-label{
 	float:left;
 	width:115px;

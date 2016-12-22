@@ -7,11 +7,13 @@
     margin-bottom:5px;
 }
 .search-box-submit{
+	
 	float: left;
     margin-bottom: 5px;
-    margin-right: 5px;
+    margin-right: 0;
     text-align: right;
-    width: 185px;
+    width: 210px;
+    
 }
 .btn-search{
 	/*width: 100%;*/

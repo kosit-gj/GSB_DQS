@@ -9,27 +9,22 @@ var galbalDataUserObj=[];
 /*####Init Function  Start######*/
 //function list data User
 var embedParam = function(id){
-	//alert(id);
 	var count = 0;
-	
 	$.each($(".embedListRevisedCostCenter").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
 		if($(indexEnry).val()==id){
 			count+=1;
 		}
 	});
-	
 	if(count>0){
 		$("#embedListRevisedCostCenter-"+id).remove();
 		$("body").append("<input type='hidden' class='embedListRevisedCostCenter' id='embedListRevisedCostCenter-"+id+"' name='embedListRevisedCostCenter' value='"+id+"'>");
 	}else{
 		$("body").append("<input type='hidden' class='embedListRevisedCostCenter' id='embedListRevisedCostCenter-"+id+"' name='embedListRevisedCostCenter' value='"+id+"'>");
 	}
-	
 }
 
 var embedParamRole = function(id){
-	//alert(id);
 	var count = 0;
 	$.each($(".embed_Role").get(),function(index,indexEnry){
 	//ถ้า id ที่วน == id ที่มี	
@@ -49,35 +44,24 @@ var embedParamRole = function(id){
 
   var listDataFn = function(data){
 	
-	if ( $.fn.DataTable.isDataTable('#tableUser')) {
-	      $('#tableUser').DataTable().destroy();
-	     }
-	
+
 			   var htmlTable="";
 			 $("#listUser").empty();
 			   $.each(data,function(index,indexEntry){
-				/*
-				personnel_id
-				thai_full_name
-				position_name
-				branch_code
-				own_cost_center
-				revised_cost_center
-				role_id
-				*/
-				     htmlTable+="<tr >";
+				
+				     htmlTable+="<tr class='rowSearch'>";
 					  
-					      htmlTable+="<td>"+indexEntry["thai_full_name"]+"</td>";
-					      htmlTable+="<td>"+indexEntry["position_name"]+"</td>";
-					   	  htmlTable+="<td>"+indexEntry["operation_name"]+"</td>";
-						  htmlTable+="<td>"+indexEntry["own_cost_center"]+"</td>";
+					      htmlTable+="<td class='columnSearch'>"+indexEntry["thai_full_name"]+"</td>";
+					      htmlTable+="<td class='columnSearch'>"+indexEntry["position_name"]+"</td>";
+					   	  htmlTable+="<td class='columnSearch'>"+indexEntry["operation_name"]+"</td>";
+						  htmlTable+="<td class='columnSearch'>"+indexEntry["own_cost_center"]+"</td>";
 						
-						  htmlTable+="<td class=\"listRevisedCostCenterInlineArea\">";
+						  htmlTable+="<td class=\"listRevisedCostCenterInlineArea \">";
 						  htmlTable+=dropDownListRevisedCostCenter(indexEntry["revised_ccdef"],+indexEntry["personnel_id"]);
 						  htmlTable+="</td>";
 				          
 				          
-						  htmlTable+="<td class=\"listRoleInlineArea\">";
+						  htmlTable+="<td class=\"listRoleInlineArea \">";
 							 // htmlTable+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRole \" id=\"listRole-"+indexEntry["_id"]+"\">"+/*listDataRole(indexEntry["role_id"])*/+"</select>";
 						  htmlTable+=dropDownListRole(indexEntry["role_id"],"Y",+indexEntry["personnel_id"]);
 						  htmlTable+="</td>";
@@ -90,12 +74,6 @@ var embedParamRole = function(id){
 			   });
 			
 			  $("#listUser").html(htmlTable);
-			  
-			
-			//DataTable
-			 // $('#tableUser').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } ); 
-			  $('#tableUser').DataTable( { "dom": '<"top"f>rt<"bottom"><"clear">',"bSort" : false  } ); 
-			
 			
 			//start ปุ่ม Edit ใน table
 			
@@ -105,6 +83,7 @@ var embedParamRole = function(id){
 				var id = this.id.split("-"); 
 				
 				embedParam(id[1]);
+
 				
 			});
 			
@@ -117,32 +96,37 @@ var embedParamRole = function(id){
 				
 			});
 			
-			
-			//Edit Revised
-			/*$(".editRevised").click(function(){
-				
-				var id = this.id.split("-"); 
-				
-				embedParamRevised(id[1]);
-				
-			});*/
-			
-			//end ปุ่ม Edit ใน table
 	
 };
 //Get data User
 var getDataFn = function(page,rpp) {
+	
+
+	var personnelID= $("#paramEmbedPersonnelID").val();
+	var ownCostCenterCode= $("#paramEmbedOwnCostCenterCode").val();
+	var revisedCostCenterCode= $("#paramEmbedRevisedCostCenterCode").val();
+	var listRole= $("#paramEmbedListRole").val();
+	var isActive= $("#paramEmbedIsActive").val();
+	
+	
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_user",
 			type : "get",
 			dataType : "json",
-			data:{"page":page,"rpp":rpp},
+			data:{"page":page,"rpp":rpp,
+			"personnel_id":personnelID,
+			"own_cost_center":ownCostCenterCode,
+			"revised_cost_center":revisedCostCenterCode,
+			"role_id":listRole,
+			"active_flag":isActive
+			},
 			headers:{Authorization:"Bearer "+tokenID.token},
-			//data:{Authorization:"Bearer "+tokenID.token},
+			async:false,
 			success : function(data) {
-				galbalDataUserObj=data['data'];
-				listDataFn(galbalDataUserObj);
-				//dropDownListRole();
+				galbalDataUserObj=data;
+				listDataFn(galbalDataUserObj['data']);
+				paginationSetUpFn(galbalDataUserObj['current_page'],galbalDataUserObj['last_page'],galbalDataUserObj['last_page']);
+				
 			}
 		});
 };
@@ -183,7 +167,6 @@ var dropDownListRole = function(id,paramInline,paramParentID){
 	}else{
 		html+="<select class=\"form-control input-sm \" id=\"listRole\">";
 	}
-	//html+="<option  value=''>All</option>";	
 	$.each(galbalDqsRoleObj,function(index,indexEntry){
 		if(id==indexEntry["role_id"]){
 			html+="<option selected value="+indexEntry["role_id"]+">"+indexEntry["role_name"]+"</option>";			
@@ -198,13 +181,13 @@ var dropDownListRole = function(id,paramInline,paramParentID){
 //DropDownList Role
 var dropDownListRevisedCostCenter = function(id,paramParentID){
 	var html="";
-	html+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRevisedCostCenter\" id=\"listRevisedCostCenter-"+paramParentID+"\">";
+	html+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRevisedCostCenter \" id=\"listRevisedCostCenter-"+paramParentID+"\">";
 	$.each(galbalRevisedCostCenterObj,function(index,indexEntry){
 		
 		if(id==indexEntry["ccdef"]){
-			html+="<option selected value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";			
+			html+="<option selected value="+indexEntry["ccdef"]+">"+indexEntry["desc"]+"</option>";			
 		}else{
-			html+="<option  value="+indexEntry["ccdef"]+">"+indexEntry["desc_1"]+"</option>";	
+			html+="<option  value="+indexEntry["ccdef"]+">"+indexEntry["desc"]+"</option>";	
 		}		
 	});	
 	html+="</select>";
@@ -212,54 +195,11 @@ var dropDownListRevisedCostCenter = function(id,paramParentID){
 };
 /*####Init Function  End######*/
 
-//set paginate start
-var paginationFn = function(page,rpp,total){
-	//alert("hello");
-	$('.pagination_top,.pagination_bottom').bootpag({
-	    total: total,
-	    page: page,
-	    maxVisible: rpp,
-	    leaps: true,
-	    //firstLastUse: true,
-	    //first: '←',
-	    //last: '→',
-	    wrapClass: 'pagination',
-	    activeClass: 'active',
-	    disabledClass: 'disabled',
-	    //nextClass: 'next',
-	    //prevClass: 'prev',
-	    next: 'next',
-	    prev: 'prev',
-	    //lastClass: 'last',
-	    //firstClass: 'first'
-	}).on("page", function(event, num){
-	    getDataFn(num);
-	    $(".pagingNumber").remove();
-	    var htmlPageNumber= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='"+num+"'>";
-	    $("body").append(htmlPageNumber);
-	   // alert("click"+num);
-	}); 
-	
-	$(".countPagination").change(function(){
-		//alert($(this).val());
-		$("#countPaginationTop").val($(this).val());
-		$("#countPaginationBottom").val($(this).val());
-		
-		getDataFn($("pageNumber").val(),$(this).val());
-		
-		$(".rpp").remove();
-	    var htmlRrp= "<input type='hidden' id='rrp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
-	    $("body").append(htmlRrp);
-	    
-	});
-}
-
-//set paginate end
 
 $(document).ready(function(){
 	
+	
 	//call pagination 
-	paginationFn(1,1,1);
 	
 	//binding tooltip.
 	$(document).ready(function(){
@@ -274,29 +214,25 @@ $(document).ready(function(){
 	
 		//function update data
 var updateFn = function(){ 
-		
+	
 	 var users = [];
-	 $.each(galbalDataUserObj,function(index,indexEntry){
-		//console.log($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()); 
+	 $.each(galbalDataUserObj['data'],function(index,indexEntry){
 		 var revisedCostCenter="";
 		 var role="";
 	
 		if($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()!=undefined || $("#embed_listRole-"+indexEntry['personnel_id']).val()!=undefined){
 			if($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()!=undefined){
-				//alert("ok")
 				revisedCostCenter=$("#listRevisedCostCenter-"+indexEntry['personnel_id']).val();
 				
 			}else{
 				revisedCostCenter="";
 			}
 			if($("#embed_listRole-"+indexEntry['personnel_id']).val()!=undefined){
-				//alert("ok")
 				role=$("#listRole-"+indexEntry['personnel_id']).val();
 				
 			}else{
 				role="";
 			}
-		
 			users.push({
 				 personnel_id: ""+indexEntry['personnel_id']+"",
 			     revised_cost_center: ""+revisedCostCenter+"",
@@ -306,7 +242,6 @@ var updateFn = function(){
 		}
 		
 	 });
-	
 
 	  $.ajax({
 		    url:restfulURL+"/dqs_api/public/dqs_user",
@@ -316,50 +251,27 @@ var updateFn = function(){
 		    headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 		    success:function(data,status){
-		     console.log(data);
 			     if(status=="success"){
 				callFlashSlide("Update Successfully.");
 				$(".editListRevisedCostCenter").attr("disabled","disabled");
 				$(".editListRole").attr("disabled","disabled");
 				
-
 			     }
 			  }
 		});
-	 
-	 
-		 
+	 		  
+	return false;
+ };
 
-				  
-				return false;
-			 };
-
-			 
-			 
 			 var clearFn = function(){
 					
 					   $("#id").val("");
 					   $("#action").val("add");
 			}
 			 
-			 
-			 //function search data
-			  var searchFn = function(searchText){
-				   /* http://localhost:3000/dqs_api/public/products?name__regex=/^test/i */
-				    
-				   $.ajax({
-				    url:restfulURL+"/dqs_api/public/dqs_user/?user_name__regex=/^"+searchText+"/i",
-				    type:"get",
-				    dataType:"json",
-				    success:function(data){
-				
-				     listDataFn(data);
-				    }
-				   });
-				   
-				  }
 			//function advance search data
 			var advanceSearchFn = function(){
+				
 				var personnelID=$("#personnelID").val();
 				var ownCostCenter=$("#ownCostCenter").val().split("-");	
 				var ownCostCenterCode=ownCostCenter[0];
@@ -370,8 +282,7 @@ var updateFn = function(){
 				var listRole=$("#listRole").val();
 				var isActive=$("#isActive").val();
 				
-				//personnelID,ownCostCenter,ownCostCenterCode,revisedCostCenter,revisedCostCenterCode,listRole,isActive
-			
+				
 				var htmlParam="";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedPersonnelID' name='paramEmbedPersonnelID' value='"+personnelID+"'>";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenter' name='paramEmbedOwnCostCenter' value='"+ownCostCenter+"'>";
@@ -383,146 +294,22 @@ var updateFn = function(){
 				$(".paramEmbed").remove();
 				$("body").append(htmlParam);
 				
-				
-				/*
-				"page,
-				rpp,
-				personnel_id,
-				own_cost_center,
-				revised_cost_center,
-				role_id,
-				active_flag"
-				*/
-				/*
-				alert(personnelID);
-				alert(ownCostCenter);
-				alert(revisedCostCenter);
-				alert(listRole);
-				alert(isActive);
-				*/
-				//http://192.168.1.58/dqs_api/public/dqs_user
-				   $.ajax({
-				    url:restfulURL+"/dqs_api/public/dqs_user",
-				    type:"get",
-				    dataType:"json",
-				    headers:{Authorization:"Bearer "+tokenID.token},
-					data:{"personnel_id":personnelID,
-						"own_cost_center":ownCostCenterCode,
-						"revised_cost_center":revisedCostCenterCode,
-						"role_id":listRole,
-						"active_flag":isActive},
-				    success:function(data){
-					//console.log(data['data']);
-						//if(data['data']!=""){
-							listDataFn(data['data']);
-						//}
-				     //
-				    }
-				   });
-				   
-				  }
-			
-		
-			
-			
-			
-	
-			
-			/*var embedParamRevised = function(id){
-				//alert(id);
-				var count = 0;
-				
-				$.each($(".embed_Revised").get(),function(index,indexEnry){
-				//ถ้า id ที่วน == id ที่มี	
-					if($(indexEnry).val()==id){
-						count+=1;
-					}
-				});
-				
-				if(count>0){
-					$("#embed_listRevised-"+id).remove();
-					$("body").append("<input type='hidden' class='embed_Revised' id='embed_listRevised-"+id+"' name='embed_listRevised' value='"+id+"'>");
-				}else{
-					$("body").append("<input type='hidden' class='embed_Revised' id='embed_listRevised-"+id+"' name='embed_listRevised' value='"+id+"'>");
+				getDataFn(1,$("#rpp").val());
+
 				}
-				
-			}*/
-			
-			
-			
-			
-			
-			//List Role in table
-			
-			
-		
-			/*
-			var listDataRole = function(id){
-				
-				var htmlTable="";
-				$.ajax ({
-					url:restfulURL+"/dqs_api/public/dqs_role" ,
-					type:"get" ,
-					dataType:"json" ,
-					headers:{Authorization:"Bearer "+tokenID.token},
-					async:false,
-						success:function(data){
-							
-							
-							$.each(data,function(index,indexEntry){
-								//alert(id+"=="+indexEntry["_id"]);
-								
-								if(id==indexEntry["_id"]){
-									htmlTable+="<option selected value="+indexEntry["_id"]+">"+indexEntry["role_name"]+"</option>";			
-								}else{
-									htmlTable+="<option  value="+indexEntry["_id"]+">"+indexEntry["role_name"]+"</option>";	
-									}
-								
-								});	
-							
-						}
-				});
-				return htmlTable;
-			};
-			*/
-			
-		/*	//DropDownList	Branch Operation
-			var listBranchOper = function(){
-				var htmlTable="";
-				$.ajax ({
-					url:restfulURL+"/dqs_api/public/dqs_branch_operation" ,
-					type:"get" ,
-					dataType:"json" ,
-					async:false,
-						success:function(data){
-							
-							$.each(data,function(index,indexEntry){
-								
-								htmlTable+="<option value="+indexEntry["operation_code"]+">"+indexEntry["operation_name"]+"</option>";			
-							});	
-							
-							
-							//$("#listBranchOper-"+id).html(htmlTable);
-						}
-				});
-				return htmlTable;
-			};*/
-		
-			
 			
 			//#### Call Function start ####
-			getDataFn();
+		
 
 		  	//ปุ่ม Save
 			$("#btnSave").click(function(){
 		        updateFn();
 		       // alert("btnSave");
 			});
-			
 			//ปุ่ม Search
 			  $("#btnSearch").click(function(){
-				   searchFn($("#searchText").val());
-				   return false;
+				   //searchFn("searchText","tableUser");
+					searchMultiFn($("#searchText").val());
 			  });
 			
 			// ปุ่ม Cancel
@@ -546,7 +333,7 @@ var updateFn = function(){
     					    dataType:"json",
     						headers:{Authorization:"Bearer "+tokenID.token},
     						data:{"q":request.term},
-    						async:false,
+    						//async:false,
                             error: function (xhr, textStatus, errorThrown) {
                             	alert('Error: ' + xhr.responseText);
                             },
@@ -559,12 +346,16 @@ var updateFn = function(){
 	                                }
 	                            }));
     						
-    					    }
+    					    },
+	    					beforeSend:function(){
+	    						$("body").mLoading('hide');	
+	    					}
     					   });
                 	
                 }
             });
-			//Auto Complete personnelID end
+		  //Auto Complete personnelID end
+			
 		  //Auto Complete Own Cost Center start
 			$("#ownCostCenter").autocomplete({
                 source: function (request, response) {
@@ -574,7 +365,7 @@ var updateFn = function(){
     					    dataType:"json",
     						headers:{Authorization:"Bearer "+tokenID.token},
     						data:{"q":request.term},
-    						async:false,
+    						//async:false,
                             error: function (xhr, textStatus, errorThrown) {
                                 alert('Error: ' + xhr.responseText);
                             },
@@ -582,12 +373,15 @@ var updateFn = function(){
     						
 	    						response($.map(data, function (item) {
 	                                return {
-	                                    llabel: item.ccdef+" - "+item.desc_1,
-	                                    value: item.ccdef+" - "+item.desc_1
+	                                    llabel: item.desc,
+	                                    value: item.desc
 	                                }
 	                            }));
     						
-    					    }
+    					    },
+	    					beforeSend:function(){
+	    						$("body").mLoading('hide');	
+	    					}
     					   });
                 	
                 }
@@ -595,16 +389,16 @@ var updateFn = function(){
 		    
 		  //Auto Complete Own Cost Center end
 			
-			//Auto Complete Own Cost Center start
+		  //Auto Complete Own Cost Center start
 			$("#revisedCostCenter").autocomplete({
                 source: function (request, response) {
                 	 $.ajax({
-    					    url:restfulURL+"/dqs_api/public/dqs_user/revised_cost_center",
+    					    url:restfulURL+"/dqs_api/public/dqs_user/cost_center",
     					    type:"get",
     					    dataType:"json",
     						headers:{Authorization:"Bearer "+tokenID.token},
     						data:{"q":request.term},
-    						async:false,
+    						//async:false,
                             error: function (xhr, textStatus, errorThrown) {
                                 alert('Error: ' + xhr.responseText);
                             },
@@ -612,26 +406,29 @@ var updateFn = function(){
     						
 	    						response($.map(data, function (item) {
 	                                return {
-	                                    label: item.ccdef+" - "+item.desc_1,
-	                                    value: item.ccdef+" - "+item.desc_1
+	                                    label: item.desc,
+	                                    value: item.desc
 	                                }
 	                            }));
     						
-    					    }
+    					    },
+	    					beforeSend:function(){
+	    						$("body").mLoading('hide');	
+	    					}
     					   });
                 	
                 }
             });
 		    
 		  //Auto Complete Own Cost Center end
-			
-			
 			$("#btnAdvanceSearch").click(function(){
 				advanceSearchFn();
+				//paginationFn(1,1,1);
 			});
-	  //#### Call Function End ####
+			$("#btnAdvanceSearch").click();
+	  	//#### Call Function End ####
 	
-	  //#### Call Export User Function Start ####
+	  	//#### Call Export User Function Start ####
 		$("#exportToExcel").click(function(){
 			$("form#formExportToExcel").attr("action",restfulURL+"/dqs_api/public/dqs_user/export?token="+tokenID.token);
 			
@@ -644,7 +441,7 @@ var updateFn = function(){
 			
 			$("form#formExportToExcel").submit();
 		});
-	  //#### Call Export User Function End ####
+		//#### Call Export User Function End ####
 	
 });
 

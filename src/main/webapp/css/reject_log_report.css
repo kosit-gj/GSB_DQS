@@ -3,7 +3,7 @@
 	/*border: 1px solid;*/
     float: left;
     margin-right: 5px;
-    width: 150px;
+    width: 200px;
     margin-bottom:5px;
 }
 .search-box-submit{
@@ -11,7 +11,7 @@
     margin-bottom: 5px;
     margin-right: 5px;
     text-align: right;
-    width: 680px;
+    width: 430px;
 }
 .btn-search{
 	/*width: 100%;*/
@@ -74,6 +74,8 @@
 	float:left;
 	width:438px;
 }
-
+#contactTypeArea{
+	width:300px;
+}
 
 

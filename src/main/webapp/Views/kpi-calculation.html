@@ -5,15 +5,16 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
@@ -55,7 +56,7 @@
 								<br style="clear:both">
                              	<div class="row">							
                                      <div class="col-sm-6 form-input">	                                
-                                         <button type="button" class="btn btn-info"data-target="#runModal" data-toggle="modal">&nbsp;&nbsp;<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Run&nbsp;&nbsp;</button>
+                                         <button type="button" id="runReCal" class="btn btn-info"data-target="#runModal" data-toggle="modal">&nbsp;&nbsp;<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Run&nbsp;&nbsp;</button>
                                      </div>
                              	</div>
                              	<br>
@@ -87,15 +88,13 @@
             </div>
             <div class="modal-body">
                 <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
+               
                 <!-- form start -->
                 <div class='form-kpi-mangement'>
 	                <div class="form-kpi-label" align="center">
 	                
-	                 		<label>การ Run นี้จะมีผลต่อการคํานวน KPI ของเดือน ตุลาคม 2556 <br>
-									ท่านต้องการดําเนิงานต่อหรือไม่ ?</label>
+	                 		<label>การ Run นี้จะมีผลต่อการคํานวน KPI ของเดือน <span id="kpiOfMonth">ตุลาคม 2556</span> <br>
+									ท่านต้องการดําเนินงานต่อหรือไม่ ?</label>
 	                </div>
                 </div>
                                

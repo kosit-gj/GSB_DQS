@@ -4,19 +4,19 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
-	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
+     
+         <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
+     	 
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-bar-chart-o"></i> Report
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Usage Log Report </strong>
             </li>
         </ol>
@@ -31,16 +31,13 @@
             <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Advance Search </h5>
-                            
-                            
+                            <h5>Advance Search </h5>   
                         </div>
                         <div class="ibox-content">
                         	<div class='row'>
 		                        <!-- input search start  -->
 		                         <div class='search-area'>
 		                            <div data-toggle="tooltip" title="Branch" class="search-box" id="listBranchArea">
-		                            	
 		                            </div>
 		                            
 		                            <div class="search-box">	
@@ -54,7 +51,7 @@
 		                            </div>
 		                            
 		                           <div class="search-box-submit">
-		                           		<button id='btnSearch' class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+		                           		<button id='btnSearchAdvance' class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
 		                           </div>
 		                            <br style="clear:both">
 		                           
@@ -73,10 +70,6 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>System Usage Log Result</h5>
-                
-                
-                
                   </div>
                   <div class="ibox-content">
                    <div class="row">
@@ -84,28 +77,98 @@
                        </div>
                        <div class="col-sm-3">
                          	<div class='object-right'>
-                         		  <button type="button" class="btn btn-info input-sm" data-target="#addModal" data-toggle="modal"><i class="fa fa-file-text-o "></i>&nbsp;Export to Excel</button>
+                         	
+                         			<form id='formExportToExcel' action="" method="post" target="_blank">
+	                           			  <button type="button" id='exportToExcel' class="btn btn-info input-sm"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+	                           		</form>
+                         	
                          	</div>
                        </div>
                    </div>
                    
-                      
-                <div class="table-responsive">
-        
-                    <!--  main table  start-->
-               		  <table class="table" id="mainTableUsageLog">
-               		  <thead>
-                        <tr  class="active">
-							<th>Usage Log.</th>
-							
-                        </tr>
-                        </thead>
-	               		  	<tbody id="listMainUsageLog">	
-		               		<tbody>
-               		  	</table>
-               		<!--  main table end -->
+                <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        
+                        	<div class='pagingDropdown'>
+                        	
+                        			<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+			                             <option>10</option>
+			                             <option>20</option>
+			                             <option>50</option>
+			                             <option>100</option>
+			                         </select>
+                        	
+                        	</div>
+							<div class='pagingText'>Results per page</div>
+						
+                        </div>
+                        <!-- 
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>30</option>
+                             <option>40</option>
+                         </select> 
+                       	</div>
+                       	 -->
+                     </div> 
+              <!-- pagination end --> 
+              <div class='row'>
+              	<div class='col-sm-12'> 
+	                <div class="table-responsive">
+	        
+	                    <!--  main table  start-->
+	               		  <table class="table" id="mainTableUsageLog">
+	               		  <thead>
+	                        <tr  class="active">
+								<!-- <th>Usage Log.</th> -->
+								
+	                        </tr>
+	                        </thead>
+		               		  	<tbody id="listMainUsageLog">	
+			               		<tbody>
+	               		  	</table>
+	               		<!--  main table end -->
+	                </div>
+                </div>    
                 </div>
-                
+                <!-- pagination start -->
+                    <div class="row">
+                       <div class="col-sm-9 ">
+						<span class="pagination_top"></span>
+                       </div>
+                        <div class="col-sm-3 object-right paging-text">
+                        
+                        	<div class='pagingDropdown'>
+	                        	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+	                             	<option>10</option>
+	                             	<option>20</option>
+	                             	<option>50</option>
+	                             	<option>100</option>
+	                         	</select> 
+                        	
+                        	</div>
+							<div class='pagingText'>Results per page</div>
+                        
+                        </div>
+                        <!-- 
+                        <div class="col-sm-1">
+                       	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+                             <option>10</option>
+                             <option>20</option>
+                             <option>30</option>
+                             <option>40</option>
+                         </select> 
+                       	</div>
+                       	 -->
+                     </div> 
+              	<!-- pagination end -->
+                <br style='clear:both'>
             </div>
         </div>
     </div>

@@ -1,100 +1,88 @@
+//Global Variable
+var golbalData=[];
 //binding tooltip.
-	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip();
-	});
-//DropDownList Role
-var dropDownListContactType = function(){
-	
-	$.ajax({
-		url:restfulURL+"/dqs_api/public/dqs_maintenance/contact_type",
-		type:"get",
-		dataType:"json",
-		headers:{Authorization:"Bearer "+tokenID.token},
-		success:function(data){
-			
-			console.log(data);
-		var html="";	
-		html+="<select class=\"form-control input-sm listContactType\" id=\"listContactType\">";
-	
-		$.each(data,function(index,indexEntry){
-			
-			
-				html+="<option  value="+indexEntry["contact_type"]+">"+indexEntry["contact_type"]+"</option>";	
-				
-		});	
-		html+="</select>";
-		
-		$("#contactTypeArea").html(html);
-			
-		}
-	});
-	
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
-};
 var listDataFn = function(data){
-	
-	if ( $.fn.DataTable.isDataTable('#tableContactType')) {
-	      $('#tableContactType').DataTable().destroy();
-	     }
 	
 			 var htmlTable="";
 			 $("#listDataContactType").empty();
 			   $.each(data,function(index,indexEntry){
-				/*
-				    "contact_type": "B",
-		            "file_name": "ciz1.txt",
-		            "total_record_footer_file": null,
-		            "total_record_read_file": "3",
-		            "total_record_insert_table": "3",
-		            "start_date_time": "2016-12-02 11:24:00.000",
-		            "end_date_time": "2016-12-02 12:33:00.000",
-		            "processing_time": "1h 9m"
-				*/
-				     htmlTable+="<tr >";
+			
+				     htmlTable+="<tr class='rowSearch' >";
 					  
-					      htmlTable+="<td>"+(index+1)+"</td>";
-					      htmlTable+="<td>"+indexEntry["contact_type"]+"</td>";
-					      htmlTable+="<td>"+indexEntry["file_name"]+"</td>";
-					   	  htmlTable+="<td>"+indexEntry["total_record_footer_file"]+"</td>";
-						  htmlTable+="<td>"+indexEntry["total_record_read_file"]+"</td>";
-						
-						  htmlTable+="<td>"+indexEntry["total_record_insert_table"]+"</td>";
-					      htmlTable+="<td>"+indexEntry["processing_time"]+"</td>";
-					   	  htmlTable+="<td>"+indexEntry["start_date_time"]+"</td>";
-						  htmlTable+="<td>"+indexEntry["end_date_time"]+"</td>";
-						  htmlTable+="<td>"+indexEntry["processing_time"]+"</td>";
+					      htmlTable+="<td class='columnSearch'>"+indexEntry['seq']+"</td>";
+					      htmlTable+="<td class='columnSearch'>"+indexEntry["contact_type"]+"</td>";
+					      htmlTable+="<td class='columnSearch'>"+indexEntry["file_instance"]+"</td>";
+					   	  htmlTable+="<td class='columnSearch number'>"+notNullFn(indexEntry["total_record_footer_file"])+"</td>";
+						  htmlTable+="<td class='columnSearch number'>"+notNullFn(indexEntry["total_record_read_file"])+"</td>";
+						  htmlTable+="<td class='columnSearch number'>"+notNullFn(indexEntry["total_record_insert_table"])+"</td>";
+					      htmlTable+="<td class='columnSearch '>"+indexEntry["import_date"]+"</td>";
+					   	  htmlTable+="<td class='columnSearch'>"+indexEntry["start_date_time"]+"</td>";
+						  htmlTable+="<td class='columnSearch'>"+indexEntry["end_date_time"]+"</td>";
+						  htmlTable+="<td class='columnSearch'>"+indexEntry["processing_time"]+"</td>";
 						 
 
 				     htmlTable+="</tr>";
 					
 			   });
 				
-			  $("#listDataContactType").html(htmlTable);
-			  
-			
-			  //DataTable
-			  $('#tableContactType').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
-			
-	
+			  $("#listDataContactType").html(htmlTable);			  	
 };
-var getDataFn = function() {
-	//http://192.168.1.58/dqs_api/public/dqs_maintenance/import_log
+var getDataFn = function(page,rpp) {
+
+	var embedParamListContactType= $("#embedParamListContactType").val();
+	var embedParamImportDate = $("#embedParamImportDate").val();
 	$.ajax({
 		url : restfulURL+"/dqs_api/public/dqs_maintenance/import_log",
-		type : "get",
+		type : "post",
 		dataType : "json",
+		async:false,
+		data:{"page":page,"rpp":rpp,
+			"contact_type":embedParamListContactType,
+			"import_date":embedParamImportDate	
+		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			//console.log(data);
 			listDataFn(data['data']);
+			golbalData=data;
+			paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
 			
 		}
 	});
 };
 
-
 $(document).ready(function(){
+	
 	dropDownListContactType();
 	$("#import_date").datepicker();
-	getDataFn();
+    $("#import_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
+    $(".ui-datepicker").hide();
+    
+	$("#btnSearch").click(function(){
+		searchMultiFn($("#searchText").val());
+	});
+	
+	$("#btnSearchAdvance").click(function(){
+		
+		$(".embedParamSearch").remove();
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#listContactType").val()+"' id='embedParamListContactType' name='embedParamListContactType' class='embedParamSearch'>");
+		$("#embedParamArea").append("<input type='hidden' value='"+$("#import_date").val()+"' id='embedParamImportDate' name='embedParamImportDate' class='embedParamSearch'>");
+
+		getDataFn(1,$("#rpp").val());
+		$("#importReportLogArea").show();
+		return false;
+	});
+	$("#btnSearchAdvance").click();
+	//Export
+	$("#exportToExcel").click(function(){
+		var param="";
+		param+="&contact_type="+$("#embedParamListContactType").val();
+		param+="&import_date="+$("#embedParamImportDate").val();		
+		$("form#formExportToExcel ").attr("action",restfulURL+"/dqs_api/public/dqs_maintenance/import_log/export?token="+tokenID.token+""+param);
+		$("form#formExportToExcel ").submit();
+	});
+
 });

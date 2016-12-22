@@ -1,15 +1,11 @@
 //binding tooltip.
+var golbalData=[];
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
-var makeData={
-		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611091.TXT":[["1","","0091-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]],
-		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611092.TXT":[["1","","0092-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]],
-		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611093.TXT":[["1","","0093-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]],
-		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611094.TXT":[["1","","0094-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]],
-		"ข้อมูลบัญชีเงินฝากทั้งหมด-OBADEP201611095.TXT":[["1","","0095-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"],["2","","009-สาขาลาดพร้าว","010-สาขาดินแดง","1939900156392","20/06/1900","มีลูกค้าที่เสียชีวิต มาทำธุรกกรรม(สินเชื่อ)"]]
-		};
+
 //DropDownList Role
+/*
 var dropDownListContactType = function(){
 	
 	$.ajax({
@@ -35,12 +31,9 @@ var dropDownListContactType = function(){
 	});
 	
 };
-
+*/
 var listDataFn = function(data){
-	//console.log(data);
-	if ( $.fn.DataTable.isDataTable('#mainTableReject')){
-	      $('#mainTableReject').DataTable().destroy();
-	     }
+	
 			 var htmlTable="";
 			 $("#listMainReject").empty();
 			   $.each(data['group'],function(index,indexEntry){
@@ -68,10 +61,9 @@ var listDataFn = function(data){
 								htmlTable+="</thead>";
 									htmlTable+="<tbody>";
 									//LOOP START
-									//birth_date,cif_no,citizen_id,contact_branch,contact_branch_code,file_name,own_branch,own_branch_code,reject_date,reject_desc
-									 $.each(indexEntry['items'],function(index2,indexEntry2){
+									$.each(indexEntry['items'],function(index2,indexEntry2){
 										htmlTable+="<tr>";
-											htmlTable+="<td><div class='text-inline-table'>"+(index+1)+"</div></td>";
+											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['seq']+"</div></td>";
 											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['cif_no']+"</div></td>";
 											htmlTable+=" <td><div class='text-inline-table'>"+indexEntry2['own_branch']+"</div></td>";
 											htmlTable+="<td><div class='text-inline-table'>"+indexEntry2['contact_branch_code']+"</div></td>";  
@@ -95,23 +87,28 @@ var listDataFn = function(data){
 			  $("#listMainReject").html(htmlTable);
 			  
 			
-			  //DataTable
-			  $('#mainTableReject').DataTable( { "dom": '<"top"lp>rt<"bottom"lp><"clear">' } ); 
-			
-	
+			  
 };
-var getDataFn = function(contactType,rejectStartDate,rejectEndDate) {
+var getDataFn = function(page,rpp) {
 	
-
+	var contactType= $("#embedParamListContactType").val();
+	var rejectStartDate = $("#embedParamRejectStartDate").val();
+	var rejectEndDate = $("#embedParamRejectEndDate").val();
+	
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_maintenance/reject_log",
-		type : "get",
+		type : "post",
 		dataType : "json",
-		//data:{"contact_type":contactType,"reject_start_date":rejectStartDate ,"reject_end_date":rejectEndDate},
+		data:{"page":page,"rpp":rpp,
+			"contact_type":contactType,"reject_start_date":rejectStartDate ,"reject_end_date":rejectEndDate
+			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			//console.log(data);
 			listDataFn(data);
+			golbalData=data;
+			paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
+			
 			
 		}
 	});
@@ -126,43 +123,46 @@ var searchAdvance = function(){
 	htmlParameter+="<input type='hidden' id='embedParamRejectStartDate' name='embedParamRejectStartDate' class='embedParam' value='"+$("#rejectStartDate").val()+"' >";
 	htmlParameter+="<input type='hidden' id='embedParamRejectEndDate' name='embedParamRejectEndDate' class='embedParam' value='"+$("#rejectEndDate").val()+"' >";
 	$(".embedParam").remove();
-	$("body").append(htmlParameter);
-	getDataFn($("#listContactType").val(),$("#rejectStartDate").val(),$("#rejectEndDate").val());
+	$("#embedParamArea").append(htmlParameter);
+	//getDataFn();
+	getDataFn(1,$("#rpp").val());
 }
+
 
 $(document).ready(function(){
 	
-	
-
-	
+	//List Contact Type
 	dropDownListContactType();
-	
-	
-	
+		
 	//parameter date start
 	$("#rejectStartDate").datepicker();
     $("#rejectStartDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
-    $("#rejectStartDate").val(firstDayInMonthFn());
+    //$("#rejectStartDate").val(firstDayInMonthFn());
     
     $("#rejectEndDate").datepicker();
     $("#rejectEndDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
-    $("#rejectEndDate").val(firstDayInMonthFn());
+    //$("#rejectEndDate").val(currentDateFn());
     $(".ui-datepicker").hide();
     
-    
 	//parameter date end
-	getDataFn();
-	if ( $.fn.DataTable.isDataTable('#mainTableReject')) {
-	      $('#mainTableReject').DataTable().destroy();
-	     }
-	
-	//DataTable
-	$('#mainTableReject').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">' } );
-	
+    
 	//Search Data Here..
-	$("#btnSearch").click(function(){
+	$("#btnSearchAdvance").click(function(){
 		searchAdvance();
 	});
+	$("#btnSearchAdvance").click();
 	//Search Data Here..
+	
+	//Export
+	$("#exportToExcel").click(function(){
+		
+		var param="";
+		param+="&contact_type="+$("#embedParamListContactType").val();
+		param+="&reject_start_date="+$("#embedParamRejectStartDate").val();
+		param+="&reject_end_date="+$("#embedParamRejectEndDate").val();
+		
+		$("form#formExportToExcel ").attr("action",restfulURL+"/dqs_api/public/dqs_maintenance/reject_log/export?token="+tokenID.token+""+param);
+		$("form#formExportToExcel ").submit();
+	});
 	
 });

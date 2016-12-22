@@ -1,7 +1,4 @@
 $(document).ready(function(){
-
-	
-
 	
 	var validationFn = function() {
 		var validateText = "";
@@ -32,8 +29,7 @@ $(document).ready(function(){
 		}else{
 			all_brach_checkbox_role="0";
 		}
-		//alert(all_brach_checkbox_role);
-		//alert(authority_checkbox_role);
+		
 		
 	
 		$.ajax({
@@ -49,17 +45,21 @@ $(document).ready(function(){
 				//console.log(data['data']);
 				if (data['status'] == "200") {
 					
-					callFlashSlide("Insert Successfully.");					
-					getDataFn();
-					clearFn();
-					
 					if(param!="saveAndAnother"){
 						$('#addModalRole').modal('hide');
+						clearFn();
+						getDataFn();
+						callFlashSlide("Insert Successfully.");	
+						
 					}else{
-						callFlashSlideInModal("Insert Data is Successfully.");
+						
+						clearFn();
+						getDataFn();
+						callFlashSlideInModal("Insert Data is Successfully.","#information");
+						
 					}
 				}else if (data['status'] == 400) {
-					callFlashSlideInModal(data['data']['role_name']);
+					callFlashSlideInModal(data['data']['role_name'],"#information","error");
 				}
 			}
 		});
@@ -90,12 +90,14 @@ $(document).ready(function(){
 			data : {"role_name" : $("#role_name").val(),authority_flag:authority_checkbox_role,all_branch_flag:all_brach_checkbox_role},
 			success : function(data) {
 				
-				if (status = "200") {
+				if (data['status']== "200") {	
 					callFlashSlide("Update Successfully.");
 					getDataFn();
 					clearFn();
 					$('#addModalRole').modal('hide');
 					
+				}else if (data['status'] == 400) {
+					callFlashSlideInModal(data['data']['role_name'],"#information","error");
 				}
 			}
 		});
@@ -109,7 +111,6 @@ $(document).ready(function(){
 		$("#btnSubmit").val("Add");
 		$("#modalTitleRole").html("Add New Role");
 		$("#modalDescription").html("ADD NEW ROLE");
-		//$(".popover-edit-del").click();
 		
 	}
 	
@@ -149,7 +150,7 @@ $(document).ready(function(){
 		});
 	};
 	
-	var searchFn = function(searchText) {
+	var searchFn_bk = function(searchText) {
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_role/?role_name__regex=/^"+searchText+"/i",
 			type : "get",
@@ -191,18 +192,15 @@ $(document).ready(function(){
 		var htmlTable = "";
 		
 		$.each(data,function(index,indexEntry) {
-		htmlTable += "<tr>";
-		htmlTable += "<td>"+ (index + 1)+ "</td>";
-		htmlTable += "<td>"+ indexEntry["role_name"]+ "</td>";
-		htmlTable += "<td><i class=\"fa fa-group font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["role_id"]+"></i></td> ";
-		htmlTable += "<td><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs btn-gear del' >Delete</button>\"></i></td>";
+		htmlTable += "<tr class='rowSearch'>";
+		htmlTable += "<td class='columnSearch'>"+ (index + 1)+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["role_name"]+ "</td>";
+		htmlTable += "<td class='columnSearch objectCenter'><i class=\"fa fa-group font-setseeuser btnAuthorize\" data-target=\"#ModalRoleAuthorize\"  data-toggle=\"modal\" id="+indexEntry["role_id"]+"></i></td> ";
+		htmlTable += "<td class='columnSearch objectCenter'><i id=\"popover-edit-del-"+indexEntry["role_id"]+"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\"   data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs btn-gear edit' id="+ indexEntry["role_id"]+ " data-target=#addModalRole data-toggle='modal'>Edit</button>&nbsp;<button id="+indexEntry["role_id"]+" class='btn btn-danger btn-xs btn-gear del' >Delete</button>\"></i></td>";
 		htmlTable += "</tr>";
 		});
 	
 		$("#listRole").html(htmlTable);
-		
-		//$('#tableRole').DataTable( { "dom": '<"top"flp>rt<"bottom"lp><"clear">',"bSort" : false } ); 
-		 
 		 $("#tableRole_wrapper").click(function(){
 			 $(".popover-edit-del").popover();
 		 });
@@ -214,18 +212,16 @@ $(document).ready(function(){
 			$("#label-name-role").html($(this).parent().prev().text());
 			$("#role_id").val(this.id);
 			
+			$("#btnSaveAuthorize").off("click");
 			$("#btnSaveAuthorize").on("click",function(){
 				var menus = [];
 				$.each($(".menu").get(),function(index,indexEntry){
-					//console.log(indexEntry);
 					if($(indexEntry).is(":checked")){
-						//console.log($(indexEntry).val());
 						menus.push($(indexEntry).val());
 					}
 					
 					
 				});
-				//console.log(menus);
 				
 					$.ajax({
 						url : restfulURL + "/dqs_api/public/dqs_role/"+$("#role_id").val()+"/authorize",
@@ -246,10 +242,9 @@ $(document).ready(function(){
 					});
 					
 					
-			$("#btnSaveAuthorize").off("click");
-			});
-			//$("#btnSaveAuthorize").off("click");
 			
+			});
+				
 			
 		});
 		//function popover
@@ -270,11 +265,9 @@ $(document).ready(function(){
 				$("#btnSubmit").val("Edit");
 				$("#popover-edit-del-"+this.id).click();
 				
-				//$(".edit").off("click");
 				
 			});
 			
-			//$("#tableRole").on("click",".del",function(){
 			
 			$(".del").on("click",function(){
 				$(this).parent().parent().parent().children().click();
@@ -300,7 +293,7 @@ $(document).ready(function(){
 								     $("#confrimModal").modal('hide');
 								    // $("#popover-edit-del-"+id).click();
 						    	}else if(data['status']=="400"){
-						    		 callFlashSlide(data['data']);
+						    		 callFlashSlide(data['data'],"error");
 						    		 $("#confrimModal").modal('hide');
 						    		// $("#popover-edit-del-"+id).click();
 						    	}
@@ -323,7 +316,6 @@ $(document).ready(function(){
 	
 	
 	var getDataFn = function() {
-		//http://192.168.1.58/dqs_api/public/dqs_role
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_role",
 			type : "get",
@@ -331,7 +323,6 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listRoleFn(data);
-				//console.log(data);
 			}
 		});
 	};
@@ -339,7 +330,6 @@ $(document).ready(function(){
 	  getDataFn();
 	 
 	var getListMenuFn = function(role_id) {
-		//http://192.168.1.58/dqs_api/public/dqs_role/2/authorize
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_role/"+role_id+"/authorize",
 			type : "get",
@@ -347,43 +337,27 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				listMenuFn(data);
-				//console.log(data);
 			}
 		});
 	};
-	/*getListMenuFn();*/
-	
 	
 	$("#btnSearch").click(function(){
-		searchFn($("#searchText").val());
+		searchMultiFn($("#searchText").val());
 		   return false;
 	});
 	
-	
-	
 	$("#btnSubmit").click(function(){
-		//if (validationFn() == true) {
-			if ($("#action").val() == "add"|| $("#action").val() == "") {
-				//if (checkUniqueFn($("#role_name").val()) == true) {
-					insertFn();
-				//} else {
-					//alert("name is not unique.");
-				//}
-			}else{
-				//if (checkUniqueFn($("#role_name").val()) == true) {
-					updateFn();
-				//} else {
-					//alert("name is not unique.");
-				//}
-			}
-		//}
+		
+		if ($("#action").val() == "add"|| $("#action").val() == "") {
+			insertFn();
+		}else{
+			updateFn();
+		}
 		return false;
 	});
 	
 	$("#btnSaveAndAnother").click(function(){
-		//alert("btnSaveAndAnother");
 		insertFn("saveAndAnother");
-		
 	});
 	
 	$(".btnCancle").click(function() {
@@ -393,5 +367,4 @@ $(document).ready(function(){
 		$("#btnSaveAndAnother").show();
 	});
 	
-		
 });

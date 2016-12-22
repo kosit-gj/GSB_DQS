@@ -64,3 +64,14 @@
     text-align: left;
     
 }
+#conditionTableArea{
+	height: 250px;
+    overflow-y: scroll;
+
+}
+.deleteCondition{
+	height: 25px;
+}
+.new-condition{
+	height: 25px;
+}

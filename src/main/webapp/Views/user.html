@@ -1,4 +1,3 @@
-
 <link href="css/user_management.css" rel="stylesheet">
 <script src="Controller/cUserManagement.js"></script> 
 
@@ -6,19 +5,17 @@
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
      <div id="slide_status">
-		flash.
+		  <div id="btnClose">×</div>
+     	 <div id="slide_status_area"></div>
 	</div>
-        <!-- <h2><i class="fa fa fa-folder-open icon-title"></i> User </h2> -->
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
             </li>
             <li>
-            <!-- <div id="naviLabelCateMenu"> </div>-->
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-            <!-- <div id="naviLabelMenu"></div> -->
              <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> User </strong>
             </li>
         </ol>
@@ -26,8 +23,6 @@
    
 </div>
 <!-- nav bar -->
-
-              
 				<div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -53,7 +48,7 @@
 	                                </div>
 	                                <div class="col-sm-2">
 				                        <select data-toggle="tooltip" title="Is Active" class="form-control input-sm" id="isActive">
-				                              <option value="">All</option>
+				                              <option value="">All Is Active</option>
 				                              <option value="1">Yes</option>
 				                              <option value="0">No</option>
 				                        </select>
@@ -74,27 +69,9 @@
                         <div class="ibox float-e-margins">      
                             
                             <div class="ibox-title">
-                                <h5><i class="fa fa-user"></i> User List </h5>
-                                <!-- 
-                                <div class="ibox-tools">
-		                            <a class="collapse-link">
-		                                <i class="fa fa-chevron-up"></i>
-		                            </a>
-		                            <a class="fullscreen-link">
-		                                <i class="fa fa-expand"></i>
-		                            </a>
-		                            <a class="close-link">
-		                                <i class="fa fa-times"></i>
-		                            </a>
-		                        </div>
-		                         -->
+                                <h5><i class="fa fa-user"></i> User List </h5>     
                             </div>
-                            
-                            
                             <div class="ibox-content">
-                            
-	                            
-                             
 	                             <div class="row " >
 	                                    <div class="col-sm-8">
 	                                    	<div class="areaAction">
@@ -105,13 +82,7 @@
 	                                    </div>
 	                                    <div class="col-sm-4 " align="right">
 	                                     	<form id="formExportToExcel" method="post"action="">
-	                                     		<!-- 
-	                                     		personnel_id,
-												own_cost_center,
-												revised_cost_center,
-												role_id,
-												active_flag
-	                                     		-->
+	                                     
 	                                     		<input type="hidden" name="personnel_id" id="export_personnel_id" value="">
 	                                     		<input type="hidden" name="own_cost_center" id="export_own_cost_center" value="">
 	                                     		<input type="hidden" name="revised_cost_center" id="export_revised_cost_center" value="">
@@ -120,11 +91,13 @@
 	                                     		
 	                             				<button type="submit" id="exportToExcel" class="btn btn-info btn-sm"><i class="fa fa-download"></i>&nbsp;&nbsp;Export to Excel</button>
 	                             			</form>
+	                             			
 	                             		</div>
-	                                    <!--  <div class="col-sm-4">
+	                             		<div class="col-sm-9"></div>
+	                                    <div class="col-sm-3">
 		                                     <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
 	                                         <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span></div>
-	                                     </div> -->
+	                                     </div> 
 	                                     
 	                                      <input type="hidden" name="id" id="id" value="">
                                     	  <input type="hidden" name="action" id="action" value="add">
@@ -138,17 +111,34 @@
                    
                                     	</div>
                                     
-	                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                    <div class="col-sm-3 object-right paging-text">
+	                                    
+	                                    		<div class='pagingDropdown'>
+	                                    				<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+	                                         
+					                                         <option>10</option>
+						                                     <option>20</option>
+						                                     <option>50</option>
+						                                     <option>100</option>
+					                                    </select> 
+	                                    		
+	                                    		</div>
+												<div class='pagingText'>Results per page</div>
+	                                    
+	                                    </div>
+	                                     <!-- 
 	                                    <div class="col-sm-1">
                                      
                                     	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
+	                                         
+	                                         <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
 	                                    </select> 
                                         
                                     	</div>
+                                    	 -->
                                    	</div> 
                                    	 <!-- pagination end -->
                                     	 
@@ -158,12 +148,12 @@
                                         <thead>
                                         <tr>
 
-                                            <th>Personnel Name</th>
-                                            <th>Position</th>
-                                            <th>Branch Operation</th>
-                                            <th>OwnCostCenter</th>
-                                            <th>RevisedCostCenter</th>
-                                            <th>Role</th>
+                                            <th style='width:170px;'>Personnel Name</th>
+                                            <th style='width:170px;'>Position</th>
+                                            <th style='width:170px;'>Branch Operation</th>
+                                            <th style='width:170px;'>Own Cost Center</th>
+                                            <th style='width:40px; text-align:center;'>Revised CostCenter</th>
+                                            <th style='width:40px; text-align:center;'>Role</th>
                                             
                                         </tr>
                                         </thead>
@@ -182,33 +172,43 @@
                    
                                     	</div>
                                     
-	                                    <div class="col-sm-2 object-right paging-text">Results per page</div>
+	                                    <div class="col-sm-3 object-right paging-text">
+	                                    		<div class='pagingDropdown'>
+	                                    		
+	                                    			<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+	                                        
+				                                         <option>10</option>
+					                                     <option>20</option>
+					                                     <option>50</option>
+					                                     <option>100</option>
+				                                    </select> 
+	                                    		
+	                                    		</div>
+												<div class='pagingText'>Results per page</div>
+	                                    
+	                                    </div>
+	                                    <!-- 
 	                                    <div class="col-sm-1">
                                      
                                     	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
-	                                        <option>10</option>
-	                                        <option>20</option>
-	                                        <option>30</option>
-	                                        <option>40</option>
+	                                        
+	                                         <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
 	                                    </select> 
                                         
                                     	</div>
+                                    	 -->
                                    	</div> 
                                    	 <!-- pagination end -->
-
+									<br style='clear:both'>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-         
-
-
-    <!-- Mainly scripts -->
-    
-
-    <!-- Custom and plugin javascript -->
    
     
    

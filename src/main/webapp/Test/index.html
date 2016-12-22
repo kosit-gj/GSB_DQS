@@ -1,325 +1,247 @@
 
+<!DOCTYPE html>
+<html>
 
-<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<head>
 
-<script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-var restfulURL="http://192.168.1.37:3000";
-	$(document).ready(function(){
+    <title>Back office | Management</title>
 
-		var checkUniqueFn = function(text){
-			/* http://localhost:3000/api/products?name__regex=/^test/i */
-			var unique=false;	
-			$.ajax({
-				url:restfulURL+"/api/products?name="+text+"",
-				type:"get",
-				dataType:"json",
-				async:false,
-				success:function(data){
-					
-					console.log(data);
-					if(data==""){
-						//alert("data empty");
-						unique=true;
-					}else{
-						unique=false;
-						//alert("full data");
-					}
-					
-				}
-			});
-			return unique;
-			
-		}
-		//console.log(checkUniqueFn("aa"));
-		
-		var validationFn = function(){
-			
-			var validateText="";
-			if($("#name").val()==""){
-				validateText+="name not empty\n";
-			}
-			if($("#sku").val()==""){
-				validateText+="sku not empty\n";
-			}
-			if($("#price").val()==""){
-				validateText+="price not empty\n";
-			}
-			
-			 if(isNaN($("#price").val()))
-			 {
-				 validateText+="price is number only\n";
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/plugins/iCheck/custom.css">
+    <link rel="stylesheet" href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="./css/dataTables.bootstrap.min.css"/>
+     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+     
+    
+    <link rel="stylesheet" href="css/jquery.mloading.css">
+    
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/gsbMain.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <style>
+    .container {
+		width:1170px;
+	}
+  </style>
+
+
+</head>
+
+<body class="top-navigation" id="mainContent" style="display:none;" ng-app="myApp">
+
+
+
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom pink-bg" >
+        <nav class="navbar navbar-static-top" role="navigation">
+        
+        <!-- nav header start -->
+        <div class="container"><!-- container start -->  
+        <!-- gsb-logo -->
+            <div class="navbar-header" >
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <!-- <i class="fa fa-cc-mastercard icon-logo"></i> -->
+               <img class="grayscale logo" height="50" src="img/small-logo3.png"> 
+               <!--  <a href="#" class="  navbar-brand"></a>  --> 
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                
+                    <li class="active">
+                        <a aria-expanded="false" role="button" href="#/"><i class="fa fa-home"></i>Home</a>
+                    </li>
+                    <li class="dropdown">
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>DQ Management<span class="caret"></span></a>
+	                        <ul role="menu" class="dropdown-menu" id="DQManagementMenuCate">
+	                        	<!-- 
+	                            <li><a class="mainMenu" id="User" href="#">1) User</a></li>
+	                            <li><a class="mainMenu" id="Role" href="#">2) Role</a></li>
+	                            <li><a class="mainMenu" id="Menu" href="#">3) Menu</a></li>
+	                            <li><a class="mainMenu" id="Rule" href="#">4) Rule</a></li>
+								<li><a class="mainMenu" id="File" href="#">5) File</a></li>
+								<li><a class="mainMenu" id="Grade" href="#">6) Grade</a></li>
+								<li><a class="mainMenu" id="Branch" href="#">7) Branch</a></li>
+								<li><a class="mainMenu" id="Regional" href="#">8) Regional Office</a></li>
+								<li><a class="mainMenu" id="Configuration" href="#">9) Configuration</a></li>
+								<li><a class="mainMenu" id="Export-Import" href="#">10) Export/Import</a></li>
+								<li><a class="mainMenu" id="Re-Calculate" href="#">11) Re-Calculate</a></li>
+								<li><a class="mainMenu" id="Citizen" href="#">12) Citizen</a></li>
+								 -->
+	                        </ul>
+	                    </li>
+	                    
+	                   <li class="dropdown">
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-dashboard"></i>DQ Monitoring <span class="caret"></span></a>
+	                        <ul role="menu" class="dropdown-menu" id="DQMonitoringMenuCate">
+                        		
+								<!-- 
+								<li><a class="mainMenu" href="#" id="">6.7.1 Data Quality Monitoring for CDMD</a></li>
+							 	
+								<li><a class="mainMenu" href="#" id="">6.8.1 Import Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.2 Reject Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.3 System Usage Log Report</a></li>
+								
+								<li><a class="mainMenu" href="#" id="">6.9.1 รายงานสรคุปจกานวนลมูกคข้าทอีที่ยจังไมส่ไดข้ดกาเนพินการ</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.2 รายงานสรคุปจกานวนลมูกคข้าทอีที่ดกาเนพินการแล้ว</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.3 รายงานสรคุปจกานวนลมูกคข้ารายสาขา</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.4 รายงานสรคุปคะแนน KPI</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.5 รายงานสรคุปยอดคงเหลชอทอีที่ยจังไมส่ดกาเนพินการของขข้อมมูลลมูกคข้าตามเงชที่อนไข KPI ตามงวดทอีที่คข้าง</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.6 รายงานแสดงขข้อมมูลลมูกคข้าทอีที่ควรจะรวมเปป็น CIF เดอียวกจัน (Merge CIF)</a></li>
+								 -->
+	                        </ul>
+	                    </li>
+	                    
+	                    <li class="dropdown">
+	                        <a aria-expanded="false" role="button" href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i>Report <span class="caret"></span></a>
+	                        <ul role="menu" class="dropdown-menu" id="reportMenuCate">
+                        		
+								<!-- 
+								<li><a class="mainMenu" href="#" id="">6.7.1 Data Quality Monitoring for CDMD</a></li>
+							 	
+								<li><a class="mainMenu" href="#" id="">6.8.1 Import Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.2 Reject Log Report</a></li>
+								<li><a class="mainMenu" href="#" id="">6.8.3 System Usage Log Report</a></li>
+								
+								<li><a class="mainMenu" href="#" id="">6.9.1 รายงานสรคุปจกานวนลมูกคข้าทอีที่ยจังไมส่ไดข้ดกาเนพินการ</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.2 รายงานสรคุปจกานวนลมูกคข้าทอีที่ดกาเนพินการแล้ว</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.3 รายงานสรคุปจกานวนลมูกคข้ารายสาขา</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.4 รายงานสรคุปคะแนน KPI</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.5 รายงานสรคุปยอดคงเหลชอทอีที่ยจังไมส่ดกาเนพินการของขข้อมมูลลมูกคข้าตามเงชที่อนไข KPI ตามงวดทอีที่คข้าง</a></li>
+								<li><a class="mainMenu" href="#" id="">6.9.6 รายงานแสดงขข้อมมูลลมูกคข้าทอีที่ควรจะรวมเปป็น CIF เดอียวกจัน (Merge CIF)</a></li>
+								-->
+	                        </ul>
+	                    </li>
+	                    
+	                     
+	                    
+
+                </ul>
+                
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                    <button type="button" class="btn btn-pink btn-circle "><i class="fa fa-user font-user"></i>
+                            </button> <span class='fullName' id="fullName">Firstname Lastname  </span>
+                       
+                    </li>
+                     <li>
+                        <a id="logOut" href="#">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+                <!-- 
+                 <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+                 -->
+            </div>
+            
+            </div> <!-- container end -->  
+         <!-- nav header end -->  
+          
+           
+            
+        </nav>
+        </div>
+        <div class="wrapper wrapper-content">
+        
+       		
+       
+           <!--  <div class="container ng-view" id="includePage"> -->
+             <div class="container">
+             
+
+				<!-- 	<div class="ng-view"></div> -->
 				
-			 }
-			
-			if(validateText!=""){
-				alert(validateText);
-				return false;
-			}else{
-				return true;
-			}
-			
-		}
-		
-		
-		var insertFn = function(){
-
-				$.ajax({
-					url:restfulURL+"/api/products",
-					type:"POST",
-					dataType:"json",
-					data:{"name":$("#name").val(),"sku":$("#sku").val(),"price":$("#price").val()},
-					success:function(data,status){
-						//alert(data);
-						//console.log(data);
-						console.log(status);
-						if(status=="success"){
-							alert("Insert Success");
-							getDataFn();
-							clearFn();
-						}
-					}
-				});									
-
-				return false;
-			};
-
-		var updateFn = function(){
-
-			$.ajax({
-				url:restfulURL+"/api/products/"+$("#id").val(),
-				type:"PUT",
-				dataType:"json",
-				data:{"name":$("#name").val(),"sku":$("#sku").val(),"price":$("#price").val()},
-				success:function(data,status){
-					//alert(data);
-					if(status=="success"){
-						alert("Upate Success");
-						getDataFn();
-						clearFn();
-					}
-				}
-			});
-
-			return false;
-		};
-
-		var clearFn =function(){
-
-			$("#id").val("");
-			$("#action").val("add");
-			$("#name").val("");
-			$("#sku").val("");
-			$("#price").val("");
-			$("#btnSubmit").val("Add");
-
-		}
-
-		var findOneFn = function(id){
-			//http://localhost:3000/find-user/58035b7cb4566c158bcecacf
-			$.ajax({
-				url:restfulURL+"/api/products/"+id,
-				type:"get",
-				dataType:"json",
-				success:function(data){
-
-						$("#name").val(data['name']);
-						$("#sku").val(data['sku']);
-						$("#price").val(data['price']);
-						
-				}
-			});
-		};
-		
-		var searchFn = function(searchText){
-			/* http://localhost:3000/api/products?name__regex=/^test/i */
+				<!--  nav bar -->
 				
-			$.ajax({
-				url:restfulURL+"/api/products/?name__regex=/^"+searchText+"/i",
-				type:"get",
-				dataType:"json",
-				success:function(data){
+				<!-- nav bar -->
 
-					listDataFn(data);
-				}
-			});
-			
-		}
-		
-		var listDataFn = function(data){
-
-			console.log(data);
-			var htmlTable="";
-			$.each(data,function(index,indexEntry){
-				//console.log(indexEntry);
-					htmlTable+="<tr >";
-						htmlTable+="<td>"+(index+1)+"</td>";
-						htmlTable+="<td>"+indexEntry["name"]+"</td>";
-						htmlTable+="<td>"+indexEntry["sku"]+"</td>";
-						htmlTable+="<td>"+indexEntry["price"]+"</td>";
-			
-						htmlTable+="<td><button id="+indexEntry["_id"]+" class=\"edit\">Edit</button> &nbsp; <button id="+indexEntry["_id"]+" class=\"del\">Del</button></td>";
-					htmlTable+="</tr>";
-			});
-
-			$("#listProducts").html(htmlTable);
-			
-			
-
-			$(".del").click(function(){
-				//alert(this.id);
-				if(confirm("Do you want to delete this file?")){
-					
-					$.ajax({
-						url:restfulURL+"/api/products/"+this.id,
-						type:"delete",
-						dataType:"json",
-						//data:{"_id":this.id},
-						success:function(data){							
-							
-							getDataFn();
-							clearFn();
-
-						}
-					});
-				}
-
-			});
-
-			//findOnd
-			$(".edit").click(function(){
-
-				findOneFn(this.id);
-				$("#id").val(this.id);
-				$("#action").val("edit");
-				$("#btnSubmit").val("Edit");
-
-			});
-		}
-		
-		var getDataFn = function(){
-			
-			$.ajax({
-				url:restfulURL+"/api/products",
-				type:"get",
-				dataType:"json",
-				success:function(data){
-					
-					listDataFn(data);
-				}
-			});
-
-		};
-		
-		
-		//Call Function start
-		getDataFn();
-
-		$("#btnSubmit").click(function(){
-			//alert($("#fullname").val());
-			//alert($("#age").val());
-			//alert($("#action").val());
-			
-			if(validationFn()==true){
-
-				if($("#action").val()=="add" || $("#action").val()=="" ){
-					
-					if(checkUniqueFn($("#name").val())==true){
-						insertFn();
-					}else{
-						alert("name is not unique.");
-					}
-						
-				}else{
-					updateFn();
-				}
-					
+				<!-- 
+				Fistname
+				<div  ng-controller="myCtrl2">
+				    <p ng-bind="firstname"></p>
+				</div>
+				 -->
+				<div id="includePage"  class="ng-view"></div>
 				
-			}
-			return false;
+				<!-- <div class="container ng-view" id="includePage"></div> -->
+				<!-- 
+                <button id="calData">Call Data</button>
+                <button id="logOut2">Logout</button>
+                 -->
 
-		});
+            </div>
 
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                <!-- GSB <strong> DQS</strong>(Data Quality System) -->
+            </div>
+            <div>
+          
+                <strong>	</strong> GSB&copy;2017 GSB.
+            </div>
+        </div>
 
-		$("#btnSearch").click(function(){
-			
-			searchFn($("#searchText").val());
-			return false;
-
-		});
-
-		$("#btnCancle").click(function(){
-
-			clearFn();
-			return false;
-
-		});
-		
-		//Call Function End
-		
-	});
-</script>
-
-<input type="text" name="searchText" id="searchText" value=""><button id="btnSearch"> Search</button>
-<table border="1">
-<thead>
-	<tr>
-		<th><b>Seq</b></th>
-		<th><b>Product Name</b></th>
-		<th><b>SKU</b></th>
-		<th><b>PRICE</b></th>
-		<th><b>Action</b></th>
-	</tr>
-</thead>
-<tbody id="listProducts">
-	
-</tbody>
-</table>
+        </div>
+        </div>
 
 
-<form action="#" method="post">
-<table>
-	<tr>
-		<td>
-			Product Name
-		</td>
-		<td>
-			<input type="text" name="name" id="name">
-		</td>
+    <!-- Mainly scripts -->
 
-	</tr>
-	
-	
-	<tr>
-		<td>
-			SKU
-		</td>
-		<td>
-			<input type="text" name="sku" id="sku">
-		</td>
+     <script src="js/jquery3.1.1.js"></script>
+	 <script type="text/javascript">
+	 var jQuery_1_1_3 = $.noConflict(true);
+	 </script>
+    
+    
+   
+ 	<script src="js/jquery-2.1.1.js"></script> 
+ 	
+   
+  
+    <script src="js/jquery-ui-1.10.4.min.js"></script>
+    
+    
+    <script src="js/jquery.bootpag.min.js"></script>
+  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+     
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-	</tr>
-	
-	<tr>
-		<td>
-			Price
-		</td>
-		<td>
-			<input type="text" name="price" id="price">
-		</td>
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+     <!-- table data start -->
+    <script type="text/javascript" src="./js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./js/dataTables.bootstrap.min.js"></script>
+    <!-- table data end -->
+    
+    <!-- load angular fame work start-->
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/angular-route.js"></script>
+    <!-- load angular fame work end -->
+    
+    
+    <script src="js/jquery.mloading.js"></script>
+    
+    <script src="Controller/cMain.js"></script>
+    
+</body>
 
-	</tr>
-	
-	<tr>
-		
-		<td colspan="2">
-			<input type="hidden" name="id" id="id" value="">
-			<input type="hidden" name="action" id="action" value="add">
-			<input type="button" name="btnSubmit" id="btnSubmit" value="Add">
-			<button id="btnCancle">Cancel</button>
-		</td>
-
-	</tr>
-
-</table>
-</form>
+</html>

@@ -157,8 +157,12 @@ var getDataFn = function() {
 		success : function(data) {
 			
 			
-		
-			listDataFn(data);
+			if(data['country']!=""){
+				listDataFn(data);
+			}else{
+				$("#listDataSumKpiScore").empty();
+			}
+				
 			
 			
 			
@@ -235,7 +239,7 @@ $(document).ready(function(){
 			dropDownHtmlBranch+="</select>";
 			$("#listBranchArea").html(dropDownHtmlBranch);
 		}else{
-			dropDownListBranch($(this).val());
+			dropDownListBranchReport($(this).val());
 		}
 
 		
@@ -247,8 +251,9 @@ $(document).ready(function(){
 	dropDownListMonth();
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	//Export
 	$("#exportToExcel").click(function(){

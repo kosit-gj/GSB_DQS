@@ -168,6 +168,7 @@ var searchAdvanceFn = function(){
 
 $(document).ready(function(){
 	dropDownListOperation();
+	$(document).off("change","#listOperation");
 	$(document).on("change","#listOperation",function(){
 		if($(this).val()==""){
 			var dropDownHtmlRegion="<select id=\"listRegion\" class=\"form-control input-sm listRegion\">";
@@ -189,7 +190,7 @@ $(document).ready(function(){
 			dropDownListRegion($(this).val());
 		}
 	});
-	
+	$(document).off("change","#listRegion");
 	$(document).on("change","#listRegion",function(){
 		if($(this).val()==""){
 			var dropDownHtmlDistrict="<select id=\"listDistrict\" class=\"form-control input-sm listDistrict\">";
@@ -207,7 +208,7 @@ $(document).ready(function(){
 		}
 		
 	});
-	
+	$(document).off("change","#listDistrict");
 	$(document).on("change","#listDistrict",function(){
 
 		if($(this).val()==""){
@@ -217,7 +218,7 @@ $(document).ready(function(){
 			dropDownHtmlBranch+="</select>";
 			$("#listBranchArea").html(dropDownHtmlBranch);
 		}else{
-			dropDownListBranch($(this).val());
+			dropDownListBranchReport($(this).val());
 		}
 
 		
@@ -232,8 +233,9 @@ $(document).ready(function(){
 	//getDataFn();
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	//Export
 	$("#exportToExcel").click(function(){

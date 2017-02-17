@@ -178,6 +178,7 @@ $(document).ready(function(){
 					   $("#btnAddAnother").val("Add");
 					   $("#action_condition").val("add");
 					   $("#btnAddAnother").show();
+					   $(".information").hide();
 					   
 					   
 			}
@@ -279,7 +280,7 @@ $(document).ready(function(){
 							
 							 $("#embed_grade_id").val(this.id);
 							 $("#embed_grade_name").text(($("#gradename-"+this.id).text()));
-							 
+							 $(".information").hide();
 							getDataConditionFn();
 							dropDownListRule();
 							$(this).parent().parent().parent().children().click();
@@ -678,6 +679,10 @@ $(document).ready(function(){
 				$(".input-contact-selecttype").removeAttr("disabled");
 				$(".complete_flag").removeAttr("disabled");
 				$("#action_condition").val("edit");
+			});
+			
+			jQuery('.numberOnly').keyup(function () { 
+			    this.value = this.value.replace(/[^0-9\.]/g,'');
 			});
 
 });

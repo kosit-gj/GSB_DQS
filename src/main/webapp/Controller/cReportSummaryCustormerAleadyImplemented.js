@@ -188,7 +188,7 @@ $(document).ready(function(){
 			dropDownHtmlBranch+="</select>";
 			$("#listBranchArea").html(dropDownHtmlBranch);
 		}else{
-			dropDownListBranch($(this).val());
+			dropDownListBranchReport($(this).val());
 			//alert("getBranch");
 		}
 
@@ -201,8 +201,10 @@ $(document).ready(function(){
 	
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
+		
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	//Export
 	$("#exportToExcel").click(function(){

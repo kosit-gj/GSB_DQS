@@ -57,7 +57,8 @@ var embedParamRole = function(id){
 						  htmlTable+="<td class='columnSearch'>"+indexEntry["own_cost_center"]+"</td>";
 						
 						  htmlTable+="<td class=\"listRevisedCostCenterInlineArea \">";
-						  htmlTable+=dropDownListRevisedCostCenter(indexEntry["revised_ccdef"],+indexEntry["personnel_id"]);
+						  //htmlTable+=dropDownListRevisedCostCenter(indexEntry["revised_ccdef"],+indexEntry["personnel_id"]);
+						  htmlTable+=" <input disabled  style=\"width:200px;\" class=\"form-control input-inline-table input-contact-selecttype editListRevisedCostCenter \" id=\"listRevisedCostCenter-"+indexEntry["personnel_id"]+"\" value=\""+indexEntry["revised_ccdef"]+" "+indexEntry["revised_cost_center"]+"\"> ";
 						  htmlTable+="</td>";
 				          
 				          
@@ -164,9 +165,12 @@ var dropDownListRole = function(id,paramInline,paramParentID){
 	var html="";
 	if(paramInline=="Y"){
 		html+="<select disabled class=\"form-control input-inline-table input-contact-selecttype editListRole\" id=\"listRole-"+paramParentID+"\">";
+		html+="<option value=\"\">No Role</option>";
 	}else{
 		html+="<select class=\"form-control input-sm \" id=\"listRole\">";
+		html+="<option value=\"\">All Role</option>";
 	}
+	
 	$.each(galbalDqsRoleObj,function(index,indexEntry){
 		if(id==indexEntry["role_id"]){
 			html+="<option selected value="+indexEntry["role_id"]+">"+indexEntry["role_name"]+"</option>";			
@@ -222,17 +226,18 @@ var updateFn = function(){
 	
 		if($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()!=undefined || $("#embed_listRole-"+indexEntry['personnel_id']).val()!=undefined){
 			if($("#embedListRevisedCostCenter-"+indexEntry['personnel_id']).val()!=undefined){
-				revisedCostCenter=$("#listRevisedCostCenter-"+indexEntry['personnel_id']).val();
+				revisedCostCenter=$("#listRevisedCostCenter-"+indexEntry['personnel_id']).val().split(" ")[0];
 				
 			}else{
-				revisedCostCenter="";
+				revisedCostCenter=$("#listRevisedCostCenter-"+indexEntry['personnel_id']).val().split(" ")[0];
 			}
 			if($("#embed_listRole-"+indexEntry['personnel_id']).val()!=undefined){
 				role=$("#listRole-"+indexEntry['personnel_id']).val();
 				
 			}else{
-				role="";
+				role=$("#listRole-"+indexEntry['personnel_id']).val();
 			}
+			//alert(revisedCostCenter);
 			users.push({
 				 personnel_id: ""+indexEntry['personnel_id']+"",
 			     revised_cost_center: ""+revisedCostCenter+"",
@@ -251,11 +256,35 @@ var updateFn = function(){
 		    headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 		    success:function(data,status){
-			     if(status=="success"){
-				callFlashSlide("Update Successfully.");
+			    if(data['status'] == "200") {
+				if(data['errors']==undefined){
+					return false;
+				}
+				if(data['errors'].length>0){
+					var validate = "";
+					var count = 0;
+					$.each(data['errors'], function(index, indexEntry) {
+						if(index != 0 ){validate += "<br> "}
+						$.each(data['errors'][index], function(index2, indexEntry2) {
+						if (index2 != undefined) {
+							if (count == 0) {
+								validate += "<font color='red'>* </font>" + indexEntry2 + " : ";
+							} else {
+								validate += "" + indexEntry2 + "  ";
+							}
+						}
+
+						count++;
+						});
+						count=0;
+					});
+					callFlashSlide(validate,"error");
+				}
+				else{callFlashSlide("Update Successfully.");}
+				
 				$(".editListRevisedCostCenter").attr("disabled","disabled");
 				$(".editListRole").attr("disabled","disabled");
-				
+				getDataFn($("#pageNumber").val(),$("#rpp").val());
 			     }
 			  }
 		});
@@ -319,12 +348,45 @@ var updateFn = function(){
 			
 			  //ปุ่ม click Edit 
 			  $("#btnEdit").click(function(){
+				//Auto Complete Own Cost Center start
+				$(".editListRevisedCostCenter").autocomplete({
+				    source: function (request, response) {
+				    	 $.ajax({
+							    url:restfulURL+"/dqs_api/public/dqs_user/revised_cost_center",
+							    type:"POST",
+							    dataType:"json",
+								headers:{Authorization:"Bearer "+tokenID.token},
+								data:{"q":request.term},
+								//async:false,
+				                error: function (xhr, textStatus, errorThrown) {
+				                    console.log('Error: ' + xhr.responseText);
+				                },
+							    success:function(data){
+								
+									response($.map(data, function (item) {
+				                        return {
+				                            label: item.desc,
+				                            value: item.desc
+				                        }
+				                    }));
+								
+							    },
+								beforeSend:function(){
+									$("body").mLoading('hide');	
+								}
+							   });
+				    	
+				    }
+				});
+
+				//Auto Complete Own Cost Center end
 				$(".editListRevisedCostCenter").removeAttr("disabled");
 				$(".editListRole").removeAttr("disabled");
 				//$(".editRevised").removeAttr("disabled");
 			  });
 			
 			//Auto Complete personnelID start
+		
 			$("#personnelID").autocomplete({
                 source: function (request, response) {
                 	 $.ajax({
@@ -335,7 +397,7 @@ var updateFn = function(){
     						data:{"q":request.term},
     						//async:false,
                             error: function (xhr, textStatus, errorThrown) {
-                            	alert('Error: ' + xhr.responseText);
+                            	console.log('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
     						
@@ -367,7 +429,7 @@ var updateFn = function(){
     						data:{"q":request.term},
     						//async:false,
                             error: function (xhr, textStatus, errorThrown) {
-                                alert('Error: ' + xhr.responseText);
+                                console.log('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
     						
@@ -423,6 +485,7 @@ var updateFn = function(){
 		  //Auto Complete Own Cost Center end
 			$("#btnAdvanceSearch").click(function(){
 				advanceSearchFn();
+				$("#pageNumber").val(1);
 				//paginationFn(1,1,1);
 			});
 			$("#btnAdvanceSearch").click();
@@ -443,6 +506,45 @@ var updateFn = function(){
 		});
 		//#### Call Export User Function End ####
 	
+	//Auto Complete Own Cost Center start
+	$(".editListRevisedCostCenter").autocomplete({
+        source: function (request, response) {
+        	 $.ajax({
+				    url:restfulURL+"/dqs_api/public/dqs_user/revised_cost_center",
+				    type:"POST",
+				    dataType:"json",
+					headers:{Authorization:"Bearer "+tokenID.token},
+					data:{"q":request.term},
+					//async:false,
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Error: ' + xhr.responseText);
+                    },
+				    success:function(data){
+					
+						response($.map(data, function (item) {
+                            return {
+                                label: item.desc,
+                                value: item.desc
+                            }
+                        }));
+					
+				    },
+					beforeSend:function(){
+						$("body").mLoading('hide');	
+					}
+				   });
+        	
+        }
+    });
+    
+  //Auto Complete Own Cost Center end
+	//Not Number Start
+	jQuery('.numberOnly').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	//Not Number End
+	
 });
+
 
 

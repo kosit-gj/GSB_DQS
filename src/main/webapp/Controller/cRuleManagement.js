@@ -305,6 +305,7 @@ var getDataFn = function(page,rpp) {
 		$("#action").val("add");
 		$("#rule_name").val("");
 		$("#btnSubmit").val("Add");
+		$(".information").hide();
 	}
 	
 $(document).ready(function(){
@@ -576,7 +577,7 @@ $(document).ready(function(){
 						data:{"q":request.term},
 						//async:false,
                       error: function (xhr, textStatus, errorThrown) {
-                          alert('Error: ' + xhr.responseText);
+                          console.log('Error: ' + xhr.responseText);
                       },
 					    success:function(data){
 						
@@ -629,7 +630,8 @@ $(document).ready(function(){
 		}
 		
 		searchAdvanceFn($("#ruleGroup").val(),$("#ruleName").val(),paramInitial,paramUpdate,paramLastContact);
-		   return false;
+		$("#pageNumber").val(1);  
+		return false;
 	});
 	
 	$("#btnSubmit").click(function(){

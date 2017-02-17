@@ -1,0 +1,264 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/operator_report.css" rel="stylesheet">
+<!--  nav bar -->
+<div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
+    <div class="col-lg-12">
+     <div id="slide_status">
+     
+         <div id="btnClose"><i class='fa fa-times'></i></div>
+     	 <div id="slide_status_area"></div>
+     
+     </div>
+       
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/"><i class="fa fa-home "></i> Home</a>
+            </li>
+            <li>
+            <!-- <div id="naviLabelCateMenu"> </div>-->
+            <i class="fa fa-bar-chart-o"></i> Report
+            </li>
+            <li class="active">
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i>  </strong>
+            </li>
+        </ol>
+    </div>
+   
+</div>
+<!-- nav bar -->
+				
+<div class="row">
+	<!--  SEARCH ADVANCE START -->
+            
+            <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Missing File Search </h5>
+                        </div>
+                        <div class="ibox-content">
+                         <div class='row'>
+	                        <!-- input search start  -->
+	                         <div class='search-area'>
+	                           
+	                            <!-- 
+	                            <div class="search-box-label">
+	                           			Start Date    
+	                            </div>
+	                             -->
+	                             <div class="search-box">
+	                                  <input data-toggle="tooltip" title="Start Date" type="text" name="logStartDate" id="logStartDate" class="form-control input-sm" placeholder="Log Date">
+	                            </div>
+	                            <!-- 
+	                            <div class="search-box-label">
+	                           			End Date    
+	                            </div>
+	                             -->
+	                             <div class="search-box">
+	                                  <input data-toggle="tooltip" title="End Date" type="text" name="logEndDate" id="logEndDate" class="form-control input-sm" placeholder="Log Date">
+	                            </div>
+	                            
+	                           <div class="search-box-submit">
+	                           		<button id="btnSearchAdvanceLostFile" class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+	                           </div>
+	                            <br style="clear:both">
+	                           
+	                        </div> 
+	                        <!-- input search end  --> 
+                        </div>  
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- SEARCH ADVANCE END -->
+</div>
+				
+<div class="row ">
+
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Missing File List</h5>
+	               
+                  </div>
+                  <div class="ibox-content">
+                  <div class="row">
+                      
+                       <div class="col-sm-12">
+                         	<div class='object-left'>
+                         		  <form id='btnUpdteLostFileForm' action="" method="post" target="_blank">
+	                           			 <button type="button" id='btnUpdteLostFile' class="btn btn-warning input-sm"><i class="fa fa-pencil-square-o"></i>&nbsp;Update</button>
+	                           	  </form>
+                         	</div>
+                       </div>
+                       
+                  </div>
+              <div class="row">
+                <div class="col-sm-12 ">
+	                <div class="table-responsive">
+	        
+	                    <!--  main table  start-->
+	               		  <table class="table" id="mainTableLostFile">
+	               		  <thead>
+	                        <tr  class="active">
+	                         	<th style='text-align:center;'>Fixed</th>
+		                       <th>Log Date</th>
+		                       <th>Contact Type</th>	
+		                       <th>Source Path</th>	
+		                       <th>Filename</th>
+		                       		
+		         			   <th>Updated By</th>	
+		         			   <th>Updated Date</th>
+							   
+	                        </tr>
+	                      </thead>
+	               		  <tbody id="listMainLostFile">
+	               		  	
+	               		  	
+		               	  <tbody>
+	               		  </table>
+	               		<!--  main table end -->
+	                </div>
+                </div>
+               </div>
+                
+              <br style='clear:both'>
+              
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+	<!--  SEARCH ADVANCE START -->
+            
+            <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Job Fail Search </h5>
+                        </div>
+                        <div class="ibox-content">
+                         <div class='row'>
+	                        <!-- input search start  -->
+	                         <div class='search-area'>
+	                           
+		                           
+		                           <!-- 
+		                           <div class="search-box-label">Start Date</div>
+		                            -->
+		                           <div class="search-box">
+		                                  <input data-toggle="tooltip" title="Start Date" type="text" name="jobfailStartDate" id="jobfailStartDate" class="form-control input-sm" placeholder="Start Date">
+		                           </div>
+		                            <!-- 
+		                            <div class="search-box-label">End Date</div>
+		                            -->
+		                           <div class="search-box">
+		                                  <input data-toggle="tooltip" title="End Date" type="text" name="jobfailEndDate" id="jobfailEndDate" class="form-control input-sm" placeholder="End Date">
+		                           </div>
+		                            <!-- 
+		                           <div class="search-box-label">Service Name</div>
+		                           -->
+		                           <div class="search-box">
+		                                  <input data-toggle="tooltip" title="Service Name" type="text" name="searviceName" id="searviceName" class="form-control input-sm" placeholder="Searvice Name">
+		                           </div>
+		                           
+		                           
+		                           <div class="search-box-submit-job-fail">
+		                           		<button id="btnSearchAdvanceJobFail" class="btn btn-info btn-search input-sm"  type="button"><i class="fa fa-search"></i>&nbsp;Search</button>
+		                           </div>
+	                            	<br style="clear:both">
+	                           
+	                        </div> 
+	                        <!-- input search end  --> 
+                        </div>  
+                        </div>
+                    </div>
+                </div>
+            
+            <!-- SEARCH ADVANCE END -->
+</div>
+				
+<div class="row ">
+
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Job Fail List</h5>
+	               
+                  </div>
+                  <div class="ibox-content">
+                  
+                  <div class="row">
+                      
+                       <div class="col-sm-6">
+                         	<div class='object-left'>
+                         		  <form id='btnUpdteJobFailForm' action="" method="post" target="_blank">
+	                           			 <button type="button" id='btnUpdteJobFail' class="btn btn-warning input-sm"><i class="fa fa-pencil-square-o"></i>&nbsp;Update</button>
+	                           	  </form>
+                         	</div>
+                       </div>
+                       
+                       <div class="col-sm-6">
+                         	<div class='object-right'>
+                         	
+                      		  <form target="_blank" method="post" action="" id="formExportToExcel">
+                          			 <button class="btn btn-info input-sm" id="exportToExcel" type="button"><i class="fa fa-file-text-o"></i>&nbsp;Export to Excel</button>
+                          	  </form>
+		                     
+                         	</div>
+                       </div>
+                       
+                   </div>
+                   
+                 
+              <div class="row">
+                <div class="col-sm-12 ">
+	                <div class="table-responsive">
+	        
+	                    <!--  main table  start-->
+	               		  <table class="table" id="mainTableJobfail">
+	               		  <thead>
+	                        <tr  class="active">
+								<th style='text-align:center;'>Fixed</th>
+								<th>Service Name</th>	
+								<th>Start Time</th>	
+								<th>End Time</th>	
+								<th>Log Path</th>	
+								<th width="100px;">Updated By</th>	
+								<th width="100px;">Updated Date</th>	
+								
+								
+								
+	                        </tr>
+	                        </thead>
+	               		  	<tbody id="listMainJobfail">
+	               		  	
+	               		  			
+			               		  	
+	               		  		
+		               		<tbody>
+	               		  </table>
+	               		<!--  main table end -->
+	                </div>
+                </div>
+               </div>
+                
+              <br style='clear:both'>
+              
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id='embedParamAreaJobFail'></div>
+<div id='embedParamAreaLostFile'></div>
+
+
+<script src="Controller/cOperatorReport.js"></script>
+
+ 
+

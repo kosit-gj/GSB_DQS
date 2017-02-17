@@ -34,3 +34,6 @@
 #information2{
 	text-align:left;
 }
+.ui-front {
+    z-index: 3000;
+}

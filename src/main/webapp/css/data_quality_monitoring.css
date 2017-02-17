@@ -19,7 +19,8 @@
 	/*border: 1px solid;*/
     float: left;
     margin-right: 5px;
-    width: 685px;
+    /*width: 685px;*/
+    width: 915px;
     margin-bottom:5px;
     text-align:right;
 }
@@ -129,6 +130,10 @@
 #iconStatusDetailPage{
 	margin-right:20px;
 }
-
+.not-active {
+   pointer-events: none;
+   cursor: default;
+   color: #676a6c;
+}
 
 

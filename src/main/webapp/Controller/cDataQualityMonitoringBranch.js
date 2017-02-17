@@ -1,6 +1,7 @@
 //Global Parameter Start
 var golbalDataRule=[];
 var golbalData=[];
+var explainFilesStatus=true;
 //Global Parameter End
 
 //set paginate local start
@@ -53,7 +54,10 @@ var paginationSetUpFn2 = function(pageIndex,pageButton,pageTotal){
 		findOneFn($("#validate_header_id").val(),1,$(this).val());
 		
 		$(".rpp2").remove();
+		$(".pagingNumber2").remove();
 	    var htmlRrp= "<input type='hidden' id='rpp2' name='rpp2' class='rpp2' value='"+$(this).val()+"'>";
+	    	htmlRrp+= "<input type='hidden' id='pageNumber2' name='pageNumber2' class='pagingNumber2' value='1'>";
+		  
 	    $("#paramPagingDetail").html(htmlRrp);
 	});
 }
@@ -144,7 +148,7 @@ var dropDownListRule = function(id){
 		async:false,
 		success:function(data){
 	
-		console.log(data);
+		//console.log(data);
 	   // var data=[{"id":"1","name":"สาขา1"},{"id":"2","name":"สาขา2"},{"id":"3","name":"สาขา3"}];
 		var html="";	
 		html+="<select class=\"form-control input-sm listRule\" id=\"listRule\">";
@@ -221,10 +225,11 @@ var updateFn = function(){
 	    headers:{Authorization:"Bearer "+tokenID.token},
 	    async:false,
 	    success:function(data,status){
-	     console.log(data);
+	     //console.log(data);
 	     if(data['status']=="200"){
 	    	  callFlashSlideInModal("Update Successfully.","#information");
-	      	  findOneFn($("#validate_header_id").val());
+	      	  //findOneFn($("#validate_header_id").val());
+	      	  findOneFn($("#validate_header_id").val(),$("#pageNumber2").val(),$("#rpp2").val());
 	  	
 	      }
 	   }
@@ -274,10 +279,17 @@ updateExplainFn = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			if(data['status']==200){
-
+				
+				//callFlashSlide("Update Successfully.");  
 				callFlashSlideInModal("Update Successfully.","#information2");
 				
 				getDataExplainFn(validate_header_id);
+				if(explainFilesStatus == true){
+					setTimeout(function(){$("#exPlainModal").modal('hide');},1000);
+				}else{
+					explainFilesStatus = true;
+				}
+				
 				
 			}else if(data['status']==400){
 				
@@ -426,12 +438,13 @@ var listDataQualityFn = function(data) {
 
 	var htmlTable = "";	
 	$.each(data,function(index,indexEntry) {
-		
+		/*
 		if(indexEntry['kpi_flag']==1 && indexEntry['complete_flag']==0){
 			htmlTable += "<tr class='rowSearch danger'>";
 		}else{
 			htmlTable += "<tr class='rowSearch'>";
-		}
+		}*/
+		htmlTable += "<tr class='rowSearch'>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry['seq']+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cif_no"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cust_full_name"]+ "</td>";
@@ -506,6 +519,7 @@ var listDataQualityFn = function(data) {
 	
 	//click to explain page start
 	$(".modalExplain").click(function(){
+		$("#explain_files_attachment").val("");
 		$("#explain_files").empty();
 		$("#exPlainModal").modal();
 		getDataExplainFn(this.id);
@@ -602,13 +616,15 @@ var delFileFn = function(validate_header_id,explain_file_id){
 			if(data['status']==200){
 				$("#explain_file-"+explain_file_id).remove();
 				$("#path_file-"+explain_file_id).remove();
-				
+				//console.log("Test validate_header_id : "+validate_header_id);
+				//getDataExplainFn(validate_header_id);
 				if($("#explain_files").text().trim()==""){
 					//set status is cdmd_explain_no_explanation.
 					$("#cdmd_explain_no_explanation").prop("checked",true);
 					$("#cdmd_explain_waiting").prop("checked",false);
 					$("#cdmd_explain_approve").prop("checked",false);
 					$("#cdmd_explain_not_approved").prop("checked",false);
+					explainFilesStatus = false;
 					$("#btnSaveExplain").click();
 				}
 			}
@@ -618,7 +634,10 @@ var delFileFn = function(validate_header_id,explain_file_id){
 }
 
 var fineOneExplainFn = function(data){
-
+	var validate = "";
+	var validateStatus= true;
+	var validateStatusTemp = true;
+	var count = 0;
 	/* explain_status  start*/
 	var explain_status = data['explain_status'].split("-");
 	explain_status=explain_status[0];
@@ -645,13 +664,49 @@ var fineOneExplainFn = function(data){
 	var html_explain_files="";
 	
 	$.each(data['explain_files'],function(index,indexEntry){
-		if(index==0){
-			html_explain_files+="<a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
-			html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a>";
-		}else{
-			html_explain_files+="  <a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
-			html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a>";
+		
+		try {
+			$.ajax({
+				url : restfulURL +"/dqs_api/public/"+indexEntry['file_path'],
+				dataType : "json",
+				async:false,
+				crossDomain:true,
+				success : function(data1) {
+					//alert(data1);
+					if(data1['status']==404){
+						if(index==0){
+							html_explain_files+="<a class='not-active' target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+							html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a> <br style=\"clear:both\">";
+						}else{
+							html_explain_files+="  <a class='not-active' target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+							html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a> <br style=\"clear:both\">";
+						}
+						validateStatus=false;
+						validateStatusTemp=false;
+						count++;
+					}
+				}
+			});
 		}
+		catch(err) {
+			
+		}finally {
+			if(validateStatusTemp == true){
+				if(index==0){
+					html_explain_files+="<a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+					html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a> <br style=\"clear:both\">";
+				}else{
+					html_explain_files+="  <a target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+					html_explain_files+=" <a href='#' class='delFile' id='explain_file-"+indexEntry['explain_file_id']+"' ><i style='color:red' class=\"fa fa-trash \"></i></a> <br style=\"clear:both\">";
+				}
+			}
+			validateStatusTemp=true;
+			
+	    }
+		
+		
+
+		
 		
 		$("#explain_files").html(html_explain_files);
 	});
@@ -691,6 +746,7 @@ var fineOneExplainFn = function(data){
 				validate_header_id=$("#validate_header_id").val();
 			}
 			delFileFn(validate_header_id,explain_file_id);
+			getDataFn($("#pageNumber").val(),$("#rpp").val());
 		}else{
 			callFlashSlideInModal("Can't delete.","#information3");
 		}
@@ -815,6 +871,7 @@ var getDataExplainFn = function(id) {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			fineOneExplainFn(data);
+			getDataFn($("#pageNumber").val(),$("#rpp").val());
 			
 		}
 	});
@@ -828,7 +885,7 @@ var firstDayInMonthFn = function(){
 	var output = d.getFullYear() + '-' +
 	    ((''+	month).length<2 ? '0' : '') + month + '-01';
 	   
-	console.log(output);
+	//console.log(output);
 	return output;
 }
 var currentDateFn = function(){
@@ -844,7 +901,7 @@ var currentDateFn = function(){
 	    	 output+= ((''+day).length<2 ? '0' : '') + (day-1);	
 	    }
 	
-	console.log(output);
+	//console.log(output);
 	return output;
 }
 
@@ -885,7 +942,7 @@ $(document).ready(function(){
 
 		// Create a formdata object and add the files
 		var data = new FormData();
-		console.log(data);
+		//console.log(data);
 		jQuery_1_1_3.each(files, function(key, value)
 		{
 			data.append(key, value);
@@ -898,7 +955,8 @@ $(document).ready(function(){
 		}else{
 			validate_header_id=$("#validate_header_id").val();
 		}
-	
+		//Auau
+		//alert(validate_header_id);
 		jQuery_1_1_3.ajax({
 			url:restfulURL+"/dqs_api/public/dqs_monitoring/branch/"+validate_header_id+"/explain",
 			type: 'POST',
@@ -911,7 +969,7 @@ $(document).ready(function(){
 			async:false,
 			success: function(data, textStatus, jqXHR)
 			{
-				console.log(data);
+				//console.log(data);
 				if(data['status']==200 && data['data'].length>0){
 					
 					//callFlashSlideInModal("Upload Successfully.","#information3");
@@ -941,6 +999,8 @@ $(document).ready(function(){
 	});
 	
 	$(".btn-explain").click(function(){
+		$("#explain_files").empty();
+		$("#explain_files_attachment").val("");
 		$("#exPlainModal").modal();
 	});
 
@@ -987,7 +1047,7 @@ $(document).ready(function(){
 		
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#rule_group").val()+"' id='embedParamSearchRuleGroup' name='embedParamSearchRuleGroup' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#listRule").val()+"' id='embedParamSearchListRule' name='embedParamSearchListRule' class='embedParamSearch'>");
-		$("#embedParamArea").append("<input type='hidden' value='"+$("#validate_status").val()+"' id='embedParamSearchValidateStatus' name='embedParamSearchValidateStatus' class='embedParamSearch'>");
+		//$("#embedParamArea").append("<input type='hidden' value='"+$("#validate_status").val()+"' id='embedParamSearchValidateStatus' name='embedParamSearchValidateStatus' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#is_customer").val()+"' id='embedParamSearchIsCustomer' name='embedParamSearchIsCustomer' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#explain_status").val()+"' id='embedParamSearchExplainStatus' name='embedParamSearchExplainStatus' class='embedParamSearch'>");
 		$("#embedParamArea").append("<input type='hidden' value='"+$("#is_affiliation").val()+"' id='embedParamSearchIsAffiliation' name='embedParamSearchIsAffiliation' class='embedParamSearch'>");
@@ -1000,7 +1060,7 @@ $(document).ready(function(){
 		//$(".countPagination").val(10);
 		return false;
 	});
-	$("#btnSearchAdvance").click();
+	//$("#btnSearchAdvance").click();
 	
 	$("#btnSubmit").click(function(){
 		updateFn(); 
@@ -1012,13 +1072,13 @@ $(document).ready(function(){
 	
 	$("#btnCancle").click(function() {
 		var id = $("#validate_header_id_hidden").val();
-		findOneFn(id);
+		//findOneFn(id);
+		findOneFn(id,$("#pageNumber2").val(),$("#rpp2").val());
 	});
 	
-	
-
-
 	$("#btn-explain").click(function() {
+		//Auau
+		//console.log($("#validate_header_id_hidden").val());
 		getDataExplainFn($("#validate_header_id_hidden").val());
 		$("#explain_id").val($("#validate_header_id_hidden").val());
 	});
@@ -1026,8 +1086,15 @@ $(document).ready(function(){
 	$("#btnSaveExplain").click(function() {
 
 		setTimeout(function(){
+			$("#validate_header_id").val("");
+			//console.log("explain_id :"+$("#explain_id").val());
+			//console.log("validate_header_id :"+$("#validate_header_id").val());
 			updateExplainFn($("#explain_id").val());
+			
+			
 		},1000);
+		
+		
 		
 		
 	});
@@ -1043,7 +1110,7 @@ $(document).ready(function(){
 		param+="&cust_type_code="+$("#embedParamSearchListCusType").val();
 		param+="&rule_group="+$("#embedParamSearchRuleGroup").val();
 		param+="&rule_id="+$("#embedParamSearchListRule").val();
-		param+="&validate_status="+$("#embedParamSearchValidateStatus").val();
+		//param+="&validate_status="+$("#embedParamSearchValidateStatus").val();
 		param+="&customer_flag="+$("#embedParamSearchIsCustomer").val();
 		param+="&explain_status="+$("#embedParamSearchExplainStatus").val();
 		param+="&affiliation_flag="+$("#embedParamSearchIsAffiliation").val();
@@ -1054,21 +1121,29 @@ $(document).ready(function(){
 	});
 	
 	//กำหนดค่า CIF ต้องเปนตัวเลข
-		$("#cif_no").keydown(function (e) {
-		        // Allow: backspace, delete, tab, escape, enter and .
-			
-		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-		             // Allow: Ctrl+A, Command+A
-		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-		             // Allow: home, end, left, right, down, up
-		            (e.keyCode >= 35 && e.keyCode <= 40)) {
-		                 // let it happen, don't do anything
-		                 return;
-		        }
-		        // Ensure that it is a number and stop the keypress
-		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-		            e.preventDefault();
-		        }
+//		$("#cif_no").keydown(function (e) {
+//		        // Allow: backspace, delete, tab, escape, enter and .
+//			
+//		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//		             // Allow: Ctrl+A, Command+A
+//		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//		             // Allow: home, end, left, right, down, up
+//		            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//		                 // let it happen, don't do anything
+//		                 return;
+//		        }
+//		        // Ensure that it is a number and stop the keypress
+//		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//		            e.preventDefault();
+//		        }
+//		});
+		
+		//Not Number Start
+		jQuery('.numberOnly').keyup(function () { 
+		    this.value = this.value.replace(/[^0-9\.]/g,'');
 		});
+		//Not Number End
+		
+		
 
 });

@@ -5,7 +5,7 @@
     <div class="col-lg-12">
      <div id="slide_status">
      
-     	 <div id="btnClose">×</div>
+     	 <div id="btnClose"><i class='fa fa-times'></i></div>
      	 <div id="slide_status_area"></div>
      	 
      
@@ -18,7 +18,7 @@
             <i class="fa fa-gears"></i> System Management
             </li>
             <li class="active">
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Export/Import</strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> </strong>
             </li>
         </ol>
     </div>
@@ -70,16 +70,37 @@
 									                          	</div>
 									                          	
 										                          	<div class="label-import-export">
-										                          	<label for="selectboxyear">ปี&nbsp;</label>
+										                          		<label for="selectboxyear">ปี&nbsp;</label>
 										                          	
 									                                    <select  class="form-control-sm m-b" id="yearImportExport">
+									                                    	
+																		</select>
+																		&nbsp;&nbsp;
+																		<label for="selectboxyear">เดือน&nbsp;</label>
+										                          	
+									                                    <select  class="form-control-sm m-b" id="monthImportExport">
+									                                    	<option selected value="">ทุกเดือน</option>
+									                                    	<option value="1">มกราคม</option>
+									                                    	<option value="2">กุมภาพันธ์</option>
+									                                    	<option value="3">มีนาคม </option>
+									                                    	<option value="4">เมษายน </option>
+									                                    	<option value="5">พฤษภาคม </option>
+									                                    	<option value="6">มิถุนายน </option>
+									                                    	<option value="7">กรกฎาคม </option>
+									                                    	<option value="8">สิงหาคม </option>
+									                                    	<option value="9">กันยายน</option>
+									                                    	<option value="10">ตุลาคม </option>
+									                                    	<option value="11">พฤศจิกายน </option>
+									                                    	<option value="12">ธันวาคม </option>
 									                                    	
 																		</select>
 																		&nbsp;&nbsp;
 																		<label for="selectboxyear">ประเภทลูกค้า&nbsp;</label>
 																		
 										                                    <select  class="form-control-sm m-b customerImportExport" id="customerType">
-										                                    	
+										                                    	<option selected value="">บุคคลธรรมดา และ พนักงานธนาคารออมสิน</option>
+										                                    	<option value="1020">พนักงานธนาคารออมสิน</option>
+										                                    	<option value="1010">บุคคลธรรมดา</option>
 																			</select>
 																		
 																	</div>
@@ -93,7 +114,9 @@
 																	<div class="label-import-export">
 																		<label for="selectboxyear">ประเภทลูกค้า&nbsp;</label>
 									                                    <select disabled class="form-control-sm m-b customerImportExport" id="customerTypeNew">
-									                                    	
+									                                    	<option selected value="">บุคคลธรรมดา และ พนักงานธนาคารออมสิน</option>
+										                                    	<option value="1020">พนักงานธนาคารออมสิน</option>
+										                                    	<option value="1010">บุคคลธรรมดา</option>
 																		</select>
 																	</div>
 																</div>
@@ -101,6 +124,7 @@
 															 
 														  	<input type="hidden" name="token" id="export_token" class="" value="">
 														  	<input type="hidden" name="year" id="export_year" class="" value="">
+														  	<input type="hidden" name="month" id="export_month" class="" value="">
 														   	<input type="hidden" name="record_type" id="export_record_type" class="" value="1">
 														    <input type="hidden" name="cust_type" id="export_cust_type" class="" value="">
 														    

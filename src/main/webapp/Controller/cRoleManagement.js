@@ -111,6 +111,7 @@ $(document).ready(function(){
 		$("#btnSubmit").val("Add");
 		$("#modalTitleRole").html("Add New Role");
 		$("#modalDescription").html("ADD NEW ROLE");
+		$(".information").hide();
 		
 	}
 	

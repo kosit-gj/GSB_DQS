@@ -158,7 +158,7 @@ $(document).ready(function(){
 		});
 		$(document).off("change","#listRegion");
 		$(document).on("change","#listRegion",function(){
-			
+			//var 
 			if($(this).val()==""){
 				var dropDownHtmlDistrict="<select id=\"listDistrict\" class=\"form-control input-sm listDistrict\">";
 				dropDownHtmlDistrict+="<option value=\"\">All District</option>";
@@ -185,7 +185,7 @@ $(document).ready(function(){
 				dropDownHtmlBranch+="</select>";
 				$("#listBranchArea").html(dropDownHtmlBranch);
 			}else{
-				dropDownListBranch($(this).val());
+				dropDownListBranchReport($(this).val());
 				//alert($(this).val());
 			}
 			
@@ -201,8 +201,9 @@ $(document).ready(function(){
 	
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	
 	//Export

@@ -13,7 +13,7 @@ $(document).ready(function(){
 			url:restfulURL+"/dqs_api/public/session",
 			//url:"http://10.15.100.12/dqs_api/public/session",
 			type:"POST",
-			dataType:"json",
+			dataType:"text",
 			data:{"user_name":$("#userName").val(),"password":$("#password").val()},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$("#information").html("<font color='red'>*</font>invalid credentials.").show();

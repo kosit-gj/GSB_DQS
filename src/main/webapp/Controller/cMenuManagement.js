@@ -83,6 +83,7 @@ var clearFn =function(){
 	   $("#report").prop('checked', false);
 	   $("#modalTitleRole").html("Add New Menu");
 	   $("#modalDescription").html("ADD NEW MENU");
+	   $(".information").hide();
 		  
 
   }

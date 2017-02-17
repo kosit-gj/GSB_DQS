@@ -169,6 +169,9 @@ body {
 .object-right{
 	text-align:right;
 }
+.object-center{
+	text-align:center;
+}
 .paging-text{
 	margin-top:5px;
 	
@@ -211,9 +214,10 @@ body {
     color:white;
 }
 .modal-header .close {
-    margin-top: 5px;
+    margin-top: 8px;
     color:white;
     opacity: 1;
+    font-size: 17px;
 }
 hr {
     margin-bottom: 10px;
@@ -473,10 +477,7 @@ body {
     text-align: left;
     color:white;
 }
-.modal-header .close {
-    margin-;top: 5px;
-    color:white;
-}
+
 hr {
     margin-bottom: 10px;
     margin-top: 0;
@@ -732,10 +733,7 @@ body {
     text-align: left;
     color:white;
 }
-.modal-header .close {
-    margin-top: 5px;
-    color:white;
-}
+
 hr {
     margin-bottom: 10px;
     margin-top: 0;
@@ -844,6 +842,10 @@ hr {
 	
 	display:none;
 }
+.display_result{
+	
+	display:none;
+}
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
 	display: block;
 }
@@ -922,7 +924,7 @@ hr {
 .btnModalClose{
 	color: red;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     margin-right: 5px;
     position: absolute;

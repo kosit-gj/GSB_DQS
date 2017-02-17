@@ -136,11 +136,11 @@ $(document).ready(function(){
 		
 	//parameter date start
 	$("#rejectStartDate").datepicker();
-    $("#rejectStartDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#rejectStartDate").datepicker( "option", "dateFormat", "yy-mm-dd" );
     //$("#rejectStartDate").val(firstDayInMonthFn());
     
     $("#rejectEndDate").datepicker();
-    $("#rejectEndDate").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#rejectEndDate").datepicker( "option", "dateFormat", "yy-mm-dd" );
     //$("#rejectEndDate").val(currentDateFn());
     $(".ui-datepicker").hide();
     
@@ -149,8 +149,9 @@ $(document).ready(function(){
 	//Search Data Here..
 	$("#btnSearchAdvance").click(function(){
 		searchAdvance();
+		$(".display_result").show();
 	});
-	$("#btnSearchAdvance").click();
+	//$("#btnSearchAdvance").click();
 	//Search Data Here..
 	
 	//Export

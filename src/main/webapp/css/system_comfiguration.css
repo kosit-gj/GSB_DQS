@@ -45,7 +45,7 @@
 	padding: 5px;
 }
 .input-dataselect{
-	width:150px;
+	width:auto;
 	height:27px;
 	padding: 0px;
 }
@@ -95,6 +95,16 @@
 .waringBranch{
 	height:195px;
 	
+}
+
+@media
+
+only screen and (-webkit-min-device-pixel-ratio: 0)  
+ {
+  /* Only HD rule. */
+  input[type=date].form-control, input[type=time].form-control, input[type=datetime-local].form-control, input[type=month].form-control{
+  line-height:normal;
+  }
 }
 
 

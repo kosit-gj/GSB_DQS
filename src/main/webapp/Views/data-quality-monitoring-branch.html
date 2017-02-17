@@ -3,7 +3,10 @@
 <!--  nav bar -->
 <div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
     <div class="col-lg-12">
-     <div id="slide_status"></div>
+     <div id="slide_status">
+     <div id="btnCloseSlide"><i class='fa fa-times'></i></div>
+	<div id="slide_status_area"></div>
+     </div>
         <ol class="breadcrumb">
             <li>
                 <a href="#/"><i class="fa fa-home "></i> Home</a>
@@ -12,7 +15,7 @@
             <i class="fa fa-dashboard"></i> DQ Monitoring 
             </li>
             <li class="active">
-             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i> Data Quality Monitoring for Branch </strong>
+             <strong id="naviLabelMenu"><i class="fa fa-share-alt"></i>  </strong>
             </li>
         </ol>
     </div>
@@ -40,16 +43,16 @@
 	                               </div>
 	                               
 	                               <div class="search-box-branch">
-	                               			<input type="text" data-toggle="tooltip" title="Start Validate Date" class="form-control input-sm" id="start_validate_date" placeholder="Start Validate Date"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="From Start Validate Date" class="form-control input-sm" id="start_validate_date" placeholder="From Start Validate Date"  value="">
 	                               </div>
                              		
                              	    <div class="search-box-branch">
-	                               			<input type="text" data-toggle="tooltip" title="End Validate Date" class="form-control input-sm" id="end_validate_date" placeholder="End Validate Date"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="To Start Validate Date" class="form-control input-sm" id="end_validate_date" placeholder="To Start Validate Date"  value="">
 	                               </div>
 	                               
                              
 	                               <div class="search-box-branch">
-	                               			<input type="text" data-toggle="tooltip" title="CIF" class="form-control input-sm" id="cif_no" placeholder="CIF"  value="">
+	                               			<input type="text" data-toggle="tooltip" title="CIF" class="form-control input-sm numberOnly" id="cif_no" placeholder="CIF"  value="">
 	                               </div>
 	                               
 	                       
@@ -70,12 +73,12 @@
 	                                <div class="search-box-branch" data-toggle="tooltip" title="Rule Group">
 	                               			<select class="form-control input-sm" name="roleGroup" id="rule_group">
 		                                        
-		                                         <option value='' selected>All Rule Group</option>
+		                                         <option value='' >All Rule Group</option>
 												 <option>Cleansing</option>
 												 <option>Mapping</option>
 												 <option>Matching</option>
 												 <option>Edit</option>
-												 <option>KPI</option>
+												 <option selected >KPI</option>
 		                                    </select>
 	                               </div>
 	                               
@@ -84,23 +87,23 @@
 	                               </div>
 	                            
 	                               
-	                               <div class="search-box-branch" data-toggle="tooltip" title="Validate Status">
-	                               			<select class="form-control input-sm" id="validate_status" name=validate_status">
+<!-- 	                               <div class="search-box-branch" data-toggle="tooltip" title="Validate Status"> -->
+<!-- 	                               			<select class="form-control input-sm" id="validate_status" name=validate_status"> -->
 		                                       
-		                                         <option value=''>All Validate Status</option>
-												 <option>incomplete</option> 
-												 <option>wrong</option>
-												 <option>complete</option>
-												 <option>correct</option>
-												 <option>transfer</option>
-		                                    </select>
-	                               </div>
+<!-- 		                                         <option value=''>All Validate Status</option> -->
+<!-- 												 <option>incomplete</option>  -->
+<!-- 												 <option>wrong</option> -->
+<!-- 												 <option>complete</option> -->
+<!-- 												 <option>correct</option> -->
+<!-- 												 <option>transfer</option> -->
+<!-- 		                                    </select> -->
+<!-- 	                               </div> -->
 	                               
 	                               <div class="search-box-branch" data-toggle="tooltip" title="Is Customer">
 	                               			<select class="form-control input-sm" id="is_customer" name="is_customer">
 		                                         
-		                                         <option value=''>All Is Customer</option>
-												 <option value='1' selected>Yes</option> 
+		                                         <option value='' selected>All Is Customer</option>
+												 <option value='1' >Yes</option> 
 												 <option value='0'>No</option>
 												
 		                                    </select>
@@ -111,10 +114,10 @@
 	                               			<select class="form-control input-sm" name="explain_status" id="explain_status">
 		                                       
 		                                        <option value=''>All Explain Status</option>
-												<option selected>1-Waiting </option>
+												<option >1-Waiting </option>
 												<option>2-Approved</option>
 												<option>3-Not Approved</option>
-												<option>4-Not Explain</option>
+												<option selected>4-Not Explain</option>
 		                                       
 		                                    </select>
 	                               </div>
@@ -299,7 +302,7 @@
     <div class="modal-dialog modal-lg">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span></button>
                
                 <h4 class="modal-title">Show Detail</h4>
                
@@ -321,7 +324,7 @@
                                               
                                     <button id="btnEdit" class="btn btn-info " type="button"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
                                     <button id="btnSubmit" class="btn btn-warning " type="button"><i class="fa fa-save"></i>&nbsp;Save</button>
-                                    <button id="btnCancle" class="btn btn-danger " type="button"><i class="fa fa-trash-o"></i>&nbsp;Cancel</button>
+                                    <button id="btnCancle" class="btn btn-danger " type="button"><i class="fa fa-reply-all"></i>&nbsp;Cancel</button>
  
                                     </div>
                                     <div class="col-sm-2"></div>
@@ -416,7 +419,7 @@
     
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span></button>
                 <!-- <i class="fa fa-laptop modal-icon"></i> -->
                 <h4 class="modal-title">Explain</h4>
                 <!-- 

@@ -16,6 +16,7 @@ var dropDownListProvince = function(){
 	   // var data=[{"id":"1","name":"Province1"},{"id":"2","name":"Province2"},{"id":"3","name":"Province3"}];
 		var html="";	
 		html+="<select class=\"form-control input-sm listProvince\" id=\"listProvince\">";
+		html+="<option selected value=''>All Province</option>";
 		$.each(data,function(index,indexEntry){
 			
 				html+="<option  value="+indexEntry["province_code"]+">"+indexEntry["province_name"]+"</option>";	
@@ -129,8 +130,9 @@ $(document).ready(function(){
 	//getDataFn();
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	//Export
 	$("#exportToExcel").click(function(){

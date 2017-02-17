@@ -55,7 +55,10 @@ var paginationSetUpFn2 = function(pageIndex,pageButton,pageTotal){
 		findOneFn($("#validate_header_id").val(),1,$(this).val());
 		
 		$(".rpp2").remove();
+		$(".pagingNumber2").remove();
 	    var htmlRrp= "<input type='hidden' id='rpp2' name='rpp2' class='rpp2' value='"+$(this).val()+"'>";
+	    	htmlRrp+= "<input type='hidden' id='pageNumber2' name='pageNumber2' class='pagingNumber2' value='1'>";
+		   
 	    $("#paramPagingDetail").append(htmlRrp);
 	});
 }
@@ -152,7 +155,10 @@ var updateFn = function(){
 	  {
 	  	   //send value Seq
 		  validate_status=$("#validate_status-"+validate_id).val();
-		  
+		 if(validate_status == null){
+			 validate_status = "incomplete";
+		 }
+		 //console.log(validate_status);
 		   //send value KPI 
 		   if($("#kpiFlagCheckbox-"+validate_id).prop('checked')){ 
 			    kpi_flag = 1;
@@ -193,7 +199,8 @@ var updateFn = function(){
 	      
 		      	callFlashSlideInModal("Update Successfully.","#information");
 		      	//listDetailRuleFn(golbalDataRule);
-		      	findOneFn($("#validate_header_id").val());
+		      	findOneFn($("#validate_header_id").val(),$("#pageNumber2").val(),$("#rpp2").val());
+		      	//findOneFn($("#validate_header_id").val());
 	
 	      }else if(data['status']=="400"){
 	    	  
@@ -245,6 +252,8 @@ updateExplainFn = function(id){
 					$("#cdmd_explain_approve").prop("disabled",true);
 					$("#cdmd_explain_not_approved").prop("disabled",true);
 					callFlashSlideInModal("Update Successfully.","#information2");
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
+					setTimeout(function(){$("#exPlainModal").modal('hide');},1000);
 				}else{
 					callFlashSlideInModal(data['warning'],"#information2","error");
 					$("#btn-explain").click();
@@ -388,12 +397,12 @@ var listDataQualityFn = function(data) {
 
 	var htmlTable = "";
 	$.each(data,function(index,indexEntry) {
-		if(indexEntry['kpi_flag']==1 && indexEntry['complete_flag']==0){
+		/*if(indexEntry['kpi_flag']==1 && indexEntry['complete_flag']==0){
 			htmlTable += "<tr class='rowSearch danger'>";
 		}else{
 			htmlTable += "<tr class='rowSearch'>";
-		}
-		
+		}*/
+		htmlTable += "<tr class='rowSearch'>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry['seq']+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cif_no"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cust_full_name"]+ "</td>";
@@ -518,8 +527,6 @@ var listDetailRuleFn = function(data) {
 			//alert("not ok");
 			return false;
 		}
-
-		
 		//alert(id[1]);		
 	});
 	
@@ -540,16 +547,18 @@ var listDetailRuleFn = function(data) {
 
 
 var fineOneExplainFn = function(data){
-	
+	var validate = "";
+	var validateStatus= true;
+	var validateStatusTemp = true;
+	var count = 0;
 	/* explain_status  start*/
 	var explain_status = data['explain_status'].split("-");
 	explain_status=explain_status[0];
 	
 	if(explain_status==1){
 		$('#cdmd_explain_waiting').prop('checked', true);
-		$('#cdmd_explain_approve').removeAttr('disabled' );
+		$('#cdmd_explain_approve').removeAttr('disabled');
 		$('#cdmd_explain_not_approved').removeAttr('disabled');
-		
 	}
 	
 	if(explain_status==2){
@@ -587,14 +596,43 @@ var fineOneExplainFn = function(data){
 	var html_explain_files="";
 	
 	$.each(data['explain_files'],function(index,indexEntry){
-		if(index==0){
-			html_explain_files+="<a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
-		}else{
-			html_explain_files+=" , <a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
+		try {
+			$.ajax({
+				url : restfulURL +"/dqs_api/public/"+indexEntry['file_path'],
+				dataType : "json",
+				async:false,
+				crossDomain:true,
+				success : function(data1) {
+					if(data1['status']==404){
+						if(index==0){
+							html_explain_files+="<a class='not-active' target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a> <br style=\"clear:both\">";
+						}else{
+							html_explain_files+=" , <a class='not-active' target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a><br style=\"clear:both\">";
+						}
+						validateStatus=false;
+						validateStatusTemp=false;
+						count++;
+					}
+				}
+			});
 		}
+		catch(err) {
+			
+		}finally {
+			if(validateStatusTemp == true){
+				if(index==0){
+					html_explain_files+="<a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a> <br style=\"clear:both\">";
+				}else{
+					html_explain_files+=" , <a target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a><br style=\"clear:both\">";
+				}
+			}
+			validateStatusTemp=true;
+			
+	    }
 		
 		$("#explain_files").html(html_explain_files);
 	});
+	
 	/* Attachment End*/
 	
 	/*approve_user start*/
@@ -782,22 +820,24 @@ $(document).ready(function(){
 	});
 	
 	//Number Only Text Fields.
-	$(".numberOnly").keydown(function (e) {
-		        // Allow: backspace, delete, tab, escape, enter and .
-			
-		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-		             // Allow: Ctrl+A, Command+A
-		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-		             // Allow: home, end, left, right, down, up
-		            (e.keyCode >= 35 && e.keyCode <= 40)) {
-		                 // let it happen, don't do anything
-		                 return;
-		        }
-		        // Ensure that it is a number and stop the keypress
-		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-		            e.preventDefault();
-		        }
-		});
+	
+//	$(".numberOnly").keydown(function (e) {
+//	        // Allow: backspace, delete, tab, escape, enter and .
+//		
+//	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//	             // Allow: Ctrl+A, Command+A
+//	            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//	             // Allow: home, end, left, right, down, up
+//	            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//	                 // let it happen, don't do anything
+//	                 return;
+//	        }
+//	        // Ensure that it is a number and stop the keypress
+//	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//	            e.preventDefault();
+//	        }
+//	});
+	
 	
 	
 	//Drop down List
@@ -857,7 +897,7 @@ $(document).ready(function(){
 		return false;
 	});
 	//Advance Search Action.
-	$("#btnSearchAdvance").click();
+	//$("#btnSearchAdvance").click();
 	
 	//Update Action
 	$("#btnSubmit").click(function(){
@@ -876,7 +916,8 @@ $(document).ready(function(){
 	//Cancel Action
 	$("#btnCancle").click(function() {
 		var id = $("#validate_header_id_hidden").val();
-		findOneFn(id);
+		//$(".countPagination2").val(10);
+		findOneFn(id,$("#pageNumber2").val(),$("#rpp2").val());
 	});
 	//Explain Action
 	$("#btn-explain").click(function() {
@@ -927,40 +968,47 @@ $(document).ready(function(){
 		
 	});
 	
-	//กำหนดค่า CIF ต้องเปนตัวเลข
-	$("#cif_no").keydown(function (e) {
-	        // Allow: backspace, delete, tab, escape, enter and .
-		
-	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-	             // Allow: Ctrl+A, Command+A
-	            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-	             // Allow: home, end, left, right, down, up
-	            (e.keyCode >= 35 && e.keyCode <= 40)) {
-	                 // let it happen, don't do anything
-	                 return;
-	        }
-	        // Ensure that it is a number and stop the keypress
-	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-	            e.preventDefault();
-	        }
-	});
+//	//กำหนดค่า CIF ต้องเปนตัวเลข
+//	$("#cif_no").keydown(function (e) {
+//	        // Allow: backspace, delete, tab, escape, enter and .
+//		
+//	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//	             // Allow: Ctrl+A, Command+A
+//	            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//	             // Allow: home, end, left, right, down, up
+//	            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//	                 // let it happen, don't do anything
+//	                 return;
+//	        }
+//	        // Ensure that it is a number and stop the keypress
+//	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//	            e.preventDefault();
+//	        }
+//	});
 	
-	//กำหนดค่า risk ต้องเปนตัวเลข
-	$("#risk").keydown(function (e) {
-	        // Allow: backspace, delete, tab, escape, enter and .
-		
-	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-	             // Allow: Ctrl+A, Command+A
-	            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-	             // Allow: home, end, left, right, down, up
-	            (e.keyCode >= 35 && e.keyCode <= 40)) {
-	                 // let it happen, don't do anything
-	                 return;
-	        }
-	        // Ensure that it is a number and stop the keypress
-	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-	            e.preventDefault();
-	        }
+//	//กำหนดค่า risk ต้องเปนตัวเลข
+//	$("#risk").keydown(function (e) {
+//	        // Allow: backspace, delete, tab, escape, enter and .
+//		
+//	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//	             // Allow: Ctrl+A, Command+A
+//	            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//	             // Allow: home, end, left, right, down, up
+//	            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//	                 // let it happen, don't do anything
+//	                 return;
+//	        }
+//	        // Ensure that it is a number and stop the keypress
+//	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//	            e.preventDefault();
+//	        }
+//	});
+	
+	
+	//Not Number Start
+	jQuery('.numberOnly').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
 	});
+	//Not Number End
 
 });

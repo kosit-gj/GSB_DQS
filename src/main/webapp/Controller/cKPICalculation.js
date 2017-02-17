@@ -50,8 +50,24 @@ $(document).ready(function(){
 			return false;
 			
 		}else{
-			
-			$("#kpiOfMonth").html(getPastMonthTH());
+			$.ajax ({
+				url:restfulURL+"/dqs_api/public/dqs_branch/get_kpi_date",
+				type:"get" ,
+				dataType:"json" ,
+				async:false,
+				headers:{Authorization:"Bearer "+tokenID.token},
+				success:function(data){
+					var dataReturn="";
+					var monthTH=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน",
+					             "พฤษาภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน",
+					             "ตุลาคม","พฤจิกายน","ธันวาคม"];
+					var d = data["data_start_date"];
+					var month = parseInt(d.substring(6, 4));
+					var year =parseInt(d.substring(0, 4))+543;
+					dataReturn=monthTH[month-1]+" "+year
+					$("#kpiOfMonth").html(dataReturn);
+				}
+			});
 		}
 		
 	});

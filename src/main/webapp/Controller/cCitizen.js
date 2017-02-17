@@ -4,7 +4,13 @@ var galbalDataCitizen=[];
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
-
+function numbersonly(e){
+    var unicode=e.charCode? e.charCode : e.keyCode
+    if (unicode!=8){ //if the key isn't the backspace key (which we should allow)
+        if (unicode<48||unicode>57) //if not a number
+            return false //disable key press
+    }
+}
 var getDataFn = function(page,rpp){
 	
 	var cif_no= $("#paramEmbedCifNo").val();
@@ -38,10 +44,12 @@ var listCitizenFn = function(data) {
 	var sexed ="";
 	var manualAdd="";
 	$.each(data,function(index,indexEntry) {
-		if (indexEntry["sex"]==1){
+		if (indexEntry["nsex"]==1){
 			sexed = "ชาย";
-		}else if (indexEntry["sex"]==0){
+		}else if (indexEntry["nsex"]==2){
 			sexed = "หญิง";
+		}else{
+			sexed = "อื่นๆ";
 		}
 		if (indexEntry["manual_add_flag"]==1){
 			manualAdd = "<input disabled type='checkbox' name='manual_add' id='manual_add' checked value='1'>";
@@ -52,9 +60,9 @@ var listCitizenFn = function(data) {
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cif"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["npid"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["ntitle"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["fname"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["lname"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["dob"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["nfname"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["nlname"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["ndob"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+sexed+"</td>";
 		htmlTable += "<td class='objectCenter'>"+manualAdd+"</td>";
 		
@@ -96,17 +104,38 @@ var listCitizenFn = function(data) {
 			$("#province_citizen").attr("disabled","disabled");
 			$("#flag1_citizen").attr("disabled","disabled");
 			$("#flag2_citizen").attr("disabled","disabled");
+			$('#sex_citizen_other').attr("disabled","disabled");
 			
 			//Binding Date Picker Start. 	
-			$("#dob_citizen").datepicker();
-		    $("#dob_citizen").datepicker( "option", "dateFormat", "yy-mm-dd" );
-		    $(".ui-datepicker").hide();
+			//$("#dob_citizen").datepicker();
+		    //$("#dob_citizen").datepicker( "option", "dateFormat", "yymmdd" );
+		    //$(".ui-datepicker").hide();
 		    			
 			findOneFn(this.id);
 			$("#id").val(this.id);
 			$("#action").val("edit");
 			$("#btnSubmit").val("Edit");		
-				
+
+			jQuery('.numberOnly').keyup(function () { 
+			    this.value = this.value.replace(/[^0-9\.]/g,'');
+			});
+//			$(".numberOnly").keydown(function (e) {
+//				        // Allow: backspace, delete, tab, escape, enter and .
+//					
+//				        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//				             // Allow: Ctrl+A, Command+A
+//				            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//				             // Allow: home, end, left, right, down, up
+//				            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//				                 // let it happen, don't do anything
+//				                 return;
+//				        }
+//				        // Ensure that it is a number and stop the keypress
+//				        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//				            e.preventDefault();
+//				        }
+//				});
+			
 		});
 		
 		$(".del").on("click",function(){
@@ -148,10 +177,10 @@ var findOneFn = function(id) {
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {		
 	
-			$("#id_citizen").val(data['pid']);
+			$("#id_citizen").val(data['npid']);
 			$("#cifno_citizen").val(data['ref_no']);
-			$("#nfname_citizen").val(data['fname']);
-			$("#nlname_citizen").val(data['lname']);
+			$("#nfname_citizen").val(data['nfname']);
+			$("#nlname_citizen").val(data['nlname']);
 			$("#ntitle_citizen").val(data['ntitle']);
 			$("#hno_citizen").val(data['hno']);
 			$("#moo_citizen").val(data['moo']);
@@ -171,9 +200,11 @@ var findOneFn = function(id) {
 			//sex
 			if(data['nsex']==1){
 				$('#sex_citizen_men').prop('checked', true);
-			}
-			if(data['nsex']==0){
+			}else if(data['nsex']==2){
 				$('#sex_citizen_women').prop('checked', true);
+			}else{
+				$('#sex_citizen_other').prop('checked', true);
+				$('#sex_citizen_other').val(data['nsex']);
 			}
 			
 			//flag
@@ -204,8 +235,8 @@ var validationFn = function(data){
 	if(data['data']['ref_no']!=undefined){
 		validate+="<font color='red'>*</font> "+data['data']['ref_no']+"<br>";
 	}
-	if(data['data']['pid']!=undefined){
-		validate+="<font color='red'>*</font> "+data['data']['pid']+"<br>";
+	if(data['data']['npid']!=undefined){
+		validate+="<font color='red'>*</font> "+data['data']['npid']+"<br>";
 	}
 	if(data['data']['fname']!=undefined){
 		validate+="<font color='red'>*</font> "+data['data']['fname']+"<br>";
@@ -216,6 +247,8 @@ var validationFn = function(data){
 	}
 	if(data['data']['ntitle']!=undefined){
 		validate+="<font color='red'>*</font> "+data['data']['ntitle']+"<br>";
+	}if(data['data']['sex']!=undefined){
+		validate+="<font color='red'>*</font> "+data['data']['sex']+"<br>";
 	}
 	if(data['data']['hno']!=undefined){
 		validate+="<font color='red'>*</font> "+data['data']['hno']+"<br>";
@@ -245,9 +278,11 @@ var insertFn = function(param) {
 	var sex = "";
 		if($("#sex_citizen_men:checked").val()){
 			sex = 1;
-		}else if($("#sex_citizen_women:checked").val()){
-			sex = 0;
 		}
+		if($("#sex_citizen_women:checked").val()){
+			sex = 2;
+		}
+		
 	var nation_citizen="";
 	
 		if($("#nation_citizen_thai:checked").val()){
@@ -263,7 +298,7 @@ var insertFn = function(param) {
 		data : {
 			
 			"ref_no":$("#cifno_citizen").val(),
-			"pid":$("#id_citizen").val(),
+			"npid":$("#id_citizen").val(),
 			"ntitle":$("#ntitle_citizen").val(),
 			"fname":$("#nfname_citizen").val(),
 			"lname":$("#nlname_citizen").val(),
@@ -316,7 +351,9 @@ var updateFn = function() {
 	if($("#sex_citizen_men:checked").val()){
 		sex = 1;
 	}else if($("#sex_citizen_women:checked").val()){
-		sex = 0;
+		sex = 2;
+	}else{
+		sex = $("#sex_citizen_other").val();
 	}
 	
 	
@@ -332,7 +369,7 @@ var updateFn = function() {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data : {
 			"ref_no":$("#cifno_citizen").val(),
-			"pid":$("#id_citizen").val(),
+			"npid":$("#id_citizen").val(),
 			"ntitle":$("#ntitle_citizen").val(),
 			"fname":$("#nfname_citizen").val(),
 			"lname":$("#nlname_citizen").val(),
@@ -355,14 +392,13 @@ var updateFn = function() {
 		},	
 		success : function(data) {
 			if (data['status'] == "200") {
-				//alert($("#pageNumber").val());
-				//alert($("#rpp").val());
+		
 				getDataFn($("#pageNumber").val(),$("#rpp").val());
+				//getDataFn(1,$("#rpp").val());
 				clearFn();
 				$('#ModalCitizen').modal('hide');
 				callFlashSlide("Update Successfully.");
 			}else if (data['status'] == "400") {
-				
 				validationFn(data);
 			}
 		}
@@ -371,6 +407,8 @@ var updateFn = function() {
 };
 //Clear
 var clearFn = function() {
+	
+	$("#information").hide();
 	$("#modalTitleRole").html("Add New Citizen");
 	$("#modalDescription").html("ADD NEW CITIZEN");
 	$("#id_citizen").val("");
@@ -394,6 +432,7 @@ var clearFn = function() {
 	$("#province_citizen").val("");
 	$("#flag1_citizen").val("");
 	$("#flag2_citizen").val("");
+	$('#sex_citizen_other').val("");
 	
 	$("#cifno_citizen").removeAttr("disabled"); 
 	$("#ntitle_citizen").removeAttr("disabled"); 
@@ -409,6 +448,7 @@ var clearFn = function() {
 	$("#province_citizen").removeAttr("disabled");
 	$("#flag1_citizen").removeAttr("disabled");
 	$("#flag2_citizen").removeAttr("disabled");
+	$(".information").hide();
 };
 //SearchAdvance
 var searchAdvanceFn = function(cif_no,npid,flag_2,manual_add) {
@@ -431,6 +471,8 @@ $(document).ready(function(){
 	});
 	$("#btnSearchAdvance").click(function(){
 		searchAdvanceFn($("#cif_no").val(),$("#npid").val(),$("#flag_2").val(),$("#manual_add").val());
+		$("#pageNumber").val(1);
+
 		return false;
 	});
 	$("#btnSearchAdvance").click();
@@ -438,28 +480,35 @@ $(document).ready(function(){
 		clearFn();
 		$(".text_add_edit").text("ADD FILE");
 		//Binding Date Picker Start. 	
-		$("#dob_citizen").datepicker();
-	    $("#dob_citizen").datepicker( "option", "dateFormat", "yy-mm-dd" );
-	    $(".ui-datepicker").hide();
+		//$("#dob_citizen").datepicker();
+	    //$("#dob_citizen").datepicker( "option", "dateFormat", "yymmdd" );
+	    //$(".ui-datepicker").hide();
 	    $("#btnAddAnother").show();
+	    $('#sex_citizen_other').attr("disabled","disabled");
 		//Binding Date Picker End.
 	    //Number Only Text Fields.
-		$(".numberOnly").keydown(function (e) {
-			        // Allow: backspace, delete, tab, escape, enter and .
-				
-			        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-			             // Allow: Ctrl+A, Command+A
-			            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-			             // Allow: home, end, left, right, down, up
-			            (e.keyCode >= 35 && e.keyCode <= 40)) {
-			                 // let it happen, don't do anything
-			                 return;
-			        }
-			        // Ensure that it is a number and stop the keypress
-			        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-			            e.preventDefault();
-			        }
-			});
+	    
+
+	    jQuery('.numberOnly').keyup(function () { 
+		    this.value = this.value.replace(/[^0-9\.]/g,'');
+		});
+	    
+//		$(".numberOnly").keydown(function (e) {
+//			        // Allow: backspace, delete, tab, escape, enter and .
+//				
+//			        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//			             // Allow: Ctrl+A, Command+A
+//			            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//			             // Allow: home, end, left, right, down, up
+//			            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//			                 // let it happen, don't do anything
+//			                 return;
+//			        }
+//			        // Ensure that it is a number and stop the keypress
+//			        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//			            e.preventDefault();
+//			        }
+//			});
 		
 		//Set User Information
 		$("#createBy").html(tokenID.data['full_name']);
@@ -516,5 +565,11 @@ $(document).ready(function(){
     });
    
 	//Autocomplete Search End
+	
+
+	jQuery('.numberOnly').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	
 
 });

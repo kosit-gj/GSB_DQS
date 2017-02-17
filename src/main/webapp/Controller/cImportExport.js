@@ -97,6 +97,7 @@ var dropdownYear = function(){
 
 var dropdownCustomerType = function(){
 	var selectCustomerHTML="";
+	selectCustomerHTML+="<option value=''>บุคคลธรรมดา และ พนักงานธนาคารออมสิน</option>";
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_import_export/cust_type",
 		type : "get",
@@ -130,11 +131,12 @@ var listErrorFn =function(data){
 $(document).ready(function(){
 
 	dropdownYear();
-	dropdownCustomerType();
+	//dropdownCustomerType();
 
 	$("#radioCustomer").click(function() {
 		
 		$("#yearImportExport").removeAttr("disabled");
+		$("#monthImportExport").removeAttr("disabled");
 		$("#customerType").removeAttr("disabled");
 		$('#customerTypeNew').prop('disabled', true);
 		
@@ -144,6 +146,7 @@ $(document).ready(function(){
 		$("#customerTypeNew").removeAttr("disabled");
 		$('#customerType').prop('disabled', true);
 		$('#yearImportExport').prop('disabled', true);
+		$('#monthImportExport').prop('disabled', true);
 	});
 	
 	$(".btnCancle").click(function() {
@@ -155,13 +158,15 @@ $(document).ready(function(){
 	
 	$("#exportFile").click(function(){
 		var year="";
+		var month="";
 		var record_type="";
 		var cust_type="";
-		if($("#yearImportExport").val()=='0'){
+		if($("#yearImportExport").val()=='0' && $("#radioCustomer:checked").is(":checked")){
 			callFlashSlide("Please choose year.");
 		}else{
 			
 			year=$("#yearImportExport").val();
+			month=$("#monthImportExport").val();
 			record_type=$('input[name=record_type]:checked').val();
 			
 			if($('input[name=record_type]:checked').val()==2){
@@ -174,6 +179,7 @@ $(document).ready(function(){
 			
 			$("#export_token").val(tokenID.token);
 			$("#export_year").val(year);
+			$("#export_month").val(month);
 			$("#export_record_type").val(record_type);
 			$("#export_cust_type").val(cust_type);
 			
@@ -333,5 +339,5 @@ function uploadFiles(event)
 		});
 		return false;
 	}	
-	$("#downloadTemplate").attr({"href":""+restfulURL+"/dqs_api/public/sms_template.txt","download":"download"});
+	$("#downloadTemplate").attr({"href":""+restfulURL+"/dqs_api/public/sms_template.csv","download":"download"});
 });

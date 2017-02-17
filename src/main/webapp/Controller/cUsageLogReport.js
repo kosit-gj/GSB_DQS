@@ -137,11 +137,11 @@ $(document).ready(function(){
 	
 	//parameter date start
 	$("#usage_start_date").datepicker();
-    $("#usage_start_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#usage_start_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
     //$("#usage_start_date").val(firstDayInMonthFn());
     
     $("#usage_end_date").datepicker();
-    $("#usage_end_date").datepicker( "option", "dateFormat", "yy/mm/dd" );
+    $("#usage_end_date").datepicker( "option", "dateFormat", "yy-mm-dd" );
    // $("#usage_end_date").val(currentDateFn());
     
     $(".ui-datepicker").hide();
@@ -153,8 +153,9 @@ $(document).ready(function(){
 	//Search Data Here..
 	$("#btnSearchAdvance").click(function(){
 		searchAdvance();
+		$(".display_result").show();
 	});
-	$("#btnSearchAdvance").click();
+	//$("#btnSearchAdvance").click();
 	//Search Data Here..
 	
 	//Auto Complete personnelID start
@@ -168,7 +169,7 @@ $(document).ready(function(){
 					data:{"q":request.term},
 					//async:false,
                     error: function (xhr, textStatus, errorThrown) {
-                    	alert('Error: ' + xhr.responseText);
+                    	console.log('Error: ' + xhr.responseText);
                     },
 				    success:function(data){
 					

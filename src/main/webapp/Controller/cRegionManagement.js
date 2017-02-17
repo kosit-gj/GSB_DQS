@@ -1,4 +1,6 @@
 var golbalData=[];
+var costCenterId="";
+var costCenterName="";
 //get data Region
   var getDataFn = function(page,rpp){
 	   $.ajax({
@@ -106,6 +108,8 @@ var clearFn =function(){
    $("#region_name").val("");
    $("#btnSubmit").val("Add");
    $("#btnSaveAnother").val("Add");
+   $(".information").hide();
+   
    dropDownListBranchOper();
 		   
 }
@@ -151,22 +155,28 @@ $(document).ready(function(){
 		
 		
 	//Number Only Text Fields.
-	$(".numberOnly").keydown(function (e) {
-		        // Allow: backspace, delete, tab, escape, enter and .
-			
-		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-		             // Allow: Ctrl+A, Command+A
-		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
-		             // Allow: home, end, left, right, down, up
-		            (e.keyCode >= 35 && e.keyCode <= 40)) {
-		                 // let it happen, don't do anything
-		                 return;
-		        }
-		        // Ensure that it is a number and stop the keypress
-		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-		            e.preventDefault();
-		        }
-		});
+//	$(".numberOnly").keydown(function (e) {
+//		        // Allow: backspace, delete, tab, escape, enter and .
+//			
+//		        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+//		             // Allow: Ctrl+A, Command+A
+//		            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+//		             // Allow: home, end, left, right, down, up
+//		            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//		                 // let it happen, don't do anything
+//		                 return;
+//		        }
+//		        // Ensure that it is a number and stop the keypress
+//		        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//		            e.preventDefault();
+//		        }
+//		});
+	
+	//Not Number Start
+	jQuery('.numberOnly').keyup(function () { 
+	    this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	//Not Number End
 	
 		
 		 
@@ -322,7 +332,7 @@ $(document).ready(function(){
 				   $('.popover-del-editOper').click(function(){
 						//findOnd
 						$(".editOper").on("click",function(){
-							    findOneOperationFn(this.id);
+							    findOneOperationFn(this.id,$(this).parent().parent().parent().prev().text());
 							    $("#operation_id").val(this.id);
 							    $("#action").val("edit");
 							    $("#btnSaveOper").val("Edit");
@@ -373,7 +383,7 @@ $(document).ready(function(){
 					     dataType:"json",
 					     headers:{Authorization:"Bearer "+tokenID.token},
 					     data:{ "operation_name":$("#operation_name").val(),
-								"cost_center":$("#list_cost_center").val(),},
+								"cost_center":$("#auto_cost_center_id").val()},
 					     success:function(data,status){
 						      if(data['status']=="200"){
 							
@@ -404,7 +414,7 @@ $(document).ready(function(){
 						    dataType:"json",
 						    headers:{Authorization:"Bearer "+tokenID.token},
 						    data:{ "operation_name":$("#operation_name").val(),
-								   "cost_center":$("#list_cost_center").val(),},
+								   "cost_center":$("#auto_cost_center_id").val()},
 						    success:function(data,status){
 							     if(data['status']=="200"){
 								
@@ -418,6 +428,9 @@ $(document).ready(function(){
 											if(data['data']['operation_name']!=undefined){
 												validate+="<font color='red'>*</font> "+data['data']['operation_name']+"<br>";
 											}
+											if(data['data']['cost_center']!=undefined){
+												validate+="<font color='red'>*</font> "+data['data']['cost_center']+"<br>";
+											}
 											
 											callFlashSlideInModal(validate,"#information2","error");
 									  }
@@ -426,7 +439,7 @@ $(document).ready(function(){
 					   return false;
 				 }
 		 		
-		 		var findOneOperationFn = function(id) {
+		 		var findOneOperationFn = function(id,cost_center_name) {
 					$.ajax({
 						url:restfulURL+"/dqs_api/public/dqs_branch_operation/"+ id,
 						type : "get",
@@ -435,6 +448,10 @@ $(document).ready(function(){
 						success : function(data) {
 							$("#operation_name").val(data["operation_name"]);
 							$("#list_cost_center").val(data["cost_center"]);
+							$("#auto_cost_center").val(cost_center_name);
+							$("#auto_cost_center_id").val(data["cost_center"]);
+							costCenterName= cost_center_name;
+							costCenterId = data["cost_center"];
 						}
 					});
 				};
@@ -446,7 +463,9 @@ $(document).ready(function(){
 					   $("#action").val("add");
 					   $("#operation_name").val("");
 					   $("#btnSaveOper").val("Add");
-						dropDownListCostCenter();
+					   $("#auto_cost_center").val("");
+					   $("#auto_cost_center_id").val("");
+						//dropDownListCostCenter();
 						   
 				}
 				 
@@ -523,6 +542,7 @@ $(document).ready(function(){
 			  });
 				
 			   $("#btnSaveOper").click(function(){
+				   //alert($("#auto_cost_center_id").val());
 						    if($("#action").val()=="add" || $("#action").val()=="" ){
 							    insertBranchOperFn();
 						    }else{
@@ -553,7 +573,8 @@ $(document).ready(function(){
 
 			$(".showBranchOper").on("click",function(){
 				getDataBranchOperFn();
-				dropDownListCostCenter();
+				//dropDownListCostCenter();
+				$(".information").hide();
 				$(this).parent().parent().parent().children().click();
 			});
 			
@@ -578,4 +599,56 @@ $(document).ready(function(){
 			});
 	  
 	  //Call Function End
+	//Autocomplete Search Start
+	$("#auto_cost_center").autocomplete({
+        source: function (request, response) {
+        	$.ajax({
+				 url:restfulURL+"/dqs_api/public/dqs_branch_operation/auto_cost_center",
+				 type:"post",
+				 dataType:"json",
+				 headers:{Authorization:"Bearer "+tokenID.token},
+				 data:{"q":request.term},
+				 //async:false,
+                 error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error: ' + xhr.responseText);
+                    },
+				 success:function(data){
+					
+						response($.map(data, function (item) {
+                            return {
+                                llabel: item.desc,
+                                value: item.desc,
+                                cost_center: item.ccdef,
+                                cost_center_name: item.desc
+                            };
+                        }));
+					
+				},
+				beforeSend:function(){
+					$("body").mLoading('hide');	
+				}
+				
+				});
+        },
+		select:function(event, ui) {
+            $("#auto_cost_center").val(ui.item.value);
+            $("#auto_cost_center_id").val(ui.item.cost_center);
+            costCenterName = ui.item.value;
+            costCenterId=ui.item.cost_center;
+            return false;
+        },change: function(e, ui) { 
+        	if ($("#auto_cost_center").val() == costCenterName) {
+				$("#auto_cost_center_id").val(costCenterId);
+			} else if (ui.item != null) {
+				$("#auto_cost_center_id").val(ui.item.cost_center);
+			} else {
+				$("#auto_cost_center_id").val("");
+			}
+			
+        	
+         }
+    });
+   
+	//Autocomplete Search End
+	
 });

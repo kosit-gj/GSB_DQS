@@ -35,40 +35,40 @@ var listDataFn = function(data){
 			    	 htmlTable+="<tr class='warning'>";
 						      htmlTable+="<td>-- "+indexEntry2['region_name']+"</td>";
 						      htmlTable+="<td>ผลรวม</td>";
-						      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
-						   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
-							  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
-							  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
-						      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
-						      htmlTable+="<td>"+indexEntry['total']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_1']+"</td>";
+						   	  htmlTable+="<td>"+indexEntry2['month_2']+"</td>";
+							  htmlTable+="<td>"+indexEntry2['month_3']+"</td>";
+							  htmlTable+="<td>"+indexEntry2['month_4']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_5']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_6']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_7']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_8']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_9']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_10']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_11']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_12']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['month_13']+"</td>";
+						      htmlTable+="<td>"+indexEntry2['total']+"</td>";
 					     htmlTable+="</tr>";
 					     
 					     $.each(indexEntry2['districts'],function(index3,indexEntry3){
 					    	 htmlTable+="<tr class='danger'>";
 								      htmlTable+="<td>--- "+indexEntry3['district_name']+"</td>";
 								      htmlTable+="<td>ผลรวม</td>";
-								      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
-								   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
-									  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
-									  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
-								      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
-								      htmlTable+="<td>"+indexEntry['total']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_1']+"</td>";
+								   	  htmlTable+="<td>"+indexEntry3['month_2']+"</td>";
+									  htmlTable+="<td>"+indexEntry3['month_3']+"</td>";
+									  htmlTable+="<td>"+indexEntry3['month_4']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_5']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_6']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_7']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_8']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_9']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_10']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_11']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_12']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['month_13']+"</td>";
+								      htmlTable+="<td>"+indexEntry3['total']+"</td>";
 							     htmlTable+="</tr>";
 							     
 							     
@@ -94,20 +94,20 @@ var listDataFn = function(data){
 								    	 htmlTable+="<tr class=''>";
 											      htmlTable+="<td>---- "+indexEntry4['contact_branch_code']+"</td>";
 											      htmlTable+="<td>"+indexEntry4['contact_branch_name']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_1']+"</td>";
-											   	  htmlTable+="<td>"+indexEntry['month_2']+"</td>";
-												  htmlTable+="<td>"+indexEntry['month_3']+"</td>";
-												  htmlTable+="<td>"+indexEntry['month_4']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_5']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_6']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_7']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_8']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_9']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_10']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_11']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_12']+"</td>";
-											      htmlTable+="<td>"+indexEntry['month_13']+"</td>";
-											      htmlTable+="<td>"+indexEntry['total']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_1']+"</td>";
+											   	  htmlTable+="<td>"+indexEntry4['month_2']+"</td>";
+												  htmlTable+="<td>"+indexEntry4['month_3']+"</td>";
+												  htmlTable+="<td>"+indexEntry4['month_4']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_5']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_6']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_7']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_8']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_9']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_10']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_11']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_12']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['month_13']+"</td>";
+											      htmlTable+="<td>"+indexEntry4['total']+"</td>";
 										     htmlTable+="</tr>";
 								     });
 						     
@@ -217,7 +217,7 @@ $(document).ready(function(){
 			dropDownHtmlBranch+="</select>";
 			$("#listBranchArea").html(dropDownHtmlBranch);
 		}else{
-			dropDownListBranch($(this).val());
+			dropDownListBranchReport($(this).val());
 		}
 
 		
@@ -226,8 +226,9 @@ $(document).ready(function(){
 	//getDataFn();
 	$("#btnAdvanceSearch").click(function(){
 		searchAdvanceFn();
+		$(".display_result").show();
 	});
-	$("#btnAdvanceSearch").click();
+	//$("#btnAdvanceSearch").click();
 	
 	//Export
 	$("#exportToExcel").click(function(){

@@ -1,6 +1,7 @@
 var tokenID= eval("("+sessionStorage.getItem("tokenID")+")");
 //Global Parameter Start
 var galbaMenuObj=[];
+var nameMenuData="";
 //Global Parameter End
 
 //insert usage log
@@ -52,7 +53,7 @@ var dropDownListCusType = function(id){
 
 
 //DropDownList ContactType
-var dropDownListContactType = function(){
+var dropDownListContactType = function(txt){
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_maintenance/contact_type",
 		type:"get",
@@ -63,7 +64,7 @@ var dropDownListContactType = function(){
 
 		var html="";	
 		html+="<select class=\"form-control input-sm listContactType\" id=\"listContactType\">";
-	
+		if(txt == "All"){html+="<option selected value=''>All Contact Type</option>";}
 		$.each(data,function(index,indexEntry){
 						//console.log(indexEntry["contact_type"]);
 				//html+="<option  value=\""+indexEntry["contact_type"]+"\">"+indexEntry["contact_type"]+"</option>";
@@ -98,7 +99,6 @@ var dropDownListOperation = function(){
 		});	
 		html+="</select>";
 		$("#listOperationArea").html(html);
-		
 		}
 	});
 };
@@ -153,7 +153,7 @@ var dropDownListDistrict = function(region){
 	});
 };
 
-var dropDownListBranch = function(dist){
+var dropDownListBranchReport = function(dist){
 	
 	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_operation_report/branch_list",
@@ -287,7 +287,12 @@ var paginationSetUpFn = function(pageIndex,pageButton,pageTotal){
 		getDataFn(1,$(this).val());
 		
 		$(".rpp").remove();
-	    var htmlRrp= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>";
+		$(".pagingNumber").remove();
+		var htmlRrp="";
+		htmlRrp+= "<input type='hidden' id='rpp' name='rpp' class='rpp' value='"+$(this).val()+"'>"; 
+	    htmlRrp+= "<input type='hidden' id='pageNumber' name='pageNumber' class='pagingNumber' value='1'>";
+	   
+
 	    $("body").append(htmlRrp);
 	});
 }
@@ -361,6 +366,17 @@ var currentDateFn = function(){
 	    }else{
 	    	 output+= ((''+day).length<2 ? '0' : '') + (day-1);	
 	    }
+	return output;
+}
+var currentDateFn2 = function(){
+	var d = new Date();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	var output = d.getFullYear() + '-' +
+	    ((''+month).length<2 ? '0' : '') + month + '-';
+	    
+		output+= ((''+day).length<2 ? '0' : '') + day;
+	   
 	return output;
 }
 var currentDateTimeFn = function(){
@@ -589,7 +605,7 @@ var flashSlideInModalSlideUp=function(){
 }
 
 var callFlashSlideInModal =function(text,id,flashType){
-	var btnClose="<div class=\"btnModalClose\">×</div>";
+	var btnClose="<div class=\"btnModalClose\"><i class='fa fa-times'></i></div>";
 	
 	if(flashType=="error"){
 		
@@ -654,6 +670,14 @@ $(".mainMenu").click(function(){
 	$("#rpp").remove();
 	$("#pageNumber").remove();
 	
+	$("#rpp2").remove();
+	$("#pageNumber2").remove();
+	
+	$(".display_result").hide();
+	
+	//alert($(".menu_name",this).text());
+	nameMenuData=$(".menu_name",this).text();
+	sessionStorage.setItem("nameMenuData",nameMenuData);
 	
 });
 $("#btnHome").click(function(){
@@ -674,7 +698,6 @@ app.config(function($routeProvider) {
         controller:"pageController"
     	
     })
-    
     .otherwise({
     	templateUrl : "home.html"
     });
@@ -685,6 +708,7 @@ app.controller("pageController",function($scope, $route, $routeParams){
 	$route.current.templateUrl = './Views/' + $routeParams.url + ".html";
 	  $.get($route.current.templateUrl, function (data){
 	       $("#includePage").html(data);
+	       $("#naviLabelMenu").html("<i class=\"fa fa-share-alt\"></i> "+sessionStorage.getItem("nameMenuData"));
 	   	   $("#naviTitle").show();
 	    });
 });

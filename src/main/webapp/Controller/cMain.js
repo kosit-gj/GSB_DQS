@@ -1,4 +1,4 @@
-var tokenID= eval("("+localStorage.getItem("tokenID")+")");
+var tokenID= eval("("+sessionStorage.getItem("tokenID")+")");
 //Global Parameter Start
 var galbaMenuObj=[];
 //Global Parameter End
@@ -488,7 +488,7 @@ var logoutFn = function(){
 			if(data['status']=="200"){
 			
 				window.location.href = "login.html"; 
-				localStorage.setItem("tokenID","{}");
+				sessionStorage.setItem("tokenID","{}");
 				
 			}
 			

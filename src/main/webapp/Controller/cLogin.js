@@ -13,7 +13,7 @@ $(document).ready(function(){
 			url:restfulURL+"/dqs_api/public/session",
 			//url:"http://10.15.100.12/dqs_api/public/session",
 			type:"POST",
-			dataType:"text",
+			dataType:"json",
 			data:{"user_name":$("#userName").val(),"password":$("#password").val()},
 			error: function(jqXHR, textStatus, errorThrown) {
 				$("#information").html("<font color='red'>*</font>invalid credentials.").show();
@@ -21,7 +21,8 @@ $(document).ready(function(){
 			},
 			success:function(data){
 				//console.log(data);
-				localStorage.setItem("tokenID",data);
+				//localStorage.setItem("tokenID",data);
+				sessionStorage.setItem("tokenID",data);
 				window.location.href = "./"; 
 
 				

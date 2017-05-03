@@ -133,7 +133,7 @@ var getDataFn = function() {
 			headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				//galbalJobLogObj
 				galbalJobLogObj=data;
 				listDataFn(galbalJobLogObj);
@@ -156,7 +156,7 @@ var dropDownListJob = function(paramDatabase){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success : function(data) {
-			//console.log(data);
+			checkMaintenanceFn(data);
 			html+=" <select data-toggle=\"tooltip\" title=\"Job Name\" class=\"form-control input-sm\" id=\"jobName\">";
 			html+="<option  value=''>All</option>";	
 			$.each(data,function(index,indexEntry){
@@ -230,6 +230,7 @@ var updateFn = function(){
 		    headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 		    success:function(data,status){
+			checkMaintenanceFn(data);
 			    if(data['status'] == "200") {
 				callFlashSlide("Update Successfully.");
 				$(".edit-data-start-date").attr("disabled","disabled");

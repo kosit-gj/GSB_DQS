@@ -13,6 +13,7 @@ var getDataFn = function(page,rpp) {
 		data:{"page":page,"rpp":rpp},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listFileFn(data['data']);
 			golbalDataFile=data;
 			paginationSetUpFn(golbalDataFile['current_page'],golbalDataFile['last_page'],golbalDataFile['last_page']);
@@ -310,6 +311,7 @@ var updateFn = function() {
 	      headers:{Authorization:"Bearer "+tokenID.token},
 	      async:false,
 	      success:function(data,status){
+	    	checkMaintenanceFn(data);
 	        if(data['status']=="200" && data['data']['error'].length==0){
 	        	callFlashSlide("Update Successfully.");
 	        	getDataFn($("#pageNumber").val(),$("#rpp").val());
@@ -337,6 +339,7 @@ $(document).ready(function(){
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
+				checkMaintenanceFn(data);
 				$("#branchOperationName").val(data['desc']);
 			}
 		});

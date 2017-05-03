@@ -113,7 +113,7 @@ var getDataFn = function(page,rpp) {
 		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			console.log(data);
+			checkMaintenanceFn(data);
 			listDataFn(data);
 			
 			golbalData=data;

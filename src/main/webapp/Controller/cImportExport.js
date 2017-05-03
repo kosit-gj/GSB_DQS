@@ -48,7 +48,7 @@
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				$("#branchOperationName").val(data['desc']);
 			
 			}
@@ -105,7 +105,7 @@ var dropdownCustomerType = function(){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {	
-			console.log(data);
+			checkMaintenanceFn(data);
 			$.each(data,function(index,indexEntry){
 				selectCustomerHTML+="<option value="+indexEntry['gsbccode']+">"+indexEntry['desc']+"</option>";  
 			});

@@ -124,6 +124,7 @@ var getDataFn = function(page,rpp) {
 			headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 			success : function(data) {
+				checkMaintenanceFn(data);
 				galbalDataUserObj=data;
 				listDataFn(galbalDataUserObj['data']);
 				paginationSetUpFn(galbalDataUserObj['current_page'],galbalDataUserObj['last_page'],galbalDataUserObj['last_page']);
@@ -140,7 +141,7 @@ var getDataRole = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 			success:function(data){
-				
+				checkMaintenanceFn(data);
 				galbalDqsRoleObj=data;
 
 			}
@@ -154,7 +155,7 @@ var getDataRevisedCostCenter = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
-				
+				checkMaintenanceFn(data);
 				galbalRevisedCostCenterObj=data;
 
 			}
@@ -256,6 +257,9 @@ var updateFn = function(){
 		    headers:{Authorization:"Bearer "+tokenID.token},
 			async:false,
 		    success:function(data,status){
+			
+			checkMaintenanceFn(data);
+			
 			    if(data['status'] == "200") {
 				if(data['errors']==undefined){
 					return false;
@@ -362,7 +366,7 @@ var updateFn = function(){
 				                    console.log('Error: ' + xhr.responseText);
 				                },
 							    success:function(data){
-								
+								checkMaintenanceFn(data);
 									response($.map(data, function (item) {
 				                        return {
 				                            label: item.desc,
@@ -400,7 +404,7 @@ var updateFn = function(){
                             	console.log('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
-    						
+    						checkMaintenanceFn(data);
 	    						response($.map(data, function (item) {
 	                                return {
 	                                    label: item.personnel_id,
@@ -432,7 +436,7 @@ var updateFn = function(){
                                 console.log('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
-    						
+    						checkMaintenanceFn(data);
 	    						response($.map(data, function (item) {
 	                                return {
 	                                    llabel: item.desc,
@@ -465,7 +469,7 @@ var updateFn = function(){
                                 alert('Error: ' + xhr.responseText);
                             },
     					    success:function(data){
-    						
+    						checkMaintenanceFn(data);
 	    						response($.map(data, function (item) {
 	                                return {
 	                                    label: item.desc,
@@ -520,7 +524,7 @@ var updateFn = function(){
                         alert('Error: ' + xhr.responseText);
                     },
 				    success:function(data){
-					
+					checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                             return {
                                 label: item.desc,

@@ -16,7 +16,7 @@ var updateLostFileFn = function(lostFileCode){
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			//console.log(data);
+			checkMaintenanceFn(data);
 			if(data['status']==200){
 				callFlashSlide("Update success.");
 				getDataLostFileFn();
@@ -36,7 +36,7 @@ var updateJobFailFn = function(jobFailCode){
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			//console.log(data);
+			checkMaintenanceFn(data);
 			if(data['status']==200){
 				callFlashSlide("Update success.");
 				getDataJobFailFn();
@@ -141,7 +141,7 @@ var getDataLostFileFn = function(){
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			//console.log(data);
+			checkMaintenanceFn(data);
 			listDataLostFileFn(data);
 		}
 	});
@@ -164,7 +164,7 @@ var getDataJobFailFn = function() {
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
-			//console.log(data);
+			checkMaintenanceFn(data);
 			listDataJobFailFn(data);
 		}
 	});

@@ -1,10 +1,11 @@
 var dropDownListBranch = function(data){
-	$.ajax ({
+	$.ajax({
 		url:restfulURL+"/dqs_api/public/dqs_monitoring/branch_list",
 		type:"get" ,
 		dataType:"json" ,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
+			checkMaintenanceFn(data);
 			var htmlTable="";
 			htmlTable+="<option value=\"\">Select Branch</option>";
 			$.each(data,function(index,indexEntry){
@@ -32,6 +33,7 @@ $(document).ready(function(){
 			data:{"ccdef":$("#listBranch").val()},
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success:function(data){
+				checkMaintenanceFn(data);
 				if(data['status']==200){
 					callFlashSlide("Re-Calculate KPI is Success");
 					$("#runModal").modal('hide');
@@ -57,6 +59,7 @@ $(document).ready(function(){
 				async:false,
 				headers:{Authorization:"Bearer "+tokenID.token},
 				success:function(data){
+					checkMaintenanceFn(data);
 					var dataReturn="";
 					var monthTH=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน",
 					             "พฤษาภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน",

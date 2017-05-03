@@ -41,7 +41,7 @@ $(document).ready(function(){
 			data : {"role_name" : $("#role_name").val(),authority_flag:authority_checkbox_role,all_branch_flag:all_brach_checkbox_role},
 			async:false,
 			success : function(data) {
-				console.log(data);
+				checkMaintenanceFn(data);
 				//console.log(data['data']);
 				if (data['status'] == "200") {
 					
@@ -89,7 +89,7 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			data : {"role_name" : $("#role_name").val(),authority_flag:authority_checkbox_role,all_branch_flag:all_brach_checkbox_role},
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				if (data['status']== "200") {	
 					callFlashSlide("Update Successfully.");
 					getDataFn();
@@ -123,7 +123,7 @@ $(document).ready(function(){
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				$("#role_name").val(data['role_name']);	
 				if(data['authority_flag']==1){
 					
@@ -157,6 +157,7 @@ $(document).ready(function(){
 			type : "get",
 			dataType : "json",
 			success : function(data) {
+				checkMaintenanceFn(data);
 				listRoleFn(data);
 			}
 		});
@@ -233,7 +234,7 @@ $(document).ready(function(){
 						data:{"menus":menus},
 						success : function(data) {
 							
-							
+							checkMaintenanceFn(data);
 							if(data['status']==200){
 								callFlashSlide("Authorize Successfully.");
 								$('#ModalRoleAuthorize').modal('hide');
@@ -285,8 +286,9 @@ $(document).ready(function(){
 							 dataType:"json",
 							 headers:{Authorization:"Bearer "+tokenID.token},
 							 async:false,
-						     success:function(data){      
-
+						     success:function(data){    
+						    	 
+						    	checkMaintenanceFn(data);
 						    	if(data['status']==200){
 						    		 callFlashSlide("Delete Successfully.");
 						    		 getDataFn();
@@ -323,6 +325,7 @@ $(document).ready(function(){
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
+				checkMaintenanceFn(data);
 				listRoleFn(data);
 			}
 		});
@@ -337,6 +340,7 @@ $(document).ready(function(){
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
+				checkMaintenanceFn(data);
 				listMenuFn(data);
 			}
 		});

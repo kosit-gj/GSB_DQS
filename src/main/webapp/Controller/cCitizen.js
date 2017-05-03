@@ -31,6 +31,7 @@ var getDataFn = function(page,rpp){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listCitizenFn(data['data']);
 			//total
 			galbalDataCitizen=data;
@@ -150,7 +151,7 @@ var listCitizenFn = function(data) {
 					 dataType:"json",
 					 headers:{Authorization:"Bearer "+tokenID.token},
 				     success:function(data){    
-
+				    	 checkMaintenanceFn(data);
 					     if(data['status']==200){					    	 
 					       callFlashSlide("Delete Successfully.");  
 					       getDataFn($("#pageNumber").val(),$("#rpp").val());
@@ -176,7 +177,7 @@ var findOneFn = function(id) {
 		dataType : "json",
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {		
-	
+			checkMaintenanceFn(data);
 			$("#id_citizen").val(data['npid']);
 			$("#cifno_citizen").val(data['ref_no']);
 			$("#nfname_citizen").val(data['nfname']);
@@ -320,6 +321,7 @@ var insertFn = function(param) {
 		},	
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			if (data['status'] == "200") {
 			
 				   if(param !="saveAndAnother"){
@@ -391,6 +393,7 @@ var updateFn = function() {
 			
 		},	
 		success : function(data) {
+			checkMaintenanceFn(data);
 			if (data['status'] == "200") {
 		
 				getDataFn($("#pageNumber").val(),$("#rpp").val());
@@ -469,13 +472,34 @@ $(document).ready(function(){
 	$("#btnSearch").click(function(){
 		 searchMultiFn($("#searchText").val());
 	});
+	/*
 	$("#btnSearchAdvance").click(function(){
 		searchAdvanceFn($("#cif_no").val(),$("#npid").val(),$("#flag_2").val(),$("#manual_add").val());
 		$("#pageNumber").val(1);
-
 		return false;
 	});
-	$("#btnSearchAdvance").click();
+	*/
+	$("#btnSearchAdvance").click(function(){
+		
+		
+		if($("#cif_no").val()=="" && $("#npid").val()==""){
+			
+			callFlashSlide("CIF No. or ID cannot be emptied.");  
+			
+		}else{
+			
+			searchAdvanceFn($("#cif_no").val(),$("#npid").val(),$("#flag_2").val(),$("#manual_add").val());
+			$("#pageNumber").val(1);
+			
+		}
+		
+		
+		
+		return false;
+	});
+	
+	
+	//$("#btnSearchAdvance").click();
 	$("#btnAddCitizen").click(function(){
 		clearFn();
 		$(".text_add_edit").text("ADD FILE");
@@ -547,7 +571,7 @@ $(document).ready(function(){
                         console.log('Error: ' + xhr.responseText);
                     },
 				 success:function(data){
-					
+					    checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                             return {
                                 llabel: item.npid,

@@ -83,7 +83,7 @@ $(document).ready(
 						  "kpi_date_m12":$("#kpi_date_m12").val()},
 				   
 					success:function(data,status){
-						
+						checkMaintenanceFn(data);
 					     if(data['status']=="200"){
 					      callFlashSlide("Update Successfully.");
 					      getDataFn();
@@ -119,7 +119,7 @@ $(document).ready(
 					     "export_nof_date_delete":$("#export_nof_date_delete").val(),},
 				   
 					success:function(data,status){
-						
+						checkMaintenanceFn(data);
 						     if(data['status']=="200"){
 						      callFlashSlide("Update Successfully.");
 						      getDataFn();
@@ -170,7 +170,7 @@ $(document).ready(
 						     "import_nof_date_delete":$("#import_nof_date_delete").val()},
 						     
 						success:function(data,status){
-							
+							checkMaintenanceFn(data);
 						     if(data['status']=="200"){
 						      callFlashSlide("Update Successfully.");
 						      getDataFn();
@@ -209,7 +209,7 @@ $(document).ready(
 						    data:{"nof_contact_date":$("#nof_contact_date").val(),},
 						   
 							success:function(data,status){
-								
+								checkMaintenanceFn(data);
 								     if(data['status']=="200"){
 								      callFlashSlide("Update Successfully.");
 								      getDataFn();
@@ -243,7 +243,7 @@ $(document).ready(
 									  "merge_cif_date":$("#merge_cif_date").val()},
 							   
 								success:function(data,status){
-									
+									checkMaintenanceFn(data);
 								     if(data['status']=="200"){
 								      callFlashSlide("Update Successfully.");
 								      getDataFn();
@@ -277,7 +277,7 @@ $(document).ready(
 								},
 								   
 									success:function(data,status){
-										
+										checkMaintenanceFn(data);
 									     if(data['status']=="200"){
 									      callFlashSlide("Update Successfully.");
 									      getDataFn();
@@ -314,7 +314,7 @@ $(document).ready(
 					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
 							
-							
+							checkMaintenanceFn(data);
 							$("#embed_system_config_id").remove();
 							$("body").append("<input type='hidden' id='embed_system_config_id' name='embed_SuperFlag' value='"+data["config_id"]+"'>");
 							

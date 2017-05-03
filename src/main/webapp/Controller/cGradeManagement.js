@@ -94,6 +94,7 @@ $(document).ready(function(){
 						 headers:{Authorization:"Bearer "+tokenID.token},
 						 
 					     success:function(data,status){
+						 checkMaintenanceFn(data);
 						      if(data['status']=="200"){
 						      
 								   if(param !="saveAndAnother"){
@@ -135,6 +136,7 @@ $(document).ready(function(){
 					    data:{"grade":$("#grade").val(),"grade_name":$("#grade_name").val(),"processing_seq":$("#processing_seq").val()},
 						headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data,status){
+						checkMaintenanceFn(data);
 						     if(data['status']==200){
 							   clearFn();
 						 	   $('#managementModal').modal('hide');
@@ -190,6 +192,7 @@ $(document).ready(function(){
 						//data:{token:tokenID.token},
 						headers:{Authorization:"Bearer "+tokenID.token},
 					    success:function(data){
+						checkMaintenanceFn(data);
 					      $("#grade").val(data['grade']);
 						  $("#grade_name").val(data['grade_name']);
 					      $("#processing_seq").val(data['processing_seq']);
@@ -255,7 +258,8 @@ $(document).ready(function(){
 								      type:"delete",
 								      dataType:"json",
 									  headers:{Authorization:"Bearer "+tokenID.token},
-									  success:function(data){       
+									  success:function(data){ 
+									  checkMaintenanceFn(data);      
 									       if(data['status']=="200"){
 										
 										 		callFlashSlide("Delete Successfully.");  
@@ -295,7 +299,7 @@ $(document).ready(function(){
 					    dataType:"json",
 						headers:{Authorization:"Bearer "+tokenID.token},
 						success:function(data){
-						     
+						     checkMaintenanceFn(data);
 						     listDataFn(data['data']);
 						 }
 				  });
@@ -384,7 +388,8 @@ $(document).ready(function(){
 										      type:"delete",
 										      dataType:"json",
 											  headers:{Authorization:"Bearer "+tokenID.token},
-										      success:function(data){       
+										      success:function(data){ 
+											  checkMaintenanceFn(data);      
 											        if(data['status']==200){
 											       		getDataConditionFn();
 											 	   		$("#confrimModal").modal('hide');
@@ -488,6 +493,7 @@ $(document).ready(function(){
 							     headers:{Authorization:"Bearer "+tokenID.token},
 							     async:false,
 							     success:function(data,status){
+								 checkMaintenanceFn(data);
 							     	  if(data['status']==200 ){
 										getDataConditionFn();
 									  	$("#action_condition").val("add");
@@ -541,7 +547,7 @@ $(document).ready(function(){
 							     data:{"conditions": conditions },
 								 headers:{Authorization:"Bearer "+tokenID.token},
 							     success:function(data,status){
-							    
+							     checkMaintenanceFn(data);
 									if(data['data']['error']==undefined){
 										callFlashSlideInModal(data['data'],"#information2","error");
 									  }else{
@@ -573,7 +579,7 @@ $(document).ready(function(){
 							    dataType:"json",
 								headers:{Authorization:"Bearer "+tokenID.token},
 							    success:function(data){
-							     
+							     checkMaintenanceFn(data);
 							     listDataConditionFn(data['conditions']);
 								 golbalDataCondition=data['conditions'];
 							

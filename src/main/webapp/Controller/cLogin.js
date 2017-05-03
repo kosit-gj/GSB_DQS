@@ -1,5 +1,24 @@
+var checkMaintenanceFnLogin = function(data){
+	var dataJson = eval("("+data+")");
+	if(dataJson['maintenance']==1 ){
+		
+		sessionStorage.setItem("tokenID",null);
+		window.location.href = "./maintenance.html"; 
+		return false;
+	}else{
+		
+		sessionStorage.setItem("tokenID",data);
+		window.location.href = "./"; 
+		return true;
+	}
+	
+}
+
+
 $(document).ready(function(){
 	
+	
+
 	$( document ).ajaxStart(function() {
 		$("body").mLoading();
 	});
@@ -11,7 +30,6 @@ $(document).ready(function(){
 		$.ajax({
 			
 			url:restfulURL+"/dqs_api/public/session",
-			//url:"http://10.15.100.12/dqs_api/public/session",
 			type:"POST",
 			dataType:"text",
 			data:{"user_name":$("#userName").val(),"password":$("#password").val()},
@@ -20,11 +38,10 @@ $(document).ready(function(){
 
 			},
 			success:function(data){
+				
 				//console.log(data);
-				//localStorage.setItem("tokenID",data);
-				sessionStorage.setItem("tokenID",data);
-				window.location.href = "./"; 
-
+				checkMaintenanceFnLogin(data);
+				
 				
 			}
 		})			

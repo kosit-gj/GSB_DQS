@@ -103,7 +103,9 @@ var getDataFn = function(page,rpp) {
 			"contact_type":contactType,"reject_start_date":rejectStartDate ,"reject_end_date":rejectEndDate
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
+		
 		success : function(data) {
+			checkMaintenanceFn(data);
 			//console.log(data);
 			listDataFn(data);
 			golbalData=data;

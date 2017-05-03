@@ -13,6 +13,8 @@ var dropDownListBranchLocal = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
+			
+		checkMaintenanceFn(data);
 		var html="";
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
 		html+="<option selected='selected'  value=''> All Branch</option>";
@@ -106,6 +108,7 @@ var getDataFn = function(page,rpp){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			//console.log(data);
+			checkMaintenanceFn(data);
 			listDataFn(data);
 			golbalData=data;
 			paginationSetUpFn(golbalData['current_page'],golbalData['last_page'],golbalData['last_page']);
@@ -172,7 +175,7 @@ $(document).ready(function(){
                     	console.log('Error: ' + xhr.responseText);
                     },
 				    success:function(data){
-					
+					checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                             return {
                                 label: item.thai_full_name,

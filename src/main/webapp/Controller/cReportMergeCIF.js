@@ -1,4 +1,4 @@
-var golbalData =[];
+
 //binding tooltip.
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
@@ -12,9 +12,9 @@ var dropDownListProvince = function(){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-	
-	   // var data=[{"id":"1","name":"Province1"},{"id":"2","name":"Province2"},{"id":"3","name":"Province3"}];
-		var html="";	
+			
+		checkMaintenanceFn(data);
+	   var html="";	
 		html+="<select class=\"form-control input-sm listProvince\" id=\"listProvince\">";
 		html+="<option selected value=''>All Province</option>";
 		$.each(data,function(index,indexEntry){
@@ -78,6 +78,7 @@ $("#reportSumIsNotOperOfCusByKpiConByPeriodTable tr").each(function(){
 
 	
 };
+
 var getDataFn = function() {
 	
 	var paramEmbedListCusType=$("#paramEmbedListCusType").val();
@@ -97,6 +98,7 @@ var getDataFn = function() {
 		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listDataFn(data);
 		}
 	});
@@ -112,18 +114,15 @@ var searchAdvanceFn = function(){
 	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedName' name='paramEmbedName' value='"+$("#name").val()+"'>";
 	htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedSurname' name='paramEmbedSurname' value='"+$("#surName").val()+"'>";
 	
-
 	$(".paramEmbedArea").empty();
 	$(".paramEmbedArea").append(htmlParam);
 	getDataFn();
-	//getDataFn(1,$("#rpp").val());
 }
 
 
 $(document).ready(function(){
-	//dropDownListContactType();
+	
 	dropDownListCusType();
-	//dropDownContactType();
 	dropDownListProvince();
 
 	
@@ -132,6 +131,7 @@ $(document).ready(function(){
 		searchAdvanceFn();
 		$(".display_result").show();
 	});
+	//Auto Search
 	//$("#btnAdvanceSearch").click();
 	
 	//Export
@@ -157,7 +157,6 @@ $(document).ready(function(){
 	//Auto Complete  Name start
 	$("#name").autocomplete({
       source: function (request, response) {
-    	 // http://192.168.1.58/dqs_api/public/dqs_operation_report/auto_name
       	 $.ajax({
 				    url:restfulURL+"/dqs_api/public/dqs_operation_report/auto_name",
 				    type:"get",
@@ -169,7 +168,7 @@ $(document).ready(function(){
 						console.log('Error: ' + xhr.responseText);
                     },
 				    success:function(data){
-					
+					checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                           return {
                         	  
@@ -191,7 +190,6 @@ $(document).ready(function(){
 	//Auto Complete  Surname start
 	$("#surName").autocomplete({
       source: function (request, response) {
-    	 //http://192.168.1.58/dqs_api/public/dqs_operation_report/auto_surname
       	 $.ajax({
 				    url:restfulURL+"/dqs_api/public/dqs_operation_report/auto_surname",
 				    type:"get",
@@ -203,7 +201,7 @@ $(document).ready(function(){
                       console.log('Error: ' + xhr.responseText);
                   },
 				    success:function(data){
-					
+					checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                           return {
                         	  

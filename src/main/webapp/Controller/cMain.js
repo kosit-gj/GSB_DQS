@@ -4,6 +4,16 @@ var galbaMenuObj=[];
 var nameMenuData="";
 //Global Parameter End
 
+var checkMaintenanceFn = function(data){
+	
+	if(data['maintenance']==1 ){
+		window.location.href = "./maintenance.html"; 
+		return false;
+	}else{
+		return true;
+	}
+}
+
 //insert usage log
 var insertUsageLogFn = function(menu_id){
 	
@@ -15,6 +25,7 @@ var insertUsageLogFn = function(menu_id){
 		data:{"menu":menu_id},
 		async:false,
 		success:function(data){
+			checkMaintenanceFn(data);
 			if(data['status']==200){
 				console.log("insert to log success.");
 			}
@@ -34,7 +45,7 @@ var dropDownListCusType = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
-
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listCusType\">";
 		html+="<option selected='selected' value=''> All Customer Type</option>";
@@ -61,7 +72,7 @@ var dropDownListContactType = function(txt){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listContactType\" id=\"listContactType\">";
 		if(txt == "All"){html+="<option selected value=''>All Contact Type</option>";}
@@ -88,7 +99,7 @@ var dropDownListOperation = function(){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-	
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listOperation\" id=\"listOperation\">";
 		html+="<option selected='selected' value=''>All Operation</option>";
@@ -112,7 +123,7 @@ var dropDownListRegion = function(operation_id){
 		data:{operation_id:operation_id},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-	
+		checkMaintenanceFn(data);
 	    var html="";	
 		html+="<select class=\"form-control input-sm listRegion\" id=\"listRegion\">";
 		
@@ -137,7 +148,7 @@ var dropDownListDistrict = function(region){
 		data:{region:region},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-	
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listDistrict\" id=\"listDistrict\">";
 		html+="<option selected='selected' value=''>All District</option>";
@@ -163,7 +174,7 @@ var dropDownListBranchReport = function(dist){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-	
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
 		html+="<option selected='selected' value=''>All Branch</option>";
@@ -473,7 +484,7 @@ var checkSession = function(){
 		dataType:"json",
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-		
+		checkMaintenanceFn(data);
 			if(data['status']!="200"){
 				window.location.href = "login.html"; 
 			}else{
@@ -499,7 +510,7 @@ var logoutFn = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		//data:{token:tokenID.token},
 		success:function(data){
-			
+		checkMaintenanceFn(data);
 			//console.log(data);
 			if(data['status']=="200"){
 			
@@ -536,7 +547,7 @@ var getMainMenu = function(role_id){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//console.log(data);
+		checkMaintenanceFn(data);
 			galbaMenuObj=data;
 		}
 	});
@@ -644,7 +655,7 @@ var includeFileFn = function(paramUrl){
 		dataType:"html",
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//console.log(data);
+		checkMaintenanceFn(data);
 			$("#includePage").html(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

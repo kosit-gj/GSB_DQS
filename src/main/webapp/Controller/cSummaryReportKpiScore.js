@@ -156,7 +156,7 @@ var getDataFn = function() {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			
-			
+			checkMaintenanceFn(data);
 			if(data['country']!=""){
 				listDataFn(data);
 			}else{

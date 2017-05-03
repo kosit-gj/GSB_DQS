@@ -93,6 +93,7 @@ var dropDownListBranch = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
+		checkMaintenanceFn(data);
 		var html="";
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
 		html+="<option selected='selected'  value=''> All Branch</option>";
@@ -120,6 +121,7 @@ var dropDownListRule = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listRule\" id=\"listRule\">";
 		html+="<option selected='selected' value=''> All Rule</option>";
@@ -195,6 +197,7 @@ var updateFn = function(){
 	    async:false,
 	    success:function(data,status){
 	    // console.log(data);
+	    checkMaintenanceFn(data);
 	      if(data['status']=="200"){
 	      
 		      	callFlashSlideInModal("Update Successfully.","#information");
@@ -246,6 +249,7 @@ updateExplainFn = function(id){
 		data :data,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			if(data['status']==200){
 				//alert(data['warning']);
 				if(data['warning']==""){
@@ -322,6 +326,7 @@ var findOneFn = function(id,page,rpp) {
 		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {	
+			checkMaintenanceFn(data);
 			//console.log(data['own_branch_name']);
 			var dataRuleList=data['rule_list'];
 			data=data['header'];
@@ -603,6 +608,7 @@ var fineOneExplainFn = function(data){
 				async:false,
 				crossDomain:true,
 				success : function(data1) {
+					checkMaintenanceFn(data1);
 					if(data1['status']==404){
 						if(index==0){
 							html_explain_files+="<a class='not-active' target=\"_blank\" href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a> <br style=\"clear:both\">";
@@ -786,6 +792,7 @@ var getDataFn = function(page,rpp) {
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listDataQualityFn(data['data']);
 			$("#resultLabelArea").html(data['total']);
 			golbalData=data;
@@ -803,7 +810,7 @@ var getDataExplainFn = function(id) {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success : function(data) {
-			
+			checkMaintenanceFn(data);
 			fineOneExplainFn(data);
 			
 		}

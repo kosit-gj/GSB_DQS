@@ -117,7 +117,7 @@ var getDataFn = function(page,rpp) {
 			async:false,
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				listRuleFn(data['data']);
 				golbalDataRole=data;
 				paginationSetUpFn(golbalDataRole['current_page'],golbalDataRole['last_page'],golbalDataRole['last_page']);
@@ -202,6 +202,7 @@ var getDataFn = function(page,rpp) {
 						 dataType:"json",
 						 headers:{Authorization:"Bearer "+tokenID.token},
 					     success:function(data){   
+					    	 checkMaintenanceFn(data);
 					    	if(data['status']==200){
 
 					    		getDataFn($("#pageNumber").val(),$("#rpp").val());
@@ -257,7 +258,7 @@ var getDataFn = function(page,rpp) {
 			dataType : "json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
-				
+				checkMaintenanceFn(data);
 				$("#rule_name").val(data['rule_name']);
 				
 				$("select#rule_group_id").val(data['rule_group'].trim());
@@ -385,6 +386,8 @@ $(document).ready(function(){
 			},
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
+				
+				checkMaintenanceFn(data);
 				if (data['status'] == 200) {
 
 			
@@ -479,6 +482,7 @@ $(document).ready(function(){
 				"edit_rule_release_flag" : EditRuleRelease
 			},
 			success : function(data) {
+				checkMaintenanceFn(data);
 				if (data['status'] == 200) {
 					callFlashSlide("Update Successfully.");
 					getDataFn($("#pageNumber").val(),$("#rpp").val());
@@ -524,6 +528,7 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success : function(data) {
 				
+				checkMaintenanceFn(data);
 				$.each(data,function(index,indexEntry){
 					if(makeRuleGroupID==indexEntry['rule_group_name']){
 						selectDataflowHTML+="<option selected>"+indexEntry['rule_group_name']+"</option>"; 
@@ -545,6 +550,8 @@ $(document).ready(function(){
 			headers:{Authorization:"Bearer "+tokenID.token},
 			aysnc:false,
 			success : function(data) {
+				
+				checkMaintenanceFn(data);
 				
 				$.each(data,function(index,indexEntry){
 					if(id==indexEntry['data_flow_name']){
@@ -581,6 +588,7 @@ $(document).ready(function(){
                       },
 					    success:function(data){
 						
+						checkMaintenanceFn(data);
   						response($.map(data, function (item) {
                               return {
                             	  
@@ -745,7 +753,7 @@ $(document).ready(function(){
 			      headers:{Authorization:"Bearer "+tokenID.token},
 			      async:false,
 			      success:function(data,status){
-			     
+			    	checkMaintenanceFn(data);
 			        if(status=="success"){
 			        	callFlashSlide("Update Successfully.");
 			        	getDataFn($("#pageNumber").val(),$("#rpp").val());

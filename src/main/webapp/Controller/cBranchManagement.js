@@ -10,6 +10,7 @@ var getDataFn = function(page,rpp) {
 		data:{"page":page,"rpp":rpp},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listBranchFn(data['data']);
 			golbalDataBranch=data;
 			paginationSetUpFn(golbalDataBranch['current_page'],golbalDataBranch['last_page'],golbalDataBranch['last_page']);
@@ -118,6 +119,7 @@ var updateFn = function() {
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			if (data['status'] == "200" && data['data']['error'].length==0) {
 				callFlashSlide("Update Successfully.");
 				getDataFn($("#pageNumber").val(),$("#rpp").val());

@@ -7,7 +7,7 @@ var insertFn = function(param){
 	 headers:{Authorization:"Bearer "+tokenID.token},
 	 async:false,
      success:function(data,status){
-	
+		  checkMaintenanceFn(data);
 	      if(data['status']=="200"){
 			if(param !="saveAndAnother"){
 			   callFlashSlide("Insert Successfully.");
@@ -46,6 +46,7 @@ var updateFn = function(){
 	    data:{"menu_name":$("#menu_name").val(),"app_url":$("#app_url").val(),"menu_category":$(".menuCategory:checked").val()},
 		headers:{Authorization:"Bearer "+tokenID.token},
 	    success:function(data,status){
+			checkMaintenanceFn(data);
 		     if(data['status']=="200"){
 		    
 			    callFlashSlide("Update Successfully.");
@@ -95,7 +96,7 @@ var findOneFn = function(id){
     dataType:"json",
 	headers:{Authorization:"Bearer "+tokenID.token},
     success:function(data){
-
+		  checkMaintenanceFn(data);
 	      $("#menu_name").val(data['menu_name']);
 		  $("#app_url").val(data['app_url']);
 		  console.log(data['menu_category']);
@@ -164,7 +165,7 @@ var listDataFn = function(data){
 						data:{"roles":roles},
 						success : function(data) {
 							
-							
+							checkMaintenanceFn(data);
 							if(data['status']==200){
 								callFlashSlide("Save Authorize is Successfully.");
 								$('#authorize').modal('hide');
@@ -197,7 +198,7 @@ var listDataFn = function(data){
 			      dataType:"json",
 				  headers:{Authorization:"Bearer "+tokenID.token},
 			      success:function(data){  
-				
+				  checkMaintenanceFn(data);
 					if(data['status']==200){
 						
 					   callFlashSlide("Delete Successfully.");    
@@ -232,6 +233,7 @@ var listDataFn = function(data){
 	});
  
 };
+
 var getDataFn = function(){
 	  
 		   $.ajax({
@@ -240,8 +242,10 @@ var getDataFn = function(){
 			    dataType:"json",
 				headers:{Authorization:"Bearer "+tokenID.token},
 			    success:function(data){
-			     
-			     listDataFn(data);
+				
+			     checkMaintenanceFn(data);
+				 listDataFn(data);
+				
 		    	}
 		   });
 	 };
@@ -271,7 +275,7 @@ var getDataRoleFn = function(menu_id){
 		    dataType:"json",
 			headers:{Authorization:"Bearer "+tokenID.token},
 		    success:function(data){
-		     
+		     checkMaintenanceFn(data);
 		     listDataRoleFn(data);
 		    }
 	   });

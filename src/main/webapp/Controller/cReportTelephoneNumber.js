@@ -47,6 +47,7 @@ var getDataFn = function() {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			//console.log(data);
+			checkMaintenanceFn(data);
 			listDataFn(data);
 		}
 	});

@@ -11,6 +11,7 @@ var costCenterName="";
 			async:false,
 		    headers:{Authorization:"Bearer "+tokenID.token},
 			    success:function(data){
+				checkMaintenanceFn(data);
 			     	listDataFn(data['data']);
 					
 					golbalData=data;
@@ -78,6 +79,7 @@ var costCenterName="";
 				      dataType:"json",
 					  headers:{Authorization:"Bearer "+tokenID.token},
 					  success:function(data){ 
+						checkMaintenanceFn(data);
 						if(data['status']==200){
 							
 							   callFlashSlide("Delete Successfully.");       
@@ -122,7 +124,7 @@ var dropDownListBranchOper = function(operation_id){
 		dataType:"json" ,
 		headers:{Authorization:"Bearer "+tokenID.token},
 			success:function(data){
-				
+				checkMaintenanceFn(data);
 				var htmlTable="";
 				$.each(data,function(index,indexEntry){
 					if(indexEntry["operation_id"] == operation_id){
@@ -143,6 +145,7 @@ var findOneFn = function(id){
 		    dataType:"json",
 		    headers:{Authorization:"Bearer "+tokenID.token},
 		    success:function(data){
+			checkMaintenanceFn(data);
 			  $("#region_code").val(data['region_code']);
 		      $("#region_name").val(data['regdesc']);
 			  dropDownListBranchOper(data['operation_id']);
@@ -226,7 +229,7 @@ $(document).ready(function(){
 				     data:{ "region_code":$("#region_code").val(),
 							"operation_id":$("#list_Branch_Oper").val()},
 				     success:function(data,status){
-
+					 checkMaintenanceFn(data);
 						  //console.log(data);
 					      if(data['status']=="200"){
 						
@@ -270,6 +273,7 @@ $(document).ready(function(){
 					    data:{ "region_code":$("#region_code").val(),
 							   "operation_id":$("#list_Branch_Oper").val()},
 					    success:function(data,status){
+						checkMaintenanceFn(data);
 						     if(data['status']=="200"){
 								 $('#ManagementModal').modal('hide');
 							     callFlashSlide("Update Successfully.");
@@ -298,6 +302,7 @@ $(document).ready(function(){
 				    type:"get",
 				    dataType:"json",
 				    success:function(data){
+					checkMaintenanceFn(data);
 					     listDataFn(data);
 				      }
 				  });
@@ -354,6 +359,7 @@ $(document).ready(function(){
 								      dataType:"json",
 								      headers:{Authorization:"Bearer "+tokenID.token},
 								      success:function(data){    
+									  checkMaintenanceFn(data);
 											if(data['status']==200){  
 									       		getDataBranchOperFn();
 									       		clearOperFn();
@@ -385,6 +391,7 @@ $(document).ready(function(){
 					     data:{ "operation_name":$("#operation_name").val(),
 								"cost_center":$("#auto_cost_center_id").val()},
 					     success:function(data,status){
+						 checkMaintenanceFn(data);
 						      if(data['status']=="200"){
 							
 							  callFlashSlideInModal("Insert Successfully.","#information2");
@@ -416,6 +423,7 @@ $(document).ready(function(){
 						    data:{ "operation_name":$("#operation_name").val(),
 								   "cost_center":$("#auto_cost_center_id").val()},
 						    success:function(data,status){
+							checkMaintenanceFn(data);
 							     if(data['status']=="200"){
 								
 									  callFlashSlideInModal("Upate Successfully.","#information2");
@@ -446,6 +454,7 @@ $(document).ready(function(){
 						dataType : "json",
 						headers:{Authorization:"Bearer "+tokenID.token},
 						success : function(data) {
+							checkMaintenanceFn(data);
 							$("#operation_name").val(data["operation_name"]);
 							$("#list_cost_center").val(data["cost_center"]);
 							$("#auto_cost_center").val(cost_center_name);
@@ -478,6 +487,7 @@ $(document).ready(function(){
 					    dataType:"json",
 					    headers:{Authorization:"Bearer "+tokenID.token},
 						    success:function(data){
+							checkMaintenanceFn(data);
 						    	 listDataBranchOperFn(data);
 						        
 						 }
@@ -495,7 +505,7 @@ $(document).ready(function(){
 					dataType:"json" ,
 					headers:{Authorization:"Bearer "+tokenID.token},
 						success:function(data){
-							//console.log(data)
+							checkMaintenanceFn(data);
 							if(data!=""){
 							var htmlTable="";
 							$.each(data,function(index,indexEntry){
@@ -588,6 +598,7 @@ $(document).ready(function(){
 					headers:{Authorization:"Bearer "+tokenID.token},
 					data:{"region_code":$(this).val()},
 					success:function(data){
+						checkMaintenanceFn(data);
 						$("body").mLoading('hide');	
 							$("#region_name").val(data['regdesc']);
 							
@@ -613,7 +624,7 @@ $(document).ready(function(){
                         console.log('Error: ' + xhr.responseText);
                     },
 				 success:function(data){
-					
+					 checkMaintenanceFn(data);
 						response($.map(data, function (item) {
                             return {
                                 llabel: item.desc,

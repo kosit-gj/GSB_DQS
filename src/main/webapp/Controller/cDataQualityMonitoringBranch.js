@@ -94,7 +94,7 @@ var dropDownListBranch = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
-
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listBranch\">";
 		html+="<option selected='selected' value=''> All Branch </option>";
@@ -121,7 +121,7 @@ var dropDownListCusType = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
-
+		checkMaintenanceFn(data);
 		var html="";	
 		html+="<select class=\"form-control input-sm listBranch\" id=\"listCusType\">";
 		html+="<option selected='selected' value=''> All Customer Type</option>";
@@ -147,7 +147,7 @@ var dropDownListRule = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
-	
+		checkMaintenanceFn(data);
 		//console.log(data);
 	   // var data=[{"id":"1","name":"สาขา1"},{"id":"2","name":"สาขา2"},{"id":"3","name":"สาขา3"}];
 		var html="";	
@@ -226,6 +226,7 @@ var updateFn = function(){
 	    async:false,
 	    success:function(data,status){
 	     //console.log(data);
+	     checkMaintenanceFn(data);
 	     if(data['status']=="200"){
 	    	  callFlashSlideInModal("Update Successfully.","#information");
 	      	  //findOneFn($("#validate_header_id").val());
@@ -278,6 +279,7 @@ updateExplainFn = function(id){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+		checkMaintenanceFn(data);
 			if(data['status']==200){
 				
 				//callFlashSlide("Update Successfully.");  
@@ -359,7 +361,8 @@ var findOneFn = function(id,page,rpp) {
 		},
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
-		success : function(data) {	
+		success : function(data) {
+			checkMaintenanceFn(data);
 			var dataRuleList=data['rule_list'];
 			data=data['header'];
 			htmlTable += "<div class='label-detail'>";
@@ -612,7 +615,7 @@ var delFileFn = function(validate_header_id,explain_file_id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
 			
-			
+			checkMaintenanceFn(data);
 			if(data['status']==200){
 				$("#explain_file-"+explain_file_id).remove();
 				$("#path_file-"+explain_file_id).remove();
@@ -673,6 +676,7 @@ var fineOneExplainFn = function(data){
 				crossDomain:true,
 				success : function(data1) {
 					//alert(data1);
+					checkMaintenanceFn(data1);
 					if(data1['status']==404){
 						if(index==0){
 							html_explain_files+="<a class='not-active' target=\"_blank\" id='path_file-"+indexEntry['explain_file_id']+"' href=\""+restfulURL+"/dqs_api/public/"+indexEntry['file_path']+"\">"+indexEntry['file_path']+"</a>";
@@ -850,6 +854,7 @@ var getDataFn = function(page,rpp) {
 		},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			listDataQualityFn(data['data']);
 			$("#resultLabelArea").html(data['total']);
 			golbalData= data;
@@ -870,6 +875,7 @@ var getDataExplainFn = function(id) {
 		data:{"process_type":$("#embedParamSearchProcessType").val()},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {
+			checkMaintenanceFn(data);
 			fineOneExplainFn(data);
 			getDataFn($("#pageNumber").val(),$("#rpp").val());
 			

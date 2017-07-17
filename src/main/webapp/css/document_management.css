@@ -1,0 +1,33 @@
+
+.form-label-branch-management{
+	float:left;
+	padding-top: 7px;
+	width:170px;
+}
+.form-input-branch-management{
+	float:left;
+	width: 365px;
+}
+
+.font-gear-branch{
+	font-size: 25px;
+	cursor:pointer;
+}
+.font-management{
+	font-size:20px;
+	cursor:pointer;
+}
+.form-menu-mangement{
+	padding-top: 5px;
+}
+.form-menu-label{
+	float:left;
+	width:140px;
+}
+.form-menu-input{
+	float:left;
+	width: 390px;
+}
+#doc_listRequite{
+	width: 190px;
+}

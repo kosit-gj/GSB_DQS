@@ -1,0 +1,291 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/document_management.css" rel="stylesheet">
+    
+<!--  nav bar -->
+<div class="row wrapper border-bottom  page-heading" id="naviTitle" style="display:none;">
+    <div class="col-lg-12">
+     
+     <div id="slide_status">
+     	<div id="btnClose"><i class='fa fa-times'></i></div>
+     	<div id="slide_status_area"></div>
+     </div>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/"><i class="fa fa-home "></i> Home</a>
+            </li>
+            <li>
+            <i class="fa fa-gears"></i> System Management
+            </li>
+            <li class="active">
+             <strong id="naviLabelMenu"><i class="fa fa-user"></i>  </strong>
+            </li>
+        </ol>
+    </div>
+   
+</div>
+<!-- nav bar -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                        
+                            <div class="ibox-title">
+                                <h5>Document List</h5>
+							</div>
+							
+                            <div class="ibox-content">
+								<div class="row">
+								
+                                    <div class="col-sm-7">
+                                    	<button type="button" id="btnAdd" class="btn btn-info " data-target="#managementModal" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Document</button>
+                                    </div>
+                                    
+                                    <div class="col-sm-5">
+                                       <div data-toggle="tooltip" title="" class="col-sm-5" id="listRequiteDocArea" data-original-title="Requite Doc"><select class="form-control input-sm " id="listRequiteDoc"><option value="null">Null</option></select></div>
+				                       <div class="input-group"><input type="text" placeholder="Search" id="searchText" class="input-sm form-control"> <span class="input-group-btn">
+				                          <button type="button" class="btn btn-sm btn-primary" id="btnSearch">&nbsp;<i class="fa fa-search"></i></button> </span>
+				                       </div>
+				                    </div> 
+                                   
+                                    <div class="col-sm-8">
+	                                    <div class="alert alert-success" hidden="hidden">
+										    <p><strong>Success!</strong> This alert box could indicate a successful or positive action.</p>
+										</div>
+                                    </div>
+                                     
+                                   
+                             	</div>
+                             	<!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_top"></span>
+	                                </div>
+	                                 <div class="col-sm-3 object-right paging-text">
+	                                 		<div class='pagingDropdown'>
+	                                 			<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+				                                     <option>10</option>
+				                                     <option>20</option>
+				                                     <option>50</option>
+				                                     <option>100</option>
+				                                 </select>
+	                                 		
+	                                 		</div>
+											<div class='pagingText'>Results per page</div>
+	                                 
+	                                 </div>
+	                                <!--  
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationTop'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+                                	</div>
+                                	 -->
+                               	</div> 
+                               	 <!-- pagination end -->
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="tableDocument">
+                                        <thead>
+                                        	<tr>
+												<th style='width:50px;'>Doc Code</th>
+	                                            <th style='width:90px;'>Requite Doc</th>
+	                                            <th style='width:80px;'>attribute1</th>
+	                                            <th style='width:80px;'>attribute2</th>
+	                                            <th style='width:80px;'>attribute3</th>
+	                                            <th style='width:80px;'>attribute4</th>
+	                                            <th style='width:80px;'>attribute5</th>
+	                                            <th style='width:40px;' align="center"><div class='objectCenter'>Manage</div></th>
+                                        	</tr>
+                                        </thead>
+                                        <tbody id="listDocument">
+                                        	
+                                        	
+                                        </tbody>
+                                    </table>
+                                </div>
+                                                        
+                                <!-- pagination start -->
+	                             <div class="row">
+	                                <div class="col-sm-9 ">
+										<span class="pagination_bottom"></span>
+	                                </div>
+	                                 <div class="col-sm-3 object-right paging-text">
+		                                 	<div class='pagingDropdown'>
+		                                 			<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+					                                     <option>10</option>
+					                                     <option>20</option>
+					                                     <option>50</option>
+					                                     <option>100</option>
+					                                 </select> 
+		                                 	
+		                                 	</div>
+											<div class='pagingText'>Results per page</div>
+		                                 
+	                                 </div>
+	                                 <!-- 
+	                                 <div class="col-sm-1">
+	                                	<select name="account" id='countPaginationBottom'  class="form-control input-sm countPagination">
+		                                     <option>10</option>
+		                                     <option>20</option>
+		                                     <option>50</option>
+		                                     <option>100</option>
+		                                 </select> 
+                                	</div>
+                                	 -->
+                               	</div> 
+                               	 <!-- pagination end -->
+ 								<br style='clear:both'>
+                                
+                            </div>
+                            <!-- content end -->
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+
+<!--Add Modal Start -->
+
+  <div aria-hidden="true" role="dialog" tabindex="-1" id="managementModal" class="modal inmodal" style="display: none;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id='modalTitleRole'>Add New Menu</h4>
+                
+            </div>
+            <div class="modal-body">
+                <!-- content start -->
+                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> <span id="modalDescription">ADD NEW MENU</span></h2>
+<!--                 <span>All field marked with an asterisk(<font color="red">*</font>) are required.</span> -->
+                <hr>
+                
+                <!-- form start -->
+                
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>Requite Doc Name</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<select class="form-control input-sm " id="doc_listRequite"><option value="null">Null</option></select>
+	                </div>
+	                <br style="clear:both">
+                </div>
+                
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>attribute1</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="doc_attribute1" id="doc_attribute1">
+	                </div>
+	                <br style="clear:both">
+                </div>
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>attribute2</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="doc_attribute2" id="doc_attribute2">
+	                </div>
+	                <br style="clear:both">
+                </div>
+                
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>attribute3</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="doc_attribute3" id="doc_attribute3">
+	                </div>
+	                <br style="clear:both">
+                </div>
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>attribute4</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="doc_attribute4" id="doc_attribute4">
+	                </div>
+	                <br style="clear:both">
+                </div>
+                <div class='form-menu-mangement'>
+	                <div class="form-menu-label">
+	                 <label>attribute5</label>
+<!-- 	                 <span class="redFont">*</span> -->
+	                </div>
+	                
+	                <div class="form-menu-input">
+	                	<input type="text" class="form-control input-sm" placeholder="" name="doc_attribute5" id="doc_attribute5">
+	                </div>
+	                <br style="clear:both">
+                </div>
+
+
+                <!-- form start -->
+                <!-- content end -->
+            </div>
+            
+            <div class="modal-footer">
+            
+            	<input type="hidden" name="id" id="id" value="">
+				<input type="hidden" name="action" id="action" value="add"> 
+                <button class="btn btn-primary" type="button" name="btnSubmit" id="btnSubmit">Save</button>
+                <button class="btn btn-primary" type="button" name="btnSaveAndAnother" id="btnSaveAndAnother">Save & Add Another</button>
+                <button data-dismiss="modal" id="btnCancel" class="btn btn-white " type="button">Cancel</button>
+                <div id="information" class="alert alert-warning information"></div>
+               
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Modal End -->
+<!-- Modal Confirm Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style="display: none;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">Confirm Dialog</h5>
+            </div>
+            <div class="modal-body">
+               
+                <!-- form start -->
+                <div class="form-kpi-mangement">
+	                <div class="form-kpi-label" align="center">
+	                
+	                 		<label>Confirm to Delete Data?</label>
+	                </div>
+                </div>
+                               
+                <!-- form start -->
+                <!-- content end -->
+            </div>
+            <div class="modal-footer">
+            	<div align="center">
+	                <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
+	                <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Confirm End -->
+    <!-- Branch Controller -->
+    <script src="Controller/cDocumentManagement.js"></script> 
+
+

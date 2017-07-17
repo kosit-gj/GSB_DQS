@@ -1,5 +1,46 @@
 //Global variable
 var golbalDataDoc=[];
+
+
+// doc name start
+
+
+var macthDocIdAndDocNameFn = function(data){
+var dataObject=[];
+var docName=[
+["DocNo1-ชื่อที่ไม่ถูกต้อง(ลูกค้าบุคคล)"],
+["DocN02-ชื่อนิติบุคคลตามประเภท"],
+["DocNo3-คำนำหน้าภาษาไทยในระบบ"],
+["DocNo4-คำนำหน้านิติบุคคลในระบบ"],
+["DocNo5-คำนำหน้านิติบุคคลตามประเภท"],
+["DocNo6-คำนำหน้าบุคคลภาษาไทย และภาษาอังกฤษ"],
+["DocNo7-คำนำหน้านิติบุคคลภาษาไทย และภาษาอังกฤษ"],
+["DocNo8-คำขึ้นต้นที่ไม่ควรมีอยู่ในที่อยู่ตามทะเบียนบ้าน"],
+["DocNo9-คำขึ้นต้นที่อยู่ตามทะเบียนบ้าน"],
+["DocNo10-เบอร์มือถือที่ไม่ควรบันทึก"],
+["DocNo11-ค่าสถานะภาพในระบบ"],
+["DocNo12-เพศกับคำนำหน้าที่ไม่ถูกต้อง"],
+["DocNo13-เลขอ้างอิงตามประเภทนิติบุคคล"],
+["DocNo14-Validate ค่าในระบบ CBS"],
+["DocNo15-Require Field ในระบบ CBS"],
+["DocNo16-รหัสไปรษณีย์ที่มีในระบบ"]
+];
+	
+	$.each(data,function(index,indexEntry){
+		$.each(docName,function(index2,indexEntry2){
+			var docNo = indexEntry2[0].split("-");
+				if(indexEntry['requite_doc']==docNo[0]){
+					
+					dataObject.push(indexEntry2);
+					
+				}
+		});
+	});
+	
+//	console.log(dataObject);
+	return dataObject;
+}
+// doc name end
 // get Data branch management
 var getDataFn = function(page,rpp) {
 	$.ajax({
@@ -60,12 +101,21 @@ var dropDownListRequiteDoc = function(id,requite_id){
 			aysnc:false,
 			success : function(data) {
 				checkMaintenanceFn(data);
-				$.each(data,function(index,indexEntry){
-					if(requite_id==indexEntry['requite_doc']){
-						selectDataflowHTML+="<option selected value='"+indexEntry['requite_doc']+"'>"+indexEntry['requite_doc']+"</option>"; 
+				//macthDocIdAndDocNameFn(data);
+
+				$.each(macthDocIdAndDocNameFn(data),function(index,indexEntry){
+					
+					
+					var docNo = indexEntry[0].split("-");
+					console.log(docNo[0]);
+					
+					if(requite_id==docNo[0]){
+						selectDataflowHTML+="<option selected value='"+docNo[0]+"'>"+indexEntry[0]+"</option>"; 
 					}else{
-						selectDataflowHTML+="<option value='"+indexEntry['requite_doc']+"'>"+indexEntry['requite_doc']+"</option>";  
+						selectDataflowHTML+="<option value='"+docNo[0]+"'>"+indexEntry[0]+"</option>";  
 					}
+						
+					
 					  
 				});
 				$(id).html(selectDataflowHTML);
@@ -84,11 +134,11 @@ var listDocumentFn = function(data) {
 	
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["id"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["requite_doc"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["attribute1"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["attribute2"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["attribute3"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["attribute4"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["attribute5"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ notNullFn(indexEntry["attribute1"])+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ notNullFn(indexEntry["attribute2"])+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ notNullFn(indexEntry["attribute3"])+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ notNullFn(indexEntry["attribute4"])+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ notNullFn(indexEntry["attribute5"])+ "</td>";
  
 	htmlTable+="<td class='objectCenter'><i class=\"fa fa-gear font-management popover-del-edit\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-warning btn-xs edit btn-gear' data-target='#managementModal' data-toggle='modal' type='button' id="+indexEntry["id"]+">Edit</button> <button class='btn btn-danger btn-xs del btn-gear' type='button' id="+indexEntry["id"]+">Delete</button>\"></i></td>";
 	htmlTable += "</tr>";
@@ -276,7 +326,7 @@ $(document).ready(function(){
 		  });
 	  $("#btnAdd").click(function() {
 		  clearFn();
-		  dropDownListRequiteDoc("#doc_listRequite");
+		  dropDownListRequiteDoc("#doc_listRequite",$("#paramRequiteDoc").val());
 		  $("#btnSaveAndAnother").show();
 	  });
 	  

@@ -9,7 +9,7 @@ var macthDocIdAndDocNameFn = function(data){
 var dataObject=[];
 var docName=[
 ["DocNo1-ชื่อที่ไม่ถูกต้อง(ลูกค้าบุคคล)"],
-["DocN02-ชื่อนิติบุคคลตามประเภท"],
+["DocNo2-ชื่อนิติบุคคลตามประเภท"],
 ["DocNo3-คำนำหน้าภาษาไทยในระบบ"],
 ["DocNo4-คำนำหน้านิติบุคคลในระบบ"],
 ["DocNo5-คำนำหน้านิติบุคคลตามประเภท"],
@@ -104,19 +104,13 @@ var dropDownListRequiteDoc = function(id,requite_id){
 				//macthDocIdAndDocNameFn(data);
 
 				$.each(macthDocIdAndDocNameFn(data),function(index,indexEntry){
-					
-					
 					var docNo = indexEntry[0].split("-");
-					console.log(docNo[0]);
-					
+					//console.log(docNo[0]);
 					if(requite_id==docNo[0]){
 						selectDataflowHTML+="<option selected value='"+docNo[0]+"'>"+indexEntry[0]+"</option>"; 
 					}else{
 						selectDataflowHTML+="<option value='"+docNo[0]+"'>"+indexEntry[0]+"</option>";  
 					}
-						
-					
-					  
 				});
 				$(id).html(selectDataflowHTML);
 				
@@ -169,7 +163,8 @@ var listDocumentFn = function(data) {
 					if(data['status']==200){
 						
 					   callFlashSlide("Delete Successfully.");    
-				       getDataFn();
+				      // getDataFn();
+					   getDataFn($("#pageNumber").val(),$("#rpp").val());
 				       clearFn();
 				 	   $("#confrimModal").modal('hide');
 				 	   
@@ -228,17 +223,57 @@ var findOneFn = function(id) {
 
 //Update
 var insertFn = function(param){
+	
+	var attribute1;
+	var attribute2;
+	var attribute3;
+	var attribute4;
+	var attribute5;
+	
+	
+	if($("#doc_attribute1").val()==""){
+		attribute1=null;
+	}else{
+		attribute1=$("#doc_attribute1").val();
+	}
+	
+	if($("#doc_attribute2").val()==""){
+		attribute2=null;
+	}else{
+		attribute2=$("#doc_attribute2").val();
+	}
+	
+	if($("#doc_attribute3").val()==""){
+		attribute3=null;
+	}else{
+		attribute3=$("#doc_attribute3").val();
+	}
+	
+	if($("#doc_attribute4").val()==""){
+		attribute4=null;
+	}else{
+		attribute4=$("#doc_attribute4").val();
+	}
+	
+	if($("#doc_attribute5").val()==""){
+		attribute5=null;
+	}else{
+		attribute5=$("#doc_attribute5").val();
+	}
+	
+	console.log(attribute5);
+	
 	    $.ajax({
 		   url:restfulURL+"/dqs_api/public/dqs_document",
 	     type:"POST",
 	     dataType:"json",
 	     data:{
 				"requite_doc"	: $("#doc_listRequite").val(),
-				"attribute1"	: $("#doc_attribute1").val(),
-				"attribute2"	: $("#doc_attribute2").val(),
-				"attribute3"	: $("#doc_attribute3").val(),
-				"attribute4"	: $("#doc_attribute4").val(),
-				"attribute5"	: $("#doc_attribute5").val()
+				"attribute1"	: attribute1,
+				"attribute2"	: attribute2,
+				"attribute3"	: attribute3,
+				"attribute4"	: attribute4,
+				"attribute5"	: attribute5
 		 },
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 async:false,
@@ -247,11 +282,13 @@ var insertFn = function(param){
 		      if(data['status']=="200"){
 				if(param !="saveAndAnother"){
 				   callFlashSlide("Insert Successfully.");
-			       getDataFn();
+			       //getDataFn();
+				   getDataFn($("#pageNumber").val(),$("#rpp").val());
 			       clearFn();
 			 	   $('#managementModal').modal('hide');
 				}else{
-					getDataFn();
+					//getDataFn();
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
 					clearFn();
 					callFlashSlideInModal("Insert Data is Successfully.","#information");
 				}
@@ -284,7 +321,8 @@ var insertFn = function(param){
 			    
 				    callFlashSlide("Update Successfully.");
 				    $('#managementModal').modal('hide');
-			        getDataFn();
+			       // getDataFn();
+					getDataFn($("#pageNumber").val(),$("#rpp").val());
 			        clearFn();
 	     		}else if (data['status'] == "400") {
 					validationFn(data);

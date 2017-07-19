@@ -302,6 +302,38 @@ $(document).ready(
 						 
 					 }
 					 //function insert default role end
+					 
+					 
+					 //function save maintenance mode start
+					 var updateMaintenanceModeFn = function(){
+							
+							var maintenance_mode = "";
+								
+								if($("#maintenance_mode_y:checked").val()){
+									maintenance_mode = 1;
+								}
+								else if($("#maintenance_mode_n:checked").val()){
+									maintenance_mode = 0;
+								}
+							
+							   $.ajax({
+								    url:restfulURL+"/dqs_api/public/dqs_system_config/maintenance_mode",  //+$("#embed_system_config_id").val(),
+								    type:"POST",
+								    dataType:"json",
+								    headers:{Authorization:"Bearer "+tokenID.token},
+								    data:{"maintenance_mode":maintenance_mode},
+									success:function(data,status){
+										checkMaintenanceFn(data);
+									     if(data['status']=="200"){
+									      callFlashSlide("Update Successfully.");
+									      getDataFn();
+									     }
+									    }
+								   });
+							   return false;
+						 };
+					 //function save maintenance mode end
+					 
 		
 		 
 		// get data System Configuration
@@ -396,6 +428,18 @@ $(document).ready(
 							$("#position_poweruser_role_default").val(data['position_poweruser_role']);
 							//Default Role End
 							
+							
+							//Maintenance Mode Start
+							if(data['maintenance_mode']==1){
+								$('#maintenance_mode_y').prop('checked', true);
+								$('#maintenance_mode_n').prop('checked', false);
+							}
+							else if(data['maintenance_mode']==0){
+								$('#maintenance_mode_n').prop('checked', true);
+								$('#maintenance_mode_y').prop('checked', false);
+							}
+							//Maintenance Mode End
+							
 						}
 
 				  });
@@ -472,6 +516,13 @@ $(document).ready(
 				
 			});
 			//Default Role End
+			
+			//Save Maintenance Mode Start
+			$("#btnSaveMaintenanceMode").click(function(){
+				updateMaintenanceModeFn();
+			});
+			//Save Maintenance Mode End
+			
 			
 			//Call Function End
 			

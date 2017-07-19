@@ -112,7 +112,7 @@ var getDataFn = function(page,rpp) {
 	
 		$.ajax({
 			url : restfulURL + "/dqs_api/public/dqs_user",
-			type : "get",
+			type : "post",
 			dataType : "json",
 			data:{"page":page,"rpp":rpp,
 			"personnel_id":personnelID,

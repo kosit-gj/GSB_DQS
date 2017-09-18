@@ -104,8 +104,8 @@ var getDataFn = function(page,rpp) {
 	
 
 	var personnelID= $("#paramEmbedPersonnelID").val();
-	var ownCostCenterCode= $("#paramEmbedOwnCostCenterCode").val();
-	var revisedCostCenterCode= $("#paramEmbedRevisedCostCenterCode").val();
+	var ownCostCenterCode= $("#paramEmbedOwnCostCenter").val();
+	var revisedCostCenterCode= $("#paramEmbedRevisedCostCenter").val();
 	var listRole= $("#paramEmbedListRole").val();
 	var isActive= $("#paramEmbedIsActive").val();
 	
@@ -306,12 +306,10 @@ var updateFn = function(){
 			var advanceSearchFn = function(){
 				
 				var personnelID=$("#personnelID").val();
-				var ownCostCenter=$("#ownCostCenter").val().split("-");	
-				var ownCostCenterCode=ownCostCenter[0];
+				var ownCostCenter=$("#ownCostCenter").val();	
+				var revisedCostCenter=$("#revisedCostCenter").val();	
 				
-				var revisedCostCenter=$("#revisedCostCenter").val().split("-");	
-				var revisedCostCenterCode=revisedCostCenter[0];
-				
+	
 				var listRole=$("#listRole").val();
 				var isActive=$("#isActive").val();
 				
@@ -319,9 +317,9 @@ var updateFn = function(){
 				var htmlParam="";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedPersonnelID' name='paramEmbedPersonnelID' value='"+personnelID+"'>";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenter' name='paramEmbedOwnCostCenter' value='"+ownCostCenter+"'>";
-				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenterCode' name='paramEmbedOwnCostCenterCode' value='"+ownCostCenterCode+"'>";
+				//htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedOwnCostCenterCode' name='paramEmbedOwnCostCenterCode' value='"+ownCostCenterCode+"'>";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRevisedCostCenter' name='paramEmbedRevisedCostCenter' value='"+revisedCostCenter+"'>";
-				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRevisedCostCenterCode' name='paramEmbedRevisedCostCenterCode' value='"+revisedCostCenterCode+"'>";
+				//htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedRevisedCostCenterCode' name='paramEmbedRevisedCostCenterCode' value='"+revisedCostCenterCode+"'>";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedListRole' name='paramEmbedListRole' value='"+listRole+"'>";
 				htmlParam+="<input type='hidden' class='paramEmbed' id='paramEmbedIsActive' name='paramEmbedIsActive' value='"+isActive+"'>";
 				$(".paramEmbed").remove();
@@ -499,10 +497,10 @@ var updateFn = function(){
 		$("#exportToExcel").click(function(){
 			$("form#formExportToExcel").attr("action",restfulURL+"/dqs_api/public/dqs_user/export?token="+tokenID.token);
 			
-			
+												 
 			$("#export_personnel_id").val($("#paramEmbedPersonnelID").val());
-			$("#export_own_cost_center").val($("#paramEmbedOwnCostCenterCode").val());
-			$("#export_revised_cost_center").val($("#paramEmbedRevisedCostCenterCode").val());
+			$("#export_own_cost_center").val($("#paramEmbedOwnCostCenter").val());
+			$("#export_revised_cost_center").val($("#paramEmbedRevisedCostCenter").val());
 			$("#export_role_id").val($("#paramEmbedListRole").val());
 			$("#export_active_flag").val($("#paramEmbedIsActive").val());
 			

@@ -1037,8 +1037,27 @@ $(document).ready(function(){
 		//searchMultiFn($("#searchText").val());
 	});
 	
-	
+
 	$("#btnSearchAdvance").click(function(){
+		
+		//check calendar is not between month other.
+		var start_validate_date=$("#start_validate_date").val();
+		var end_validate_date=$("#end_validate_date").val();
+		var from_month="";
+		var to_month="";
+		start_validate_date = start_validate_date.split("-");
+		from_month=start_validate_date[1];
+		
+		end_validate_date = end_validate_date.split("-");
+		to_month=end_validate_date[1];
+		
+		
+		if(from_month!=to_month){
+			callFlashSlide("Please choose the date within the same month."); 
+			return false;
+		}
+		
+		
 		
 		
 		/*Embed Param Search Start*/
